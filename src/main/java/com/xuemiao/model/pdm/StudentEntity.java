@@ -1,9 +1,6 @@
 package com.xuemiao.model.pdm;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -12,16 +9,17 @@ import javax.persistence.Table;
 @Table(name = "student")
 public class StudentEntity {
     @Id
+    @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private Long id;
     @Column(name = "name")
     private String name;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -13,17 +13,17 @@ import java.sql.Date;
 @Entity
 @IdClass(value = StudentIdAndOperDateKey.class)
 @Table(name = "duty_student")
-public class DutyStudentEntity implements Serializable{
+public class DutyStudentEntity implements Serializable {
     @Id
-    private String studentId;
+    private Long studentId;
     @Id
     private Date operDate;
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 

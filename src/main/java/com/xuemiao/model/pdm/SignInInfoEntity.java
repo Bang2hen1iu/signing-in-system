@@ -2,8 +2,8 @@ package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 @Entity
 @IdClass(value = StudentIdAndOperDateKey.class)
 @Table(name = "sign_in_info")
-public class SignInInfoEntity implements Serializable{
+public class SignInInfoEntity implements Serializable {
     @Id
-    private String studentId;
+    private Long studentId;
     @Id
     private Date operDate;
     @Column(name = "start_morning")
@@ -29,11 +29,11 @@ public class SignInInfoEntity implements Serializable{
     @Column(name = "end_night")
     private Timestamp endNight;
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SigningSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SigningSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SigningSystemApplication.class, args);
+    }
 }

@@ -2,7 +2,7 @@ package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -10,9 +10,9 @@ import java.sql.Date;
 @Entity
 @IdClass(value = StudentAndCourseNameKey.class)
 @Table(name = "course")
-public class CourseEntity implements Serializable{
+public class CourseEntity implements Serializable {
     @Id
-    private String studentId;
+    private Long studentId;
     @Id
     private Date courseName;
     @Column(name = "start_week")
@@ -26,11 +26,11 @@ public class CourseEntity implements Serializable{
     @Column(name = "end_section")
     private int endSection;
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 

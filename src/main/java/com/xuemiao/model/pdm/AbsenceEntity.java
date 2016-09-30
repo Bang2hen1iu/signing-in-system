@@ -2,8 +2,8 @@ package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 @Entity
 @IdClass(value = StudentIdAndOperDateKey.class)
 @Table(name = "absence")
-public class AbsenceEntity implements Serializable{
+public class AbsenceEntity implements Serializable {
     @Id
-    private String studentId;
+    private Long studentId;
     @Id
     private Date operDate;
     @Column(name = "start_absence")
@@ -23,11 +23,11 @@ public class AbsenceEntity implements Serializable{
     @Column(name = "absence_reason")
     private String absenceReason;
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 

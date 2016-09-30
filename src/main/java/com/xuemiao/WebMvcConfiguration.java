@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by dzj on 9/30/2016.
  */
 @Configuration
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
+public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
@@ -17,6 +17,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/admin").setViewName("admin");
     }
 }
