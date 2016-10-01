@@ -20,4 +20,16 @@ public class DateUtils {
         }
         return date;
     }
+
+    private static int getDiffDays(Date startDate, Date currentDate){
+        return (int)((startDate.getTime()-currentDate.getTime())/86400000);
+    }
+
+    public static int getCurrentWeek(Date startDate, Date currentDate){
+        return 1 + getDiffDays(startDate, currentDate)/7;
+    }
+
+    public static int getCurrentWeekDay(Date startDate, Date currentDate){
+        return getDiffDays(startDate, currentDate)%7;
+    }
 }

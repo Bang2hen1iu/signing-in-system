@@ -14,7 +14,7 @@ public class CourseEntity implements Serializable {
     @Id
     private Long studentId;
     @Id
-    private Date courseName;
+    private String courseName;
     @Column(name = "start_week")
     private int startWeek;
     @Column(name = "end_week")
@@ -34,11 +34,11 @@ public class CourseEntity implements Serializable {
         this.studentId = studentId;
     }
 
-    public Date getCourseName() {
+    public String getCourseName() {
         return courseName;
     }
 
-    public void setCourseName(Date courseName) {
+    public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 

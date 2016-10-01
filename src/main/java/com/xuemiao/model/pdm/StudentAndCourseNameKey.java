@@ -13,7 +13,7 @@ public class StudentAndCourseNameKey implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
     @Column(name = "course_name")
-    private Date courseName;
+    private String courseName;
 
     public Long getStudentId() {
         return studentId;
@@ -23,11 +23,11 @@ public class StudentAndCourseNameKey implements Serializable {
         this.studentId = studentId;
     }
 
-    public Date getCourseName() {
+    public String getCourseName() {
         return courseName;
     }
 
-    public void setCourseName(Date courseName) {
+    public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 }
