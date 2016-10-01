@@ -31,6 +31,17 @@ CREATE TABLE absence (
   FOREIGN KEY (student_id, oper_date) REFERENCES sign_in_info (student_id, oper_date)
 ) WITHOUT OIDS;
 
+CREATE TABLE statistics (
+  student_id    BIGINT,
+  oper_date     DATE,
+  stay_lab_time FLOAT,
+  absence_times INTEGER,
+
+  PRIMARY KEY (student_id, oper_date),
+  FOREIGN KEY (student_id, oper_date) REFERENCES sign_in_info (student_id, oper_date),
+  FOREIGN KEY (student_id, oper_date) REFERENCES absence (student_id, oper_date)
+) WITHOUT OIDS;
+
 CREATE TABLE course (
   student_id    BIGINT,
   course_name   TEXT    NOT NULL,

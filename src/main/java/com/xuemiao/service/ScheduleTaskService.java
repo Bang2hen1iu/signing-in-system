@@ -1,11 +1,7 @@
 package com.xuemiao.service;
 
-import com.xuemiao.model.pdm.CourseEntity;
-import com.xuemiao.model.pdm.SignInInfoEntity;
-import com.xuemiao.model.pdm.StudentEntity;
-import com.xuemiao.model.repository.CourseRepository;
-import com.xuemiao.model.repository.SignInInfoRepository;
-import com.xuemiao.model.repository.StudentRepository;
+import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +36,10 @@ public class ScheduleTaskService {
     CourseRepository courseRepository;
     @Value("${course.start_date}")
     String courseStartDateString;
+    @Autowired
+    StatisticsRepository statisticsRepository;
+    @Autowired
+    AbsenceRepository absenceRepository;
 
     public synchronized void startRefreshSignInfoTable(){
         if (scheduledExecutorService != null) {
@@ -73,6 +73,39 @@ public class ScheduleTaskService {
                 }
                 signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
             }
+
+            Date previousDate = org.apache.commons.lang.time.DateUtils.addDays(currentDate, -1);
+            StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
+            StatisticsEntity statisticsEntity = new StatisticsEntity();
+            AbsenceEntity absenceEntity = null;
+            for(StudentEntity studentEntity : studentEntities){
+                studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
+                studentIdAndOperDateKey.setOperDate(previousDate);
+                signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
+                statisticsEntity.setStudentId(studentEntity.getStudentId());
+                statisticsEntity.setOperDate(previousDate);
+
+                absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+                if(absenceEntity==null){
+                    statisticsEntity.setAbsenceTimes(0);
+                }
+                else {
+                    statisticsEntity.setAbsenceTimes(1);
+                }
+                Long stayLabTime = new Long("0");
+                if(signInInfoEntity.getEndMorning()!=null&&signInInfoEntity.getStartMorning()!=null){
+                    stayLabTime += signInInfoEntity.getEndMorning().getTime() - signInInfoEntity.getStartMorning().getTime();
+                }
+                if(signInInfoEntity.getEndAfternoon()!=null&&signInInfoEntity.getStartAfternoon()!=null){
+                    stayLabTime += signInInfoEntity.getEndAfternoon().getTime() - signInInfoEntity.getStartAfternoon().getTime();
+                }
+                if(signInInfoEntity.getEndNight()!=null&&signInInfoEntity.getStartNight()!=null){
+                    stayLabTime += signInInfoEntity.getEndNight().getTime() - signInInfoEntity.getStartNight().getTime();
+                }
+                stayLabTime /= 3600000;
+                statisticsEntity.setStayLabTime(stayLabTime);
+                statisticsRepository.save(statisticsEntity);
+            }
         }, 0, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
     }
 
@@ -81,7 +114,6 @@ public class ScheduleTaskService {
         if (scheduledExecutorService == null) {
             return;
         }
-
         scheduledExecutorService.shutdown();
         try {
             scheduledExecutorService.awaitTermination(10, TimeUnit.SECONDS);
