@@ -65,4 +65,12 @@ public class CookieValidationService {
         Cookie cookie = new Cookie(tokenName, token, path, null);
         return new NewCookie(cookie, null, age, false);
     }
+
+    public NewCookie refreshCookie(String oriTokenString, String path, int age){
+        SignInTokenEntity signInTokenEntity = signInTokenRepository.findOne(oriTokenString);
+        if(signInTokenEntity==null){
+            return null;
+        }
+        return getTokenCookie(signInTokenEntity.getAdminId(), path, age);
+    }
 }

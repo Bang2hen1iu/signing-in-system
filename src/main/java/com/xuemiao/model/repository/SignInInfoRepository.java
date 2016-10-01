@@ -3,6 +3,7 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.SignInInfoEntity;
 import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -12,4 +13,6 @@ import java.util.List;
  */
 public interface SignInInfoRepository extends JpaRepository<SignInInfoEntity, StudentIdAndOperDateKey> {
     List<SignInInfoEntity> findByOperDate(Date date);
+    @Query("select distinct s.operDate from SignInInfoEntity s")
+    List<Date> getAllSignInInfoDate();
 }

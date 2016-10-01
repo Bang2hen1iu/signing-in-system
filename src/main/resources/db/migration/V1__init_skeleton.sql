@@ -38,7 +38,6 @@ CREATE TABLE statistics (
   absence_times INTEGER,
 
   PRIMARY KEY (student_id, oper_date),
-  FOREIGN KEY (student_id, oper_date) REFERENCES sign_in_info (student_id, oper_date),
   FOREIGN KEY (student_id, oper_date) REFERENCES absence (student_id, oper_date)
 ) WITHOUT OIDS;
 
