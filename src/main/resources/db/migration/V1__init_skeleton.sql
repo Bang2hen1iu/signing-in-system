@@ -6,14 +6,15 @@ CREATE TABLE student (
 ) WITHOUT OIDS;
 
 CREATE TABLE sign_in_info (
-  student_id      BIGINT,
-  oper_date       DATE,
-  start_morning   TIMESTAMP,
-  end_morning     TIMESTAMP,
-  start_afternoon TIMESTAMP,
-  end_afternoon   TIMESTAMP,
-  start_night     TIMESTAMP,
-  end_night       TIMESTAMP,
+  student_id          BIGINT,
+  oper_date           DATE,
+  start_morning       TIMESTAMP,
+  end_morning         TIMESTAMP,
+  start_afternoon     TIMESTAMP,
+  end_afternoon       TIMESTAMP,
+  start_night         TIMESTAMP,
+  end_night           TIMESTAMP,
+  current_day_courses TEXT NOT NULL,
 
   PRIMARY KEY (student_id, oper_date),
   FOREIGN KEY (student_id) REFERENCES student (id)

@@ -6,10 +6,12 @@ import com.xuemiao.model.pdm.SysAdminEntity;
 import com.xuemiao.model.repository.SysAdminRepository;
 import com.xuemiao.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by dzj on 10/1/2016.
  */
+@Component
 public class AdminValidationService {
     @Autowired
     SysAdminRepository sysAdminRepository;

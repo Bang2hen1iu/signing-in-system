@@ -8,8 +8,10 @@ import com.xuemiao.model.pdm.SysAdminEntity;
 import com.xuemiao.model.repository.StudentRepository;
 import com.xuemiao.model.repository.SysAdminRepository;
 import com.xuemiao.service.AdminValidationService;
+import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
@@ -29,6 +31,10 @@ public class AdminApi {
     SysAdminRepository sysAdminRepository;
     @Autowired
     AdminValidationService adminValidationService;
+    @Value("${super-admin.cookie.token.age}")
+    int superAdminCookieAge;
+    @Autowired
+    CookieValidationService cookieValidationService;
 
     @GET
     @Path("/{psw}")
@@ -37,15 +43,12 @@ public class AdminApi {
     }
 
     @POST
-    @Path("/admin/validation")
-    public Response adminValidation(@FormParam("id")Long id,
-                                    @FormParam("password")String password,
-                                    @FormParam("type")int type)
-    throws IdNotExistException, PasswordErrorException{
-        adminValidationService.testPassword(id, password, type);
-        UUID token = UUID.randomUUID();
-        Cookie cookie = new Cookie("token", token.toString(), "/", null); // 把token的path设置成"/"
-        return Response.ok().cookie(new NewCookie(cookie)).build();
+    @Path("/admin/validation/{id}/{password}")
+    public Response adminValidation(@PathParam("id") Long id,
+                                    @PathParam("password") String password)
+            throws IdNotExistException, PasswordErrorException{
+        adminValidationService.testPassword(id, password, 1);
+        return Response.ok().cookie(cookieValidationService.getTokenCookie(id, "/api/admin_api", 1800)).build();
     }
 
     @POST
