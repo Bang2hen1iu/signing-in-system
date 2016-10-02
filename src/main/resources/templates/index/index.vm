@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>签到系统</title>
-    <link href="#springUrl('/lib/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css')" rel="stylesheet" type="text/css">
+    <link href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')" rel="stylesheet" type="text/css">
     <link href="#springUrl('/lib/font-awesome/css/font-awesome.min.css')" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -71,7 +71,7 @@
         <ng-view></ng-view>
     </div>
     <script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>
-    <script src="#springUrl('/lib/bootstrap-3.3.0-dist/dist/js/bootstrap.min.js')"></script>
+    <script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
     <script src="#springUrl('/lib/angular/angular.min.js')"></script>
     <script src="#springUrl('/lib/angular/toArrayFilter.js')"></script>
     <script src="#springUrl('/lib/angular/angular-route.min.js')"></script>
