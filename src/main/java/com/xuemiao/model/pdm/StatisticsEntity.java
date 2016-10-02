@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +15,7 @@ public class StatisticsEntity {
     @Id
     private Long studentId;
     @Id
-    private Date operDate;
+    private DateTime operDate;
     @Column(name = "stay_lab_time")
     private float stayLabTime;
     @Column(name = "absence_times")
@@ -27,11 +29,11 @@ public class StatisticsEntity {
         this.studentId = studentId;
     }
 
-    public Date getOperDate() {
+    public DateTime getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(Date operDate) {
+    public void setOperDate(DateTime operDate) {
         this.operDate = operDate;
     }
 

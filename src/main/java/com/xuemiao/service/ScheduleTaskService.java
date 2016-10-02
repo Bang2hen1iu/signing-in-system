@@ -3,6 +3,7 @@ package com.xuemiao.service;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,22 +49,17 @@ public class ScheduleTaskService {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
-            Date date = new Date();
             SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
             String currentDayCourseString = null;
             List<CourseEntity> courseEntities = null;
-            Date startDate = null;
-            try {
-                startDate = new SimpleDateFormat("yyyy-MM-dd").parse(courseStartDateString);
-            }catch (ParseException e){
-                LOGGER.error("Parse current date from string failed!");
-            }
-            Date currentDate = new Date();
+            DateTime startDate = null;
+            startDate = DateTime.parse(courseStartDateString);
+            DateTime currentDate = DateTime.now();
             int currentWeek = DateUtils.getCurrentWeek(startDate, currentDate);
             int currentWeekDay = DateUtils.getCurrentWeekDay(startDate, currentDate);
             for(StudentEntity studentEntity : studentEntities){
                 signInInfoEntity.setStudentId(studentEntity.getStudentId());
-                signInInfoEntity.setOperDate(date);
+                signInInfoEntity.setOperDate(currentDate);
                 currentDayCourseString  = "";
                 courseEntities = courseRepository.getCoursesByStudentAndWeek(
                         studentEntity.getStudentId(), currentWeek, currentWeekDay);
@@ -74,7 +70,7 @@ public class ScheduleTaskService {
                 signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
             }
 
-            Date previousDate = org.apache.commons.lang.time.DateUtils.addDays(currentDate, -1);
+            DateTime previousDate = currentDate.minusDays(1);
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             StatisticsEntity statisticsEntity = new StatisticsEntity();
             AbsenceEntity absenceEntity = null;

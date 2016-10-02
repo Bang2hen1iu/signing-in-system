@@ -18,6 +18,7 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -136,7 +137,7 @@ public class AdminApi {
     @Path("/statistics/range_query")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response rangeQueryStatistics(statisticRangeQuery statisticRangeQuery){
-        List<StatisticRangeData> statisticRangeDataList = statisticsRepository.getRangeStatistics(
+        List<Object[]> statisticRangeDataList = statisticsRepository.getRangeStatistics(
                 DateUtils.parseDateString(statisticRangeQuery.getStartDate()),
                 DateUtils.parseDateString(statisticRangeQuery.getEndDate()));
         return Response.ok().entity(statisticRangeDataList).build();

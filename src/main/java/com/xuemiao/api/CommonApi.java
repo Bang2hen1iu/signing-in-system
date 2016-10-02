@@ -4,6 +4,7 @@ import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
@@ -41,7 +42,7 @@ public class CommonApi {
     @GET
     @Path("/statistics/{date}")
     public Response getStatisticData(@PathParam("date")String dateString){
-        Date date = DateUtils.parseDateString(dateString);
+        DateTime date = DateUtils.parseDateString(dateString);
         List<StatisticsEntity> statisticsEntities = statisticsRepository.findByOperDate(date);
         return Response.ok().entity(statisticsEntities).build();
     }
@@ -50,7 +51,7 @@ public class CommonApi {
     @Path("/duty_students/{date}")
     public Response getDutyStudents(@PathParam("date")String dateString)
             throws DateFormatErrorException {
-        Date date = DateUtils.parseDateString(dateString);
+        DateTime date = DateUtils.parseDateString(dateString);
         if(date==null){
             throw new DateFormatErrorException();
         }
@@ -62,7 +63,7 @@ public class CommonApi {
     @Path("/sign_in_info/{date}")
     public Response getSignInInfo(@PathParam("date")String dateString)
             throws DateFormatErrorException{
-        Date date = DateUtils.parseDateString(dateString);
+        DateTime date = DateUtils.parseDateString(dateString);
         if(date==null){
             throw new DateFormatErrorException();
         }
@@ -84,14 +85,14 @@ public class CommonApi {
     @GET
     @Path("/sign_in_info/date")
     public Response getSignInInfoDate(){
-        List<Date> dateList = signInInfoRepository.getAllSignInInfoDate();
+        List<DateTime> dateList = signInInfoRepository.getAllSignInInfoDate();
         return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
     }
 
     @GET
     @Path("/statistics/date")
     public Response getStatisticsDate(){
-        List<Date> dateList = statisticsRepository.getAllStatisticsDate();
+        List<DateTime> dateList = statisticsRepository.getAllStatisticsDate();
         return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
     }
 }

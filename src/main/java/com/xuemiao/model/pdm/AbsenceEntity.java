@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,7 +17,7 @@ public class AbsenceEntity implements Serializable {
     @Id
     private Long studentId;
     @Id
-    private Date operDate;
+    private DateTime operDate;
     @Column(name = "start_absence")
     private Timestamp startAbsence;
     @Column(name = "end_absence")
@@ -31,11 +33,11 @@ public class AbsenceEntity implements Serializable {
         this.studentId = studentId;
     }
 
-    public Date getOperDate() {
+    public DateTime getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(Date operDate) {
+    public void setOperDate(DateTime operDate) {
         this.operDate = operDate;
     }
 

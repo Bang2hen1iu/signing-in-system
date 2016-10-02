@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -15,7 +17,7 @@ public class SignInInfoEntity implements Serializable {
     @Id
     private Long studentId;
     @Id
-    private Date operDate;
+    private DateTime operDate;
     @Column(name = "start_morning")
     private Timestamp startMorning;
     @Column(name = "end_morning")
@@ -39,11 +41,11 @@ public class SignInInfoEntity implements Serializable {
         this.studentId = studentId;
     }
 
-    public Date getOperDate() {
+    public DateTime getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(Date operDate) {
+    public void setOperDate(DateTime operDate) {
         this.operDate = operDate;
     }
 
