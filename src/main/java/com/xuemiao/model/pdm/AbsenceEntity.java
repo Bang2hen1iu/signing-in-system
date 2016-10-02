@@ -4,8 +4,8 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -17,7 +17,7 @@ public class AbsenceEntity implements Serializable {
     @Id
     private Long studentId;
     @Id
-    private DateTime operDate;
+    private Date operDate;
     @Column(name = "start_absence")
     private Timestamp startAbsence;
     @Column(name = "end_absence")
@@ -33,11 +33,11 @@ public class AbsenceEntity implements Serializable {
         this.studentId = studentId;
     }
 
-    public DateTime getOperDate() {
+    public Date getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(DateTime operDate) {
+    public void setOperDate(Date operDate) {
         this.operDate = operDate;
     }
 

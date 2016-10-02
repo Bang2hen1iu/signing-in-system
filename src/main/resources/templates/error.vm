@@ -1,0 +1,17 @@
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="#springUrl('/lib/bootstrap-3.3.0-dist/dist/css/bootstrap.min.css')" type="text/css" rel="stylesheet">
+    <link href="#springUrl('/assets/css/error.css')" type="text/css" rel="stylesheet">
+    <title>404错误 - 签到系统</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>404 Not Found</h1>
+            <p>页面内容不存在</p>
+        </div>
+    </div>
+</body>
+</html>

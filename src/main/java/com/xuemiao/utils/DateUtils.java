@@ -3,10 +3,10 @@ package com.xuemiao.utils;
 import com.xuemiao.exception.DateFormatErrorException;
 import org.joda.time.DateTime;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,9 +32,9 @@ public class DateUtils {
         return getDiffDays(startDate, currentDate)%7;
     }
 
-    public static List<String> DateList2DateStringList(List<DateTime> dateList){
+    public static List<String> DateList2DateStringList(List<Date> dateList){
         List<String> dateStringList = new ArrayList<>();
-        for(DateTime date : dateList){
+        for(Date date : dateList){
             dateStringList.add(sdf.format(date));
         }
         return dateStringList;

@@ -34,11 +34,11 @@ CREATE TABLE absence (
 CREATE TABLE statistics (
   student_id    BIGINT,
   oper_date     DATE,
-  stay_lab_time FLOAT,
+  stay_lab_time DOUBLE PRECISION,
   absence_times INTEGER,
 
   PRIMARY KEY (student_id, oper_date),
-  FOREIGN KEY (student_id, oper_date) REFERENCES absence (student_id, oper_date)
+  FOREIGN KEY (student_id, oper_date) REFERENCES sign_in_info (student_id, oper_date)
 ) WITHOUT OIDS;
 
 CREATE TABLE course (

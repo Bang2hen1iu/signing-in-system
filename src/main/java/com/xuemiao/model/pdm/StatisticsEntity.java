@@ -3,7 +3,7 @@ package com.xuemiao.model.pdm;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by dzj on 10/1/2016.
@@ -15,9 +15,9 @@ public class StatisticsEntity {
     @Id
     private Long studentId;
     @Id
-    private DateTime operDate;
+    private Date operDate;
     @Column(name = "stay_lab_time")
-    private float stayLabTime;
+    private double stayLabTime;
     @Column(name = "absence_times")
     private int absenceTimes;
 
@@ -29,19 +29,19 @@ public class StatisticsEntity {
         this.studentId = studentId;
     }
 
-    public DateTime getOperDate() {
+    public Date getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(DateTime operDate) {
+    public void setOperDate(Date operDate) {
         this.operDate = operDate;
     }
 
-    public float getStayLabTime() {
+    public double getStayLabTime() {
         return stayLabTime;
     }
 
-    public void setStayLabTime(float stayLabTime) {
+    public void setStayLabTime(double stayLabTime) {
         this.stayLabTime = stayLabTime;
     }
 

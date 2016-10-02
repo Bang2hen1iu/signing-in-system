@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -19,7 +19,7 @@ public class DutyStudentEntity implements Serializable {
     @Id
     private Long studentId;
     @Id
-    private DateTime operDate;
+    private Date operDate;
 
     public Long getStudentId() {
         return studentId;
@@ -29,11 +29,11 @@ public class DutyStudentEntity implements Serializable {
         this.studentId = studentId;
     }
 
-    public DateTime getOperDate() {
+    public Date getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(DateTime operDate) {
+    public void setOperDate(Date operDate) {
         this.operDate = operDate;
     }
 }

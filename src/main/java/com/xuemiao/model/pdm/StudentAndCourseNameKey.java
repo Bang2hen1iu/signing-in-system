@@ -3,7 +3,6 @@ package com.xuemiao.model.pdm;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.

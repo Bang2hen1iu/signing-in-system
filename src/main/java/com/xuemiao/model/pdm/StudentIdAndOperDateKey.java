@@ -1,11 +1,9 @@
 package com.xuemiao.model.pdm;
 
-import org.joda.time.DateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -15,7 +13,7 @@ public class StudentIdAndOperDateKey implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
     @Column(name = "oper_date")
-    private DateTime operDate;
+    private Date operDate;
 
     public Long getStudentId() {
         return studentId;
@@ -25,11 +23,11 @@ public class StudentIdAndOperDateKey implements Serializable {
         this.studentId = studentId;
     }
 
-    public DateTime getOperDate() {
+    public Date getOperDate() {
         return operDate;
     }
 
-    public void setOperDate(DateTime operDate) {
+    public void setOperDate(Date operDate) {
         this.operDate = operDate;
     }
 }

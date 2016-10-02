@@ -7,9 +7,11 @@ public class IdPasswordJson {
     private Long id;
     private String password1;
     private String password2;
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }

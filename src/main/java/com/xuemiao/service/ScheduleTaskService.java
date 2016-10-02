@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -59,48 +59,50 @@ public class ScheduleTaskService {
             int currentWeekDay = DateUtils.getCurrentWeekDay(startDate, currentDate);
             for(StudentEntity studentEntity : studentEntities){
                 signInInfoEntity.setStudentId(studentEntity.getStudentId());
-                signInInfoEntity.setOperDate(currentDate);
+                signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
                 currentDayCourseString  = "";
-                courseEntities = courseRepository.getCoursesByStudentAndWeek(
-                        studentEntity.getStudentId(), currentWeek, currentWeekDay);
+                courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek, currentWeekDay);
                 for(CourseEntity courseEntity : courseEntities){
                     currentDayCourseString += courseEntity.getCourseName() + "第" + courseEntity.getStartSection() +
                             "~" + courseEntity.getEndSection() + "节；";
                 }
                 signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
+
+                signInInfoRepository.save(signInInfoEntity);
             }
 
             DateTime previousDate = currentDate.minusDays(1);
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             StatisticsEntity statisticsEntity = new StatisticsEntity();
             AbsenceEntity absenceEntity = null;
-            for(StudentEntity studentEntity : studentEntities){
+            for(StudentEntity studentEntity : studentEntities) {
                 studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
-                studentIdAndOperDateKey.setOperDate(previousDate);
+                studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
                 signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
-                statisticsEntity.setStudentId(studentEntity.getStudentId());
-                statisticsEntity.setOperDate(previousDate);
-
-                absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
-                if(absenceEntity==null){
-                    statisticsEntity.setAbsenceTimes(0);
+                if (signInInfoEntity != null) {
+                    statisticsEntity.setStudentId(studentEntity.getStudentId());
+                    statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
+                    absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+                    if (absenceEntity == null) {
+                        statisticsEntity.setAbsenceTimes(0);
+                    } else {
+                        statisticsEntity.setAbsenceTimes(1);
+                    }
+                    Long stayLabTimeL = new Long("0");
+                    if (signInInfoEntity.getEndMorning() != null && signInInfoEntity.getStartMorning() != null) {
+                        stayLabTimeL += (signInInfoEntity.getEndMorning().getTime() - signInInfoEntity.getStartMorning().getTime());
+                    }
+                    if (signInInfoEntity.getEndAfternoon() != null && signInInfoEntity.getStartAfternoon() != null) {
+                        stayLabTimeL += (signInInfoEntity.getEndAfternoon().getTime() - signInInfoEntity.getStartAfternoon().getTime());
+                    }
+                    if (signInInfoEntity.getEndNight() != null && signInInfoEntity.getStartNight() != null) {
+                        stayLabTimeL += (signInInfoEntity.getEndNight().getTime() - signInInfoEntity.getStartNight().getTime());
+                    }
+                    double stayLabTimeD = stayLabTimeL.doubleValue();
+                    stayLabTimeD /= 3600000;
+                    statisticsEntity.setStayLabTime(stayLabTimeD);
+                    statisticsRepository.save(statisticsEntity);
                 }
-                else {
-                    statisticsEntity.setAbsenceTimes(1);
-                }
-                Long stayLabTime = new Long("0");
-                if(signInInfoEntity.getEndMorning()!=null&&signInInfoEntity.getStartMorning()!=null){
-                    stayLabTime += signInInfoEntity.getEndMorning().getTime() - signInInfoEntity.getStartMorning().getTime();
-                }
-                if(signInInfoEntity.getEndAfternoon()!=null&&signInInfoEntity.getStartAfternoon()!=null){
-                    stayLabTime += signInInfoEntity.getEndAfternoon().getTime() - signInInfoEntity.getStartAfternoon().getTime();
-                }
-                if(signInInfoEntity.getEndNight()!=null&&signInInfoEntity.getStartNight()!=null){
-                    stayLabTime += signInInfoEntity.getEndNight().getTime() - signInInfoEntity.getStartNight().getTime();
-                }
-                stayLabTime /= 3600000;
-                statisticsEntity.setStayLabTime(stayLabTime);
-                statisticsRepository.save(statisticsEntity);
             }
         }, 0, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
     }

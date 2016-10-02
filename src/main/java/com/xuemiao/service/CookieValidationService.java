@@ -73,4 +73,8 @@ public class CookieValidationService {
         }
         return getTokenCookie(signInTokenEntity.getAdminId(), path, age);
     }
+
+    public void deleteCookieByToken(String tokenString){
+        signInTokenRepository.delete(tokenString);
+    }
 }

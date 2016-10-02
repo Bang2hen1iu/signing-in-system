@@ -2,7 +2,6 @@ package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by dzj on 9/30/2016.
