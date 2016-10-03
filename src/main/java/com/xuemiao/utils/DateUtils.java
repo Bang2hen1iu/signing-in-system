@@ -14,11 +14,32 @@ import java.util.List;
  * Created by dzj on 10/1/2016.
  */
 public class DateUtils {
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+
+    private static SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+    private static SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
 
     public static DateTime parseDateString(String dateString) {
 
         return DateTime.parse(dateString);
+    }
+
+    public static String timestamp2String(Timestamp timestamp, int formatCode){
+        switch (formatCode){
+            case 1:
+                return sdf1.format(timestamp);
+            case 2:
+                return sdf2.format(timestamp);
+            case 3:
+                return sdf3.format(timestamp);
+            default:
+                return null;
+        }
+    }
+
+    public static String sqlDate2String(Date date){
+        return sdf1.format(date);
     }
 
     private static int getDiffDays(DateTime startDate, DateTime currentDate){
@@ -36,7 +57,7 @@ public class DateUtils {
     public static List<String> DateList2DateStringList(List<Date> dateList){
         List<String> dateStringList = new ArrayList<>();
         for(Date date : dateList){
-            dateStringList.add(sdf.format(date));
+            dateStringList.add(sdf1.format(date));
         }
         return dateStringList;
     }

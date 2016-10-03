@@ -23,18 +23,35 @@ sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $htt
         $scope.login_data = {};
     });
 }]);
-sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.getSelectedCourseData = function () {
+sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', function ($scope, $http, $q) {
+    $scope.getLatestDate = function () {
+        var defer = $q.defer();
         $http({
             method: 'GET',
-            url: "/student/selected_course"
+            url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.selected_course_data = data;
+            $scope.currentDate = data;
+            defer.resolve(data);
+        });
+        return defer.promise;
+    };
+    $scope.getSignInInfo = function (date) {
+        $http({
+            method: 'GET',
+            url: "/api/common_api/sign_in_info/"+date
+        }).success(function (data) {
+            $scope.signInInfoData = data;
+        });
+    };
+    $scope.firstLoad = function () {
+        $scope.getLatestDate().then(function (date) {
+            $scope.getSignInInfo(date);
         });
     };
     $(function () {
-        $scope.selected_course_data = {};
-        $scope.getSelectedCourseData();
+        $scope.currentDate = "";
+        $scope.signInInfoData = {};
+        $scope.firstLoad();
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {

@@ -1,10 +1,12 @@
 package com.xuemiao.api;
 
+import com.xuemiao.api.Json.SignInInfoJson;
 import com.xuemiao.api.Json.StatisticJson;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
+import com.xuemiao.utils.PrecisionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,7 +57,7 @@ public class CommonApi {
         for (Object[] statistic : statisticList) {
             StatisticJson statisticJson = new StatisticJson();
             statisticJson.setId((Long) statistic[0]);
-            statisticJson.setStayLabTime((double) statistic[1]);
+            statisticJson.setStayLabTime(PrecisionUtils.transferToSecondDecimal((double) statistic[1]));
             statisticJson.setAbsenceTimes((Long) statistic[2]);
             statisticJson.setName(studentRepository.findOne((Long) statistic[0]).getName());
             statisticJsonList.add(statisticJson);
@@ -84,7 +86,44 @@ public class CommonApi {
             throw new DateFormatErrorException();
         }
         List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(date.getMillis()));
-        return Response.ok().entity(signInInfoEntities).build();
+        List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
+        AbsenceEntity absenceEntity = null;
+        for (SignInInfoEntity signInInfoEntity : signInInfoEntities){
+            SignInInfoJson signInInfoJson = new SignInInfoJson();
+            signInInfoJson.setStudentId(signInInfoEntity.getStudentId().toString());
+            signInInfoJson.setName(studentRepository.findOne(signInInfoEntity.getStudentId()).getName());
+            if(signInInfoEntity.getStartMorning()!=null){
+                signInInfoJson.setStartMorning(DateUtils.timestamp2String(signInInfoEntity.getStartMorning(),2));
+            }
+            if(signInInfoEntity.getEndMorning()!=null){
+                signInInfoJson.setEndMorning(DateUtils.timestamp2String(signInInfoEntity.getEndMorning(),2));
+            }
+            if(signInInfoEntity.getStartAfternoon()!=null){
+                signInInfoJson.setStartAfternoon(DateUtils.timestamp2String(signInInfoEntity.getStartAfternoon(),2));
+            }
+            if(signInInfoEntity.getEndAfternoon()!=null){
+                signInInfoJson.setEndAfternoon(DateUtils.timestamp2String(signInInfoEntity.getEndAfternoon(),2));
+            }
+            if(signInInfoEntity.getStartNight()!=null){
+                signInInfoJson.setStartNight(DateUtils.timestamp2String(signInInfoEntity.getStartNight(),2));
+            }
+            if(signInInfoEntity.getEndNight()!=null){
+                signInInfoJson.setEndNight(DateUtils.timestamp2String(signInInfoEntity.getEndNight(),2));
+            }
+            signInInfoJson.setCurrentDayCourses(signInInfoEntity.getCurrentDayCourses());
+
+            StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
+            studentIdAndOperDateKey.setStudentId(signInInfoEntity.getStudentId());
+            studentIdAndOperDateKey.setOperDate(signInInfoEntity.getOperDate());
+            absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+            if(absenceEntity!=null){
+                signInInfoJson.setStartAbsence(DateUtils.timestamp2String(absenceEntity.getStartAbsence(), 3));
+                signInInfoJson.setEndAbsence(DateUtils.timestamp2String(absenceEntity.getEndAbsence(), 3));
+                signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
+            }
+            signInInfoJsonList.add(signInInfoJson);
+        }
+        return Response.ok().entity(signInInfoJsonList).build();
     }
 
     @GET
@@ -106,9 +145,23 @@ public class CommonApi {
     }
 
     @GET
+    @Path("/sign_in_info/latest_date")
+    public Response getSignInInfoLatestDate() {
+        Date date = signInInfoRepository.getLatestSignInInfoDate();
+        return Response.ok().entity(DateUtils.sqlDate2String(date)).build();
+    }
+
+    @GET
     @Path("/statistics/date")
     public Response getStatisticsDate() {
         List<Date> dateList = statisticsRepository.getAllStatisticsDate();
         return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
+    }
+
+    @GET
+    @Path("/statistics/latest_date")
+    public Response getStatisticsLatestDate() {
+        Date date = statisticsRepository.getLatestStatisticsDate();
+        return Response.ok().entity(date).build();
     }
 }

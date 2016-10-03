@@ -53,6 +53,7 @@ public class ScheduleTaskService {
             startTime = startTime.minusDays(-1);
         }
         startTime = startTime.minusHours(hourNow-startHour);
+        int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(),startTime);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
@@ -111,7 +112,7 @@ public class ScheduleTaskService {
                     statisticsRepository.save(statisticsEntity);
                 }
             }
-        }, DateUtils.getTimeGapInSecond(DateTime.now(),startTime), PERIOD_IN_SECONDS, TimeUnit.SECONDS);
+        }, timeGapToStartInSecond, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     @PreDestroy

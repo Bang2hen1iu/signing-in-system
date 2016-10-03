@@ -6,7 +6,7 @@ package com.xuemiao.api.Json;
 public class StatisticJson {
     private Long id;
     private String name;
-    private double stayLabTime;
+    private String stayLabTime;
     private Long absenceTimes;
 
     public Long getId() {
@@ -25,15 +25,11 @@ public class StatisticJson {
         this.name = name;
     }
 
-    public double getStayLabTime() {
+    public String getStayLabTime() {
         return stayLabTime;
     }
 
-    public void setStayLabTime(float stayLabTime) {
-        this.stayLabTime = stayLabTime;
-    }
-
-    public void setStayLabTime(double stayLabTime) {
+    public void setStayLabTime(String stayLabTime) {
         this.stayLabTime = stayLabTime;
     }
 

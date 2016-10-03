@@ -4,4 +4,72 @@
             <h2 class="page-header">签到信息</h2>
         </div>
     </div>
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-md-1" rowspan="2">姓名</th>
+                <th class="col-md-2" colspan="2">上午（9:00~11:30）</th>
+                <th class="col-md-2" colspan="2">下午（2:00~5:00）</th>
+                <th class="col-md-2" colspan="2">晚上（6:30~9:30）</th>
+                <th class="col-md-5" colspan="2">备注</th>
+            </tr>
+            <tr>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-2">上课</td>
+                <td class="col-md-2">请假</td>
+            </tr>
+            <tr ng-repeat="student in signInInfoData">
+                <td class="col-md-1">{{student.name}}</td>
+                <td class="col-md-1">
+                    <div ng-if="student.startMorning">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.startMorning}}
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <div ng-if="student.endMorning">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.endMorning}}
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <div ng-if="student.startAfternoon">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.startAfternoon}}
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <div ng-if="student.endAfternoon">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.endAfternoon}}
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <div ng-if="student.startNight">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.startNight}}
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <div ng-if="student.endNight">
+                        <button type="button" class="btn btn-default">查看签名</button>
+                        {{student.endNight}}
+                    </div>
+                </td>
+                <td class="col-md-2">
+                    {{student.currentDayCourses}}
+                </td>
+                <td class="col-md-2">
+                    <p ng-if="student.absenceReason">原由：{{student.absenceReason}}&nbsp;</p>
+                    <p ng-if="student.startAbsence">时间：{{student.startAbsence}}~{{student.endAbsence}}</p>
+                </td>
+            </tr>
+            </div>
+        </table>
+    </div>
 </div>

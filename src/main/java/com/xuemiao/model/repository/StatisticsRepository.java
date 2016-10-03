@@ -24,4 +24,7 @@ public interface StatisticsRepository extends JpaRepository<StatisticsEntity, St
 
     @Query("select s.studentId, sum(s.stayLabTime), sum(s.absenceTimes) from StatisticsEntity s group by s.studentId")
     List<Object[]> getStatisticsSum();
+
+    @Query("select max(s.operDate) from StatisticsEntity s")
+    Date getLatestStatisticsDate();
 }

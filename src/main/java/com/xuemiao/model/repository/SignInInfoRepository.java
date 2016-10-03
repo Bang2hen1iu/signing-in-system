@@ -18,4 +18,8 @@ public interface SignInInfoRepository extends JpaRepository<SignInInfoEntity, St
 
     @Query("select distinct s.operDate from SignInInfoEntity s")
     List<Date> getAllSignInInfoDate();
+
+    @Query("select max(s.operDate) from SignInInfoEntity s")
+    Date getLatestSignInInfoDate();
+
 }
