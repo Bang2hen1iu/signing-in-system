@@ -17,12 +17,17 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index/index");
-        registry.addViewController("/sign_in_info").setViewName("index/sign_in_info");
-        registry.addViewController("/rank_list").setViewName("index/rank_list");
-        registry.addViewController("/sign_in_action").setViewName("index/sign_in_action");
-        registry.addViewController("/admin/login").setViewName("admin/login");
-        registry.addViewController("/admin").setViewName("admin/index");
+        registry.addViewController("/").setViewName("/index/index");
+        registry.addViewController("/sign_in_info").setViewName("/index/sign_in_info");
+        registry.addViewController("/rank_list").setViewName("/index/rank_list");
+        registry.addViewController("/sign_in_action").setViewName("/index/sign_in_action");
+        registry.addViewController("/admin/login").setViewName("/admin/login");
+        registry.addViewController("/admin").setViewName("/admin/index");
+        registry.addViewController("/admin_welcome").setViewName("/admin/welcome");
+        registry.addViewController("/students").setViewName("/admin/students");
+        registry.addViewController("/courses").setViewName("/admin/courses");
+        registry.addViewController("/duty_students").setViewName("/admin/duty_students");
+        registry.addViewController("/statistics").setViewName("/admin/statistics");
         registry.addViewController("/out_of_date").setViewName("outOfDate");
     }
 }
