@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html ng-app="signInSys" ng-controller="signInSysCtrl">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')">
+    <link rel="stylesheet" href="#springUrl('/lib/font-awesome/css/font-awesome.min.css')">
+    <link rel="stylesheet" href="#springUrl('/css/form-elements.css')">
+    <link rel="stylesheet" href="#springUrl('/css/login.css')">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="#springUrl('/ico/apple-touch-icon-144-precomposed.png')">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="#springUrl('/ico/apple-touch-icon-114-precomposed.png')">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="#springUrl('/ico/apple-touch-icon-72-precomposed.png')">
+    <link rel="apple-touch-icon-precomposed" href="#springUrl('/ico/apple-touch-icon-57-precomposed.png')">
+    <title>登录 - 课程系统</title>
 </head>
+
 <body>
-Admin login!
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+##                    <img src="#springUrl('assets/img/logo/logo_school.png')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>管理员登录</h3>
+                            <p>请在下方输入您的用户名和密码</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form class="login-form" ng-submit="processForm()">
+                            <div class="form-group">
+                                <input type="text" ng-model="sign_in_data.id" name="username"
+                                       placeholder="用户名..." class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" ng-model="sign_in_data.password1" name="password"
+                                       placeholder="密码..." class="form-password form-control" id="form-password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">登录</button>
+                            <div class="alert alert-success" role="alert" ng-show="success_message">
+                                {{success_message}}
+                            </div>
+                            <div class="alert alert-warning" role="alert" ng-show="error_message">{{error_message}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>
+<script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
+<script src="#springUrl('/lib/jquery/dist/jquery.backstretch.min.js')"></script>
+<script src="#springUrl('/lib/angular/angular.min.js')"></script>
+<script src="#springUrl('/js/login.js')"></script>
 </body>
 </html>

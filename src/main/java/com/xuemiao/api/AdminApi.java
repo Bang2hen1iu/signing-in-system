@@ -1,6 +1,7 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.IdPasswordJson;
+import com.xuemiao.exception.AdminTokenWrongException;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.StudentAdditionException;
@@ -15,6 +16,7 @@ import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,6 +27,7 @@ import java.util.List;
 /**
  * Created by dzj on 9/30/2016.
  */
+@Component
 @Path("/admin_api")
 public class AdminApi {
     private final String cookiePath = "/api/admin_api";
@@ -44,6 +47,17 @@ public class AdminApi {
     DutyStudentRepository dutyStudentRepository;
     @Autowired
     StatisticsRepository statisticsRepository;
+
+    @GET
+    @Path("/admin/token_validation")
+    public Response adminTokenValidation(@CookieParam("token")String tokenString)
+    throws AdminTokenWrongException{
+        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 2);
+        if (loginResponse != null) {
+            throw new AdminTokenWrongException();
+        }
+        return Response.ok().cookie(refreshCookie(tokenString)).build();
+    }
 
     @POST
     @Path("/admin/validation")
