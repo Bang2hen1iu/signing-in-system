@@ -9,7 +9,15 @@
 <body>
     <nav class="navbar navbar-default" ng-controller="navbar_ctrl">
         <div class="container-fluid">
-            <div class="collapse navbar-collapse">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-navbar-collapse" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;rank_list=false;sign_in_action=false" ng-class="{'active':sign_in_info}"><a href="#sign_in_info">签到情况</a></li>
                     <li ng-click="sign_in_info=false;rank_list=true;sign_in_action=false" ng-class="{'active':rank_list}"><a href="#rank_list">排行榜</a></li>

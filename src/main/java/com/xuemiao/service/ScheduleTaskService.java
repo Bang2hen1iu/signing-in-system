@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Scope("singleton")
 public class ScheduleTaskService {
-    private final static int PERIOD_IN_SECONDS = 5;
+    private final static int PERIOD_IN_SECONDS = 86400;
     ScheduledExecutorService scheduledExecutorService = null;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleTaskService.class);
     @Autowired
@@ -41,11 +41,18 @@ public class ScheduleTaskService {
     StatisticsRepository statisticsRepository;
     @Autowired
     AbsenceRepository absenceRepository;
+    private final int startHour = 1;//每天凌晨1点启动任务
 
     public synchronized void startRefreshSignInfoTable(){
         if (scheduledExecutorService != null) {
             LOGGER.warn("Refresh scheduler has already start.");
         }
+        DateTime startTime = DateTime.now();
+        int hourNow = startTime.getHourOfDay();
+        if(hourNow>startHour){
+            startTime = startTime.minusDays(-1);
+        }
+        startTime = startTime.minusHours(hourNow-startHour);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
@@ -104,7 +111,7 @@ public class ScheduleTaskService {
                     statisticsRepository.save(statisticsEntity);
                 }
             }
-        }, 0, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
+        }, DateUtils.getTimeGapInSecond(DateTime.now(),startTime), PERIOD_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     @PreDestroy
