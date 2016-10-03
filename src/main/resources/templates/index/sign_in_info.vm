@@ -28,48 +28,47 @@
                 <td class="col-md-1">
                     <div ng-if="student.startMorning">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.startMorning}}
+                        签名时间：{{student.startMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1">
                     <div ng-if="student.endMorning">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.endMorning}}
+                        签名时间：{{student.endMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1">
                     <div ng-if="student.startAfternoon">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.startAfternoon}}
+                        签名时间：{{student.startAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1">
                     <div ng-if="student.endAfternoon">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.endAfternoon}}
+                        签名时间：{{student.endAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1">
                     <div ng-if="student.startNight">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.startNight}}
+                        签名时间：{{student.startNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1">
                     <div ng-if="student.endNight">
                         <button type="button" class="btn btn-default">查看签名</button>
-                        {{student.endNight}}
+                        签名时间：{{student.endNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-2">
                     {{student.currentDayCourses}}
                 </td>
                 <td class="col-md-2">
-                    <p ng-if="student.absenceReason">原由：{{student.absenceReason}}&nbsp;</p>
-                    <p ng-if="student.startAbsence">时间：{{student.startAbsence}}~{{student.endAbsence}}</p>
+                    <span ng-if="student.absenceReason">原由：{{student.absenceReason}}，</span>
+                    <span ng-if="student.startAbsence">时间：{{student.startAbsence | date:'HH:mm'}}~{{student.endAbsence | date:'HH:mm'}}</span>
                 </td>
             </tr>
-            </div>
         </table>
     </div>
 </div>

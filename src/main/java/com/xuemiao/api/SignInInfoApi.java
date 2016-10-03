@@ -1,5 +1,6 @@
 package com.xuemiao.api;
 
+import com.xuemiao.api.Json.AbsenceReasonJson;
 import com.xuemiao.api.Json.IdPasswordJson;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
@@ -18,6 +19,7 @@ import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +31,7 @@ import java.sql.Timestamp;
 /**
  * Created by dzj on 9/30/2016.
  */
+@Component
 @Path("/sign_in_info_api")
 public class SignInInfoApi {
     private final String cookiePath = "/api/sign_in_info_api";
@@ -69,6 +72,7 @@ public class SignInInfoApi {
     public Response adminValidation(IdPasswordJson idPasswordJson)
             throws IdNotExistException, PasswordErrorException {
         adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword1(), 1);
+        System.out.println("XXX:"+adminCookieAge);
         return Response.ok().cookie(getCookie(idPasswordJson.getId())).build();
     }
 
@@ -130,56 +134,35 @@ public class SignInInfoApi {
     }
 
     @POST
-    @Path("/absences/addition/{studentId}/{operDate}")
+    @Path("/absences/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudentAbsence(@PathParam("studentId") Long studentId,
-                                      @PathParam("operDate") String operDate,
-                                      AbsenceReasonJson absenceReasonJson,
-                                      @CookieParam("token") String tokenString) {
+    public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson,
+                                      @CookieParam("token")String tokenString) {
         Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
         if (loginResponse != null) {
             return loginResponse;
         }
 
-        AbsenceEntity absenceEntity = new AbsenceEntity();
-        absenceEntity.setStudentId(studentId);
-        absenceEntity.setOperDate(new Date(DateUtils.parseDateString(operDate).getMillis()));
-        absenceEntity.setAbsenceReason(absenceReasonJson.getReason());
-        absenceEntity.setStartAbsence(Timestamp.valueOf(absenceReasonJson.getStartAbsence()));
-        absenceEntity.setEndAbsence(Timestamp.valueOf(absenceReasonJson.getEndAbsence()));
-        absenceRepository.save(absenceEntity);
-
+        StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
+        studentIdAndOperDateKey.setStudentId(absenceReasonJson.getStudentId());
+        studentIdAndOperDateKey.setOperDate(absenceReasonJson.getOperDate());
+        AbsenceEntity originAbsenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+        if(originAbsenceEntity==null){
+            AbsenceEntity absenceEntity = new AbsenceEntity();
+            absenceEntity.setStudentId(absenceReasonJson.getStudentId());
+            absenceEntity.setOperDate(absenceReasonJson.getOperDate());
+            absenceEntity.setAbsenceReason(absenceReasonJson.getAbsenceReason());
+            absenceEntity.setStartAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getStartAbsence()));
+            absenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));
+            absenceRepository.save(absenceEntity);
+        }
+        else{
+            originAbsenceEntity.setAbsenceReason(absenceReasonJson.getAbsenceReason());
+            originAbsenceEntity.setStartAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getStartAbsence()));
+            originAbsenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));
+            absenceRepository.save(originAbsenceEntity);
+        }
         return Response.ok().cookie(refreshCookie(tokenString)).build();
-    }
-
-    private class AbsenceReasonJson {
-        private String reason;
-        private String startAbsence;
-        private String endAbsence;
-
-        public String getReason() {
-            return reason;
-        }
-
-        public void setReason(String reason) {
-            this.reason = reason;
-        }
-
-        public String getStartAbsence() {
-            return startAbsence;
-        }
-
-        public void setStartAbsence(String startAbsence) {
-            this.startAbsence = startAbsence;
-        }
-
-        public String getEndAbsence() {
-            return endAbsence;
-        }
-
-        public void setEndAbsence(String endAbsence) {
-            this.endAbsence = endAbsence;
-        }
     }
 
 }

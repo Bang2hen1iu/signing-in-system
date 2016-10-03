@@ -4,7 +4,7 @@ sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $htt
         $http({
             method: 'POST',
             url: "/api/sign_in_info_api/admin/validation",
-            data: login_data
+            data: $scope.login_data
         }).success(function () {
             alert('登录成功');
         }).error(function () {
@@ -72,36 +72,53 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
 
     });
 }]);
-sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.logout = function () {
-        $http({
-            method: 'DELETE',
-            url: "/logout"
-        }).success(function () {
-            window.location = '/login';
-        });
-    };
-    $scope.getUserProfile = function () {
+sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function ($scope, $http, $q) {
+    $scope.getLatestDate = function () {
+        var defer = $q.defer();
         $http({
             method: 'GET',
-            url: "/student/student_info"
+            url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.user_profile_data = data;
+            $scope.currentDate = data;
+            defer.resolve(data);
+        });
+        return defer.promise;
+    };
+    $scope.getSignInInfo = function (date) {
+        $http({
+            method: 'GET',
+            url: "/api/common_api/sign_in_info/"+date
+        }).success(function (data) {
+            $scope.signInInfoData = data;
         });
     };
-    $scope.modifyPassword = function () {
+    $scope.firstLoad = function () {
+        $scope.getLatestDate().then(function (date) {
+            $scope.getSignInInfo(date);
+        });
+    };
+    $scope.copyStudent = function(student){
+        $scope.askForAbsenceStudent.studentId = student.studentId;
+        $scope.askForAbsenceStudent.absenceReason = student.absenceReason;
+        $scope.askForAbsenceStudent.operDate = $scope.currentDate;
+        $scope.askForAbsenceStudent.startAbsence = null;
+        $scope.askForAbsenceStudent.endAbsence = null;
+    };
+    $scope.askForAbsence = function () {
         $http({
-            method: 'PUT',
-            url: "/student/" + $scope.new_password + "/password_modification/"
+            method: 'POST',
+            url: "/api/sign_in_info_api/absences/addition/",
+            data: $scope.askForAbsenceStudent
         }).success(function (data) {
-            $scope.new_password = '';
+            $scope.getSignInInfo($scope.currentDate);
+            alert("请假成功！");
         });
     };
     $(function () {
-        $scope.list = false;
-        $scope.addition = false;
-        $scope.user_profile_data = {};
-        $scope.new_password = '';
+        $scope.currentDate = "";
+        $scope.signInInfoData = {};
+        $scope.askForAbsenceStudent = {};
+        $scope.firstLoad();
     });
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {

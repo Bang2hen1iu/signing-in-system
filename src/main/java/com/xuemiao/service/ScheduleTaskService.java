@@ -41,7 +41,8 @@ public class ScheduleTaskService {
     StatisticsRepository statisticsRepository;
     @Autowired
     AbsenceRepository absenceRepository;
-    private final int startHour = 1;//每天凌晨1点启动任务
+    @Value("${task_execute_time}")
+    int startHour;
 
     public synchronized void startRefreshSignInfoTable(){
         if (scheduledExecutorService != null) {

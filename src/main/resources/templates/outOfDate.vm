@@ -1,0 +1,16 @@
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')" type="text/css" rel="stylesheet">
+    <title>会话过时 - 签到系统</title>
+</head>
+
+<body>
+<div class="jumbotron" style="height: 100%">
+    <div class="container">
+        <h1>会话已过时！</h1>
+        <p>请重新登录</p>
+    </div>
+</div>
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.xuemiao.model.pdm.SignInTokenEntity;
 import com.xuemiao.model.repository.SignInTokenRepository;
 import com.xuemiao.model.repository.SysAdminRepository;
 import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,6 @@ public class CookieValidationService {
     @Autowired
     SysAdminRepository sysAdminRepository;
 
-    //返回-1表示token不存在，
     public Response checkTokenCookie(String tokenString, int type){
         boolean flag = true;
         if(tokenString==null){
@@ -42,12 +42,7 @@ public class CookieValidationService {
             }
         }
         if(!flag){
-            if(type==1){
-                return Response.seeOther(URI.create("/index/login")).build();
-            }
-            else if(type==2){
-                return Response.seeOther(URI.create("/admin/login")).build();
-            }
+            return Response.seeOther(URI.create("/out_of_date")).build();
         }
         return null;
     }
@@ -56,10 +51,10 @@ public class CookieValidationService {
         String token = UUID.randomUUID().toString();
         SignInTokenEntity signInTokenEntity = new SignInTokenEntity();
         signInTokenEntity.setAdminId(id);
-        Date nowDate = new Date();
-        Date expireDate = DateUtils.addSeconds(nowDate, age);
-        signInTokenEntity.setSignInAt(new Timestamp(nowDate.getTime()));
-        signInTokenEntity.setExpireAt(new Timestamp(expireDate.getTime()));
+        DateTime now = DateTime.now();
+        DateTime expireDate = now.plusSeconds(age);
+        signInTokenEntity.setSignInAt(new Timestamp(now.getMillis()));
+        signInTokenEntity.setExpireAt(new Timestamp(expireDate.getMillis()));
         signInTokenEntity.setToken(token);
         signInTokenRepository.save(signInTokenEntity);
         Cookie cookie = new Cookie(tokenName, token, path, null);

@@ -45,12 +45,6 @@ public class AdminApi {
     @Autowired
     StatisticsRepository statisticsRepository;
 
-    @GET
-    @Path("/{psw}")
-    public String getPswHash(@PathParam("psw") String psw) {
-        return PasswordUtils.createPasswordHash(psw);
-    }
-
     @POST
     @Path("/admin/validation")
     @Consumes(MediaType.APPLICATION_JSON)

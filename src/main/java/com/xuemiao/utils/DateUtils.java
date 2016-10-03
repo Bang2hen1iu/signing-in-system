@@ -21,8 +21,16 @@ public class DateUtils {
     private static SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
 
     public static DateTime parseDateString(String dateString) {
-
         return DateTime.parse(dateString);
+    }
+
+    public static Timestamp adjustYearMonthDay(Timestamp t1){
+        DateTime dateTime = new DateTime(t1.getTime());
+        DateTime now = DateTime.now();
+        dateTime.plusYears(now.getYear()-dateTime.getYear());
+        dateTime.plusMonths(now.getMonthOfYear()-dateTime.getMonthOfYear());
+        dateTime.plusDays(now.getDayOfMonth()-dateTime.getDayOfMonth());
+        return new Timestamp(dateTime.getMillis());
     }
 
     public static String timestamp2String(Timestamp timestamp, int formatCode){

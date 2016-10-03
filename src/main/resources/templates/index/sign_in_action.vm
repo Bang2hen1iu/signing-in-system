@@ -4,4 +4,115 @@
             <h2 class="page-header">签到</h2>
         </div>
     </div>
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-md-1" rowspan="2">姓名</th>
+                <th class="col-md-2" colspan="2">上午（9:00~11:30）</th>
+                <th class="col-md-2" colspan="2">下午（2:00~5:00）</th>
+                <th class="col-md-2" colspan="2">晚上（6:30~9:30）</th>
+                <th class="col-md-5" colspan="2">备注</th>
+            </tr>
+            <tr>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-1">到达</td>
+                <td class="col-md-1">离开</td>
+                <td class="col-md-2">上课</td>
+                <td class="col-md-2">请假</td>
+            </tr>
+            <tr ng-repeat="student in signInInfoData">
+                <td class="col-md-1">{{student.name}}</td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.startMorning">
+                        已于{{student.startMorning | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.endMorning">
+                        已于{{student.endMorning | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.startAfternoon">
+                        已于{{student.startAfternoon | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.endAfternoon">
+                        已于{{student.endAfternoon | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.startNight">
+                        已于{{student.startNight | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-1">
+                    <button type="button" class="btn btn-default">签名</button>
+                    <div ng-if="student.endNight">
+                        已于{{student.endNight | date:'HH:mm:ss'}}签名
+                    </div>
+                </td>
+                <td class="col-md-2">
+                    {{student.currentDayCourses}}
+                </td>
+                <td class="col-md-2">
+                    <button ng-click="copyStudent(student)" data-toggle="modal" data-target="#askForAbsence" type="button" class="btn btn-default">请假</button>
+                    <p ng-if="student.absenceReason||student.startAbsence">
+                        已请假，
+                        <span ng-if="student.absenceReason">原由：{{student.absenceReason}}，</span>
+                        <span ng-if="student.startAbsence">时间：{{student.startAbsence | date:'HH:mm'}}~{{student.endAbsence | date:'HH:mm'}}</span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal fade" id="askForAbsence" tabindex="-1" role="dialog" aria-labelledby="askForAbsenceLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="askForAbsenceLabel">请填写请假信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="askForAbsenceForm">
+                        <div class="form-group has-warning">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="reason-addon">原由</span>
+                                    <input type="text" class="form-control" name="reason" aria-describedby="reason-addon" ng-model="askForAbsenceStudent.absenceReason" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="input-group has-warning">
+                                    <span class="input-group-addon" id="startAbsence-addon">开始时间</span>
+                                    <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="startAbsence" aria-describedby="startAbsence-addon" ng-model="askForAbsenceStudent.startAbsence">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group has-warning">
+                                    <span class="input-group-addon" id="endAbsence-addon">结束时间</span>
+                                    <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="endAbsence" aria-describedby="endAbsence-addon" ng-model="askForAbsenceStudent.endAbsence">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="askForAbsence()" data-dismiss="modal">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -6,6 +6,7 @@ import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
+import com.xuemiao.utils.PasswordUtils;
 import com.xuemiao.utils.PrecisionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class CommonApi {
     SignInInfoRepository signInInfoRepository;
     @Autowired
     AbsenceRepository absenceRepository;
+
+    @GET
+    @Path("/{psw}")
+    public String getPswHash(@PathParam("psw") String psw) {
+        return PasswordUtils.createPasswordHash(psw);
+    }
 
     @GET
     @Path("/students")
@@ -79,36 +86,36 @@ public class CommonApi {
 
     @GET
     @Path("/sign_in_info/{date}")
-    public Response getSignInInfo(@PathParam("date") String dateString)
+    public Response getSignInInfo(@PathParam("date") Date date)
             throws DateFormatErrorException {
-        DateTime date = DateUtils.parseDateString(dateString);
-        if (date == null) {
+        DateTime dateTime = new DateTime(date);
+        if (dateTime == null) {
             throw new DateFormatErrorException();
         }
-        List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(date.getMillis()));
+        List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(dateTime.getMillis()));
         List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
-        AbsenceEntity absenceEntity = null;
+        AbsenceEntity absenceEntity;
         for (SignInInfoEntity signInInfoEntity : signInInfoEntities){
             SignInInfoJson signInInfoJson = new SignInInfoJson();
             signInInfoJson.setStudentId(signInInfoEntity.getStudentId().toString());
             signInInfoJson.setName(studentRepository.findOne(signInInfoEntity.getStudentId()).getName());
             if(signInInfoEntity.getStartMorning()!=null){
-                signInInfoJson.setStartMorning(DateUtils.timestamp2String(signInInfoEntity.getStartMorning(),2));
+                signInInfoJson.setStartMorning(signInInfoEntity.getStartMorning());
             }
             if(signInInfoEntity.getEndMorning()!=null){
-                signInInfoJson.setEndMorning(DateUtils.timestamp2String(signInInfoEntity.getEndMorning(),2));
+                signInInfoJson.setEndMorning(signInInfoEntity.getEndMorning());
             }
             if(signInInfoEntity.getStartAfternoon()!=null){
-                signInInfoJson.setStartAfternoon(DateUtils.timestamp2String(signInInfoEntity.getStartAfternoon(),2));
+                signInInfoJson.setStartAfternoon(signInInfoEntity.getStartAfternoon());
             }
             if(signInInfoEntity.getEndAfternoon()!=null){
-                signInInfoJson.setEndAfternoon(DateUtils.timestamp2String(signInInfoEntity.getEndAfternoon(),2));
+                signInInfoJson.setEndAfternoon(signInInfoEntity.getEndAfternoon());
             }
             if(signInInfoEntity.getStartNight()!=null){
-                signInInfoJson.setStartNight(DateUtils.timestamp2String(signInInfoEntity.getStartNight(),2));
+                signInInfoJson.setStartNight(signInInfoEntity.getStartNight());
             }
             if(signInInfoEntity.getEndNight()!=null){
-                signInInfoJson.setEndNight(DateUtils.timestamp2String(signInInfoEntity.getEndNight(),2));
+                signInInfoJson.setEndNight(signInInfoEntity.getEndNight());
             }
             signInInfoJson.setCurrentDayCourses(signInInfoEntity.getCurrentDayCourses());
 
@@ -117,8 +124,8 @@ public class CommonApi {
             studentIdAndOperDateKey.setOperDate(signInInfoEntity.getOperDate());
             absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
             if(absenceEntity!=null){
-                signInInfoJson.setStartAbsence(DateUtils.timestamp2String(absenceEntity.getStartAbsence(), 3));
-                signInInfoJson.setEndAbsence(DateUtils.timestamp2String(absenceEntity.getEndAbsence(), 3));
+                signInInfoJson.setStartAbsence(absenceEntity.getStartAbsence());
+                signInInfoJson.setEndAbsence(absenceEntity.getEndAbsence());
                 signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
             }
             signInInfoJsonList.add(signInInfoJson);
@@ -148,7 +155,7 @@ public class CommonApi {
     @Path("/sign_in_info/latest_date")
     public Response getSignInInfoLatestDate() {
         Date date = signInInfoRepository.getLatestSignInInfoDate();
-        return Response.ok().entity(DateUtils.sqlDate2String(date)).build();
+        return Response.ok().entity(date).build();
     }
 
     @GET

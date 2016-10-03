@@ -1,20 +1,23 @@
 package com.xuemiao.api.Json;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * Created by dzj on 10/3/2016.
  */
 public class SignInInfoJson {
     private String studentId;
     private String name;
-    private String startMorning;
-    private String endMorning;
-    private String startAfternoon;
-    private String endAfternoon;
-    private String startNight;
-    private String endNight;
+    private Timestamp startMorning;
+    private Timestamp endMorning;
+    private Timestamp startAfternoon;
+    private Timestamp endAfternoon;
+    private Timestamp startNight;
+    private Timestamp endNight;
     private String currentDayCourses;
-    private String startAbsence;
-    private String endAbsence;
+    private Timestamp startAbsence;
+    private Timestamp endAbsence;
     private String absenceReason;
 
     public String getStudentId() {
@@ -33,52 +36,68 @@ public class SignInInfoJson {
         this.name = name;
     }
 
-    public String getStartMorning() {
+    public Timestamp getStartMorning() {
         return startMorning;
     }
 
-    public void setStartMorning(String startMorning) {
+    public void setStartMorning(Timestamp startMorning) {
         this.startMorning = startMorning;
     }
 
-    public String getEndMorning() {
+    public Timestamp getEndMorning() {
         return endMorning;
     }
 
-    public void setEndMorning(String endMorning) {
+    public void setEndMorning(Timestamp endMorning) {
         this.endMorning = endMorning;
     }
 
-    public String getStartAfternoon() {
-        return startAfternoon;
-    }
-
-    public void setStartAfternoon(String startAfternoon) {
-        this.startAfternoon = startAfternoon;
-    }
-
-    public String getEndAfternoon() {
+    public Timestamp getEndAfternoon() {
         return endAfternoon;
     }
 
-    public void setEndAfternoon(String endAfternoon) {
+    public void setEndAfternoon(Timestamp endAfternoon) {
         this.endAfternoon = endAfternoon;
     }
 
-    public String getStartNight() {
+    public Timestamp getStartNight() {
         return startNight;
     }
 
-    public void setStartNight(String startNight) {
+    public void setStartNight(Timestamp startNight) {
         this.startNight = startNight;
     }
 
-    public String getEndNight() {
+    public Timestamp getEndNight() {
         return endNight;
     }
 
-    public void setEndNight(String endNight) {
+    public void setEndNight(Timestamp endNight) {
         this.endNight = endNight;
+    }
+
+    public Timestamp getStartAbsence() {
+        return startAbsence;
+    }
+
+    public void setStartAbsence(Timestamp startAbsence) {
+        this.startAbsence = startAbsence;
+    }
+
+    public Timestamp getEndAbsence() {
+        return endAbsence;
+    }
+
+    public void setEndAbsence(Timestamp endAbsence) {
+        this.endAbsence = endAbsence;
+    }
+
+    public Timestamp getStartAfternoon() {
+        return startAfternoon;
+    }
+
+    public void setStartAfternoon(Timestamp startAfternoon) {
+        this.startAfternoon = startAfternoon;
     }
 
     public String getCurrentDayCourses() {
@@ -87,22 +106,6 @@ public class SignInInfoJson {
 
     public void setCurrentDayCourses(String currentDayCourses) {
         this.currentDayCourses = currentDayCourses;
-    }
-
-    public String getStartAbsence() {
-        return startAbsence;
-    }
-
-    public void setStartAbsence(String startAbsence) {
-        this.startAbsence = startAbsence;
-    }
-
-    public String getEndAbsence() {
-        return endAbsence;
-    }
-
-    public void setEndAbsence(String endAbsence) {
-        this.endAbsence = endAbsence;
     }
 
     public String getAbsenceReason() {
