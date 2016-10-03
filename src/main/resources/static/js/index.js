@@ -104,20 +104,36 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
         $scope.askForAbsenceStudent.startAbsence = null;
         $scope.askForAbsenceStudent.endAbsence = null;
     };
+    $scope.copySignInItem = function (id, order) {
+        $scope.signInItem.studentId = id;
+        $scope.signInItem.signInOrder = order;
+        $scope.signInItem.operDate = $scope.currentDate;
+    };
+    $scope.signInAction = function () {
+        $http({
+            method: 'POST',
+            url: "/api/sign_in_info_api/sign_in_info/addition",
+            data: $scope.signInItem
+        }).success(function (data) {
+            alert("签到成功！");
+            $scope.getSignInInfo($scope.currentDate);
+        });
+    };
     $scope.askForAbsence = function () {
         $http({
             method: 'POST',
             url: "/api/sign_in_info_api/absences/addition/",
             data: $scope.askForAbsenceStudent
         }).success(function (data) {
-            $scope.getSignInInfo($scope.currentDate);
             alert("请假成功！");
+            $scope.getSignInInfo($scope.currentDate);
         });
     };
     $(function () {
         $scope.currentDate = "";
         $scope.signInInfoData = {};
         $scope.askForAbsenceStudent = {};
+        $scope.signInItem = {};
         $scope.firstLoad();
     });
 }]);

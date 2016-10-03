@@ -2,6 +2,7 @@ package com.xuemiao.api;
 
 import com.xuemiao.api.Json.AbsenceReasonJson;
 import com.xuemiao.api.Json.IdPasswordJson;
+import com.xuemiao.api.Json.SignInActionJson;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.SignInOrderException;
@@ -96,18 +97,21 @@ public class SignInInfoApi {
     }
 
     @POST
-    @Path("/sign_in_info/addition/{studentId}/{operDate}/{signInOrder}")
-    public Response addSignIn(@PathParam("studentId") Long studentId,
-                              @PathParam("operDate") String operDate,
-                              @PathParam("signInOrder") int signInOrder
-    )
+    @Path("/sign_in_info/addition")
+    public Response addSignIn(SignInActionJson signInActionJson,
+                              @CookieParam("token")String tokenString)
             throws SignInOrderException {
+        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
+        if (loginResponse != null) {
+            return loginResponse;
+        }
+
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-        studentIdAndOperDateKey.setStudentId(studentId);
-        studentIdAndOperDateKey.setOperDate(new Date(DateUtils.parseDateString(operDate).getMillis()));
+        studentIdAndOperDateKey.setStudentId(signInActionJson.getStudentId());
+        studentIdAndOperDateKey.setOperDate(signInActionJson.getOperDate());
         SignInInfoEntity signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
         Timestamp now = new Timestamp(DateTime.now().getMillis());
-        switch (signInOrder) {
+        switch (signInActionJson.getSignInOrder()) {
             case 1:
                 signInInfoEntity.setStartMorning(now);
                 break;
@@ -130,7 +134,8 @@ public class SignInInfoApi {
                 throw new SignInOrderException();
         }
         signInInfoRepository.save(signInInfoEntity);
-        return Response.ok().build();
+
+        return Response.ok().cookie(refreshCookie(tokenString)).build();
     }
 
     @POST
