@@ -89,7 +89,7 @@ public class AdminApi {
     }
 
     @POST
-    @Path("/student/addition")
+    @Path("/students/addition")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStudent(StudentEntity studentEntity)
             throws StudentAdditionException {

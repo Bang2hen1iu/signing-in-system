@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>签到系统</title>
+    <script src="#springUrl('/lib/angular/angular.min.js')"></script>
+    <script src="#springUrl('/js/admin.js')"></script>
     <link href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')" rel="stylesheet" type="text/css">
     <link href="#springUrl('/lib/metisMenu/dist/metisMenu.min.css')" rel="stylesheet" type="text/css">
     <link href="#springUrl('/lib/font-awesome/css/font-awesome.min.css')" rel="stylesheet" type="text/css">
@@ -117,10 +119,8 @@
 <script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>
 <script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
 <script src="#springUrl('/lib/metisMenu/dist/metisMenu.min.js')"></script>
-<script src="#springUrl('/lib/angular/angular.min.js')"></script>
 <script src="#springUrl('/lib/angular/toArrayFilter.js')"></script>
 <script src="#springUrl('/lib/angular/angular-route.min.js')"></script>
 <script src="#springUrl('/js/admin_setting.js')"></script>
-<script src="#springUrl('/js/admin.js')"></script>
 </body>
 </html>
