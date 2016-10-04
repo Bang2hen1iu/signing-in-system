@@ -50,8 +50,8 @@ public class testDataInjectionApi {
         nameList.add("谢敏珊");
         nameList.add("肖永杰");
 
-        StudentEntity studentEntity = new StudentEntity();
         for (String name:nameList){
+            StudentEntity studentEntity = new StudentEntity();
             studentEntity.setName(name);
             studentRepository.save(studentEntity);
         }
