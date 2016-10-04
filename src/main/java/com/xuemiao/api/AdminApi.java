@@ -1,8 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.CoursePerWeekJson;
-import com.xuemiao.api.Json.CoursesInfoJson;
-import com.xuemiao.api.Json.IdPasswordJson;
+import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.AdminTokenWrongException;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
@@ -15,8 +13,10 @@ import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
@@ -108,6 +108,16 @@ public class AdminApi {
         return Response.ok().build();
     }
 
+    private void saveCoursePerWeekJson(Long id, String name, CoursePerWeekJson coursePerWeekJson){
+        CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
+        coursePerWeekEntity.setStudentId(id);
+        coursePerWeekEntity.setCourseName(name);
+        coursePerWeekEntity.setStartSection(coursePerWeekJson.getStartSection());
+        coursePerWeekEntity.setEndSection(coursePerWeekJson.getEndSection());
+        coursePerWeekEntity.setWeekday(coursePerWeekJson.getWeekday());
+        coursePerWeekRepository.save(coursePerWeekEntity);
+    }
+
     @POST
     @Path("/courses/addition")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -120,15 +130,57 @@ public class AdminApi {
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
         courseRepository.save(courseEntity);
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()){
-            CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
-            coursePerWeekEntity.setStudentId(coursesInfoJson.getStudentId());
-            coursePerWeekEntity.setCourseName(coursesInfoJson.getCourseName());
-            coursePerWeekEntity.setStartSection(coursePerWeekJson.getStartSection());
-            coursePerWeekEntity.setEndSection(coursePerWeekJson.getEndSection());
-            coursePerWeekEntity.setWeekday(coursePerWeekJson.getWeekday());
-            coursePerWeekRepository.save(coursePerWeekEntity);
+            if(coursePerWeekJson==null){
+                continue;
+            }
+            saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
         }
         return Response.ok().build();
+    }
+
+    @PUT
+    @Path("/courses/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response modifyCourse(CoursesInfoJson coursesInfoJson){
+        StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
+        studentAndCourseNameKey.setStudentId(coursesInfoJson.getStudentId());
+        studentAndCourseNameKey.setCourseName(coursesInfoJson.getCourseName());
+        CourseEntity courseEntity = courseRepository.findOne(studentAndCourseNameKey);
+        courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
+        courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
+        courseRepository.save(courseEntity);
+        coursePerWeekRepository.deleteByStudentIdAndCourseName(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName());
+        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()){
+            saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
+        }
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/courses/deletion")
+    public Response deleteCourse(@QueryParam("studentId")Long studentId,
+                                 @QueryParam("courseName")String courseName){
+        coursePerWeekRepository.deleteByStudentIdAndCourseName(studentId, courseName);
+        StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
+        studentAndCourseNameKey.setStudentId(studentId);
+        studentAndCourseNameKey.setCourseName(courseName);
+        courseRepository.delete(studentAndCourseNameKey);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/duty_students")
+    public Response getDutyStudents() {
+        List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
+        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findAll();
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities){
+            DutyStudentJson dutyStudentJson = new DutyStudentJson();
+            dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
+            dutyStudentJson.setOperDate(dutyStudentEntity.getOperDate());
+            dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
+            dutyStudentJsonList.add(dutyStudentJson);
+        }
+        return Response.ok().entity(dutyStudentJsonList).build();
     }
 
     @POST
@@ -138,34 +190,20 @@ public class AdminApi {
         return Response.ok().build();
     }
 
+    @DELETE
+    @Path("/duty_student/deletion")
+    public Response deleteDutyStudent(@QueryParam("studentId")Long studentId){
+        dutyStudentRepository.deleteByStudentId(studentId);
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/statistics/range_query")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response rangeQueryStatistics(statisticRangeQuery statisticRangeQuery) {
+    public Response rangeQueryStatistics(StatisticRangeQuery statisticRangeQuery) {
         List<Object[]> statisticRangeDataList = statisticsRepository.getRangeStatistics(
                 DateUtils.parseDateString(statisticRangeQuery.getStartDate()),
                 DateUtils.parseDateString(statisticRangeQuery.getEndDate()));
         return Response.ok().entity(statisticRangeDataList).build();
-    }
-
-    private class statisticRangeQuery {
-        private String startDate;
-        private String endDate;
-
-        public String getStartDate() {
-            return startDate;
-        }
-
-        public void setStartDate(String startDate) {
-            this.startDate = startDate;
-        }
-
-        public String getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(String endDate) {
-            this.endDate = endDate;
-        }
     }
 }

@@ -13,13 +13,13 @@ public class CoursePerWeekEntity implements Serializable{
     @Id
     private int weekday;
     @Id
-    private int startSection;
-    @Id
-    private int endSection;
-    @Id
     private Long studentId;
     @Id
     private String courseName;
+    @Column(name = "start_section")
+    private int startSection;
+    @Column(name = "end_section")
+    private int endSection;
 
     public Long getStudentId() {
         return studentId;

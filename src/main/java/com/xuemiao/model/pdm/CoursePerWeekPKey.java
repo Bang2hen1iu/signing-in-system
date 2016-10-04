@@ -15,10 +15,7 @@ public class CoursePerWeekPKey implements Serializable{
     private String courseName;
     @Column(name = "weekday")
     private int weekday;
-    @Column(name = "start_section")
-    private int startSection;
-    @Column(name = "end_section")
-    private int endSection;
+
 
     public Long getStudentId() {
         return studentId;
@@ -42,21 +39,5 @@ public class CoursePerWeekPKey implements Serializable{
 
     public void setWeekday(int weekday) {
         this.weekday = weekday;
-    }
-
-    public int getStartSection() {
-        return startSection;
-    }
-
-    public void setStartSection(int startSection) {
-        this.startSection = startSection;
-    }
-
-    public int getEndSection() {
-        return endSection;
-    }
-
-    public void setEndSection(int endSection) {
-        this.endSection = endSection;
     }
 }

@@ -7,18 +7,8 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="form-group">
-##                        <div class="input-group-btn">
-##                            <button type="button" class="btn btn-default dropdown-toggle"
-##                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-##                                    ng-init="search_key='课程编号'">{{search_key}}<span class="caret"></span>
-##                            </button>
-##                            <ul class="dropdown-menu dropdown-menu-right">
-##                                <li><a href="" ng-click="search_key='课程编号'">课程编号</a></li>
-##                                <li><a href="" ng-click="search_key='课程名称'">课程名称</a></li>
-##                            </ul>
-##                        </div>
-                    <div class="col-md-2">
+                <div class="col-md-12">
+                    <div class="btn-group">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 {{hint}} <span class="caret"></span>
@@ -27,8 +17,6 @@
                                 <li><a href="" ng-click="switchStudentCourse(student)" ng-repeat="student in studentData">{{student.name}}</a></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-md-1">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addCourse">
                             <span class="glyphicon glyphicon-plus"></span> 新增课程
                         </button>
@@ -42,6 +30,7 @@
                             <th class="col-md-1">结课周</th>
                             <th class="col-md-3">每周安排</th>
                             <th class="col-md-1">修改</th>
+                            <th class="col-md-1">删除</th>
                         </tr>
                         <tr ng-repeat="course in courseData">
                             <td class="col-md-2">{{course.courseName}}</td>
@@ -53,9 +42,15 @@
                                 </span>
                             </td>
                             <td class="col-md-1">
-                                <a class="btn btn-xs delete-btn btn-danger"
-                                   ng-click="copyStudentId(course.studentId)" data-toggle="modal" data-target="#delCourse">
+                                <a class="btn btn-xs delete-btn btn-default"
+                                   ng-click="copyToModifyCourse(course)" data-toggle="modal" data-target="#modifyCourse">
                                     <span class="glyphicon glyphicon-edit"/>
+                                </a>
+                            </td>
+                            <td class="col-md-1">
+                                <a class="btn btn-xs delete-btn btn-danger"
+                                   ng-click="copyToDeleteCourse(course)" data-toggle="modal" data-target="#delCourse">
+                                    <span class="glyphicon glyphicon-remove"/>
                                 </a>
                             </td>
                         </tr>
@@ -141,6 +136,88 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="addCourse()" data-dismiss="modal">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modifyCourse" tabindex="-1" role="dialog" aria-labelledby="modifyCourseLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modifyCourseLabel">修改课程信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="modifyCourseForm">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">课程名称</span>
+                                <input type="text" class="form-control" name="name" aria-describedby="createName-addon" ng-model="toModifyCourseData.courseName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">起始周</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="toModifyCourseData.startWeek" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">结课周</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="toModifyCourseData.endWeek" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">星期</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList1.weekday" required>
+                                <span class="input-group-addon" id="createName-addon">第</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList1.startSection" required>
+                                <span class="input-group-addon" id="createName-addon">到</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList1.endSection" required>
+                                <span class="input-group-addon" id="createName-addon">节</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">星期</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList2.weekday" required>
+                                <span class="input-group-addon" id="createName-addon">第</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList2.startSection" required>
+                                <span class="input-group-addon" id="createName-addon">到</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList2.endSection" required>
+                                <span class="input-group-addon" id="createName-addon">节</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="createName-addon">星期</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList3.weekday" required>
+                                <span class="input-group-addon" id="createName-addon">第</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList3.startSection" required>
+                                <span class="input-group-addon" id="createName-addon">到</span>
+                                <input type="number" class="form-control" name="name" aria-describedby="createName-addon" ng-model="coursePerWeekJsonList3.endSection" required>
+                                <span class="input-group-addon" id="createName-addon">节</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="modifyCourse()" data-dismiss="modal">
                     保存
                 </button>
             </div>
