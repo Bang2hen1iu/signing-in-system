@@ -78,8 +78,10 @@ public class ScheduleTaskService {
                 for(CourseEntity courseEntity : courseEntities){
                     coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
                             courseEntity.getStudentId(), courseEntity.getCourseName(),currentWeekday);
-                    currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
-                            "~" + coursePerWeekEntity.getEndSection() + "节；";
+                    if(coursePerWeekEntity!=null){
+                        currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
+                                "~" + coursePerWeekEntity.getEndSection() + "节；";
+                    }
                 }
                 signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
 
