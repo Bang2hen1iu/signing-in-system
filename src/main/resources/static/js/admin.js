@@ -60,9 +60,58 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     });
 }]);
 app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.switchStudentCourse = function (student) {
+        $scope.currentStudentId = student.studentId;
+        $scope.hint = student.name;
+        $scope.getCourses();
+    };
+    $scope.getCourses = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/courses/'+$scope.currentStudentId
+        }).success(function (data) {
+            $scope.courseData = data;
+        });
+    };
+    $scope.addCourse = function () {
+        if($scope.currentStudentId == null){
+            alert("请先选择学生！");
+            return;
+        }
+        $scope.toAddCourseData.studentId = $scope.currentStudentId;
+        $scope.toAddCourseData.coursePerWeekJsonList = [
+            $scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+        $http({
+            method: 'POST',
+            url: '/api/admin_api/courses/addition',
+            data: $scope.toAddCourseData
+        }).success(function () {
+            alert("新增课程成功！");
+            $scope.getCourses();
+        });
+    };
+    $scope.copyCourse = function (course) {
+        $scope.toModifyCourse = course;
+    };
+    $scope.modifyCourse = function () {
 
+    };
     $(function () {
-
+        $scope.hint = '选择学生';
+        $scope.studentData = {};
+        $scope.currentStudentId = null;
+        $scope.courseData = {};
+        $scope.toModifyCourse = {};
+        $scope.toAddCourseData = {};
+        $scope.getStudent();
     });
 }]);
 app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) {

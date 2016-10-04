@@ -15,4 +15,5 @@ public interface CourseRepository extends JpaRepository<CourseEntity, StudentAnd
     @Query("select c from CourseEntity c where c.studentId = :studentId and (:currentWeek between c.startWeek and c.endWeek)")
     List<CourseEntity> getCoursesByStudentAndWeek(@Param("studentId") Long studentId,
                                                   @Param("currentWeek") int currentWeek);
+    List<CourseEntity> findByStudentId(Long studentId);
 }

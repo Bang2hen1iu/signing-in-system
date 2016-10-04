@@ -67,7 +67,7 @@ public class ScheduleTaskService {
             startDate = DateTime.parse(courseStartDateString);
             DateTime currentDate = DateTime.now();
             int currentWeek = DateUtils.getCurrentWeek(startDate, currentDate);
-            int currentWeekDay = DateUtils.getCurrentWeekDay(startDate, currentDate);
+            int currentWeekday = DateUtils.getCurrentWeekDay(startDate, currentDate);
             CoursePerWeekEntity coursePerWeekEntity;
             StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
             for(StudentEntity studentEntity : studentEntities){
@@ -77,7 +77,7 @@ public class ScheduleTaskService {
                 courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek);
                 for(CourseEntity courseEntity : courseEntities){
                     coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
-                            courseEntity.getStudentId(), courseEntity.getCourseName(),currentWeekDay);
+                            courseEntity.getStudentId(), courseEntity.getCourseName(),currentWeekday);
                     currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
                             "~" + coursePerWeekEntity.getEndSection() + "节；";
                 }

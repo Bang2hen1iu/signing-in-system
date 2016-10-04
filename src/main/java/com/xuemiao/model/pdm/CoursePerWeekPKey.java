@@ -1,25 +1,24 @@
 package com.xuemiao.model.pdm;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
  * Created by dzj on 10/4/2016.
  */
-@Entity
-@IdClass(value = CoursePerWeekPKey.class)
-@Table(name = "course_per_week")
-public class CoursePerWeekEntity implements Serializable{
-    @Id
-    private int weekday;
-    @Id
-    private int startSection;
-    @Id
-    private int endSection;
-    @Id
+@Embeddable
+public class CoursePerWeekPKey implements Serializable{
+    @Column(name = "student_id")
     private Long studentId;
-    @Id
+    @Column(name = "course_name")
     private String courseName;
+    @Column(name = "weekday")
+    private int weekday;
+    @Column(name = "start_section")
+    private int startSection;
+    @Column(name = "end_section")
+    private int endSection;
 
     public Long getStudentId() {
         return studentId;

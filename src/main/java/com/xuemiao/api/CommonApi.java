@@ -1,5 +1,7 @@
 package com.xuemiao.api;
 
+import com.xuemiao.api.Json.CoursePerWeekJson;
+import com.xuemiao.api.Json.CoursesInfoJson;
 import com.xuemiao.api.Json.SignInInfoJson;
 import com.xuemiao.api.Json.StatisticJson;
 import com.xuemiao.exception.DateFormatErrorException;
@@ -34,6 +36,10 @@ public class CommonApi {
     SignInInfoRepository signInInfoRepository;
     @Autowired
     AbsenceRepository absenceRepository;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    CoursePerWeekRepository coursePerWeekRepository;
 
     @GET
     @Path("/{psw}")
@@ -70,6 +76,34 @@ public class CommonApi {
             statisticJsonList.add(statisticJson);
         }
         return Response.ok().entity(statisticJsonList).build();
+    }
+
+    @GET
+    @Path("/courses/{studentId}")
+    public Response getCourseByStudentId(@PathParam("studentId")Long studentId){
+        List<CoursesInfoJson> coursesInfoJsonList = new ArrayList<>();
+        List<CourseEntity> courseEntities = courseRepository.findByStudentId(studentId);
+        for (CourseEntity courseEntity : courseEntities){
+            CoursesInfoJson coursesInfoJson = new CoursesInfoJson();
+            coursesInfoJson.setStudentId(courseEntity.getStudentId());
+            coursesInfoJson.setCourseName(courseEntity.getCourseName());
+            coursesInfoJson.setStartWeek(courseEntity.getStartWeek());
+            coursesInfoJson.setEndWeek(courseEntity.getEndWeek());
+            List<CoursePerWeekJson> coursePerWeekJsonList = new ArrayList<>();
+            List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByIdAndName(
+                    courseEntity.getStudentId(),courseEntity.getCourseName());
+            for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities){
+                CoursePerWeekJson coursePerWeekJson = new CoursePerWeekJson();
+                coursePerWeekJson.setWeekday(coursePerWeekEntity.getWeekday());
+                coursePerWeekJson.setStartSection(coursePerWeekEntity.getStartSection());
+                coursePerWeekJson.setEndSection(coursePerWeekEntity.getEndSection());
+                coursePerWeekJsonList.add(coursePerWeekJson);
+            }
+            coursesInfoJson.setCoursePerWeekJsonList(coursePerWeekJsonList);
+            coursesInfoJsonList.add(coursesInfoJson);
+        }
+        System.out.println(coursesInfoJsonList);
+        return Response.ok().entity(coursesInfoJsonList).build();
     }
 
     @GET
@@ -171,4 +205,5 @@ public class CommonApi {
         Date date = statisticsRepository.getLatestStatisticsDate();
         return Response.ok().entity(date).build();
     }
+
 }

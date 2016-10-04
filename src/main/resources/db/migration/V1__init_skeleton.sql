@@ -58,7 +58,7 @@ CREATE TABLE course_per_week (
   start_section INTEGER NOT NULL,
   end_section   INTEGER NOT NULL,
 
-  PRIMARY KEY (student_id, course_name),
+  PRIMARY KEY (student_id, course_name, weekday, start_section, end_section),
   FOREIGN KEY (student_id, course_name) REFERENCES course (student_id, course_name)
 ) WITHOUT OIDS;
 

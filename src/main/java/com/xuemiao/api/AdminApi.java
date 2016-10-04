@@ -1,14 +1,13 @@
 package com.xuemiao.api;
 
+import com.xuemiao.api.Json.CoursePerWeekJson;
+import com.xuemiao.api.Json.CoursesInfoJson;
 import com.xuemiao.api.Json.IdPasswordJson;
 import com.xuemiao.exception.AdminTokenWrongException;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.StudentAdditionException;
-import com.xuemiao.model.pdm.CourseEntity;
-import com.xuemiao.model.pdm.DutyStudentEntity;
-import com.xuemiao.model.pdm.StudentEntity;
-import com.xuemiao.model.pdm.SysAdminEntity;
+import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
@@ -22,6 +21,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +47,8 @@ public class AdminApi {
     DutyStudentRepository dutyStudentRepository;
     @Autowired
     StatisticsRepository statisticsRepository;
+    @Autowired
+    CoursePerWeekRepository coursePerWeekRepository;
 
     @GET
     @Path("/admin/token_validation")
@@ -109,8 +111,23 @@ public class AdminApi {
     @POST
     @Path("/courses/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addCourse(CourseEntity courseEntity) {
+    public Response addCourse(CoursesInfoJson coursesInfoJson) {
+        CourseEntity courseEntity = new CourseEntity();
+        List<CoursePerWeekEntity> coursePerWeekEntities = new ArrayList<>();
+        courseEntity.setStudentId(coursesInfoJson.getStudentId());
+        courseEntity.setCourseName(coursesInfoJson.getCourseName());
+        courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
+        courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
         courseRepository.save(courseEntity);
+        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()){
+            CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
+            coursePerWeekEntity.setStudentId(coursesInfoJson.getStudentId());
+            coursePerWeekEntity.setCourseName(coursesInfoJson.getCourseName());
+            coursePerWeekEntity.setStartSection(coursePerWeekJson.getStartSection());
+            coursePerWeekEntity.setEndSection(coursePerWeekJson.getEndSection());
+            coursePerWeekEntity.setWeekday(coursePerWeekJson.getWeekday());
+            coursePerWeekRepository.save(coursePerWeekEntity);
+        }
         return Response.ok().build();
     }
 
