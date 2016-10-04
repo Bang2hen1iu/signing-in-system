@@ -93,7 +93,7 @@ public class testDataInjectionApi {
         return Response.ok().build();
     }
 
-    @GET
+    @POST
     @Path("/sign_in_info")
     public Response injectSignInInfo(){
         List<StudentEntity> studentEntities = studentRepository.findAll();
@@ -134,15 +134,15 @@ public class testDataInjectionApi {
         List<StudentEntity> studentEntities = studentRepository.findAll();
         SignInInfoEntity signInInfoEntity;
         DateTime currentDate = DateTime.now();
-        DateTime previousDate = currentDate.minusDays(1);
+        DateTime previousDate = currentDate;
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-        StatisticsEntity statisticsEntity = new StatisticsEntity();
-        AbsenceEntity absenceEntity = null;
+        AbsenceEntity absenceEntity;
         for(StudentEntity studentEntity : studentEntities) {
             studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
             studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
             signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
             if (signInInfoEntity != null) {
+                StatisticsEntity statisticsEntity = new StatisticsEntity();
                 statisticsEntity.setStudentId(studentEntity.getStudentId());
                 statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
                 absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);

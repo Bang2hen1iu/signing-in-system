@@ -90,13 +90,13 @@ public class ScheduleTaskService {
 
             DateTime previousDate = currentDate.minusDays(1);
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-            StatisticsEntity statisticsEntity = new StatisticsEntity();
             AbsenceEntity absenceEntity = null;
             for(StudentEntity studentEntity : studentEntities) {
                 studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
                 studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
                 signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
                 if (signInInfoEntity != null) {
+                    StatisticsEntity statisticsEntity = new StatisticsEntity();
                     statisticsEntity.setStudentId(studentEntity.getStudentId());
                     statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
                     absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
