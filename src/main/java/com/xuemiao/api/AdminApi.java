@@ -9,8 +9,10 @@ import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
+import com.xuemiao.service.StatisticsService;
 import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
+import com.xuemiao.utils.PrecisionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +23,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +52,8 @@ public class AdminApi {
     StatisticsRepository statisticsRepository;
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
+    @Autowired
+    StatisticsService statisticsService;
 
     @GET
     @Path("/admin/token_validation")
@@ -199,11 +204,11 @@ public class AdminApi {
 
     @GET
     @Path("/statistics/range_query")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response rangeQueryStatistics(StatisticRangeQuery statisticRangeQuery) {
+    public Response rangeQueryStatistics(@QueryParam("startDate")Date startDate,
+                                         @QueryParam("endDate")Date endDate) {
+        System.out.println("AA:"+startDate);
         List<Object[]> statisticRangeDataList = statisticsRepository.getRangeStatistics(
-                DateUtils.parseDateString(statisticRangeQuery.getStartDate()),
-                DateUtils.parseDateString(statisticRangeQuery.getEndDate()));
-        return Response.ok().entity(statisticRangeDataList).build();
+                startDate, endDate);
+        return Response.ok().entity(statisticsService.object2Json(statisticRangeDataList)).build();
     }
 }

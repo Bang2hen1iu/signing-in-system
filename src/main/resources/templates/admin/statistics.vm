@@ -3,3 +3,42 @@
         <h2 class="page-header">统计数据</h2>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <input class="form-control" type="date" ng-model="startDate">
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control" type="date" ng-model="endDate">
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-info" ng-click="queryStatistic()">
+                            <span class="glyphicon glyphicon-plus"></span> 查询
+                        </button>
+                    </div>
+                </div>
+                <div class="page-header"></div>
+                <div class="col-md-12">
+                    <div ng-repeat="student in statistics | toArray | orderBy:'stayLabTime':true">
+                        <div class="col-md-10">
+                            <label style="float: left">
+                                {{student.name}}
+                            </label>
+                            <div class="progress col-md-offset-1">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                                     aria-valuemin="0" aria-valuemax="50" ng-style="getProgressBarWidth(student.stayLabTime)">
+                                    {{student.stayLabTime}}小时
+                                </div>
+                            </div>
+                        </div>
+                        <p style="float: left">请假次数：{{student.absenceTimes}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-var app = angular.module('signInSys', ['ngRoute']);
+var app = angular.module('signInSys', ['ngRoute', 'datetime', 'angular-toArrayFilter']);
 app.controller('signInSysCtrl', ['$scope', '$http', function ($scope,$http) {
     $scope.testToken = function () {
         $http({
@@ -202,10 +202,31 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
         $scope.getDutyStudent();
     });
 }]);
-app.controller('statisticsCtrl', ['$scope', '$http', function ($scope, $http) {
-
+app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scope, $http, datetime) {
+    $scope.queryStatistic = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.startDate);
+        $scope.toQueryData.startDate = parser.getText();
+        parser.setDate($scope.endDate);
+        $scope.toQueryData.endDate = parser.getText();
+        $http({
+            method: 'GET',
+            url: '/api/admin_api/statistics/range_query?startDate='+$scope.toQueryData.startDate+'&endDate='+$scope.toQueryData.endDate
+        }).success(function (data) {
+            $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
+            $scope.statistics = data;
+            $scope.toQueryData = {};
+            $scope.startDate = null;
+            $scope.endDate = null;
+        });
+    };
+    $scope.getProgressBarWidth = function(stayLabTime){
+        return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
+    };
     $(function () {
-
+        $scope.statistics = {};
+        $scope.toQueryData = {};
+        $scope.maxStayLabTime = null;
     });
 }]);
 app.config(['$routeProvider', function ($routeProvider) {

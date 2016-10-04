@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>签到系统</title>
-    <script src="#springUrl('/lib/angular/angular.min.js')"></script>
-    <script src="#springUrl('/js/admin.js')"></script>
     <link href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')" rel="stylesheet" type="text/css">
     <link href="#springUrl('/lib/metisMenu/dist/metisMenu.min.css')" rel="stylesheet" type="text/css">
     <link href="#springUrl('/lib/font-awesome/css/font-awesome.min.css')" rel="stylesheet" type="text/css">
@@ -23,8 +21,6 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="" ng-click="getUserProfile()" data-toggle="modal" data-target="#userProfile"><i
-                                class="fa fa-user fa-fw"></i> 个人信息</a></li>
                         <li><a href="" data-toggle="modal" data-target="#userPassword"><i class="fa fa-user fa-fw"></i>
                             修改管理员密码</a></li>
                         <li><a href="" data-toggle="modal" data-target="#userPassword"><i class="fa fa-user fa-fw"></i>
@@ -54,30 +50,6 @@
                 </div>
             </div>
         </nav>
-        <div class="modal fade" id="userProfile" tabindex="-1" role="dialog" aria-labelledby="userProfileLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="userProfileLabel">个人信息</h4>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">管理员编号：{{user_profile_data.adminId}}</li>
-                            <li class="list-group-item">姓名：{{user_profile_data.name}}</li>
-                            <li class="list-group-item">性别：<span ng-if="user_profile_data.gender==0">男</span><span
-                                    ng-if="user_profile_data.gender==1">女</span></li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info glyphicon glyphicon-eye-close" data-dismiss="modal">
-                            关闭
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="userPassword" tabindex="-1" role="dialog" aria-labelledby="userPasswordLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -119,8 +91,11 @@
 <script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>
 <script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
 <script src="#springUrl('/lib/metisMenu/dist/metisMenu.min.js')"></script>
+<script src="#springUrl('/lib/angular/angular.min.js')"></script>
 <script src="#springUrl('/lib/angular/toArrayFilter.js')"></script>
 <script src="#springUrl('/lib/angular/angular-route.min.js')"></script>
+<script src="#springUrl('/lib/angular-datetime/dist/datetime.js')"></script>
 <script src="#springUrl('/js/admin_setting.js')"></script>
+<script src="#springUrl('/js/admin.js')"></script>
 </body>
 </html>

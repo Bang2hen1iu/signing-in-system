@@ -7,6 +7,7 @@ import com.xuemiao.api.Json.StatisticJson;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
+import com.xuemiao.service.StatisticsService;
 import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
 import com.xuemiao.utils.PrecisionUtils;
@@ -40,6 +41,8 @@ public class CommonApi {
     CourseRepository courseRepository;
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
+    @Autowired
+    StatisticsService statisticsService;
 
     @GET
     @Path("/{psw}")
@@ -56,8 +59,7 @@ public class CommonApi {
 
     @GET
     @Path("/statistics/{date}")
-    public Response getStatisticData(@PathParam("date") String dateString) {
-        DateTime date = DateUtils.parseDateString(dateString);
+    public Response getStatisticData(@PathParam("date") Date date) {
         List<StatisticsEntity> statisticsEntities = statisticsRepository.findByOperDate(date);
         return Response.ok().entity(statisticsEntities).build();
     }
@@ -65,17 +67,8 @@ public class CommonApi {
     @GET
     @Path("/statistics/sum")
     public Response getStatisticsSum() {
-        List<StatisticJson> statisticJsonList = new ArrayList<>();
         List<Object[]> statisticList = statisticsRepository.getStatisticsSum();
-        for (Object[] statistic : statisticList) {
-            StatisticJson statisticJson = new StatisticJson();
-            statisticJson.setId((Long) statistic[0]);
-            statisticJson.setStayLabTime(PrecisionUtils.transferToSecondDecimal((double) statistic[1]));
-            statisticJson.setAbsenceTimes((Long) statistic[2]);
-            statisticJson.setName(studentRepository.findOne((Long) statistic[0]).getName());
-            statisticJsonList.add(statisticJson);
-        }
-        return Response.ok().entity(statisticJsonList).build();
+        return Response.ok().entity(statisticsService.object2Json(statisticList)).build();
     }
 
     @GET

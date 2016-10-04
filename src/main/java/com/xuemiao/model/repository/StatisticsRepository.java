@@ -14,13 +14,13 @@ import java.util.List;
  * Created by dzj on 10/1/2016.
  */
 public interface StatisticsRepository extends JpaRepository<StatisticsEntity, StudentIdAndOperDateKey> {
-    List<StatisticsEntity> findByOperDate(DateTime dateTime);
+    List<StatisticsEntity> findByOperDate(Date date);
 
     @Query("select distinct s.operDate from StatisticsEntity s")
     List<Date> getAllStatisticsDate();
 
     @Query("select s.studentId, sum(s.stayLabTime), sum(s.absenceTimes) from StatisticsEntity s where s.operDate >= :startDate and s.operDate <= :endDate group by s.studentId")
-    List<Object[]> getRangeStatistics(@Param("startDate") DateTime startDate, @Param("endDate") DateTime endDate);
+    List<Object[]> getRangeStatistics(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
     @Query("select s.studentId, sum(s.stayLabTime), sum(s.absenceTimes) from StatisticsEntity s group by s.studentId")
     List<Object[]> getStatisticsSum();

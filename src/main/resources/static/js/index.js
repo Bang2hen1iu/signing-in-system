@@ -60,14 +60,16 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
             method: 'GET',
             url: "/api/common_api/statistics/sum"
         }).success(function (data) {
+            $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
             $scope.rank_list_data = data;
         });
     };
     $scope.getProgressBarWidth = function (stayLabTime) {
-        return {'width':(stayLabTime/50*100)+'%'};
+        return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
     };
     $(function () {
         $scope.rank_list_data = {};
+        $scope.maxStayLabTime = null;
         $scope.getRankListData();
 
     });
