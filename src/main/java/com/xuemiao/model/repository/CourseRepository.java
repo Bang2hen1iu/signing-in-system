@@ -12,8 +12,7 @@ import java.util.List;
  * Created by dzj on 9/30/2016.
  */
 public interface CourseRepository extends JpaRepository<CourseEntity, StudentAndCourseNameKey> {
-    @Query("select c from CourseEntity c where c.studentId = :studentId and (:currentWeek between c.startWeek and c.endWeek) and c.weekDay = :currentWeekDay")
+    @Query("select c from CourseEntity c where c.studentId = :studentId and (:currentWeek between c.startWeek and c.endWeek)")
     List<CourseEntity> getCoursesByStudentAndWeek(@Param("studentId") Long studentId,
-                                                  @Param("currentWeek") int currentWeek,
-                                                  @Param("currentWeekDay") int currentWeekDay);
+                                                  @Param("currentWeek") int currentWeek);
 }

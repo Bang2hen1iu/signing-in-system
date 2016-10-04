@@ -46,12 +46,20 @@ CREATE TABLE course (
   course_name   TEXT    NOT NULL,
   start_week    INTEGER NOT NULL,
   end_week      INTEGER NOT NULL,
+
+  PRIMARY KEY (student_id, course_name),
+  FOREIGN KEY (student_id) REFERENCES student (id)
+) WITHOUT OIDS;
+
+CREATE TABLE course_per_week (
+  student_id    BIGINT,
+  course_name   TEXT    NOT NULL,
   weekday       INTEGER NOT NULL,
   start_section INTEGER NOT NULL,
   end_section   INTEGER NOT NULL,
 
   PRIMARY KEY (student_id, course_name),
-  FOREIGN KEY (student_id) REFERENCES student (id)
+  FOREIGN KEY (student_id, course_name) REFERENCES course (student_id, course_name)
 ) WITHOUT OIDS;
 
 CREATE TABLE duty_student (

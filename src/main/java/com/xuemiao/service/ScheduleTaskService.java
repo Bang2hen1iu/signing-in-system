@@ -43,6 +43,8 @@ public class ScheduleTaskService {
     AbsenceRepository absenceRepository;
     @Value("${task_execute_time}")
     int startHour;
+    @Autowired
+    CoursePerWeekRepository coursePerWeekRepository;
 
     public synchronized void startRefreshSignInfoTable(){
         if (scheduledExecutorService != null) {
@@ -66,14 +68,18 @@ public class ScheduleTaskService {
             DateTime currentDate = DateTime.now();
             int currentWeek = DateUtils.getCurrentWeek(startDate, currentDate);
             int currentWeekDay = DateUtils.getCurrentWeekDay(startDate, currentDate);
+            CoursePerWeekEntity coursePerWeekEntity;
+            StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
             for(StudentEntity studentEntity : studentEntities){
                 signInInfoEntity.setStudentId(studentEntity.getStudentId());
                 signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
                 currentDayCourseString  = "";
-                courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek, currentWeekDay);
+                courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek);
                 for(CourseEntity courseEntity : courseEntities){
-                    currentDayCourseString += courseEntity.getCourseName() + "第" + courseEntity.getStartSection() +
-                            "~" + courseEntity.getEndSection() + "节；";
+                    coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
+                            courseEntity.getStudentId(), courseEntity.getCourseName(),currentWeekDay);
+                    currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
+                            "~" + coursePerWeekEntity.getEndSection() + "节；";
                 }
                 signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
 

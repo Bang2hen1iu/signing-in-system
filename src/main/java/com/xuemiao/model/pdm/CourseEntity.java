@@ -18,12 +18,6 @@ public class CourseEntity implements Serializable {
     private int startWeek;
     @Column(name = "end_week")
     private int endWeek;
-    @Column(name = "weekday")
-    private int weekDay;
-    @Column(name = "start_section")
-    private int startSection;
-    @Column(name = "end_section")
-    private int endSection;
 
     public Long getStudentId() {
         return studentId;
@@ -55,29 +49,5 @@ public class CourseEntity implements Serializable {
 
     public void setEndWeek(int endWeek) {
         this.endWeek = endWeek;
-    }
-
-    public int getWeekDay() {
-        return weekDay;
-    }
-
-    public void setWeekDay(int weekDay) {
-        this.weekDay = weekDay;
-    }
-
-    public int getStartSection() {
-        return startSection;
-    }
-
-    public void setStartSection(int startSection) {
-        this.startSection = startSection;
-    }
-
-    public int getEndSection() {
-        return endSection;
-    }
-
-    public void setEndSection(int endSection) {
-        this.endSection = endSection;
     }
 }
