@@ -1,9 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.CoursePerWeekJson;
-import com.xuemiao.api.Json.CoursesInfoJson;
-import com.xuemiao.api.Json.SignInInfoJson;
-import com.xuemiao.api.Json.StatisticJson;
+import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
@@ -101,14 +98,18 @@ public class CommonApi {
 
     @GET
     @Path("/duty_students/{date}")
-    public Response getDutyStudents(@PathParam("date") String dateString)
+    public Response getDutyStudents(@PathParam("date") Date date)
             throws DateFormatErrorException {
-        DateTime date = DateUtils.parseDateString(dateString);
-        if (date == null) {
-            throw new DateFormatErrorException();
+        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findByOperDate(date);
+        List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities){
+            DutyStudentJson dutyStudentJson = new DutyStudentJson();
+            dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
+            dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
+            dutyStudentJson.setOperDate(dutyStudentEntity.getOperDate());
+            dutyStudentJsonList.add(dutyStudentJson);
         }
-        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findByOperDate(new Date(date.getMillis()));
-        return Response.ok().entity(dutyStudentEntities).build();
+        return Response.ok().entity(dutyStudentJsonList).build();
     }
 
     @GET

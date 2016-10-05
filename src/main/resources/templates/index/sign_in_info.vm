@@ -1,7 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-header">签到信息</h2>
+            <div class="page-header">
+                <div class="input-group">
+                    <h2 style="display: inline">签到信息  </h2>
+                    <input id="dateInput" style="display: inline" type="date" ng-model="currentDate">&nbsp;
+                    <h4 style="display: inline"><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-12">

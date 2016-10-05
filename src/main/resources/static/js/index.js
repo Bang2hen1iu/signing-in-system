@@ -1,4 +1,4 @@
-var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute']);
+var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
 sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
         $http({
@@ -23,17 +23,24 @@ sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $htt
         $scope.login_data = {};
     });
 }]);
-sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', function ($scope, $http, $q) {
+sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', function ($scope, $http, $q, datetime) {
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
             method: 'GET',
             url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.currentDate = data;
             defer.resolve(data);
         });
         return defer.promise;
+    };
+    $scope.getDutyStudent = function (date) {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/duty_students/'+date
+        }).success(function (data) {
+            $scope.dutyStudentData = data;
+        });
     };
     $scope.getSignInInfo = function (date) {
         $http({
@@ -45,13 +52,25 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', function (
     };
     $scope.firstLoad = function () {
         $scope.getLatestDate().then(function (date) {
+            var parser = datetime("yyyy-MM-dd");
+            parser.parse(date);
+            $scope.currentDate = parser.getDate();
+            console.log($scope.currentDate);
             $scope.getSignInInfo(date);
+            $scope.getDutyStudent(date);
         });
     };
     $(function () {
-        $scope.currentDate = "";
         $scope.signInInfoData = {};
+        $scope.dutyStudentData = {};
         $scope.firstLoad();
+        $('#dateInput').on('change',function () {
+            var parser = datetime("yyyy-MM-dd");
+            parser.setDate($scope.currentDate);
+            var date = parser.getText();
+            $scope.getSignInInfo(date);
+            $scope.getDutyStudent(date);
+        });
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {
@@ -71,7 +90,6 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         $scope.rank_list_data = {};
         $scope.maxStayLabTime = null;
         $scope.getRankListData();
-
     });
 }]);
 sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function ($scope, $http, $q) {
@@ -97,6 +115,15 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
     $scope.firstLoad = function () {
         $scope.getLatestDate().then(function (date) {
             $scope.getSignInInfo(date);
+            $scope.getDutyStudent(date);
+        });
+    };
+    $scope.getDutyStudent = function (date) {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/duty_students/'+date
+        }).success(function (data) {
+            $scope.dutyStudentData = data;
         });
     };
     $scope.copyStudent = function(student){
@@ -136,6 +163,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
         $scope.signInInfoData = {};
         $scope.askForAbsenceStudent = {};
         $scope.signInItem = {};
+        $scope.dutyStudentData = {};
         $scope.firstLoad();
     });
 }]);
