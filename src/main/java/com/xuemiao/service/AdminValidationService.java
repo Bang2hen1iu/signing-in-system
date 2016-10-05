@@ -26,4 +26,11 @@ public class AdminValidationService {
             throw new PasswordErrorException();
         }
     }
+
+    public void changePassword(String password, int type)
+    throws IdNotExistException, PasswordErrorException{
+        SysAdminEntity sysAdminEntity = sysAdminRepository.findByType(type);
+        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash(password));
+        sysAdminRepository.save(sysAdminEntity);
+    }
 }

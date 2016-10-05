@@ -1,5 +1,5 @@
 var app = angular.module('signInSys', ['ngRoute', 'datetime', 'angular-toArrayFilter']);
-app.controller('signInSysCtrl', ['$scope', '$http', function ($scope,$http) {
+app.controller('signInSysCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.testToken = function () {
         $http({
             method: 'GET',
@@ -15,8 +15,38 @@ app.controller('signInSysCtrl', ['$scope', '$http', function ($scope,$http) {
     });
 }]);
 app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
-    $(function () {
+    $scope.logout = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin_api/admin/logout'
+        }).success(function () {
+            window.location = '/admin/login';
+        });
+    };
+    $scope.modifyAdminPassword = function () {
+        $http({
+            method: 'PUT',
+            url: '/api/admin_api/admin/password_update/'+$scope.adminPassword
+        }).success(function () {
+            alert("修改成功！");
+        }).error(function () {
+            alert("修改失败！");
+        })
+    };
+    $scope.modifyLabPassword = function () {
+        $http({
+            method: 'PUT',
+            url: '/api/admin_api/admin/password_update/'+$scope.labPassword
+        }).success(function () {
+            alert("修改成功！");
+        }).error(function () {
+            alert("修改失败！");
+        })
+    };
 
+    $(function () {
+        $scope.adminPassword = "";
+        $scope.labPassword = "";
     });
 }]);
 app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {

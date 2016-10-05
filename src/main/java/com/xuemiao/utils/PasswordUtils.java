@@ -30,4 +30,5 @@ public class PasswordUtils {
         String passwordHash = sha256Hash.toHex() + ":" + salt + ":" + hashIteration;
         return passwordHash;
     }
+
 }

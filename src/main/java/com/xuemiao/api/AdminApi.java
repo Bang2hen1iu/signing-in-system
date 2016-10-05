@@ -84,14 +84,17 @@ public class AdminApi {
     }
 
     @PUT
-    @Path("/admin/password_update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response adminPasswordUpdate(IdPasswordJson idPasswordJson)
+    @Path("/admin/password_update/{psw}")
+    public Response adminPasswordUpdate(@PathParam("psw")String password)
             throws IdNotExistException, PasswordErrorException {
-        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword1(), 2);
-        SysAdminEntity sysAdminEntity = sysAdminRepository.findOne(idPasswordJson.getId());
-        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash(idPasswordJson.getPassword2()));
-        sysAdminRepository.save(sysAdminEntity);
+        adminValidationService.changePassword(password, 2);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/admin/logout")
+    public Response adminLogout(@CookieParam("token") String tokenString) {
+        cookieValidationService.deleteCookieByToken(tokenString);
         return Response.ok().build();
     }
 
