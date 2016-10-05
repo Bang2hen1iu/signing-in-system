@@ -35,7 +35,7 @@
                             <th>值日生</th>
                             <th>删除</th>
                         </tr>
-                        <tr ng-repeat="dutyStudent in dutyStudentData">
+                        <tr ng-repeat="dutyStudent in dutyStudentData | toArray | orderBy:'operDate':true">
                             <td>{{dutyStudent.operDate}}</td>
                             <td>{{dutyStudent.name}}</td>
                             <td>
