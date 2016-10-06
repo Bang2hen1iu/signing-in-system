@@ -283,6 +283,8 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             alert("签到成功！");
             clearArea();
             $scope.getSignInInfo($scope.currentDate);
+        }).error(function () {
+            alert("请先登录！");
         });
     };
     $scope.askForAbsence = function () {
@@ -293,6 +295,8 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         }).success(function (data) {
             alert("请假成功！");
             $scope.getSignInInfo($scope.currentDate);
+        }).error(function () {
+            alert("请先登录！");
         });
     };
     $(function () {

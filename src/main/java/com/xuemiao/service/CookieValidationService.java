@@ -1,5 +1,6 @@
 package com.xuemiao.service;
 
+import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.SignInTokenEntity;
 import com.xuemiao.model.repository.SignInTokenRepository;
 import com.xuemiao.model.repository.SysAdminRepository;
@@ -29,7 +30,7 @@ public class CookieValidationService {
     @Autowired
     SysAdminRepository sysAdminRepository;
 
-    public Response checkTokenCookie(String tokenString, int type){
+    public void checkTokenCookie(String tokenString, int type) throws TokenInvalidException{
         boolean flag = true;
         if(tokenString==null){
             flag = false;
@@ -42,9 +43,8 @@ public class CookieValidationService {
             }
         }
         if(!flag){
-            return Response.seeOther(URI.create("/out_of_date")).build();
+            throw new TokenInvalidException();
         }
-        return null;
     }
 
     public NewCookie getTokenCookie(Long id, String path, int age){

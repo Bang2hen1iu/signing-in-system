@@ -1,10 +1,7 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.*;
-import com.xuemiao.exception.AdminTokenWrongException;
-import com.xuemiao.exception.IdNotExistException;
-import com.xuemiao.exception.PasswordErrorException;
-import com.xuemiao.exception.StudentAdditionException;
+import com.xuemiao.exception.*;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
@@ -58,11 +55,8 @@ public class AdminApi {
     @GET
     @Path("/admin/token_validation")
     public Response adminTokenValidation(@CookieParam("token")String tokenString)
-    throws AdminTokenWrongException{
-        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 2);
-        if (loginResponse != null) {
-            throw new AdminTokenWrongException();
-        }
+    throws AdminTokenWrongException, TokenInvalidException{
+        cookieValidationService.checkTokenCookie(tokenString, 2);
         return Response.ok().cookie(refreshCookie(tokenString)).build();
     }
 

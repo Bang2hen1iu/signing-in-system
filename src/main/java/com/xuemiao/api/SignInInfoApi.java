@@ -6,6 +6,7 @@ import com.xuemiao.api.Json.SignInActionJson;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.SignInOrderException;
+import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.SignInInfoEntity;
 import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
@@ -54,11 +55,9 @@ public class SignInInfoApi {
 
     @POST
     @Path("/test")
-    public Response testCookie(@CookieParam("token") String tokenString) {
-        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
-        if (loginResponse != null) {
-            return loginResponse;
-        }
+    public Response testCookie(@CookieParam("token") String tokenString) throws TokenInvalidException{
+        cookieValidationService.checkTokenCookie(tokenString, 1);
+
         return Response.ok().entity(tokenString).build();
     }
 
@@ -99,11 +98,8 @@ public class SignInInfoApi {
     @Path("/sign_in_info/addition")
     public Response addSignIn(SignInActionJson signInActionJson,
                               @CookieParam("token")String tokenString)
-            throws SignInOrderException, IOException {
-        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
-        if (loginResponse != null) {
-            return loginResponse;
-        }
+            throws SignInOrderException, IOException, TokenInvalidException {
+        cookieValidationService.checkTokenCookie(tokenString, 1);
 
         String imgName = UUID.randomUUID().toString()+".png";
 
@@ -154,11 +150,8 @@ public class SignInInfoApi {
     @Path("/absences/addition")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson,
-                                      @CookieParam("token")String tokenString) {
-        Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
-        if (loginResponse != null) {
-            return loginResponse;
-        }
+                                      @CookieParam("token")String tokenString) throws TokenInvalidException{
+        cookieValidationService.checkTokenCookie(tokenString, 1);
 
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
         studentIdAndOperDateKey.setStudentId(absenceReasonJson.getStudentId());
