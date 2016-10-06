@@ -3,6 +3,7 @@ package com.xuemiao.api;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
+import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,36 @@ public class testDataInjectionApi {
     AbsenceRepository absenceRepository;
     @Autowired
     StatisticsRepository statisticsRepository;
+    @Autowired
+    SysAdminRepository sysAdminRepository;
+
+    @POST
+    @Path("/all")
+    public Response injectAll(){
+        injectAdminAccount();
+        injectStudent();
+        injectCourse();
+        injectSignInInfo();
+        injectStatistics();
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/admin")
+    public Response injectAdminAccount(){
+        SysAdminEntity sysAdminEntity = new SysAdminEntity();
+        Integer i1 = 66666;
+        sysAdminEntity.setAdminId(i1.longValue());
+        sysAdminEntity.setType(1);
+        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash("66666"));
+        sysAdminRepository.save(sysAdminEntity);
+        Integer i2 = 12345;
+        sysAdminEntity.setAdminId(i2.longValue());
+        sysAdminEntity.setType(2);
+        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash("12345"));
+        sysAdminRepository.save(sysAdminEntity);
+        return Response.ok().build();
+    }
 
     @POST
     @Path("/student")

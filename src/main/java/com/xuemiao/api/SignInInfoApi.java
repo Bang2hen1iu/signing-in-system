@@ -116,26 +116,31 @@ public class SignInInfoApi {
         studentIdAndOperDateKey.setStudentId(signInActionJson.getStudentId());
         studentIdAndOperDateKey.setOperDate(signInActionJson.getOperDate());
         SignInInfoEntity signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
-        signInInfoEntity.setSignatureImgName(imgName);
         Timestamp now = new Timestamp(DateTime.now().getMillis());
         switch (signInActionJson.getSignInOrder()) {
             case 1:
                 signInInfoEntity.setStartMorning(now);
+                signInInfoEntity.setStartMorningSignatureImgName(imgName);
                 break;
             case 2:
                 signInInfoEntity.setEndMorning(now);
+                signInInfoEntity.setEndMorningSignatureImgName(imgName);
                 break;
             case 3:
                 signInInfoEntity.setStartAfternoon(now);
+                signInInfoEntity.setStartAfternoonSignatureImgName(imgName);
                 break;
             case 4:
                 signInInfoEntity.setEndAfternoon(now);
+                signInInfoEntity.setEndAfternoonSignatureImgName(imgName);
                 break;
             case 5:
                 signInInfoEntity.setStartNight(now);
+                signInInfoEntity.setStartNightSignatureImgName(imgName);
                 break;
             case 6:
                 signInInfoEntity.setEndNight(now);
+                signInInfoEntity.setEndNightSignatureImgName(imgName);
                 break;
             default:
                 throw new SignInOrderException();

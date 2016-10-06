@@ -19,7 +19,12 @@ public class SignInInfoJson {
     private Timestamp startAbsence;
     private Timestamp endAbsence;
     private String absenceReason;
-    private String signatureImgName;
+    private String startMorningSignatureImgName;
+    private String endMorningSignatureImgName;
+    private String startAfternoonSignatureImgName;
+    private String endAfternoonSignatureImgName;
+    private String startNightSignatureImgName;
+    private String endNightSignatureImgName;
 
     public String getStudentId() {
         return studentId;
@@ -117,11 +122,51 @@ public class SignInInfoJson {
         this.absenceReason = absenceReason;
     }
 
-    public String getSignatureImgName() {
-        return signatureImgName;
+    public String getStartMorningSignatureImgName() {
+        return startMorningSignatureImgName;
     }
 
-    public void setSignatureImgName(String signatureImgName) {
-        this.signatureImgName = signatureImgName;
+    public void setStartMorningSignatureImgName(String startMorningSignatureImgName) {
+        this.startMorningSignatureImgName = startMorningSignatureImgName;
+    }
+
+    public String getEndMorningSignatureImgName() {
+        return endMorningSignatureImgName;
+    }
+
+    public void setEndMorningSignatureImgName(String endMorningSignatureImgName) {
+        this.endMorningSignatureImgName = endMorningSignatureImgName;
+    }
+
+    public String getStartAfternoonSignatureImgName() {
+        return startAfternoonSignatureImgName;
+    }
+
+    public void setStartAfternoonSignatureImgName(String startAfternoonSignatureImgName) {
+        this.startAfternoonSignatureImgName = startAfternoonSignatureImgName;
+    }
+
+    public String getEndAfternoonSignatureImgName() {
+        return endAfternoonSignatureImgName;
+    }
+
+    public void setEndAfternoonSignatureImgName(String endAfternoonSignatureImgName) {
+        this.endAfternoonSignatureImgName = endAfternoonSignatureImgName;
+    }
+
+    public String getStartNightSignatureImgName() {
+        return startNightSignatureImgName;
+    }
+
+    public void setStartNightSignatureImgName(String startNightSignatureImgName) {
+        this.startNightSignatureImgName = startNightSignatureImgName;
+    }
+
+    public String getEndNightSignatureImgName() {
+        return endNightSignatureImgName;
+    }
+
+    public void setEndNightSignatureImgName(String endNightSignatureImgName) {
+        this.endNightSignatureImgName = endNightSignatureImgName;
     }
 }

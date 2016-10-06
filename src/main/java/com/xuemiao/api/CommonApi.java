@@ -165,8 +165,12 @@ public class CommonApi {
                 signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
             }
 
-            signInInfoJson.setSignatureImgName(signInInfoEntity.getSignatureImgName());
-
+            signInInfoJson.setStartMorningSignatureImgName(signInInfoEntity.getStartMorningSignatureImgName());
+            signInInfoJson.setEndMorningSignatureImgName(signInInfoEntity.getEndMorningSignatureImgName());
+            signInInfoJson.setStartAfternoonSignatureImgName(signInInfoEntity.getStartAfternoonSignatureImgName());
+            signInInfoJson.setEndAfternoonSignatureImgName(signInInfoEntity.getEndAfternoonSignatureImgName());
+            signInInfoJson.setStartNightSignatureImgName(signInInfoEntity.getStartNightSignatureImgName());
+            signInInfoJson.setEndNightSignatureImgName(signInInfoEntity.getEndNightSignatureImgName());
             signInInfoJsonList.add(signInInfoJson);
         }
         return Response.ok().entity(signInInfoJsonList).build();

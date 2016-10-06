@@ -1,12 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="page-header">
-                <div class="input-group">
-                    <h4 style="display: inline"><span class="label label-primary">{{currentDate}}</span></h4>&nbsp;
-                    <h4 style="display: inline"><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4>
-                </div>
+            <div class="form-group">
+                <div class="col-md-1"><h4><span class="label label-primary">{{currentDate}}</span></h4></div>
+                <div class="col-md-1"><h4><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
             </div>
+            <div class="page-header"></div>
         </div>
     </div>
     <div class="col-md-12">

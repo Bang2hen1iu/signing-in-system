@@ -30,8 +30,18 @@ public class SignInInfoEntity implements Serializable {
     private Timestamp endNight;
     @Column(name = "current_day_courses")
     private String currentDayCourses;
-    @Column(name = "signature_img_name")
-    String signatureImgName;
+    @Column(name = "start_morning_signature_img_name")
+    private String startMorningSignatureImgName;
+    @Column(name = "end_morning_signature_img_name")
+    private String endMorningSignatureImgName;
+    @Column(name = "start_afternoon_signature_img_name")
+    private String startAfternoonSignatureImgName;
+    @Column(name = "end_afternoon_signature_img_name")
+    private String endAfternoonSignatureImgName;
+    @Column(name = "start_night_signature_img_name")
+    private String startNightSignatureImgName;
+    @Column(name = "end_night_signature_img_name")
+    private String endNightSignatureImgName;
 
     public Long getStudentId() {
         return studentId;
@@ -105,11 +115,51 @@ public class SignInInfoEntity implements Serializable {
         this.currentDayCourses = currentDayCourses;
     }
 
-    public String getSignatureImgName() {
-        return signatureImgName;
+    public String getStartMorningSignatureImgName() {
+        return startMorningSignatureImgName;
     }
 
-    public void setSignatureImgName(String signatureImgName) {
-        this.signatureImgName = signatureImgName;
+    public void setStartMorningSignatureImgName(String startMorningSignatureImgName) {
+        this.startMorningSignatureImgName = startMorningSignatureImgName;
+    }
+
+    public String getEndMorningSignatureImgName() {
+        return endMorningSignatureImgName;
+    }
+
+    public void setEndMorningSignatureImgName(String endMorningSignatureImgName) {
+        this.endMorningSignatureImgName = endMorningSignatureImgName;
+    }
+
+    public String getStartAfternoonSignatureImgName() {
+        return startAfternoonSignatureImgName;
+    }
+
+    public void setStartAfternoonSignatureImgName(String startAfternoonSignatureImgName) {
+        this.startAfternoonSignatureImgName = startAfternoonSignatureImgName;
+    }
+
+    public String getEndAfternoonSignatureImgName() {
+        return endAfternoonSignatureImgName;
+    }
+
+    public void setEndAfternoonSignatureImgName(String endAfternoonSignatureImgName) {
+        this.endAfternoonSignatureImgName = endAfternoonSignatureImgName;
+    }
+
+    public String getStartNightSignatureImgName() {
+        return startNightSignatureImgName;
+    }
+
+    public void setStartNightSignatureImgName(String startNightSignatureImgName) {
+        this.startNightSignatureImgName = startNightSignatureImgName;
+    }
+
+    public String getEndNightSignatureImgName() {
+        return endNightSignatureImgName;
+    }
+
+    public void setEndNightSignatureImgName(String endNightSignatureImgName) {
+        this.endNightSignatureImgName = endNightSignatureImgName;
     }
 }

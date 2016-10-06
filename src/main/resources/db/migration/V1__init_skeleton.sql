@@ -15,7 +15,12 @@ CREATE TABLE sign_in_info (
   start_night         TIMESTAMP,
   end_night           TIMESTAMP,
   current_day_courses TEXT NOT NULL,
-  signature_img_name  TEXT,
+  start_morning_signature_img_name  TEXT,
+  end_morning_signature_img_name  TEXT,
+  start_afternoon_signature_img_name  TEXT,
+  end_afternoon_signature_img_name  TEXT,
+  start_night_signature_img_name  TEXT,
+  end_night_signature_img_name  TEXT,
 
   PRIMARY KEY (student_id, oper_date),
   FOREIGN KEY (student_id) REFERENCES student (id)
