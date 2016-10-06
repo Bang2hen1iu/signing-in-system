@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-header">排行榜</h2>
+            <h2 class="page-header"></h2>
         </div>
     </div>
     <div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">

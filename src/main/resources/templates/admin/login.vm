@@ -1,4 +1,5 @@
-<html ng-app="signInSys" ng-controller="signInSysCtrl">
+<!DOCTYPE html>
+<html ng-app="signInSys" ng-controller="signInSysCtrl" lang="zh-CN">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">

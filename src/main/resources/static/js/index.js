@@ -1,4 +1,9 @@
 var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
+sign_in_app.controller('signInSysCtrl', ['$scope', '$http','datetime', function ($scope, $http, datetime) {
+
+    $(function () {
+    });
+}]);
 sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
         $http({
@@ -59,6 +64,45 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
         });
+    };
+    $scope.checkOnTime = function (order, tsp) {
+        var parser = datetime("yyyy-MM-dd HH:mm:ss");
+        var parser_date = datetime("yyyy-MM-dd");
+        parser_date.setDate($scope.currentDate);
+        var date = parser_date.getText();
+        switch (order){
+            case 1:
+                parser.parse(date + ' 09:00:00');
+                return parser.getDate() > new Date(tsp);
+            case 2:
+                parser.parse(date + ' 11:30:00');
+                return parser.getDate() < new Date(tsp);
+            case 3:
+                parser.parse(date + ' 14:00:00');
+                return parser.getDate() > new Date(tsp);
+            case 4:
+                parser.parse(date + ' 17:00:00');
+                return parser.getDate() < new Date(tsp);
+            case 5:
+                parser.parse(date + ' 18:30:00');
+                return parser.getDate() > new Date(tsp);
+            case 6:
+                parser.parse(date + ' 21:30:00');
+                return parser.getDate() < new Date(tsp);
+            default:
+                return false;
+        }
+    };
+    $scope.setTrStyle = function (order, tsp) {
+        if(tsp==null){
+            return '';
+        }
+        if($scope.checkOnTime(order, tsp)){
+            return 'warning';
+        }
+        else{
+            return 'info';
+        }
     };
     $(function () {
         $scope.signInInfoData = {};
