@@ -147,17 +147,17 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     var lastX, lastY;
     var ctx;
 
-    var InitThis = function() {
+    $scope.InitThis = function() {
         ctx = document.getElementById('myCanvas').getContext("2d");
 
         $('#myCanvas').mousedown(function (e) {
             mousePressed = true;
-            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+            $scope.Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
         });
 
         $('#myCanvas').mousemove(function (e) {
             if (mousePressed) {
-                Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+                $scope.Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
             }
         });
 
@@ -169,7 +169,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         });
     };
 
-    var Draw = function(x, y, isDown) {
+    $scope.Draw = function(x, y, isDown) {
         if (isDown) {
             ctx.beginPath();
             ctx.strokeStyle = $('#selColor').val();
@@ -183,7 +183,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         lastX = x; lastY = y;
     };
 
-    var clearArea = function() {
+    $scope.clearArea = function() {
         // Use the identity matrix while clearing the canvas
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -281,7 +281,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             data: $scope.signInItem
         }).success(function (data) {
             alert("签到成功！");
-            clearArea();
+            $scope.clearArea();
             $scope.getSignInInfo($scope.currentDate);
         }).error(function () {
             alert("请先登录！");
@@ -305,7 +305,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.askForAbsenceStudent = {};
         $scope.signInItem = {};
         $scope.dutyStudentData = {};
-        InitThis();
+        $scope.InitThis();
         $scope.firstLoad();
     });
 }]);

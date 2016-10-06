@@ -147,7 +147,7 @@
                     <div align="center">
                         <canvas id="myCanvas" width="800" height="400" style="border:2px solid #6699cc"></canvas>
                         <div class="control-ops">
-                            <button type="button" class="btn btn-primary" onclick="clearArea()">清空画板</button>
+                            <button type="button" class="btn btn-primary" ng-click="clearArea()">清空画板</button>
                             Line width : <select id="selWidth">
                             <option value="1">1</option>
                             <option value="3" selected="selected">3</option>
