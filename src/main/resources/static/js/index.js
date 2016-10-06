@@ -24,7 +24,7 @@ sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $htt
         $scope.login_data = {};
     });
 }]);
-sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', function ($scope, $http, $q, datetime) {
+sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', '$interval', function ($scope, $http, $q, datetime, $interval) {
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
@@ -56,9 +56,14 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             var parser = datetime("yyyy-MM-dd");
             parser.parse(date);
             $scope.currentDate = parser.getDate();
-            console.log($scope.currentDate);
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
+            $interval(function () {
+                parser.setDate($scope.currentDate);
+                if(date==parser.getText()){
+                    $scope.getSignInInfo(date);
+                }
+            }, 30000);
         });
     };
     $scope.checkOnTime = function (order, tsp) {
@@ -136,7 +141,54 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         $scope.getRankListData();
     });
 }]);
-sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function ($scope, $http, $q) {
+sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetime', function ($scope, $http, $q, datetime) {
+
+    var mousePressed = false;
+    var lastX, lastY;
+    var ctx;
+
+    var InitThis = function() {
+        ctx = document.getElementById('myCanvas').getContext("2d");
+
+        $('#myCanvas').mousedown(function (e) {
+            mousePressed = true;
+            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+        });
+
+        $('#myCanvas').mousemove(function (e) {
+            if (mousePressed) {
+                Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            }
+        });
+
+        $('#myCanvas').mouseup(function (e) {
+            mousePressed = false;
+        });
+        $('#myCanvas').mouseleave(function (e) {
+            mousePressed = false;
+        });
+    };
+
+    var Draw = function(x, y, isDown) {
+        if (isDown) {
+            ctx.beginPath();
+            ctx.strokeStyle = $('#selColor').val();
+            ctx.lineWidth = $('#selWidth').val();
+            ctx.lineJoin = "round";
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+        lastX = x; lastY = y;
+    };
+
+    var clearArea = function() {
+        // Use the identity matrix while clearing the canvas
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    };
+
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
@@ -169,6 +221,42 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
+    };
+    $scope.checkOnTime = function (order, tsp) {
+        var parser = datetime("yyyy-MM-dd HH:mm:ss");
+        switch (order){
+            case 1:
+                parser.parse($scope.currentDate + ' 09:00:00');
+                return parser.getDate() > new Date(tsp);
+            case 2:
+                parser.parse($scope.currentDate + ' 11:30:00');
+                return parser.getDate() < new Date(tsp);
+            case 3:
+                parser.parse($scope.currentDate + ' 14:00:00');
+                return parser.getDate() > new Date(tsp);
+            case 4:
+                parser.parse($scope.currentDate + ' 17:00:00');
+                return parser.getDate() < new Date(tsp);
+            case 5:
+                parser.parse($scope.currentDate + ' 18:30:00');
+                return parser.getDate() > new Date(tsp);
+            case 6:
+                parser.parse($scope.currentDate + ' 21:30:00');
+                return parser.getDate() < new Date(tsp);
+            default:
+                return false;
+        }
+    };
+    $scope.setTrStyle = function (order, tsp) {
+        if(tsp==null){
+            return '';
+        }
+        if($scope.checkOnTime(order, tsp)){
+            return 'warning';
+        }
+        else{
+            return 'info';
+        }
     };
     $scope.copyStudent = function(student){
         $scope.askForAbsenceStudent.studentId = student.studentId;
@@ -213,6 +301,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
         $scope.askForAbsenceStudent = {};
         $scope.signInItem = {};
         $scope.dutyStudentData = {};
+        InitThis();
         $scope.firstLoad();
     });
 }]);

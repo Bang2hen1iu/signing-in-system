@@ -52,7 +52,7 @@ public class ScheduleTaskService {
         }
         DateTime startTime = DateTime.now();
         int hourNow = startTime.getHourOfDay();
-        if(hourNow>startHour){
+        if(hourNow>=startHour){
             startTime = startTime.minusDays(-1);
         }
         startTime = startTime.minusHours(hourNow-startHour);

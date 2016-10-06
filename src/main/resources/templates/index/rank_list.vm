@@ -1,17 +1,16 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="page-header"></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2 class="page-header">排行榜</h2>
         </div>
     </div>
     <div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">
-        <div class="col-md-10">
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <label style="float: left">
                 {{student.name}}
             </label>
-            <div class="progress col-md-offset-1">
-                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
-                     aria-valuemin="0" aria-valuemax="50" ng-style="getProgressBarWidth(student.stayLabTime)">
+            <div class="progress col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" ng-style="getProgressBarWidth(student.stayLabTime)">
                     {{student.stayLabTime}}小时
                 </div>
             </div>

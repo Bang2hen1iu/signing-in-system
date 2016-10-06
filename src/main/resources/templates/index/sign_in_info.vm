@@ -2,21 +2,21 @@
     <div class="row">
         <div class="col-md-12">
                 <div class="form-group">
-                    <div class="col-md-2 col-lg-2"><input id="dateInput" class="form-control" type="date" ng-model="currentDate"></div>
-                    <div class="col-md-2 col-lg-2"><h4><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
-                    <div class="col-md-offset-4 col-lg-offset-4 col-md-2 col-lg-2">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><input id="dateInput" class="form-control" type="date" ng-model="currentDate"></div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
+                    <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <table class="table table-bordered">
                             <tr>
-                                <td class="col-md-4 col-lg-4 warning"></td>
-                                <td class="col-md-8 col-lg-8">按时</td>
+                                <td class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 warning"></td>
+                                <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">按时</td>
                             </tr>
                         </table>
                     </div>
-                    <div class="col-md-2 col-lg-2">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <table class="table table-bordered">
                             <tr>
-                                <td class="info col-md-4 col-lg-4"></td>
-                                <td class="col-md-8 col-lg-8">迟到/早退</td>
+                                <td class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 info"></td>
+                                <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">迟到/早退</td>
                             </tr>
                         </table>
                     </div>
@@ -28,64 +28,64 @@
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr class="success">
-                <th class="col-md-1" rowspan="2">姓名</th>
-                <th class="col-md-2" colspan="2">上午（9:00~11:30）</th>
-                <th class="col-md-2" colspan="2">下午（2:00~5:00）</th>
-                <th class="col-md-2" colspan="2">晚上（6:30~9:30）</th>
-                <th class="col-md-5" colspan="2">备注</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" rowspan="2">姓名</th>
+                <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2" colspan="2">上午（9:00~11:30）</th>
+                <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2" colspan="2">下午（2:00~5:00）</th>
+                <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2" colspan="2">晚上（6:30~9:30）</th>
+                <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5" colspan="2">备注</th>
             </tr>
             <tr class="success">
-                <td class="col-md-1">到达</td>
-                <td class="col-md-1">离开</td>
-                <td class="col-md-1">到达</td>
-                <td class="col-md-1">离开</td>
-                <td class="col-md-1">到达</td>
-                <td class="col-md-1">离开</td>
-                <td class="col-md-2">上课</td>
-                <td class="col-md-2">请假</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">到达</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">离开</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">到达</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">离开</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">到达</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1">离开</td>
+                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">上课</td>
+                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">请假</td>
             </tr>
             <tr ng-repeat="student in signInInfoData">
-                <td class="col-md-1 active">{{student.name}}</td>
-                <td class="col-md-1" ng-class="setTrStyle(1, student.startMorning)">
-                    <div ng-if="student.startMorning" ng-style="">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 active">{{student.name}}</td>
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(1, student.startMorning)">
+                    <div ng-if="student.startMorning">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.startMorningSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-1" ng-class="setTrStyle(2, student.endMorning)">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(2, student.endMorning)">
                     <div ng-if="student.endMorning">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.endMorningSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-1" ng-class="setTrStyle(3, student.startAfternoon)">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(3, student.startAfternoon)">
                     <div ng-if="student.startAfternoon">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.startAfternoonSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-1" ng-class="setTrStyle(4, student.endAfternoon)">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(4, student.endAfternoon)">
                     <div ng-if="student.endAfternoon">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.endAfternoonSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-1" ng-class="setTrStyle(5, student.startNight)">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(5, student.startNight)">
                     <div ng-if="student.startNight">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.startNightSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-1" ng-class="setTrStyle(6, student.endNight)">
+                <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(6, student.endNight)">
                     <div ng-if="student.endNight">
                         <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.endNightSignatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
-                <td class="col-md-2">
+                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     {{student.currentDayCourses}}
                 </td>
-                <td class="col-md-2" ng-class="{'danger':(student.absenceReason!=null||student.startAbsence!=null)}">
+                <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-class="{'danger':(student.absenceReason!=null||student.startAbsence!=null)}">
                     <span ng-if="student.absenceReason">原由：{{student.absenceReason}}，</span>
                     <span ng-if="student.startAbsence">时间：{{student.startAbsence | date:'HH:mm'}}~{{student.endAbsence | date:'HH:mm'}}</span>
                 </td>
