@@ -9,14 +9,13 @@ import com.xuemiao.exception.SignInOrderException;
 import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.SignInInfoEntity;
 import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
-import com.xuemiao.model.pdm.SysAdminEntity;
 import com.xuemiao.model.repository.AbsenceRepository;
 import com.xuemiao.model.repository.SignInInfoRepository;
 import com.xuemiao.model.repository.SysAdminRepository;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.utils.DateUtils;
-import com.xuemiao.utils.PasswordUtils;
+import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +25,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.sql.Date;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -48,6 +49,8 @@ public class SignInInfoApi {
     SysAdminRepository sysAdminRepository;
     @Value("${admin.cookie.token.age}")
     int adminCookieAge;
+    @Value("${signatureImgPath}")
+    String signatureImgPath;
 
     @POST
     @Path("/test")
@@ -96,16 +99,24 @@ public class SignInInfoApi {
     @Path("/sign_in_info/addition")
     public Response addSignIn(SignInActionJson signInActionJson,
                               @CookieParam("token")String tokenString)
-            throws SignInOrderException {
+            throws SignInOrderException, IOException {
         Response loginResponse = cookieValidationService.checkTokenCookie(tokenString, 1);
         if (loginResponse != null) {
             return loginResponse;
         }
 
+        String imgName = UUID.randomUUID().toString()+".png";
+
+        byte imageData[] = Base64.decodeBase64(signInActionJson.getImageData());
+        FileOutputStream out = new FileOutputStream(signatureImgPath+imgName);
+        out.write(imageData);
+        out.close();
+
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
         studentIdAndOperDateKey.setStudentId(signInActionJson.getStudentId());
         studentIdAndOperDateKey.setOperDate(signInActionJson.getOperDate());
         SignInInfoEntity signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
+        signInInfoEntity.setSignatureImgName(imgName);
         Timestamp now = new Timestamp(DateTime.now().getMillis());
         switch (signInActionJson.getSignInOrder()) {
             case 1:

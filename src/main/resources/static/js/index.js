@@ -1,11 +1,7 @@
 var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
-sign_in_app.controller('signInSysCtrl', ['$scope', '$http','datetime', function ($scope, $http, datetime) {
-
-    $(function () {
-    });
-}]);
 sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
+        console.log("wa");
         $http({
             method: 'POST',
             url: "/api/sign_in_info_api/admin/validation",
@@ -104,9 +100,13 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return 'info';
         }
     };
+    $scope.copySignatureImgName = function (signatureImgName) {
+        $scope.signatureImgPath = '/api/common_api/sign_in_info/signatures/'+signatureImgName;
+    };
     $(function () {
         $scope.signInInfoData = {};
         $scope.dutyStudentData = {};
+        $scope.signatureImgPath = null;
         $scope.firstLoad();
         $('#dateInput').on('change',function () {
             var parser = datetime("yyyy-MM-dd");
@@ -183,12 +183,17 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', function
         $scope.signInItem.operDate = $scope.currentDate;
     };
     $scope.signInAction = function () {
+        // Generate the image data
+        $scope.signInItem.imageData = document.getElementById("myCanvas").toDataURL("image/png");
+        $scope.signInItem.imageData = $scope.signInItem.imageData.replace(/^data:image\/(png|jpg);base64,/, "");
+
         $http({
             method: 'POST',
             url: "/api/sign_in_info_api/sign_in_info/addition",
             data: $scope.signInItem
         }).success(function (data) {
             alert("签到成功！");
+            clearArea();
             $scope.getSignInInfo($scope.currentDate);
         });
     };

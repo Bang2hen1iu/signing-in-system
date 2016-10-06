@@ -9,6 +9,7 @@ public class SignInActionJson {
     private Long studentId;
     private Date operDate;
     private int signInOrder;
+    private String imageData;
 
     public Long getStudentId() {
         return studentId;
@@ -32,5 +33,13 @@ public class SignInActionJson {
 
     public void setSignInOrder(int signInOrder) {
         this.signInOrder = signInOrder;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
 }

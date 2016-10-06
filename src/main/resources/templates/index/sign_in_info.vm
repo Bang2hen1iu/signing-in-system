@@ -48,37 +48,37 @@
                 <td class="col-md-1 active">{{student.name}}</td>
                 <td class="col-md-1" ng-class="setTrStyle(1, student.startMorning)">
                     <div ng-if="student.startMorning" ng-style="">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1" ng-class="setTrStyle(2, student.endMorning)">
                     <div ng-if="student.endMorning">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endMorning | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1" ng-class="setTrStyle(3, student.startAfternoon)">
                     <div ng-if="student.startAfternoon">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1" ng-class="setTrStyle(4, student.endAfternoon)">
                     <div ng-if="student.endAfternoon">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endAfternoon | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1" ng-class="setTrStyle(5, student.startNight)">
                     <div ng-if="student.startNight">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.startNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
                 <td class="col-md-1" ng-class="setTrStyle(6, student.endNight)">
                     <div ng-if="student.endNight">
-                        <button type="button" class="btn btn-default">查看签名</button>
+                        <button data-toggle="modal" data-target="#signature" ng-click="copySignatureImgName(student.signatureImgName)" type="button" class="btn btn-default">查看签名</button>
                         签名时间：{{student.endNight | date:'HH:mm:ss'}}
                     </div>
                 </td>
@@ -91,5 +91,19 @@
                 </td>
             </tr>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="signature" tabindex="-1" role="dialog" aria-labelledby="signatureLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="signatureLabel">签名</h4>
+            </div>
+            <div class="modal-body">
+                <img ng-src="{{signatureImgPath}}">
+            </div>
+        </div>
     </div>
 </div>

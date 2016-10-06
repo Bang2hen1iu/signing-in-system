@@ -19,6 +19,7 @@ public class SignInInfoJson {
     private Timestamp startAbsence;
     private Timestamp endAbsence;
     private String absenceReason;
+    private String signatureImgName;
 
     public String getStudentId() {
         return studentId;
@@ -114,5 +115,13 @@ public class SignInInfoJson {
 
     public void setAbsenceReason(String absenceReason) {
         this.absenceReason = absenceReason;
+    }
+
+    public String getSignatureImgName() {
+        return signatureImgName;
+    }
+
+    public void setSignatureImgName(String signatureImgName) {
+        this.signatureImgName = signatureImgName;
     }
 }

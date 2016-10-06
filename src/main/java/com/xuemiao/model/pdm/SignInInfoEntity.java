@@ -30,6 +30,8 @@ public class SignInInfoEntity implements Serializable {
     private Timestamp endNight;
     @Column(name = "current_day_courses")
     private String currentDayCourses;
+    @Column(name = "signature_img_name")
+    String signatureImgName;
 
     public Long getStudentId() {
         return studentId;
@@ -101,5 +103,13 @@ public class SignInInfoEntity implements Serializable {
 
     public void setCurrentDayCourses(String currentDayCourses) {
         this.currentDayCourses = currentDayCourses;
+    }
+
+    public String getSignatureImgName() {
+        return signatureImgName;
+    }
+
+    public void setSignatureImgName(String signatureImgName) {
+        this.signatureImgName = signatureImgName;
     }
 }

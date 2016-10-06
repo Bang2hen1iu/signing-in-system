@@ -2,6 +2,7 @@ package com.xuemiao.api;
 
 import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.DateFormatErrorException;
+import com.xuemiao.exception.ImgNotExistException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.StatisticsService;
@@ -10,11 +11,15 @@ import com.xuemiao.utils.PasswordUtils;
 import com.xuemiao.utils.PrecisionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,7 @@ import java.util.List;
 /**
  * Created by dzj on 10/1/2016.
  */
+@Component
 @Path("/common_api")
 public class CommonApi {
     @Autowired
@@ -40,6 +46,8 @@ public class CommonApi {
     CoursePerWeekRepository coursePerWeekRepository;
     @Autowired
     StatisticsService statisticsService;
+    @Value("${signatureImgPath}")
+    String signatureImgPath;
 
     @GET
     @Path("/{psw}")
@@ -156,9 +164,24 @@ public class CommonApi {
                 signInInfoJson.setEndAbsence(absenceEntity.getEndAbsence());
                 signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
             }
+
+            signInInfoJson.setSignatureImgName(signInInfoEntity.getSignatureImgName());
+
             signInInfoJsonList.add(signInInfoJson);
         }
         return Response.ok().entity(signInInfoJsonList).build();
+    }
+
+    @GET
+    @Path("/sign_in_info/signatures/{name}")
+    public Response getSignatureImgByPath(@PathParam("name")String name)
+    throws ImgNotExistException{
+        File f = new File(signatureImgPath+name);
+        if (!f.exists()) {
+            throw new ImgNotExistException();
+        }
+        String mt = new MimetypesFileTypeMap().getContentType(f);
+        return Response.ok(f, mt).build();
     }
 
     @GET

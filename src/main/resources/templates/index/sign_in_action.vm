@@ -122,20 +122,41 @@
     </div>
 
     <div class="modal fade" id="SignIn" tabindex="-1" role="dialog" aria-labelledby="SignInLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="SignInLabel">请签名</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" name="SignInLabelForm">
-                    </form>
+                    <div align="center">
+                        <canvas id="myCanvas" width="800" height="400" style="border:2px solid #6699cc"></canvas>
+                        <div class="control-ops">
+                            <button type="button" class="btn btn-primary" onclick="javascript:clearArea();return false;">清空画板</button>
+                            Line width : <select id="selWidth">
+                            <option value="1">1</option>
+                            <option value="3" selected="selected">3</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="9">9</option>
+                            <option value="11">11</option>
+                        </select>
+                            Color : <select id="selColor">
+                            <option value="black" selected="selected">black</option>
+                            <option value="blue">blue</option>
+                            <option value="red">red</option>
+                            <option value="green">green</option>
+                            <option value="yellow">yellow</option>
+                            <option value="gray">gray</option>
+                        </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="signInAction()" data-dismiss="modal">保存</button>
+                    <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="signInAction()" data-dismiss="modal">上传</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="#springUrl('/js/sign_in.js')"></script>
