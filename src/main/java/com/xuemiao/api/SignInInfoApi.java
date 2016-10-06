@@ -55,7 +55,7 @@ public class SignInInfoApi {
 
     @POST
     @Path("/test")
-    public Response testCookie(@CookieParam("token") String tokenString) throws TokenInvalidException{
+    public Response testCookie(@CookieParam("token") String tokenString) throws TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 1);
 
         return Response.ok().entity(tokenString).build();
@@ -75,13 +75,13 @@ public class SignInInfoApi {
     public Response adminValidation(IdPasswordJson idPasswordJson)
             throws IdNotExistException, PasswordErrorException {
         adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword1(), 1);
-        System.out.println("XXX:"+adminCookieAge);
+        System.out.println("XXX:" + adminCookieAge);
         return Response.ok().cookie(getCookie(idPasswordJson.getId())).build();
     }
 
     @PUT
     @Path("/admin/password_update/{psw}")
-    public Response adminPasswordUpdate(@PathParam("psw")String password)
+    public Response adminPasswordUpdate(@PathParam("psw") String password)
             throws IdNotExistException, PasswordErrorException {
         adminValidationService.changePassword(password, 1);
         return Response.ok().build();
@@ -97,14 +97,14 @@ public class SignInInfoApi {
     @POST
     @Path("/sign_in_info/addition")
     public Response addSignIn(SignInActionJson signInActionJson,
-                              @CookieParam("token")String tokenString)
+                              @CookieParam("token") String tokenString)
             throws SignInOrderException, IOException, TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 1);
 
-        String imgName = UUID.randomUUID().toString()+".png";
+        String imgName = UUID.randomUUID().toString() + ".png";
 
         byte imageData[] = Base64.decodeBase64(signInActionJson.getImageData());
-        FileOutputStream out = new FileOutputStream(signatureImgPath+imgName);
+        FileOutputStream out = new FileOutputStream(signatureImgPath + imgName);
         out.write(imageData);
         out.close();
 
@@ -150,14 +150,14 @@ public class SignInInfoApi {
     @Path("/absences/addition")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson,
-                                      @CookieParam("token")String tokenString) throws TokenInvalidException{
+                                      @CookieParam("token") String tokenString) throws TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 1);
 
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
         studentIdAndOperDateKey.setStudentId(absenceReasonJson.getStudentId());
         studentIdAndOperDateKey.setOperDate(absenceReasonJson.getOperDate());
         AbsenceEntity originAbsenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
-        if(originAbsenceEntity==null){
+        if (originAbsenceEntity == null) {
             AbsenceEntity absenceEntity = new AbsenceEntity();
             absenceEntity.setStudentId(absenceReasonJson.getStudentId());
             absenceEntity.setOperDate(absenceReasonJson.getOperDate());
@@ -165,8 +165,7 @@ public class SignInInfoApi {
             absenceEntity.setStartAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getStartAbsence()));
             absenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));
             absenceRepository.save(absenceEntity);
-        }
-        else{
+        } else {
             originAbsenceEntity.setAbsenceReason(absenceReasonJson.getAbsenceReason());
             originAbsenceEntity.setStartAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getStartAbsence()));
             originAbsenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));

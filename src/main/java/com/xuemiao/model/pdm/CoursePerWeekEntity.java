@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @IdClass(value = CoursePerWeekPKey.class)
 @Table(name = "course_per_week")
-public class CoursePerWeekEntity implements Serializable{
+public class CoursePerWeekEntity implements Serializable {
     @Id
     private int weekday;
     @Id

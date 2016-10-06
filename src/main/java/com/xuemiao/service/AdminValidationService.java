@@ -17,18 +17,17 @@ public class AdminValidationService {
     SysAdminRepository sysAdminRepository;
 
     public void testPassword(Long id, String password, int type)
-    throws IdNotExistException, PasswordErrorException{
+            throws IdNotExistException, PasswordErrorException {
         SysAdminEntity sysAdminEntity = sysAdminRepository.findOne(id);
-        if(sysAdminEntity==null||sysAdminEntity.getType()!=type){
+        if (sysAdminEntity == null || sysAdminEntity.getType() != type) {
             throw new IdNotExistException();
-        }
-        else if(!PasswordUtils.isPasswordCorrect(password, sysAdminEntity.getPasswordSalted())){
+        } else if (!PasswordUtils.isPasswordCorrect(password, sysAdminEntity.getPasswordSalted())) {
             throw new PasswordErrorException();
         }
     }
 
     public void changePassword(String password, int type)
-    throws IdNotExistException, PasswordErrorException{
+            throws IdNotExistException, PasswordErrorException {
         SysAdminEntity sysAdminEntity = sysAdminRepository.findByType(type);
         sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash(password));
         sysAdminRepository.save(sysAdminEntity);

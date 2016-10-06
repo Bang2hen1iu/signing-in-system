@@ -21,14 +21,6 @@ public class AbsenceReasonJson {
         this.operDate = operDate;
     }
 
-    public void setStartAbsence(Timestamp startAbsence) {
-        this.startAbsence = startAbsence;
-    }
-
-    public void setEndAbsence(Timestamp endAbsence) {
-        this.endAbsence = endAbsence;
-    }
-
     public Long getStudentId() {
         return studentId;
     }
@@ -49,7 +41,15 @@ public class AbsenceReasonJson {
         return startAbsence;
     }
 
+    public void setStartAbsence(Timestamp startAbsence) {
+        this.startAbsence = startAbsence;
+    }
+
     public Timestamp getEndAbsence() {
         return endAbsence;
+    }
+
+    public void setEndAbsence(Timestamp endAbsence) {
+        this.endAbsence = endAbsence;
     }
 }

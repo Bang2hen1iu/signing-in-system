@@ -1,7 +1,5 @@
 package com.xuemiao.model.pdm;
 
-import org.joda.time.DateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;

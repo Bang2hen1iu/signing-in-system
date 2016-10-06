@@ -1,21 +1,19 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.*;
+import com.xuemiao.api.Json.CoursePerWeekJson;
+import com.xuemiao.api.Json.CoursesInfoJson;
+import com.xuemiao.api.Json.DutyStudentJson;
+import com.xuemiao.api.Json.IdPasswordJson;
 import com.xuemiao.exception.*;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.service.StatisticsService;
-import com.xuemiao.utils.DateUtils;
-import com.xuemiao.utils.PasswordUtils;
-import com.xuemiao.utils.PrecisionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
@@ -54,8 +52,8 @@ public class AdminApi {
 
     @GET
     @Path("/admin/token_validation")
-    public Response adminTokenValidation(@CookieParam("token")String tokenString)
-    throws AdminTokenWrongException, TokenInvalidException{
+    public Response adminTokenValidation(@CookieParam("token") String tokenString)
+            throws AdminTokenWrongException, TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 2);
         return Response.ok().cookie(refreshCookie(tokenString)).build();
     }
@@ -79,7 +77,7 @@ public class AdminApi {
 
     @PUT
     @Path("/admin/password_update/{psw}")
-    public Response adminPasswordUpdate(@PathParam("psw")String password)
+    public Response adminPasswordUpdate(@PathParam("psw") String password)
             throws IdNotExistException, PasswordErrorException {
         adminValidationService.changePassword(password, 2);
         return Response.ok().build();
@@ -110,7 +108,7 @@ public class AdminApi {
         return Response.ok().build();
     }
 
-    private void saveCoursePerWeekJson(Long id, String name, CoursePerWeekJson coursePerWeekJson){
+    private void saveCoursePerWeekJson(Long id, String name, CoursePerWeekJson coursePerWeekJson) {
         CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
         coursePerWeekEntity.setStudentId(id);
         coursePerWeekEntity.setCourseName(name);
@@ -131,8 +129,8 @@ public class AdminApi {
         courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
         courseRepository.save(courseEntity);
-        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()){
-            if(coursePerWeekJson==null){
+        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
+            if (coursePerWeekJson == null) {
                 continue;
             }
             saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
@@ -143,7 +141,7 @@ public class AdminApi {
     @PUT
     @Path("/courses/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response modifyCourse(CoursesInfoJson coursesInfoJson){
+    public Response modifyCourse(CoursesInfoJson coursesInfoJson) {
         StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
         studentAndCourseNameKey.setStudentId(coursesInfoJson.getStudentId());
         studentAndCourseNameKey.setCourseName(coursesInfoJson.getCourseName());
@@ -152,7 +150,7 @@ public class AdminApi {
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
         courseRepository.save(courseEntity);
         coursePerWeekRepository.deleteByStudentIdAndCourseName(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName());
-        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()){
+        for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
             saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
         }
         return Response.ok().build();
@@ -160,8 +158,8 @@ public class AdminApi {
 
     @DELETE
     @Path("/courses/deletion")
-    public Response deleteCourse(@QueryParam("studentId")Long studentId,
-                                 @QueryParam("courseName")String courseName){
+    public Response deleteCourse(@QueryParam("studentId") Long studentId,
+                                 @QueryParam("courseName") String courseName) {
         coursePerWeekRepository.deleteByStudentIdAndCourseName(studentId, courseName);
         StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
         studentAndCourseNameKey.setStudentId(studentId);
@@ -175,7 +173,7 @@ public class AdminApi {
     public Response getDutyStudents() {
         List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
         List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findAll();
-        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities){
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
             DutyStudentJson dutyStudentJson = new DutyStudentJson();
             dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
             dutyStudentJson.setOperDate(dutyStudentEntity.getOperDate());
@@ -194,16 +192,16 @@ public class AdminApi {
 
     @DELETE
     @Path("/duty_student/deletion")
-    public Response deleteDutyStudent(@QueryParam("studentId")Long studentId){
+    public Response deleteDutyStudent(@QueryParam("studentId") Long studentId) {
         dutyStudentRepository.deleteByStudentId(studentId);
         return Response.ok().build();
     }
 
     @GET
     @Path("/statistics/range_query")
-    public Response rangeQueryStatistics(@QueryParam("startDate")Date startDate,
-                                         @QueryParam("endDate")Date endDate) {
-        System.out.println("AA:"+startDate);
+    public Response rangeQueryStatistics(@QueryParam("startDate") Date startDate,
+                                         @QueryParam("endDate") Date endDate) {
+        System.out.println("AA:" + startDate);
         List<Object[]> statisticRangeDataList = statisticsRepository.getRangeStatistics(
                 startDate, endDate);
         return Response.ok().entity(statisticsService.object2Json(statisticRangeDataList)).build();

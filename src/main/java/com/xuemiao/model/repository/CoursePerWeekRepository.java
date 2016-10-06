@@ -13,14 +13,16 @@ import java.util.List;
 /**
  * Created by dzj on 10/4/2016.
  */
-public interface CoursePerWeekRepository extends JpaRepository<CoursePerWeekEntity, CoursePerWeekPKey>{
+public interface CoursePerWeekRepository extends JpaRepository<CoursePerWeekEntity, CoursePerWeekPKey> {
     @Query("select c from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName and c.weekday = :weekday")
-    CoursePerWeekEntity findOneByIdAndNameAndWeekday(@Param("studentId")Long studentId,
-                                                     @Param("courseName")String courseName,
-                                                     @Param("weekday")int weekday);
+    CoursePerWeekEntity findOneByIdAndNameAndWeekday(@Param("studentId") Long studentId,
+                                                     @Param("courseName") String courseName,
+                                                     @Param("weekday") int weekday);
+
     @Query("select c from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName")
-    List<CoursePerWeekEntity> findByIdAndName(@Param("studentId")Long studentId,
-                                             @Param("courseName")String courseName);
+    List<CoursePerWeekEntity> findByIdAndName(@Param("studentId") Long studentId,
+                                              @Param("courseName") String courseName);
+
     @Transactional
     @Modifying
     @Query("delete from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName")

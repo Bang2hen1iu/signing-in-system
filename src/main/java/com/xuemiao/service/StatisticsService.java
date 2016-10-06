@@ -17,7 +17,7 @@ public class StatisticsService {
     @Autowired
     StudentRepository studentRepository;
 
-    public List<StatisticJson> object2Json(List<Object[]> statisticList){
+    public List<StatisticJson> object2Json(List<Object[]> statisticList) {
         List<StatisticJson> statisticJsonList = new ArrayList<>();
         for (Object[] statistic : statisticList) {
             StatisticJson statisticJson = new StatisticJson();

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by dzj on 10/4/2016.
  */
 @Embeddable
-public class CoursePerWeekPKey implements Serializable{
+public class CoursePerWeekPKey implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
     @Column(name = "course_name")

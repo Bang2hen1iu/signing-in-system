@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -45,7 +44,7 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/all")
-    public Response injectAll(){
+    public Response injectAll() {
         injectAdminAccount();
         injectStudent();
         injectCourse();
@@ -56,7 +55,7 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/admin")
-    public Response injectAdminAccount(){
+    public Response injectAdminAccount() {
         SysAdminEntity sysAdminEntity = new SysAdminEntity();
         Integer i1 = 66666;
         sysAdminEntity.setAdminId(i1.longValue());
@@ -73,7 +72,7 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/student")
-    public Response injectStudent(){
+    public Response injectStudent() {
         List<String> nameList = new ArrayList<>();
         nameList.add("邓梓君");
         nameList.add("雨天飞");
@@ -81,7 +80,7 @@ public class testDataInjectionApi {
         nameList.add("谢敏珊");
         nameList.add("肖永杰");
 
-        for (String name:nameList){
+        for (String name : nameList) {
             StudentEntity studentEntity = new StudentEntity();
             studentEntity.setName(name);
             studentRepository.save(studentEntity);
@@ -91,11 +90,11 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/course")
-    public Response injectCourse(){
+    public Response injectCourse() {
         String courseName = "计算机视觉";
         List<StudentEntity> studentEntities = studentRepository.findAll();
         Random rand = new Random();
-        for(StudentEntity studentEntity:studentEntities){
+        for (StudentEntity studentEntity : studentEntities) {
             CourseEntity courseEntity = new CourseEntity();
             courseEntity.setStudentId(studentEntity.getStudentId());
             courseEntity.setCourseName(courseName);
@@ -126,7 +125,7 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/sign_in_info")
-    public Response injectSignInInfo(){
+    public Response injectSignInInfo() {
         List<StudentEntity> studentEntities = studentRepository.findAll();
         SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
         String currentDayCourseString = null;
@@ -138,16 +137,16 @@ public class testDataInjectionApi {
         int currentWeekday = DateUtils.getCurrentWeekDay(startDate, currentDate);
         CoursePerWeekEntity coursePerWeekEntity;
         StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
-        for(StudentEntity studentEntity : studentEntities){
+        for (StudentEntity studentEntity : studentEntities) {
             signInInfoEntity.setStudentId(studentEntity.getStudentId());
             signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
-            currentDayCourseString  = "";
+            currentDayCourseString = "";
             courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek);
-            for(CourseEntity courseEntity : courseEntities){
-                System.out.println("AA"+courseEntity.getCourseName());
+            for (CourseEntity courseEntity : courseEntities) {
+                System.out.println("AA" + courseEntity.getCourseName());
                 coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
                         courseEntity.getStudentId(), courseEntity.getCourseName(), currentWeekday);
-                if(coursePerWeekEntity!=null){
+                if (coursePerWeekEntity != null) {
                     currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
                             "~" + coursePerWeekEntity.getEndSection() + "节；";
                 }
@@ -161,14 +160,14 @@ public class testDataInjectionApi {
 
     @POST
     @Path("/statistics")
-    public Response injectStatistics(){
+    public Response injectStatistics() {
         List<StudentEntity> studentEntities = studentRepository.findAll();
         SignInInfoEntity signInInfoEntity;
         DateTime currentDate = DateTime.now();
         DateTime previousDate = currentDate;
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
         AbsenceEntity absenceEntity;
-        for(StudentEntity studentEntity : studentEntities) {
+        for (StudentEntity studentEntity : studentEntities) {
             studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
             studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
             signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);

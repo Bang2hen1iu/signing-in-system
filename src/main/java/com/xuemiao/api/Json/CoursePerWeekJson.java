@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by dzj on 10/4/2016.
  */
-public class CoursePerWeekJson implements Serializable{
+public class CoursePerWeekJson implements Serializable {
     private int weekday;
     private int startSection;
     private int endSection;

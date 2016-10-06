@@ -2,7 +2,6 @@ package com.xuemiao.model.repository;
 
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

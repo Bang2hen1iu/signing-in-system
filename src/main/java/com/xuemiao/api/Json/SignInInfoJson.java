@@ -1,6 +1,5 @@
 package com.xuemiao.api.Json;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**

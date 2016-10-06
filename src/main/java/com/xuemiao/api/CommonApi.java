@@ -1,6 +1,9 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.*;
+import com.xuemiao.api.Json.CoursePerWeekJson;
+import com.xuemiao.api.Json.CoursesInfoJson;
+import com.xuemiao.api.Json.DutyStudentJson;
+import com.xuemiao.api.Json.SignInInfoJson;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.exception.ImgNotExistException;
 import com.xuemiao.model.pdm.*;
@@ -8,7 +11,6 @@ import com.xuemiao.model.repository.*;
 import com.xuemiao.service.StatisticsService;
 import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
-import com.xuemiao.utils.PrecisionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,10 +80,10 @@ public class CommonApi {
 
     @GET
     @Path("/courses/{studentId}")
-    public Response getCourseByStudentId(@PathParam("studentId")Long studentId){
+    public Response getCourseByStudentId(@PathParam("studentId") Long studentId) {
         List<CoursesInfoJson> coursesInfoJsonList = new ArrayList<>();
         List<CourseEntity> courseEntities = courseRepository.findByStudentId(studentId);
-        for (CourseEntity courseEntity : courseEntities){
+        for (CourseEntity courseEntity : courseEntities) {
             CoursesInfoJson coursesInfoJson = new CoursesInfoJson();
             coursesInfoJson.setStudentId(courseEntity.getStudentId());
             coursesInfoJson.setCourseName(courseEntity.getCourseName());
@@ -89,8 +91,8 @@ public class CommonApi {
             coursesInfoJson.setEndWeek(courseEntity.getEndWeek());
             List<CoursePerWeekJson> coursePerWeekJsonList = new ArrayList<>();
             List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByIdAndName(
-                    courseEntity.getStudentId(),courseEntity.getCourseName());
-            for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities){
+                    courseEntity.getStudentId(), courseEntity.getCourseName());
+            for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities) {
                 CoursePerWeekJson coursePerWeekJson = new CoursePerWeekJson();
                 coursePerWeekJson.setWeekday(coursePerWeekEntity.getWeekday());
                 coursePerWeekJson.setStartSection(coursePerWeekEntity.getStartSection());
@@ -110,7 +112,7 @@ public class CommonApi {
             throws DateFormatErrorException {
         List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findByOperDate(date);
         List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
-        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities){
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
             DutyStudentJson dutyStudentJson = new DutyStudentJson();
             dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
             dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
@@ -131,26 +133,26 @@ public class CommonApi {
         List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(dateTime.getMillis()));
         List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
         AbsenceEntity absenceEntity;
-        for (SignInInfoEntity signInInfoEntity : signInInfoEntities){
+        for (SignInInfoEntity signInInfoEntity : signInInfoEntities) {
             SignInInfoJson signInInfoJson = new SignInInfoJson();
             signInInfoJson.setStudentId(signInInfoEntity.getStudentId().toString());
             signInInfoJson.setName(studentRepository.findOne(signInInfoEntity.getStudentId()).getName());
-            if(signInInfoEntity.getStartMorning()!=null){
+            if (signInInfoEntity.getStartMorning() != null) {
                 signInInfoJson.setStartMorning(signInInfoEntity.getStartMorning());
             }
-            if(signInInfoEntity.getEndMorning()!=null){
+            if (signInInfoEntity.getEndMorning() != null) {
                 signInInfoJson.setEndMorning(signInInfoEntity.getEndMorning());
             }
-            if(signInInfoEntity.getStartAfternoon()!=null){
+            if (signInInfoEntity.getStartAfternoon() != null) {
                 signInInfoJson.setStartAfternoon(signInInfoEntity.getStartAfternoon());
             }
-            if(signInInfoEntity.getEndAfternoon()!=null){
+            if (signInInfoEntity.getEndAfternoon() != null) {
                 signInInfoJson.setEndAfternoon(signInInfoEntity.getEndAfternoon());
             }
-            if(signInInfoEntity.getStartNight()!=null){
+            if (signInInfoEntity.getStartNight() != null) {
                 signInInfoJson.setStartNight(signInInfoEntity.getStartNight());
             }
-            if(signInInfoEntity.getEndNight()!=null){
+            if (signInInfoEntity.getEndNight() != null) {
                 signInInfoJson.setEndNight(signInInfoEntity.getEndNight());
             }
             signInInfoJson.setCurrentDayCourses(signInInfoEntity.getCurrentDayCourses());
@@ -159,7 +161,7 @@ public class CommonApi {
             studentIdAndOperDateKey.setStudentId(signInInfoEntity.getStudentId());
             studentIdAndOperDateKey.setOperDate(signInInfoEntity.getOperDate());
             absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
-            if(absenceEntity!=null){
+            if (absenceEntity != null) {
                 signInInfoJson.setStartAbsence(absenceEntity.getStartAbsence());
                 signInInfoJson.setEndAbsence(absenceEntity.getEndAbsence());
                 signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
@@ -178,9 +180,9 @@ public class CommonApi {
 
     @GET
     @Path("/sign_in_info/signatures/{name}")
-    public Response getSignatureImgByPath(@PathParam("name")String name)
-    throws ImgNotExistException{
-        File f = new File(signatureImgPath+name);
+    public Response getSignatureImgByPath(@PathParam("name") String name)
+            throws ImgNotExistException {
+        File f = new File(signatureImgPath + name);
         if (!f.exists()) {
             throw new ImgNotExistException();
         }

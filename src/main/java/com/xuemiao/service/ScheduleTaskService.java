@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -27,8 +25,8 @@ import java.util.concurrent.TimeUnit;
 @Scope("singleton")
 public class ScheduleTaskService {
     private final static int PERIOD_IN_SECONDS = 86400;
-    ScheduledExecutorService scheduledExecutorService = null;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleTaskService.class);
+    ScheduledExecutorService scheduledExecutorService = null;
     @Autowired
     StudentRepository studentRepository;
     @Autowired
@@ -46,17 +44,17 @@ public class ScheduleTaskService {
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
 
-    public synchronized void startRefreshSignInfoTable(){
+    public synchronized void startRefreshSignInfoTable() {
         if (scheduledExecutorService != null) {
             LOGGER.warn("Refresh scheduler has already start.");
         }
         DateTime startTime = DateTime.now();
         int hourNow = startTime.getHourOfDay();
-        if(hourNow>=startHour){
+        if (hourNow >= startHour) {
             startTime = startTime.minusDays(-1);
         }
-        startTime = startTime.minusHours(hourNow-startHour);
-        int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(),startTime);
+        startTime = startTime.minusHours(hourNow - startHour);
+        int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
@@ -70,15 +68,15 @@ public class ScheduleTaskService {
             int currentWeekday = DateUtils.getCurrentWeekDay(startDate, currentDate);
             CoursePerWeekEntity coursePerWeekEntity;
             StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
-            for(StudentEntity studentEntity : studentEntities){
+            for (StudentEntity studentEntity : studentEntities) {
                 signInInfoEntity.setStudentId(studentEntity.getStudentId());
                 signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
-                currentDayCourseString  = "";
+                currentDayCourseString = "";
                 courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek);
-                for(CourseEntity courseEntity : courseEntities){
+                for (CourseEntity courseEntity : courseEntities) {
                     coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
-                            courseEntity.getStudentId(), courseEntity.getCourseName(),currentWeekday);
-                    if(coursePerWeekEntity!=null){
+                            courseEntity.getStudentId(), courseEntity.getCourseName(), currentWeekday);
+                    if (coursePerWeekEntity != null) {
                         currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
                                 "~" + coursePerWeekEntity.getEndSection() + "节；";
                     }
@@ -91,7 +89,7 @@ public class ScheduleTaskService {
             DateTime previousDate = currentDate.minusDays(1);
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             AbsenceEntity absenceEntity = null;
-            for(StudentEntity studentEntity : studentEntities) {
+            for (StudentEntity studentEntity : studentEntities) {
                 studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
                 studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
                 signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
