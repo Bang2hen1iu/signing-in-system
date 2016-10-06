@@ -74,7 +74,9 @@ public class CommonApi {
     @GET
     @Path("/statistics/sum")
     public Response getStatisticsSum() {
-        List<Object[]> statisticList = statisticsRepository.getStatisticsSum();
+        DateTime now = DateTime.now();
+        DateTime dateTime = new DateTime(now.getYear(), now.getMonthOfYear(), 1, 0, 0, 0, 0);
+        List<Object[]> statisticList = statisticsRepository.getStatisticsByStartDate(new Date(dateTime.getMillis()));
         return Response.ok().entity(statisticsService.object2Json(statisticList)).build();
     }
 
@@ -116,7 +118,8 @@ public class CommonApi {
             DutyStudentJson dutyStudentJson = new DutyStudentJson();
             dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
             dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
-            dutyStudentJson.setOperDate(dutyStudentEntity.getOperDate());
+            dutyStudentJson.setStartDate(dutyStudentEntity.getStartDate());
+            dutyStudentJson.setEndDate(dutyStudentEntity.getEndDate());
             dutyStudentJsonList.add(dutyStudentJson);
         }
         return Response.ok().entity(dutyStudentJsonList).build();

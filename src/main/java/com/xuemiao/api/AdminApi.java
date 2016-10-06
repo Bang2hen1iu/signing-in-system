@@ -176,7 +176,8 @@ public class AdminApi {
         for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
             DutyStudentJson dutyStudentJson = new DutyStudentJson();
             dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
-            dutyStudentJson.setOperDate(dutyStudentEntity.getOperDate());
+            dutyStudentJson.setStartDate(dutyStudentEntity.getStartDate());
+            dutyStudentJson.setEndDate(dutyStudentEntity.getEndDate());
             dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
             dutyStudentJsonList.add(dutyStudentJson);
         }

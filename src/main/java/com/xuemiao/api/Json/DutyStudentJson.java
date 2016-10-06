@@ -8,7 +8,8 @@ import java.sql.Date;
 public class DutyStudentJson {
     private Long studentId;
     private String name;
-    private Date operDate;
+    private Date startDate;
+    private Date endDate;
 
     public Long getStudentId() {
         return studentId;
@@ -26,11 +27,19 @@ public class DutyStudentJson {
         this.name = name;
     }
 
-    public Date getOperDate() {
-        return operDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setOperDate(Date operDate) {
-        this.operDate = operDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

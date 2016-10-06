@@ -8,18 +8,19 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="col-md-4">
-                    <input class="form-control" type="date" ng-model="startDate">
-                </div>
-                <div class="col-md-4">
-                    <input class="form-control" type="date" ng-model="endDate">
-                </div>
-                <div class="col-md-2">
-                    <div class="input-group">
-                        <button type="button" class="btn btn-info" ng-click="queryStatistic()">
-                            <span class="glyphicon glyphicon-plus"></span> 查询
-                        </button>
-                    </div>
+                <div class="col-md-5">
+                    <form class="form-horizontal">
+                        <div class="input-group">
+                            <input class="form-control" type="date" ng-model="startDate">
+                            <span class="input-group-addon">到</span>
+                            <input class="form-control" type="date" ng-model="endDate">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-info" ng-click="queryStatistic()">
+                                    <span class="glyphicon glyphicon-plus"></span> 查询
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="page-header"></div>
                 <div class="col-md-12">

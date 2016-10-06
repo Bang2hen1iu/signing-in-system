@@ -10,7 +10,9 @@
                 <div class="col-md-5">
                     <form class="form-horizontal">
                         <div class="input-group">
-                            <input class="form-control" type="date" ng-model="toAddDutyData.operDate">
+                            <input class="form-control" type="date" ng-model="toAddDutyData.startDate">
+                            <span class="input-group-addon">到</span>
+                            <input class="form-control" type="date" ng-model="toAddDutyData.endDate">
                             <div class="input-group-btn">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -35,8 +37,8 @@
                             <th>值日生</th>
                             <th>删除</th>
                         </tr>
-                        <tr ng-repeat="dutyStudent in dutyStudentData | toArray | orderBy:'operDate':true">
-                            <td>{{dutyStudent.operDate}}</td>
+                        <tr ng-repeat="dutyStudent in dutyStudentData | toArray | orderBy:'startDate':true">
+                            <td>{{dutyStudent.startDate}} 到 {{dutyStudent.endDate}}</td>
                             <td>{{dutyStudent.name}}</td>
                             <td>
                                 <a href="" class="btn btn-xs delete-btn btn-danger" ng-click="delDutyStudent(dutyStudent.studentId)">

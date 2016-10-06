@@ -69,10 +69,11 @@ CREATE TABLE course_per_week (
 ) WITHOUT OIDS;
 
 CREATE TABLE duty_student (
-  student_id BIGINT,
-  oper_date  DATE,
+  student_id  BIGINT,
+  start_date  DATE,
+  end_date    DATE,
 
-  PRIMARY KEY (student_id, oper_date),
+  PRIMARY KEY (student_id, start_date, end_date),
   FOREIGN KEY (student_id) REFERENCES student (id)
 ) WITHOUT OIDS;
 

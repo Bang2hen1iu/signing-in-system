@@ -1,21 +1,20 @@
 package com.xuemiao.model.pdm;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by dzj on 9/30/2016.
+ * Created by dzj on 10/7/2016.
  */
-@Entity
-@IdClass(value = DutyStudentPK.class)
-@Table(name = "duty_student")
-public class DutyStudentEntity implements Serializable {
-    @Id
+@Embeddable
+public class DutyStudentPK implements Serializable{
+    @Column(name = "student_id")
     private Long studentId;
-    @Id
+    @Column(name = "start_date")
     private Date startDate;
-    @Id
+    @Column(name = "end_date")
     private Date endDate;
 
     public Long getStudentId() {
