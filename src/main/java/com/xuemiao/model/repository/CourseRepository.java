@@ -3,8 +3,10 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.CourseEntity;
 import com.xuemiao.model.pdm.StudentAndCourseNameKey;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +19,9 @@ public interface CourseRepository extends JpaRepository<CourseEntity, StudentAnd
                                                   @Param("currentWeek") int currentWeek);
 
     List<CourseEntity> findByStudentId(Long studentId);
+
+    @Transactional
+    @Modifying
+    @Query("delete from CourseEntity s where s.studentId = :studentId")
+    void deleteByStudentId(@Param("studentId")Long studentId);
 }

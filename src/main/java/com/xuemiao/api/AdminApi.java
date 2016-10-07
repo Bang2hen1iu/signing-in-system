@@ -49,6 +49,10 @@ public class AdminApi {
     CoursePerWeekRepository coursePerWeekRepository;
     @Autowired
     StatisticsService statisticsService;
+    @Autowired
+    AbsenceRepository absenceRepository;
+    @Autowired
+    SignInInfoRepository signInInfoRepository;
 
     @GET
     @Path("/admin/token_validation")
@@ -104,6 +108,13 @@ public class AdminApi {
     @DELETE
     @Path("/student/deletion/{id}")
     public Response deleteStudent(@PathParam("id") Long id) {
+        dutyStudentRepository.deleteByStudentId(id);
+        coursePerWeekRepository.deleteByStudentId(id);
+        courseRepository.deleteByStudentId(id);
+        statisticsRepository.deleteByStudentId(id);
+        absenceRepository.deleteByStudentId(id);
+        signInInfoRepository.deleteByStudentId(id);
+
         studentRepository.delete(id);
         return Response.ok().build();
     }

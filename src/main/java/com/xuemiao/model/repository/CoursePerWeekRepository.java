@@ -28,4 +28,9 @@ public interface CoursePerWeekRepository extends JpaRepository<CoursePerWeekEnti
     @Query("delete from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName")
     void deleteByStudentIdAndCourseName(@Param("studentId") Long studentId,
                                         @Param("courseName") String courseName);
+
+    @Transactional
+    @Modifying
+    @Query("delete from CoursePerWeekEntity s where s.studentId = :studentId")
+    void deleteByStudentId(@Param("studentId")Long studentId);
 }
