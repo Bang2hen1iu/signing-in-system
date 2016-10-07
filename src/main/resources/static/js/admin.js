@@ -36,7 +36,7 @@ app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     $scope.modifyLabPassword = function () {
         $http({
             method: 'PUT',
-            url: '/api/admin_api/admin/password_update/'+$scope.labPassword
+            url: '/api/sign_in_info_api/admin/password_update/'+$scope.labPassword
         }).success(function () {
             alert("修改成功！");
         }).error(function () {
@@ -69,16 +69,16 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
             $scope.studentData = data;
         });
     };
-    $scope.copyStudentId = function (id) {
-        $scope.toDeleteStudentId = id;
+    $scope.copyStudent = function (student) {
+        $scope.toDeleteStudent = student;
     };
     $scope.delStudent = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/student/deletion/'+$scope.toDeleteStudentId
+            url: '/api/admin_api/student/deletion/'+$scope.toDeleteStudent.studentId
         }).success(function () {
             alert("删除成功！");
-            $scope.toDeleteStudentId = null;
+            $scope.toDeleteStudent = null;
             $scope.getStudent();
         });
     };

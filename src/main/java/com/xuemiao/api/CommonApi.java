@@ -219,6 +219,13 @@ public class CommonApi {
     }
 
     @GET
+    @Path("/system_time")
+    public Response getSystemTime(){
+        DateTime now = DateTime.now();
+        return Response.ok().entity(now.getHourOfDay()+":"+now.getMinuteOfHour()+":"+now.getSecondOfMinute()).build();
+    }
+
+    @GET
     @Path("/statistics/date")
     public Response getStatisticsDate() {
         List<Date> dateList = statisticsRepository.getAllStatisticsDate();

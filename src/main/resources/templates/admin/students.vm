@@ -24,7 +24,7 @@
                             <td class="col-md-3">{{student.name}}</td>
                             <td class="col-md-1">
                                 <a class="btn btn-xs delete-btn btn-danger"
-                                   ng-click="copyStudentId(student.studentId)" data-toggle="modal" data-target="#delStudent">
+                                   ng-click="copyStudent(student)" data-toggle="modal" data-target="#delStudent">
                                     <span class="glyphicon glyphicon-remove"/>
                                 </a>
                             </td>
@@ -73,9 +73,7 @@
                 <h4 class="modal-title" id="delStudentLabel">确认删除</h4>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <h4>这名学生的全部信息将被删除，请再次慎重确认！</h4>
-                </div>
+                <div class="alert alert-danger" role="alert">{{toDeleteStudent.name}}的全部信息将被删除，请再次慎重确认！</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger glyphicon glyphicon-remove" data-dismiss="modal" ng-click="delStudent()"> 删除

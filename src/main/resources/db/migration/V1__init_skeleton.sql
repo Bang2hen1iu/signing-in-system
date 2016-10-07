@@ -1,7 +1,7 @@
 CREATE TABLE student (
   id   BIGINT,
   name TEXT NOT NULL,
-  in_school BOOL,
+
   PRIMARY KEY (id)
 ) WITHOUT OIDS;
 

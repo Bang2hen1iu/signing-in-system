@@ -46,37 +46,37 @@
             <tr ng-repeat="student in signInInfoData">
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 active">{{student.name}}</td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(1, student.startMorning)">
-                    <button ng-click="copySignInItem(student.studentId, 1)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 1)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn1" class="btn btn-default">签名</button>
                     <div ng-if="student.startMorning">
                         已于{{student.startMorning | date:'HH:mm:ss'}}签名
                     </div>
                 </td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(2, student.endMorning)">
-                    <button ng-click="copySignInItem(student.studentId, 2)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 2)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn2" class="btn btn-default">签名</button>
                     <div ng-if="student.endMorning">
                         已于{{student.endMorning | date:'HH:mm:ss'}}签名
                     </div>
                 </td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(3, student.startAfternoon)">
-                    <button ng-click="copySignInItem(student.studentId, 3)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 3)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn3" class="btn btn-default">签名</button>
                     <div ng-if="student.startAfternoon">
                         已于{{student.startAfternoon | date:'HH:mm:ss'}}签名
                     </div>
                 </td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(4, student.endAfternoon)">
-                    <button ng-click="copySignInItem(student.studentId, 4)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 4)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn4" class="btn btn-default">签名</button>
                     <div ng-if="student.endAfternoon">
                         已于{{student.endAfternoon | date:'HH:mm:ss'}}签名
                     </div>
                 </td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(5, student.startNight)">
-                    <button ng-click="copySignInItem(student.studentId, 5)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 5)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn5" class="btn btn-default">签名</button>
                     <div ng-if="student.startNight">
                         已于{{student.startNight | date:'HH:mm:ss'}}签名
                     </div>
                 </td>
                 <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(6, student.endNight)">
-                    <button ng-click="copySignInItem(student.studentId, 6)" data-toggle="modal" data-target="#SignIn" type="button" class="btn btn-default">签名</button>
+                    <button ng-click="copySignInItem(student.studentId, 6)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn6" class="btn btn-default">签名</button>
                     <div ng-if="student.endNight">
                         已于{{student.endNight | date:'HH:mm:ss'}}签名
                     </div>
