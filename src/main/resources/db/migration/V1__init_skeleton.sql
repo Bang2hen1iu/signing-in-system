@@ -14,7 +14,6 @@ CREATE TABLE sign_in_info (
   end_afternoon       TIMESTAMP,
   start_night         TIMESTAMP,
   end_night           TIMESTAMP,
-  current_day_courses TEXT NOT NULL,
   start_morning_signature_img_name  TEXT,
   end_morning_signature_img_name  TEXT,
   start_afternoon_signature_img_name  TEXT,

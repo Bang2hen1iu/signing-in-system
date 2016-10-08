@@ -128,30 +128,10 @@ public class testDataInjectionApi {
     public Response injectSignInInfo() {
         List<StudentEntity> studentEntities = studentRepository.findAll();
         SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
-        String currentDayCourseString = null;
-        List<CourseEntity> courseEntities = null;
-        DateTime startDate = null;
-        startDate = DateTime.parse(courseStartDateString);
         DateTime currentDate = DateTime.now();
-        int currentWeek = DateUtils.getCurrentWeek(startDate, currentDate);
-        int currentWeekday = DateUtils.getCurrentWeekDay(startDate, currentDate);
-        CoursePerWeekEntity coursePerWeekEntity;
-        StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
         for (StudentEntity studentEntity : studentEntities) {
             signInInfoEntity.setStudentId(studentEntity.getStudentId());
             signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
-            currentDayCourseString = "";
-            courseEntities = courseRepository.getCoursesByStudentAndWeek(studentEntity.getStudentId(), currentWeek);
-            for (CourseEntity courseEntity : courseEntities) {
-                System.out.println("AA" + courseEntity.getCourseName());
-                coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
-                        courseEntity.getStudentId(), courseEntity.getCourseName(), currentWeekday);
-                if (coursePerWeekEntity != null) {
-                    currentDayCourseString += courseEntity.getCourseName() + "第" + coursePerWeekEntity.getStartSection() +
-                            "~" + coursePerWeekEntity.getEndSection() + "节；";
-                }
-            }
-            signInInfoEntity.setCurrentDayCourses(currentDayCourseString);
 
             signInInfoRepository.save(signInInfoEntity);
         }

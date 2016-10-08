@@ -1,11 +1,13 @@
 package com.xuemiao.api.Json;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by dzj on 10/3/2016.
  */
-public class SignInInfoJson {
+public class SignInInfoJson implements Serializable{
     private String studentId;
     private String name;
     private Timestamp startMorning;
@@ -14,7 +16,7 @@ public class SignInInfoJson {
     private Timestamp endAfternoon;
     private Timestamp startNight;
     private Timestamp endNight;
-    private String currentDayCourses;
+    private List<SignInInfoCoursesInfo> signInInfoCoursesInfoList;
     private Timestamp startAbsence;
     private Timestamp endAbsence;
     private String absenceReason;
@@ -105,12 +107,12 @@ public class SignInInfoJson {
         this.startAfternoon = startAfternoon;
     }
 
-    public String getCurrentDayCourses() {
-        return currentDayCourses;
+    public List<SignInInfoCoursesInfo> getSignInInfoCoursesInfoList() {
+        return signInInfoCoursesInfoList;
     }
 
-    public void setCurrentDayCourses(String currentDayCourses) {
-        this.currentDayCourses = currentDayCourses;
+    public void setSignInInfoCoursesInfoList(List<SignInInfoCoursesInfo> signInInfoCoursesInfoList) {
+        this.signInInfoCoursesInfoList = signInInfoCoursesInfoList;
     }
 
     public String getAbsenceReason() {

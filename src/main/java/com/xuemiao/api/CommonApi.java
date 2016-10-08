@@ -1,9 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.CoursePerWeekJson;
-import com.xuemiao.api.Json.CoursesInfoJson;
-import com.xuemiao.api.Json.DutyStudentJson;
-import com.xuemiao.api.Json.SignInInfoJson;
+import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.exception.ImgNotExistException;
 import com.xuemiao.model.pdm.*;
@@ -50,6 +47,8 @@ public class CommonApi {
     StatisticsService statisticsService;
     @Value("${signatureImgPath}")
     String signatureImgPath;
+    @Value("${course.start_date}")
+    String courseStartDateString;
 
     @GET
     @Path("/{psw}")
@@ -127,12 +126,9 @@ public class CommonApi {
 
     @GET
     @Path("/sign_in_info/{date}")
-    public Response getSignInInfo(@PathParam("date") Date date)
-            throws DateFormatErrorException {
+    public Response getSignInInfo(@PathParam("date") Date date) {
         DateTime dateTime = new DateTime(date);
-        if (dateTime == null) {
-            throw new DateFormatErrorException();
-        }
+
         List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(dateTime.getMillis()));
         List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
         AbsenceEntity absenceEntity;
@@ -142,23 +138,48 @@ public class CommonApi {
             signInInfoJson.setName(studentRepository.findOne(signInInfoEntity.getStudentId()).getName());
             if (signInInfoEntity.getStartMorning() != null) {
                 signInInfoJson.setStartMorning(signInInfoEntity.getStartMorning());
+                signInInfoJson.setStartMorningSignatureImgName(signInInfoEntity.getStartMorningSignatureImgName());
             }
             if (signInInfoEntity.getEndMorning() != null) {
                 signInInfoJson.setEndMorning(signInInfoEntity.getEndMorning());
+                signInInfoJson.setEndMorningSignatureImgName(signInInfoEntity.getEndMorningSignatureImgName());
             }
             if (signInInfoEntity.getStartAfternoon() != null) {
                 signInInfoJson.setStartAfternoon(signInInfoEntity.getStartAfternoon());
+                signInInfoJson.setStartAfternoonSignatureImgName(signInInfoEntity.getStartAfternoonSignatureImgName());
             }
             if (signInInfoEntity.getEndAfternoon() != null) {
                 signInInfoJson.setEndAfternoon(signInInfoEntity.getEndAfternoon());
+                signInInfoJson.setEndAfternoonSignatureImgName(signInInfoEntity.getEndAfternoonSignatureImgName());
             }
             if (signInInfoEntity.getStartNight() != null) {
                 signInInfoJson.setStartNight(signInInfoEntity.getStartNight());
+                signInInfoJson.setStartNightSignatureImgName(signInInfoEntity.getStartNightSignatureImgName());
             }
             if (signInInfoEntity.getEndNight() != null) {
                 signInInfoJson.setEndNight(signInInfoEntity.getEndNight());
+                signInInfoJson.setEndNightSignatureImgName(signInInfoEntity.getEndNightSignatureImgName());
             }
-            signInInfoJson.setCurrentDayCourses(signInInfoEntity.getCurrentDayCourses());
+
+            List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
+            DateTime startDate;
+            startDate = DateTime.parse(courseStartDateString);
+            int currentWeek = DateUtils.getCurrentWeek(startDate);
+            int currentWeekday = DateUtils.getCurrentWeekDay(startDate);
+            List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoEntity.getStudentId(), currentWeek);
+            CoursePerWeekEntity coursePerWeekEntity;
+            for (CourseEntity courseEntity : courseEntities) {
+                coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
+                        courseEntity.getStudentId(), courseEntity.getCourseName(), currentWeekday);
+                if (coursePerWeekEntity != null) {
+                    SignInInfoCoursesInfo signInInfoCoursesInfo = new SignInInfoCoursesInfo();
+                    signInInfoCoursesInfo.setCourseName(courseEntity.getCourseName());
+                    signInInfoCoursesInfo.setStartSection(coursePerWeekEntity.getStartSection());
+                    signInInfoCoursesInfo.setEndSection(coursePerWeekEntity.getEndSection());
+                    signInInfoCoursesInfoList.add(signInInfoCoursesInfo);
+                }
+            }
+            signInInfoJson.setSignInInfoCoursesInfoList(signInInfoCoursesInfoList);
 
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             studentIdAndOperDateKey.setStudentId(signInInfoEntity.getStudentId());
@@ -170,12 +191,6 @@ public class CommonApi {
                 signInInfoJson.setAbsenceReason(absenceEntity.getAbsenceReason());
             }
 
-            signInInfoJson.setStartMorningSignatureImgName(signInInfoEntity.getStartMorningSignatureImgName());
-            signInInfoJson.setEndMorningSignatureImgName(signInInfoEntity.getEndMorningSignatureImgName());
-            signInInfoJson.setStartAfternoonSignatureImgName(signInInfoEntity.getStartAfternoonSignatureImgName());
-            signInInfoJson.setEndAfternoonSignatureImgName(signInInfoEntity.getEndAfternoonSignatureImgName());
-            signInInfoJson.setStartNightSignatureImgName(signInInfoEntity.getStartNightSignatureImgName());
-            signInInfoJson.setEndNightSignatureImgName(signInInfoEntity.getEndNightSignatureImgName());
             signInInfoJsonList.add(signInInfoJson);
         }
         return Response.ok().entity(signInInfoJsonList).build();
@@ -222,7 +237,7 @@ public class CommonApi {
     @Path("/system_time")
     public Response getSystemTime(){
         DateTime now = DateTime.now();
-        return Response.ok().entity(now.getHourOfDay()+":"+now.getMinuteOfHour()+":"+now.getSecondOfMinute()).build();
+        return Response.ok().entity(now.getYear()+"-"+String.format("%02d", now.getMonthOfYear())+"-"+String.format("%02d", now.getDayOfMonth())+" "+String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour())+":"+String.format("%02d", now.getSecondOfMinute())).build();
     }
 
     @GET

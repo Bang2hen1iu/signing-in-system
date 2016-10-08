@@ -28,8 +28,6 @@ public class SignInInfoEntity implements Serializable {
     private Timestamp startNight;
     @Column(name = "end_night")
     private Timestamp endNight;
-    @Column(name = "current_day_courses")
-    private String currentDayCourses;
     @Column(name = "start_morning_signature_img_name")
     private String startMorningSignatureImgName;
     @Column(name = "end_morning_signature_img_name")
@@ -105,14 +103,6 @@ public class SignInInfoEntity implements Serializable {
 
     public void setEndNight(Timestamp endNight) {
         this.endNight = endNight;
-    }
-
-    public String getCurrentDayCourses() {
-        return currentDayCourses;
-    }
-
-    public void setCurrentDayCourses(String currentDayCourses) {
-        this.currentDayCourses = currentDayCourses;
     }
 
     public String getStartMorningSignatureImgName() {

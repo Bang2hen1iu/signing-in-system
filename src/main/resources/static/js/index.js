@@ -209,60 +209,67 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         });
     };
     $scope.getSystemTime = function () {
+        var defer = $q.defer();
         $http({
             method: 'GET',
             url: "/api/common_api/system_time"
         }).success(function (data) {
-            var parser = datetime("HH:mm:ss");
+            var parser = datetime("yyyy-MM-dd HH:mm:ss");
             parser.parse(data);
             $scope.currentTime = parser.getDate();
+            defer.resolve($scope.currentTime);
         });
+        return defer.promise;
     };
     $scope.firstLoad = function () {
         $scope.getLatestDate().then(function (date) {
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
-            $scope.setSignInBtnAvai();
+            $scope.getSystemTime().then(function (time) {
+                $scope.setSignInBtnAvai(time);
+            });
         });
     };
-    $scope.setSignInBtnAvai = function () {
+    $scope.setSignInBtnAvai = function (time) {
+        console.log('wawa');
         var parser = datetime("yyyy-MM-dd HH:mm:ss");
 
-        parser.parse($scope.currentDate + ' 08:30:00');
+        parser.parse($scope.currentDate + ' 06:00:00');
         $timeout(function () {
             $scope.btn1 = false;
             $scope.btn2 = false;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 12:00:00');
+        parser.parse($scope.currentDate + ' 14:00:00');
         $timeout(function () {
             $scope.btn1 = true;
             $scope.btn2 = true;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 13:30:00');
+        parser.parse($scope.currentDate + ' 11:30:00');
         $timeout(function () {
             $scope.btn3 = false;
             $scope.btn4 = false;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 17:30:00');
+        parser.parse($scope.currentDate + ' 18:30:00');
         $timeout(function () {
             $scope.btn3 = true;
             $scope.btn4 = true;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 18:00:00');
+        parser.parse($scope.currentDate + ' 17:00:00');
         $timeout(function () {
             $scope.btn5 = false;
             $scope.btn6 = false;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 22:00:00');
+        parser.parse($scope.currentDate + ' 22:30:00');
         $timeout(function () {
             $scope.btn5 = true;
             $scope.btn6 = true;
-        }, parser.getDate().getTime()- new Date().getTime());
+        }, parser.getDate().getTime()- time.getTime());
+        console.log($scope.currentTime.getTime());
     };
     $scope.getDutyStudent = function (date) {
         $http({

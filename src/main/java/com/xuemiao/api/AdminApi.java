@@ -10,6 +10,7 @@ import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.service.StatisticsService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -102,6 +103,10 @@ public class AdminApi {
         if (studentRepository.save(studentEntity) == null) {
             throw new StudentAdditionException();
         }
+        SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
+        signInInfoEntity.setStudentId(studentEntity.getStudentId());
+        signInInfoEntity.setOperDate(new Date(DateTime.now().getMillis()));
+        signInInfoRepository.save(signInInfoEntity);
         return Response.ok().build();
     }
 
