@@ -225,61 +225,11 @@ public class CommonApi {
         return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
     }
 
-    private class DateJson{
-        private Date date;
-        private String weekday;
-
-        public Date getDate() {
-            return date;
-        }
-
-        public void setDate(Date date) {
-            this.date = date;
-        }
-
-        public String getWeekday() {
-            return weekday;
-        }
-
-        public void setWeekday(String weekday) {
-            this.weekday = weekday;
-        }
-    }
-
     @GET
     @Path("/sign_in_info/latest_date")
     public Response getSignInInfoLatestDate() {
-        DateJson dateJson = new DateJson();
         Date date = signInInfoRepository.getLatestSignInInfoDate();
-        dateJson.setDate(date);
-        String weekday;
-        switch (DateUtils.getCurrentWeekDay(DateTime.parse(courseStartDateString),new DateTime(date.getTime()))){
-            case 1:
-                weekday = "星期一";
-                break;
-            case 2:
-                weekday = "星期二";
-                break;
-            case 3:
-                weekday = "星期三";
-                break;
-            case 4:
-                weekday = "星期四";
-                break;
-            case 5:
-                weekday = "星期五";
-                break;
-            case 6:
-                weekday = "星期六";
-                break;
-            case 7:
-                weekday = "星期日";
-                break;
-            default:
-                weekday = "";
-        }
-        dateJson.setWeekday(weekday);
-        return Response.ok().entity(dateJson).build();
+        return Response.ok().entity(date).build();
     }
 
     @GET

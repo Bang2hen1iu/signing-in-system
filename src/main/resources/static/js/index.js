@@ -31,8 +31,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             method: 'GET',
             url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.currentWeekday = data.weekday;
-            defer.resolve(data.date);
+            defer.resolve(data);
         });
         return defer.promise;
     };
@@ -57,6 +56,8 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             var parser = datetime("yyyy-MM-dd");
             parser.parse(date);
             $scope.currentDate = parser.getDate();
+            $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
+
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
             $interval(function () {
@@ -114,9 +115,11 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         $scope.dutyStudentData = {};
         $scope.signatureImgPath = null;
         $scope.firstLoad();
+        $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $('#dateInput').on('change',function () {
             var parser = datetime("yyyy-MM-dd");
             parser.setDate($scope.currentDate);
+            $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
             var date = parser.getText();
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
@@ -196,9 +199,8 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             method: 'GET',
             url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.currentDate = data.date;
-            $scope.currentWeekday = data.weekday;
-            defer.resolve(data.date);
+            $scope.currentDate = data;
+            defer.resolve(data);
         });
         return defer.promise;
     };
@@ -225,6 +227,9 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     };
     $scope.firstLoad = function () {
         $scope.getLatestDate().then(function (date) {
+            var parser = datetime("yyyy-MM-dd");
+            parser.parse(date);
+            $scope.currentWeekday = $scope.weekday[parser.getDate().getDay()];
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
             $scope.getSystemTime().then(function (time) {
@@ -370,6 +375,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.btn4=true;
         $scope.btn5=true;
         $scope.btn6=true;
+        $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $scope.InitThis();
         $scope.firstLoad();
     });
