@@ -1,6 +1,5 @@
 var app = angular.module('signInSys', []);
 app.controller('signInSysCtrl', ['$scope', '$http', function ($scope,$http) {
-    //登录ajax部分
     $scope.sign_in_data= {};
     $scope.processForm= function () {
         $http({
