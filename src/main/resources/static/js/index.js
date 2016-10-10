@@ -31,7 +31,8 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             method: 'GET',
             url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            defer.resolve(data);
+            $scope.currentWeekday = data.weekday;
+            defer.resolve(data.date);
         });
         return defer.promise;
     };
@@ -195,8 +196,9 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             method: 'GET',
             url: "/api/common_api/sign_in_info/latest_date"
         }).success(function (data) {
-            $scope.currentDate = data;
-            defer.resolve(data);
+            $scope.currentDate = data.date;
+            $scope.currentWeekday = data.weekday;
+            defer.resolve(data.date);
         });
         return defer.promise;
     };

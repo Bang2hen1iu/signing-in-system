@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-primary">{{currentDate}}</span></h4></div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-primary">{{currentDate}} {{currentWeekday}}</span></h4></div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
             <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <table class="table table-bordered">
