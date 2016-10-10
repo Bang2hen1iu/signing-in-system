@@ -59,15 +59,7 @@ public class ScheduleTaskService {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
             SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
-            String currentDayCourseString = null;
-            List<CourseEntity> courseEntities = null;
-            DateTime startDate = null;
-            startDate = DateTime.parse(courseStartDateString);
             DateTime currentDate = DateTime.now();
-            int currentWeek = DateUtils.getCurrentWeek(startDate);
-            int currentWeekday = DateUtils.getCurrentWeekDay(startDate);
-            CoursePerWeekEntity coursePerWeekEntity;
-            StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
             for (StudentEntity studentEntity : studentEntities) {
                 signInInfoEntity.setStudentId(studentEntity.getStudentId());
                 signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));

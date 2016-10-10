@@ -164,8 +164,8 @@ public class CommonApi {
             List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
             DateTime startDate;
             startDate = DateTime.parse(courseStartDateString);
-            int currentWeek = DateUtils.getCurrentWeek(startDate);
-            int currentWeekday = DateUtils.getCurrentWeekDay(startDate);
+            int currentWeek = DateUtils.getCurrentWeek(startDate,dateTime);
+            int currentWeekday = DateUtils.getCurrentWeekDay(startDate,dateTime);
             List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoEntity.getStudentId(), currentWeek);
             CoursePerWeekEntity coursePerWeekEntity;
             for (CourseEntity courseEntity : courseEntities) {
