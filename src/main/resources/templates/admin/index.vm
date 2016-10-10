@@ -118,7 +118,7 @@
 <script src="#springUrl('/lib/angular/toArrayFilter.js')"></script>
 <script src="#springUrl('/lib/angular/angular-route.min.js')"></script>
 <script src="#springUrl('/lib/angular-datetime/dist/datetime.js')"></script>
-<script src="#springUrl('/js/admin_setting.min.js')"></script>
-<script src="#springUrl('/js/admin.min.js')"></script>
+<script src="#springUrl('/js/admin_setting.js')"></script>
+<script src="#springUrl('/js/admin.js')"></script>
 </body>
 </html>

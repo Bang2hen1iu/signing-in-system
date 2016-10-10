@@ -57,31 +57,31 @@ module.exports = function (grunt) {
 
         jshint: {
             options: {
-                jshintrc: 'js/.jshintrc'
+                jshintrc: 'js_source/.jshintrc'
             },
             grunt: {
                 options: {
                     jshintrc: 'grunt/.jshintrc'
                 },
-                src: ['Gruntfile.js', 'package.js', 'grunt/*.js']
+                src: ['Gruntfile.js_source', 'package.js_source', 'grunt/*.js_source']
             },
             core: {
-                src: 'js/*.js'
+                src: 'js_source/*.js_source'
             },
             test: {
                 options: {
-                    jshintrc: 'js/tests/unit/.jshintrc'
+                    jshintrc: 'js_source/tests/unit/.jshintrc'
                 },
-                src: 'js/tests/unit/*.js'
+                src: 'js_source/tests/unit/*.js_source'
             },
             assets: {
-                src: ['docs/assets/js/src/*.js', 'docs/assets/js/*.js', '!docs/assets/js/*.min.js']
+                src: ['docs/assets/js_source/src/*.js_source', 'docs/assets/js_source/*.js_source', '!docs/assets/js_source/*.min.js_source']
             }
         },
 
         jscs: {
             options: {
-                config: 'js/.jscsrc'
+                config: 'js_source/.jscsrc'
             },
             grunt: {
                 src: '<%= jshint.grunt.src %>'
@@ -107,20 +107,20 @@ module.exports = function (grunt) {
             },
             bootstrap: {
                 src: [
-                    'js/transition.js',
-                    'js/alert.js',
-                    'js/button.js',
-                    'js/carousel.js',
-                    'js/collapse.js',
-                    'js/dropdown.js',
-                    'js/modal.js',
-                    'js/tooltip.js',
-                    'js/popover.js',
-                    'js/scrollspy.js',
-                    'js/tab.js',
-                    'js/affix.js'
+                    'js_source/transition.js_source',
+                    'js_source/alert.js_source',
+                    'js_source/button.js_source',
+                    'js_source/carousel.js_source',
+                    'js_source/collapse.js_source',
+                    'js_source/dropdown.js_source',
+                    'js_source/modal.js_source',
+                    'js_source/tooltip.js_source',
+                    'js_source/popover.js_source',
+                    'js_source/scrollspy.js_source',
+                    'js_source/tab.js_source',
+                    'js_source/affix.js_source'
                 ],
-                dest: 'dist/js/<%= pkg.name %>.js'
+                dest: 'dist/js_source/<%= pkg.name %>.js_source'
             }
         },
 
@@ -134,23 +134,23 @@ module.exports = function (grunt) {
             },
             core: {
                 src: '<%= concat.bootstrap.dest %>',
-                dest: 'dist/js/<%= pkg.name %>.min.js'
+                dest: 'dist/js_source/<%= pkg.name %>.min.js_source'
             },
             customize: {
                 src: configBridge.paths.customizerJs,
-                dest: 'docs/assets/js/customize.min.js'
+                dest: 'docs/assets/js_source/customize.min.js_source'
             },
             docsJs: {
                 src: configBridge.paths.docsJs,
-                dest: 'docs/assets/js/docs.min.js'
+                dest: 'docs/assets/js_source/docs.min.js_source'
             }
         },
 
         qunit: {
             options: {
-                inject: 'js/tests/unit/phantom.js'
+                inject: 'js_source/tests/unit/phantom.js_source'
             },
-            files: 'js/tests/index.html'
+            files: 'js_source/tests/index.html'
         },
 
         less: {
@@ -383,7 +383,7 @@ module.exports = function (grunt) {
                     'dist/fonts',
                     'docs/assets',
                     'fonts',
-                    'js/tests/vendor',
+                    'js_source/tests/vendor',
                     'node_modules',
                     'test-infra'
                 ],
@@ -398,7 +398,7 @@ module.exports = function (grunt) {
                     throttled: 10,
                     maxRetries: 3,
                     maxPollRetries: 4,
-                    urls: ['http://127.0.0.1:3000/js/tests/index.html?hidepassed'],
+                    urls: ['http://127.0.0.1:3000/js_source/tests/index.html?hidepassed'],
                     browsers: grunt.file.readYAML('grunt/sauce_browsers.yml')
                 }
             }
@@ -452,7 +452,7 @@ module.exports = function (grunt) {
     if (runSubset('core') &&
         // Skip core tests if this is a Savage build
         process.env.TRAVIS_REPO_SLUG !== 'twbs-savage/bootstrap') {
-        testSubtasks = testSubtasks.concat(['dist-css', 'dist-js', 'csslint:dist', 'test-js', 'docs']);
+        testSubtasks = testSubtasks.concat(['dist-css', 'dist-js_source', 'csslint:dist', 'test-js_source', 'docs']);
     }
     // Skip HTML validation if running a different subset of the test suite
     if (runSubset('validate-html') &&
@@ -463,24 +463,24 @@ module.exports = function (grunt) {
     // Only run Sauce Labs tests if there's a Sauce access key
     if (typeof process.env.SAUCE_ACCESS_KEY !== 'undefined' &&
         // Skip Sauce if running a different subset of the test suite
-        runSubset('sauce-js-unit') &&
+        runSubset('sauce-js_source-unit') &&
         // Skip Sauce on Travis when [skip sauce] is in the commit message
         isUndefOrNonZero(process.env.TWBS_DO_SAUCE)) {
         testSubtasks.push('connect');
         testSubtasks.push('saucelabs-qunit');
     }
     grunt.registerTask('test', testSubtasks);
-    grunt.registerTask('test-js', ['jshint:core', 'jshint:test', 'jshint:grunt', 'jscs:core', 'jscs:test', 'jscs:grunt', 'qunit']);
+    grunt.registerTask('test-js_source', ['jshint:core', 'jshint:test', 'jshint:grunt', 'jscs:core', 'jscs:test', 'jscs:grunt', 'qunit']);
 
     // JS distribution task.
-    grunt.registerTask('dist-js', ['concat', 'uglify:core', 'commonjs']);
+    grunt.registerTask('dist-js_source', ['concat', 'uglify:core', 'commonjs']);
 
     // CSS distribution task.
     grunt.registerTask('less-compile', ['less:compileCore', 'less:compileTheme']);
     grunt.registerTask('dist-css', ['less-compile', 'autoprefixer:core', 'autoprefixer:theme', 'csscomb:dist', 'cssmin:minifyCore', 'cssmin:minifyTheme']);
 
     // Full distribution task.
-    grunt.registerTask('dist', ['clean:dist', 'dist-css', 'copy:fonts', 'dist-js']);
+    grunt.registerTask('dist', ['clean:dist', 'dist-css', 'copy:fonts', 'dist-js_source']);
 
     // Default task.
     grunt.registerTask('default', ['clean:dist', 'copy:fonts', 'test']);
@@ -504,16 +504,16 @@ module.exports = function (grunt) {
 
     grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', function () {
         var srcFiles = grunt.config.get('concat.bootstrap.src');
-        var destFilepath = 'dist/js/npm.js';
+        var destFilepath = 'dist/js_source/npm.js_source';
         generateCommonJSModule(grunt, srcFiles, destFilepath);
     });
 
     // Docs task.
     grunt.registerTask('docs-css', ['autoprefixer:docs', 'autoprefixer:examples', 'csscomb:docs', 'csscomb:examples', 'cssmin:docs']);
     grunt.registerTask('lint-docs-css', ['csslint:docs', 'csslint:examples']);
-    grunt.registerTask('docs-js', ['uglify:docsJs', 'uglify:customize']);
-    grunt.registerTask('lint-docs-js', ['jshint:assets', 'jscs:assets']);
-    grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js', 'lint-docs-js', 'clean:docs', 'copy:docs', 'build-glyphicons-data', 'build-customizer']);
+    grunt.registerTask('docs-js_source', ['uglify:docsJs', 'uglify:customize']);
+    grunt.registerTask('lint-docs-js_source', ['jshint:assets', 'jscs:assets']);
+    grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js_source', 'lint-docs-js_source', 'clean:docs', 'copy:docs', 'build-glyphicons-data', 'build-customizer']);
 
     grunt.registerTask('prep-release', ['dist', 'docs', 'jekyll:github', 'htmlmin', 'compress']);
 

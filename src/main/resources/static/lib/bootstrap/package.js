@@ -27,6 +27,6 @@ Package.onUse(function (api) {
     }
     api.addFiles([
         'dist/css/bootstrap.css',
-        'dist/js/bootstrap.js'
+        'dist/js_source/bootstrap.js_source'
     ], 'client');
 });

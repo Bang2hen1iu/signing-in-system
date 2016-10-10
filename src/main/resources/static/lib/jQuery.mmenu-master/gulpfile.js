@@ -15,7 +15,7 @@ var outputDir 		= 'dist';
 
 //	Default task 'gulp': Runs both CSS and JS tasks
 gulp.task( 'default', function() {
-    gulp.start( 'css', 'js' );
+    gulp.start( 'css', 'js_source' );
 });
 
 
@@ -23,7 +23,7 @@ gulp.task( 'default', function() {
 //	Watch task 'gulp watch': Starts a watch on CSS and JS tasks
 gulp.task( 'watch', function() {
   gulp.watch( 'src/**/*.scss'	, [ 'css' ] );
-  gulp.watch( 'src/**/*.js'		, [ 'js' ] );
+  gulp.watch( 'src/**/*.js_source'		, [ 'js_source' ] );
 });
 
 
@@ -65,58 +65,58 @@ gulp.task( 'css-concat-all', [ 'css-concat-core' ], function() {
 
 
 
-//	JS task 'gulp js': Runs all JS tasks
+//	JS task 'gulp js_source': Runs all JS tasks
 //		A bit extensive, but it needs to concatenate certain files in a certain order
 //		The dependencies ensure everything is done in the right order
-gulp.task( 'js', [ 'js-umd' ] );
+gulp.task( 'js_source', [ 'js-umd' ] );
 
 //	1) copy all except for the navbars add-on into dist dir
-gulp.task( 'js-copy', function() {
+gulp.task( 'js_source-copy', function() {
 	return gulp.src([
-			'src/*/**/*.js',
-			'!src/addons/navbars/**/*.js'
+			'src/*/**/*.js_source',
+			'!src/addons/navbars/**/*.js_source'
 		])
 		.pipe( rename({ suffix: '.min' }) )
 		.pipe( gulp.dest( outputDir ) );
 });
 
 //	2) concatenate navbars add-on into dist dir
-gulp.task( 'js-concat-navbar', [ 'js-copy' ], function() {
+gulp.task( 'js_source-concat-navbar', [ 'js-copy' ], function() {
 	return gulp.src([
-			'src/addons/navbars/jquery.mmenu.navbars.js',
-			'src/addons/navbars/**/*.js'
+			'src/addons/navbars/jquery.mmenu.navbars.js_source',
+			'src/addons/navbars/**/*.js_source'
 		])
-		.pipe( concat( 'jquery.mmenu.navbars.min.js' ) )
+		.pipe( concat( 'jquery.mmenu.navbars.min.js_source' ) )
 		.pipe( gulp.dest( outputDir + '/addons/navbars' ) );
 });
 
 //	3) concatenate core + offCanvas + scrollBugFix in dist dir
-gulp.task( 'js-concat-core', [ 'js-concat-navbar' ], function() {
+gulp.task( 'js_source-concat-core', [ 'js-concat-navbar' ], function() {
 	return gulp.src([
-			outputDir + '/js/jquery.mmenu.oncanvas.min.js',
-			outputDir + '/addons/offcanvas/jquery.mmenu.offcanvas.min.js',
-			outputDir + '/addons/scrollbugfix/jquery.mmenu.scrollbugfix.min.js',
+			outputDir + '/js_source/jquery.mmenu.oncanvas.min.js_source',
+			outputDir + '/addons/offcanvas/jquery.mmenu.offcanvas.min.js_source',
+			outputDir + '/addons/scrollbugfix/jquery.mmenu.scrollbugfix.min.js_source',
 		])
-		.pipe( concat( 'jquery.mmenu.min.js' ) )
-		.pipe( gulp.dest( outputDir + '/js' ) );
+		.pipe( concat( 'jquery.mmenu.min.js_source' ) )
+		.pipe( gulp.dest( outputDir + '/js_source' ) );
 });
 
 //	4) concatenate core + offCanvas + scrollBugFix + addons in dist dir
-gulp.task( 'js-concat-all', [ 'js-concat-core' ], function() {
+gulp.task( 'js_source-concat-all', [ 'js-concat-core' ], function() {
 	return gulp.src([
-			outputDir + '/js/jquery.mmenu.oncanvas.min.js',
-			outputDir + '/addons/offcanvas/jquery.mmenu.offcanvas.min.js',
-			outputDir + '/addons/scrollbugfix/jquery.mmenu.scrollbugfix.min.js',
-			outputDir + '/addons/**/*.js'
+			outputDir + '/js_source/jquery.mmenu.oncanvas.min.js_source',
+			outputDir + '/addons/offcanvas/jquery.mmenu.offcanvas.min.js_source',
+			outputDir + '/addons/scrollbugfix/jquery.mmenu.scrollbugfix.min.js_source',
+			outputDir + '/addons/**/*.js_source'
 		])
-		.pipe( concat( 'jquery.mmenu.all.min.js' ) )
-		.pipe( gulp.dest( outputDir + '/js' ) );
+		.pipe( concat( 'jquery.mmenu.all.min.js_source' ) )
+		.pipe( gulp.dest( outputDir + '/js_source' ) );
 });
 
 //	5) minify all in dist dir
-gulp.task( 'js-minify', [ 'js-concat-all' ], function() {
+gulp.task( 'js_source-minify', [ 'js-concat-all' ], function() {
 	return gulp.src([
-			outputDir + '/**/*.min.js'
+			outputDir + '/**/*.min.js_source'
 		])
 		.pipe( jshint('.jshintrc') )
 		.pipe( jshint.reporter( 'default' ) )
@@ -125,10 +125,10 @@ gulp.task( 'js-minify', [ 'js-concat-all' ], function() {
 });
 
 //	6) umd core + offCanvas + scrollBugFix + addons in dist dir
-gulp.task( 'js-umd', [ 'js-minify' ], function() {
+gulp.task( 'js_source-umd', [ 'js-minify' ], function() {
 	return gulp.src([
-			outputDir + '/js/jquery.mmenu.min.js',
-			outputDir + '/js/jquery.mmenu.all.min.js',
+			outputDir + '/js_source/jquery.mmenu.min.js_source',
+			outputDir + '/js_source/jquery.mmenu.all.min.js_source',
 		])
 		.pipe( umd({
 			dependencies: function() { return [ {
@@ -140,7 +140,7 @@ gulp.task( 'js-umd', [ 'js-minify' ], function() {
 			namespace: sanitizeNamespaceForUmd
 		}))
 		.pipe( rename({ suffix: '.umd' }) )
-		.pipe( gulp.dest( outputDir + '/js' ) );
+		.pipe( gulp.dest( outputDir + '/js_source' ) );
 });
 function sanitizeNamespaceForUmd( file ) {
 	path = file.path.split( '\\' ).join( '/' ).split( '/' );

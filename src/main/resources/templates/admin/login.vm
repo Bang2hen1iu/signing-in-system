@@ -64,6 +64,6 @@
 <script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
 <script src="#springUrl('/lib/jquery/dist/jquery.backstretch.min.js')"></script>
 <script src="#springUrl('/lib/angular/angular.min.js')"></script>
-<script src="#springUrl('/js/login.min.js')"></script>
+<script src="#springUrl('/js/login.js')"></script>
 </body>
 </html>

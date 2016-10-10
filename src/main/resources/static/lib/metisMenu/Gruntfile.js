@@ -18,14 +18,14 @@ module.exports = function (grunt) {
                 jshintrc: ".jshintrc"
             },
             all: [
-                "Gruntfile.js",
-                "src/metisMenu.js"
+                "Gruntfile.js_source",
+                "src/metisMenu.js_source"
             ]
         },
         concat: {
             plugin: {
-                src: ["src/metisMenu.js"],
-                dest: "dist/metisMenu.js"
+                src: ["src/metisMenu.js_source"],
+                dest: "dist/metisMenu.js_source"
             },
             css: {
                 src: ["src/metisMenu.css"],
@@ -37,8 +37,8 @@ module.exports = function (grunt) {
         },
         uglify: {
             plugin: {
-                src: ["dist/metisMenu.js"],
-                dest: "dist/metisMenu.min.js"
+                src: ["dist/metisMenu.js_source"],
+                dest: "dist/metisMenu.min.js_source"
             },
             options: {
                 banner: "<%= banner %>"
