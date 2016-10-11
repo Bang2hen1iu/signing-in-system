@@ -257,7 +257,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             $scope.btn4 = false;
         }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 18:30:00');
+        parser.parse($scope.currentDate + ' 20:00:00');
         $timeout(function () {
             $scope.btn3 = true;
             $scope.btn4 = true;
@@ -269,7 +269,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             $scope.btn6 = false;
         }, parser.getDate().getTime()- time.getTime());
 
-        parser.parse($scope.currentDate + ' 22:30:00');
+        parser.parse($scope.currentDate + ' 23:30:00');
         $timeout(function () {
             $scope.btn5 = true;
             $scope.btn6 = true;
