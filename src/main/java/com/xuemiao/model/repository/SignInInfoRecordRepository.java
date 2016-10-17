@@ -4,6 +4,7 @@ import com.xuemiao.model.pdm.SignInInfoRecordEntity;
 import com.xuemiao.model.pdm.SignInInfoRecordPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,8 +15,8 @@ import java.util.List;
 @Component
 public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoRecordEntity,SignInInfoRecordPK>{
     @Query("select s from SignInInfoRecordEntity s where s.signInId=:id")
-    List<SignInInfoRecordEntity> findBySignInId(Long id);
+    List<SignInInfoRecordEntity> findBySignInId(@Param("id") Long id);
 
     @Query("select s from SignInInfoRecordEntity s where s.signInId=:id and s.startTime!=null and s.endTime=null")
-    SignInInfoRecordEntity findOneUnfinishedSignInRecord(Long id);
+    SignInInfoRecordEntity findOneUnfinishedSignInRecord(@Param("id") Long id);
 }

@@ -41,6 +41,8 @@ public class testDataInjectionApi {
     StatisticsRepository statisticsRepository;
     @Autowired
     SysAdminRepository sysAdminRepository;
+    @Autowired
+    SignInInfoV2Repository signInInfoV2Repository;
 
     @POST
     @Path("/all")
@@ -127,13 +129,14 @@ public class testDataInjectionApi {
     @Path("/sign_in_info")
     public Response injectSignInInfo() {
         List<StudentEntity> studentEntities = studentRepository.findAll();
-        SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
         DateTime currentDate = DateTime.now();
-        for (StudentEntity studentEntity : studentEntities) {
-            signInInfoEntity.setStudentId(studentEntity.getStudentId());
-            signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
 
-            signInInfoRepository.save(signInInfoEntity);
+        for (StudentEntity studentEntity : studentEntities) {
+            SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
+            signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
+            signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
+
+            signInInfoV2Repository.save(signInInfoV2Entity);
         }
         return Response.ok().build();
     }
