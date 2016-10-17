@@ -147,51 +147,6 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
 }]);
 sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetime', '$timeout', function ($scope, $http, $q, datetime, $timeout) {
 
-    var mousePressed = false;
-    var lastX, lastY;
-    var ctx;
-
-    $scope.InitThis = function() {
-        ctx = document.getElementById('myCanvas').getContext("2d");
-
-        $('#myCanvas').mousedown(function (e) {
-            mousePressed = true;
-            $scope.Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-        });
-
-        $('#myCanvas').mousemove(function (e) {
-            if (mousePressed) {
-                $scope.Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-            }
-        });
-
-        $('#myCanvas').mouseup(function (e) {
-            mousePressed = false;
-        });
-        $('#myCanvas').mouseleave(function (e) {
-            mousePressed = false;
-        });
-    };
-
-    $scope.Draw = function(x, y, isDown) {
-        if (isDown) {
-            ctx.beginPath();
-            ctx.strokeStyle = $('#selColor').val();
-            ctx.lineWidth = $('#selWidth').val();
-            ctx.lineJoin = "round";
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(x, y);
-            ctx.closePath();
-            ctx.stroke();
-        }
-        lastX = x; lastY = y;
-    };
-
-    $scope.clearArea = function() {
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    };
-
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
@@ -375,7 +330,6 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.btn5=true;
         $scope.btn6=true;
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-        $scope.InitThis();
         $scope.firstLoad();
     });
 }]);

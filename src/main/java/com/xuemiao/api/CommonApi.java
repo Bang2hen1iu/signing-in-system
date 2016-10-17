@@ -210,7 +210,7 @@ public class CommonApi {
     @GET
     @Path("/sign_in_info/latest_date")
     public Response getSignInInfoLatestDate() {
-        Date date = signInInfoRepository.getLatestSignInInfoDate();
+        Date date = signInInfoV2Repository.getLatestSignInInfoDate();
         return Response.ok().entity(date).build();
     }
 

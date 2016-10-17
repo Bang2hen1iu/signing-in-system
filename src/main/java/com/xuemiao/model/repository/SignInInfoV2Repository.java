@@ -19,4 +19,7 @@ public interface SignInInfoV2Repository extends JpaRepository<SignInInfoV2Entity
     SignInInfoV2Entity findOneByStudentIdAndDate(@Param("studentId") Long studentId, @Param("date") Date date);
 
     List<SignInInfoV2Entity> findByOperDate(Date date);
+
+    @Query("select max(s.operDate) from SignInInfoV2Entity s")
+    Date getLatestSignInInfoDate();
 }
