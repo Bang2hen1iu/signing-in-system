@@ -28,9 +28,13 @@
     <param name="SetVerHint" value>
 </object>
 
-<comment> <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=400 height=400></EMBED></comment>
+<comment> <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
 
-
+<script>
+    $(function () {
+        zkonline.GetVerTemplate();
+    });
+</script>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">

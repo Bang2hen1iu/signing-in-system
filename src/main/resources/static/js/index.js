@@ -332,7 +332,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.signInItem.signInOrder = order;
         $scope.signInItem.operDate = $scope.currentDate;
 
-        zkonline.GetVerTemplate();
+        //zkonline.GetVerTemplate();
     };
     $scope.signInAction = function () {
         $scope.signInItem.imageData = document.getElementById("myCanvas").toDataURL("image/png");
