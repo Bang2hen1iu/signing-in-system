@@ -1,9 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.CoursePerWeekJson;
-import com.xuemiao.api.Json.CoursesInfoJson;
-import com.xuemiao.api.Json.DutyStudentJson;
-import com.xuemiao.api.Json.IdPasswordJson;
+import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.*;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.repository.*;
@@ -113,8 +110,10 @@ public class AdminApi {
     @POST
     @Path("/students/registering")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response registerStudent(){
-        //TODO
+    public Response registerStudent(RegisterStudentJson registerStudentJson){
+        StudentEntity studentEntity = studentRepository.findOne(registerStudentJson.getStudentId());
+        studentEntity.setFingerprint(registerStudentJson.getFingerprint());
+        studentRepository.save(studentEntity);
         return Response.ok().build();
     }
 

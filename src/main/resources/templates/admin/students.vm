@@ -25,7 +25,7 @@
                             <td class="col-md-3">{{student.name}}</td>
                             <td class="col-md-2">
                                 <a class="btn btn-xs btn-info"
-                                   ng-click="copyToRegisterStudent(student)" data-toggle="modal" data-target="#registerStudent">
+                                   ng-click="registerStudent(student)" data-toggle="modal" data-target="#registerStudent">
                                     <span class="glyphicon glyphicon-record"/>
                                 </a>
                             </td>
@@ -90,20 +90,34 @@
     </div>
 </div>
 
-<div class="modal fade" id="registerStudent" tabindex="-1" role="dialog" aria-labelledby="registerStudentLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registerStudentLabel">确认删除</h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger" role="alert">{{toDeleteStudent.name}}的全部信息将被删除，请再次慎重确认！</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger glyphicon glyphicon-remove" data-dismiss="modal" ng-click="delStudent()"> 删除
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
+    <param name="Visible" value="-1">
+    <param name="AutoScroll" value="0">
+    <param name="AutoSize" value="0">
+    <param name="AxBorderStyle" value="1">
+    <param name="Caption" value="Biokey Online(1:1)">
+    <param name="Color" value="2147483663">
+    <param name="Font" value="MS Sans Serif">
+    <param name="KeyPreview" value="0">
+    <param name="PixelsPerInch" value="96">
+    <param name="PrintScale" value="1">
+    <param name="Scaled" value="-1">
+    <param name="DropTarget" value="0">
+    <param name="HelpFile" value>
+    <param name="DoubleBuffered" value="0">
+    <param name="Enabled" value="-1">
+    <param name="Cursor" value="0">
+    <param name="RegisterTemplate" value>
+    <param name="VerifyCount" value="3">
+    <param name="VerifyTemplate" value>
+    <param name="ParentFont" value="0">
+    <param name="Threshold" value="10">
+    <param name="OneToOneThreshold" value="10">
+    <param name="CheckFinger" value>
+    <param name="EnrollCount" value="4">
+    <param name="DefaultRegFinger" value="0">
+    <param name="DefaultWindowClose" value="0">
+    <param name="SetVerHint" value>
+</object>
+<comment><EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
+
