@@ -52,6 +52,8 @@ public class SignInInfoApi {
     SignInInfoV2Repository signInInfoV2Repository;
     @Autowired
     SignInInfoRecordRepository signInInfoRecordRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     @POST
     @Path("/test")
@@ -95,29 +97,35 @@ public class SignInInfoApi {
     }
 
     @POST
-    @Path("/sign_in_info/addition")
-    public Response addSignIn(SignInActionJson signInActionJson,
-                              @CookieParam("token") String tokenString)
-            throws SignInOrderException, IOException, TokenInvalidException {
-        cookieValidationService.checkTokenCookie(tokenString, 1);
-
-        //TODO check imgData
-
-        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(signInActionJson.getStudentId(),signInActionJson.getOperDate());
-        Timestamp now = new Timestamp(DateTime.now().getMillis());
-        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
-        if(signInInfoRecordEntity==null){
-            signInInfoRecordEntity = new SignInInfoRecordEntity();
-            signInInfoRecordEntity.setSignInId(signInInfoV2Entity.getId());
-            signInInfoRecordEntity.setStartTime(now);
-        }
-        else {
-            signInInfoRecordEntity.setEndTime(now);
-        }
-        signInInfoRecordRepository.save(signInInfoRecordEntity);
-
-        return Response.ok().cookie(refreshCookie(tokenString)).build();
+    @Path("/test_sign_in")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response testSignIn(SignInActionJson signInActionJson){
+        StudentEntity studentEntity = studentRepository.findOneByFingerprint(signInActionJson.getFingerprint());
+        return Response.ok().entity(studentEntity).build();
     }
+
+//    @POST
+//    @Path("/sign_in_info/addition")
+//    public Response addSignIn(SignInActionJson signInActionJson,
+//                              @CookieParam("token") String tokenString)
+//            throws SignInOrderException, IOException, TokenInvalidException {
+//        cookieValidationService.checkTokenCookie(tokenString, 1);
+//
+//        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(signInActionJson.getStudentId(),signInActionJson.getOperDate());
+//        Timestamp now = new Timestamp(DateTime.now().getMillis());
+//        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
+//        if(signInInfoRecordEntity==null){
+//            signInInfoRecordEntity = new SignInInfoRecordEntity();
+//            signInInfoRecordEntity.setSignInId(signInInfoV2Entity.getId());
+//            signInInfoRecordEntity.setStartTime(now);
+//        }
+//        else {
+//            signInInfoRecordEntity.setEndTime(now);
+//        }
+//        signInInfoRecordRepository.save(signInInfoRecordEntity);
+//
+//        return Response.ok().cookie(refreshCookie(tokenString)).build();
+//    }
 
     @POST
     @Path("/absences/addition")

@@ -191,6 +191,18 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             });
         });
     };
+    $scope.signIn = function () {
+        zkonline.GetVerTemplate();
+        $scope.testSignInData = {};
+        $scope.testSignInData.fingerprint = zkonline.VerifyTemplate;
+        $http({
+            method: 'POST',
+            url: "/api/sign_in_info_api/test_sign_in",
+            data:$scope.testSignInData
+        }).success(function (data) {
+            alert('success! '+data.name);
+        });
+    };
     $scope.setSignInBtnAvai = function (time) {
         var parser = datetime("yyyy-MM-dd HH:mm:ss");
 

@@ -72,9 +72,9 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.registerStudent = function (student) {
         $scope.toRegisterStudent = student;
         alert('aa');
-        zkonline.GetVerTemplate();
+        zkonline.Register();
         alert('bb');
-        $scope.toRegisterStudent.fingerprint = zkonline.VerifyTemplate;
+        $scope.toRegisterStudent.fingerprint = zkonline.RegisterTemplate;
         $http({
             method: 'POST',
             url: '/api/admin_api/students/registering',

@@ -151,7 +151,7 @@
         </div>
     </div>
 </div>
-<button class="btn btn-success" onclick="signIn()">Sign In</button>
+<button class="btn btn-success" ng-click="signIn()">Sign In</button>
 
 <object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
     <param name="Visible" value="-1">
@@ -184,9 +184,3 @@
 </object>
 <comment><EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
 
-<script>
-    var signIn = function () {
-        zkonline.GetVerTemplate();
-        alert(zkonline.VerifyTemplate);
-    };
-</script>
