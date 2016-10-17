@@ -90,7 +90,7 @@
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/signing_sys</url>
+					<url>jdbc:postgresql://localhost:5432/signing_sys_test</url>
 					<user>postgres</user>
 					<password>159951159</password>
 				</configuration>

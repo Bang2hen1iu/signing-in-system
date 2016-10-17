@@ -1,3 +1,36 @@
+<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
+    <param name="Visible" value="-1">
+    <param name="AutoScroll" value="0">
+    <param name="AutoSize" value="0">
+    <param name="AxBorderStyle" value="1">
+    <param name="Caption" value="Biokey Online(1:1)">
+    <param name="Color" value="2147483663">
+    <param name="Font" value="MS Sans Serif">
+    <param name="KeyPreview" value="0">
+    <param name="PixelsPerInch" value="96">
+    <param name="PrintScale" value="1">
+    <param name="Scaled" value="-1">
+    <param name="DropTarget" value="0">
+    <param name="HelpFile" value>
+    <param name="DoubleBuffered" value="0">
+    <param name="Enabled" value="-1">
+    <param name="Cursor" value="0">
+    <param name="RegisterTemplate" value>
+    <param name="VerifyCount" value="3">
+    <param name="VerifyTemplate" value>
+    <param name="ParentFont" value="0">
+    <param name="Threshold" value="10">
+    <param name="OneToOneThreshold" value="10">
+    <param name="CheckFinger" value>
+    <param name="EnrollCount" value="4">
+    <param name="DefaultRegFinger" value="0">
+    <param name="DefaultWindowClose" value="0">
+    <param name="SetVerHint" value>
+</object>
+
+<comment> <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=400 height=400></EMBED></comment>
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -143,28 +176,7 @@
                 <h4 class="modal-title" id="SignInLabel">请签名</h4>
             </div>
             <div class="modal-body">
-                <div align="center">
-                    <canvas id="myCanvas" width="800" height="400" style="border:2px solid #6699cc"></canvas>
-                    <div class="control-ops">
-                        <button type="button" class="btn btn-primary" ng-click="clearArea()">清空画板</button>
-                        Line width : <select id="selWidth">
-                        <option value="1">1</option>
-                        <option value="3" selected="selected">3</option>
-                        <option value="5">5</option>
-                        <option value="7">7</option>
-                        <option value="9">9</option>
-                        <option value="11">11</option>
-                    </select>
-                        Color : <select id="selColor">
-                        <option value="black" selected="selected">black</option>
-                        <option value="blue">blue</option>
-                        <option value="red">red</option>
-                        <option value="green">green</option>
-                        <option value="yellow">yellow</option>
-                        <option value="gray">gray</option>
-                    </select>
-                    </div>
-                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="signInAction()" data-dismiss="modal">上传</button>
