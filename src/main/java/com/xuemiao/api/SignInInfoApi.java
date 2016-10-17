@@ -7,12 +7,8 @@ import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.SignInOrderException;
 import com.xuemiao.exception.TokenInvalidException;
-import com.xuemiao.model.pdm.AbsenceEntity;
-import com.xuemiao.model.pdm.SignInInfoEntity;
-import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
-import com.xuemiao.model.repository.AbsenceRepository;
-import com.xuemiao.model.repository.SignInInfoRepository;
-import com.xuemiao.model.repository.SysAdminRepository;
+import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.utils.DateUtils;
@@ -52,6 +48,10 @@ public class SignInInfoApi {
     int adminCookieAge;
     @Value("${signatureImgPath}")
     String signatureImgPath;
+    @Autowired
+    SignInInfoV2Repository signInInfoV2Repository;
+    @Autowired
+    SignInInfoRecordRepository signInInfoRecordRepository;
 
     @POST
     @Path("/test")
@@ -101,47 +101,20 @@ public class SignInInfoApi {
             throws SignInOrderException, IOException, TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 1);
 
-        String imgName = UUID.randomUUID().toString() + ".png";
+        //TODO check imgData
 
-        byte imageData[] = Base64.decodeBase64(signInActionJson.getImageData());
-        FileOutputStream out = new FileOutputStream(signatureImgPath + imgName);
-        out.write(imageData);
-        out.close();
-
-        StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-        studentIdAndOperDateKey.setStudentId(signInActionJson.getStudentId());
-        studentIdAndOperDateKey.setOperDate(signInActionJson.getOperDate());
-        SignInInfoEntity signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
+        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(signInActionJson.getStudentId(),signInActionJson.getOperDate());
         Timestamp now = new Timestamp(DateTime.now().getMillis());
-        switch (signInActionJson.getSignInOrder()) {
-            case 1:
-                signInInfoEntity.setStartMorning(now);
-                signInInfoEntity.setStartMorningSignatureImgName(imgName);
-                break;
-            case 2:
-                signInInfoEntity.setEndMorning(now);
-                signInInfoEntity.setEndMorningSignatureImgName(imgName);
-                break;
-            case 3:
-                signInInfoEntity.setStartAfternoon(now);
-                signInInfoEntity.setStartAfternoonSignatureImgName(imgName);
-                break;
-            case 4:
-                signInInfoEntity.setEndAfternoon(now);
-                signInInfoEntity.setEndAfternoonSignatureImgName(imgName);
-                break;
-            case 5:
-                signInInfoEntity.setStartNight(now);
-                signInInfoEntity.setStartNightSignatureImgName(imgName);
-                break;
-            case 6:
-                signInInfoEntity.setEndNight(now);
-                signInInfoEntity.setEndNightSignatureImgName(imgName);
-                break;
-            default:
-                throw new SignInOrderException();
+        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
+        if(signInInfoRecordEntity==null){
+            signInInfoRecordEntity = new SignInInfoRecordEntity();
+            signInInfoRecordEntity.setSignInId(signInInfoV2Entity.getId());
+            signInInfoRecordEntity.setStartTime(now);
         }
-        signInInfoRepository.save(signInInfoEntity);
+        else {
+            signInInfoRecordEntity.setEndTime(now);
+        }
+        signInInfoRecordRepository.save(signInInfoRecordEntity);
 
         return Response.ok().cookie(refreshCookie(tokenString)).build();
     }

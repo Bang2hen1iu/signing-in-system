@@ -69,7 +69,10 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
             $scope.studentData = data;
         });
     };
-    $scope.copyStudent = function (student) {
+    $scope.copyToRegisterStudent = function (student) {
+        $scope.toRegisterStudent = student;
+    };
+    $scope.copyToDeleteStudent = function (student) {
         $scope.toDeleteStudent = student;
     };
     $scope.delStudent = function () {
@@ -85,7 +88,6 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $(function () {
         $scope.studentData = null;
         $scope.toAddStudentData = null;
-        $scope.toDeleteStudentId = null;
         $scope.getStudent();
     });
 }]);
@@ -246,8 +248,6 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
             $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
             $scope.statistics = data;
             $scope.toQueryData = {};
-            $scope.startDate = null;
-            $scope.endDate = null;
         });
     };
     $scope.getProgressBarWidth = function(stayLabTime){

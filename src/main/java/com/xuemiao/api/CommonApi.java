@@ -49,6 +49,10 @@ public class CommonApi {
     String signatureImgPath;
     @Value("${course.start_date}")
     String courseStartDateString;
+    @Autowired
+    SignInInfoV2Repository signInInfoV2Repository;
+    @Autowired
+    SignInInfoRecordRepository signInInfoRecordRepository;
 
     @GET
     @Path("/{psw}")
@@ -126,46 +130,24 @@ public class CommonApi {
 
     @GET
     @Path("/sign_in_info/{date}")
-    public Response getSignInInfo(@PathParam("date") Date date) {
+    public Response getSignInInfoV2(@PathParam("date") Date date) {
         DateTime dateTime = new DateTime(date);
 
-        List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findByOperDate(new Date(dateTime.getMillis()));
+        List<SignInInfoV2Entity> signInInfoV2Entities = signInInfoV2Repository.findByOperDate(new Date(dateTime.getMillis()));
         List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
         AbsenceEntity absenceEntity;
-        for (SignInInfoEntity signInInfoEntity : signInInfoEntities) {
+        for (SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities) {
             SignInInfoJson signInInfoJson = new SignInInfoJson();
-            signInInfoJson.setStudentId(signInInfoEntity.getStudentId().toString());
-            signInInfoJson.setName(studentRepository.findOne(signInInfoEntity.getStudentId()).getName());
-            if (signInInfoEntity.getStartMorning() != null) {
-                signInInfoJson.setStartMorning(signInInfoEntity.getStartMorning());
-                signInInfoJson.setStartMorningSignatureImgName(signInInfoEntity.getStartMorningSignatureImgName());
-            }
-            if (signInInfoEntity.getEndMorning() != null) {
-                signInInfoJson.setEndMorning(signInInfoEntity.getEndMorning());
-                signInInfoJson.setEndMorningSignatureImgName(signInInfoEntity.getEndMorningSignatureImgName());
-            }
-            if (signInInfoEntity.getStartAfternoon() != null) {
-                signInInfoJson.setStartAfternoon(signInInfoEntity.getStartAfternoon());
-                signInInfoJson.setStartAfternoonSignatureImgName(signInInfoEntity.getStartAfternoonSignatureImgName());
-            }
-            if (signInInfoEntity.getEndAfternoon() != null) {
-                signInInfoJson.setEndAfternoon(signInInfoEntity.getEndAfternoon());
-                signInInfoJson.setEndAfternoonSignatureImgName(signInInfoEntity.getEndAfternoonSignatureImgName());
-            }
-            if (signInInfoEntity.getStartNight() != null) {
-                signInInfoJson.setStartNight(signInInfoEntity.getStartNight());
-                signInInfoJson.setStartNightSignatureImgName(signInInfoEntity.getStartNightSignatureImgName());
-            }
-            if (signInInfoEntity.getEndNight() != null) {
-                signInInfoJson.setEndNight(signInInfoEntity.getEndNight());
-                signInInfoJson.setEndNightSignatureImgName(signInInfoEntity.getEndNightSignatureImgName());
-            }
+            signInInfoJson.setStudentId(signInInfoV2Entity.getStudentId().toString());
+            signInInfoJson.setName(studentRepository.findOne(signInInfoV2Entity.getStudentId()).getName());
+
+            signInInfoJson.setSignInInfoRecordEntities(signInInfoRecordRepository.findBySignInId(signInInfoV2Entity.getId()));
 
             List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
             DateTime startDate = DateTime.parse(courseStartDateString);
             int currentWeek = DateUtils.getCurrentWeek(startDate,dateTime);
             int currentWeekday = DateUtils.getCurrentWeekDay(startDate,dateTime);
-            List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoEntity.getStudentId(), currentWeek);
+            List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
             CoursePerWeekEntity coursePerWeekEntity;
             for (CourseEntity courseEntity : courseEntities) {
                 coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
@@ -181,8 +163,8 @@ public class CommonApi {
             signInInfoJson.setSignInInfoCoursesInfoList(signInInfoCoursesInfoList);
 
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-            studentIdAndOperDateKey.setStudentId(signInInfoEntity.getStudentId());
-            studentIdAndOperDateKey.setOperDate(signInInfoEntity.getOperDate());
+            studentIdAndOperDateKey.setStudentId(signInInfoV2Entity.getStudentId());
+            studentIdAndOperDateKey.setOperDate(signInInfoV2Entity.getOperDate());
             absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
             if (absenceEntity != null) {
                 signInInfoJson.setStartAbsence(absenceEntity.getStartAbsence());
@@ -252,5 +234,6 @@ public class CommonApi {
         Date date = statisticsRepository.getLatestStatisticsDate();
         return Response.ok().entity(date).build();
     }
+
 
 }

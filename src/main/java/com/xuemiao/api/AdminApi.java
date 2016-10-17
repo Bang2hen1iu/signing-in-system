@@ -110,6 +110,14 @@ public class AdminApi {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/students/registering")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response registerStudent(){
+        //TODO
+        return Response.ok().build();
+    }
+
     @DELETE
     @Path("/student/deletion/{id}")
     public Response deleteStudent(@PathParam("id") Long id) {
@@ -223,4 +231,5 @@ public class AdminApi {
                 startDate, endDate);
         return Response.ok().entity(statisticsService.object2Json(statisticRangeDataList)).build();
     }
+
 }

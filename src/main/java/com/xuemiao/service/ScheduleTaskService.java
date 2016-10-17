@@ -43,6 +43,10 @@ public class ScheduleTaskService {
     int startHour;
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
+    @Autowired
+    SignInInfoV2Repository signInInfoV2Repository;
+    @Autowired
+    SignInInfoRecordRepository signInInfoRecordRepository;
 
     public synchronized void startRefreshSignInfoTable() {
         if (scheduledExecutorService != null) {
@@ -58,23 +62,24 @@ public class ScheduleTaskService {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
-            SignInInfoEntity signInInfoEntity = new SignInInfoEntity();
             DateTime currentDate = DateTime.now();
             for (StudentEntity studentEntity : studentEntities) {
-                signInInfoEntity.setStudentId(studentEntity.getStudentId());
-                signInInfoEntity.setOperDate(new Date(currentDate.getMillis()));
+                SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
+                signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
+                signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
 
-                signInInfoRepository.save(signInInfoEntity);
+                signInInfoV2Repository.save(signInInfoV2Entity);
             }
 
             DateTime previousDate = currentDate.minusDays(1);
             StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             AbsenceEntity absenceEntity = null;
             for (StudentEntity studentEntity : studentEntities) {
-                studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
-                studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
-                signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
-                if (signInInfoEntity != null) {
+
+                SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
+                        studentEntity.getStudentId(), new Date(previousDate.getMillis()));
+
+                if (signInInfoV2Entity != null) {
                     StatisticsEntity statisticsEntity = new StatisticsEntity();
                     statisticsEntity.setStudentId(studentEntity.getStudentId());
                     statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
@@ -84,15 +89,12 @@ public class ScheduleTaskService {
                     } else {
                         statisticsEntity.setAbsenceTimes(1);
                     }
+                    List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInId(signInInfoV2Entity.getId());
                     Long stayLabTimeL = new Long("0");
-                    if (signInInfoEntity.getEndMorning() != null && signInInfoEntity.getStartMorning() != null) {
-                        stayLabTimeL += (signInInfoEntity.getEndMorning().getTime() - signInInfoEntity.getStartMorning().getTime());
-                    }
-                    if (signInInfoEntity.getEndAfternoon() != null && signInInfoEntity.getStartAfternoon() != null) {
-                        stayLabTimeL += (signInInfoEntity.getEndAfternoon().getTime() - signInInfoEntity.getStartAfternoon().getTime());
-                    }
-                    if (signInInfoEntity.getEndNight() != null && signInInfoEntity.getStartNight() != null) {
-                        stayLabTimeL += (signInInfoEntity.getEndNight().getTime() - signInInfoEntity.getStartNight().getTime());
+                    for(SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities){
+                        if(signInInfoRecordEntity.getEndTime()!=null){
+                            stayLabTimeL += (signInInfoRecordEntity.getEndTime().getTime() - signInInfoRecordEntity.getStartTime().getTime());
+                        }
                     }
                     double stayLabTimeD = stayLabTimeL.doubleValue();
                     stayLabTimeD /= 3600000;

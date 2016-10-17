@@ -36,4 +36,6 @@ public interface StatisticsRepository extends JpaRepository<StatisticsEntity, St
     @Modifying
     @Query("delete from StatisticsEntity s where s.studentId = :studentId")
     void deleteByStudentId(@Param("studentId")Long studentId);
+
+
 }

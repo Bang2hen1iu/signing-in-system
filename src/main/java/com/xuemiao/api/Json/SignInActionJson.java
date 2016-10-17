@@ -8,7 +8,6 @@ import java.sql.Date;
 public class SignInActionJson {
     private Long studentId;
     private Date operDate;
-    private int signInOrder;
     private String imageData;
 
     public Long getStudentId() {
@@ -25,14 +24,6 @@ public class SignInActionJson {
 
     public void setOperDate(Date operDate) {
         this.operDate = operDate;
-    }
-
-    public int getSignInOrder() {
-        return signInOrder;
-    }
-
-    public void setSignInOrder(int signInOrder) {
-        this.signInOrder = signInOrder;
     }
 
     public String getImageData() {

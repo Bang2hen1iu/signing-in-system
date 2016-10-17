@@ -1,5 +1,7 @@
 package com.xuemiao.api.Json;
 
+import com.xuemiao.model.pdm.SignInInfoRecordEntity;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,22 +12,11 @@ import java.util.List;
 public class SignInInfoJson implements Serializable{
     private String studentId;
     private String name;
-    private Timestamp startMorning;
-    private Timestamp endMorning;
-    private Timestamp startAfternoon;
-    private Timestamp endAfternoon;
-    private Timestamp startNight;
-    private Timestamp endNight;
+    private List<SignInInfoRecordEntity> signInInfoRecordEntities;
     private List<SignInInfoCoursesInfo> signInInfoCoursesInfoList;
     private Timestamp startAbsence;
     private Timestamp endAbsence;
     private String absenceReason;
-    private String startMorningSignatureImgName;
-    private String endMorningSignatureImgName;
-    private String startAfternoonSignatureImgName;
-    private String endAfternoonSignatureImgName;
-    private String startNightSignatureImgName;
-    private String endNightSignatureImgName;
 
     public String getStudentId() {
         return studentId;
@@ -43,44 +34,12 @@ public class SignInInfoJson implements Serializable{
         this.name = name;
     }
 
-    public Timestamp getStartMorning() {
-        return startMorning;
+    public List<SignInInfoRecordEntity> getSignInInfoRecordEntities() {
+        return signInInfoRecordEntities;
     }
 
-    public void setStartMorning(Timestamp startMorning) {
-        this.startMorning = startMorning;
-    }
-
-    public Timestamp getEndMorning() {
-        return endMorning;
-    }
-
-    public void setEndMorning(Timestamp endMorning) {
-        this.endMorning = endMorning;
-    }
-
-    public Timestamp getEndAfternoon() {
-        return endAfternoon;
-    }
-
-    public void setEndAfternoon(Timestamp endAfternoon) {
-        this.endAfternoon = endAfternoon;
-    }
-
-    public Timestamp getStartNight() {
-        return startNight;
-    }
-
-    public void setStartNight(Timestamp startNight) {
-        this.startNight = startNight;
-    }
-
-    public Timestamp getEndNight() {
-        return endNight;
-    }
-
-    public void setEndNight(Timestamp endNight) {
-        this.endNight = endNight;
+    public void setSignInInfoRecordEntities(List<SignInInfoRecordEntity> signInInfoRecordEntities) {
+        this.signInInfoRecordEntities = signInInfoRecordEntities;
     }
 
     public Timestamp getStartAbsence() {
@@ -99,14 +58,6 @@ public class SignInInfoJson implements Serializable{
         this.endAbsence = endAbsence;
     }
 
-    public Timestamp getStartAfternoon() {
-        return startAfternoon;
-    }
-
-    public void setStartAfternoon(Timestamp startAfternoon) {
-        this.startAfternoon = startAfternoon;
-    }
-
     public List<SignInInfoCoursesInfo> getSignInInfoCoursesInfoList() {
         return signInInfoCoursesInfoList;
     }
@@ -123,51 +74,4 @@ public class SignInInfoJson implements Serializable{
         this.absenceReason = absenceReason;
     }
 
-    public String getStartMorningSignatureImgName() {
-        return startMorningSignatureImgName;
-    }
-
-    public void setStartMorningSignatureImgName(String startMorningSignatureImgName) {
-        this.startMorningSignatureImgName = startMorningSignatureImgName;
-    }
-
-    public String getEndMorningSignatureImgName() {
-        return endMorningSignatureImgName;
-    }
-
-    public void setEndMorningSignatureImgName(String endMorningSignatureImgName) {
-        this.endMorningSignatureImgName = endMorningSignatureImgName;
-    }
-
-    public String getStartAfternoonSignatureImgName() {
-        return startAfternoonSignatureImgName;
-    }
-
-    public void setStartAfternoonSignatureImgName(String startAfternoonSignatureImgName) {
-        this.startAfternoonSignatureImgName = startAfternoonSignatureImgName;
-    }
-
-    public String getEndAfternoonSignatureImgName() {
-        return endAfternoonSignatureImgName;
-    }
-
-    public void setEndAfternoonSignatureImgName(String endAfternoonSignatureImgName) {
-        this.endAfternoonSignatureImgName = endAfternoonSignatureImgName;
-    }
-
-    public String getStartNightSignatureImgName() {
-        return startNightSignatureImgName;
-    }
-
-    public void setStartNightSignatureImgName(String startNightSignatureImgName) {
-        this.startNightSignatureImgName = startNightSignatureImgName;
-    }
-
-    public String getEndNightSignatureImgName() {
-        return endNightSignatureImgName;
-    }
-
-    public void setEndNightSignatureImgName(String endNightSignatureImgName) {
-        this.endNightSignatureImgName = endNightSignatureImgName;
-    }
 }

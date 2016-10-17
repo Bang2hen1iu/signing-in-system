@@ -1,1 +1,278 @@
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('1a l=1b.2s("2r",["2k","1w","1b-2g"]);l.h("2f",["$p","$t",4(a,c){a.1f=4(){c({6:"n",7:"/8/g/q/2d"}).9(4(){2c.2b("\\2a\\29\\28\\24\\22\\1X")}).12(4(){1q.1s="/q/1t"})};$(4(){a.1f()})}]);l.h("1W",["$p","$t",4(a,c){a.1v=4(){c({6:"S",7:"/8/g/q/1v"}).9(4(){1q.1s="/q/1t"})};a.1T=4(){c({6:"W",7:"/8/g/q/1B/"+a.1C}).9(4(){e("\\F\\D\\j\\k\\f")}).12(4(){e("\\F\\D\\1h\\1i\\f")})};a.1R=4(){c({6:"W",7:"/8/1P/q/1B/"+a.1n}).9(4(){e("\\F\\D\\j\\k\\f")}).12(4(){e("\\F\\D\\1h\\1i\\f")})};$(4(){a.1C="";a.1n=""})}]);l.h("1p",["$p","$t",4(a,c){a.1O=4(){c({6:"X",7:"/8/g/x/Z",R:a.14}).9(4(b){e("\\1y\\1z\\17\\B\\j\\k\\f");a.14=5;a.m()})};a.m=4(){c({6:"n",7:"/8/T/x"}).9(4(b){a.r=b})};a.1N=4(b){a.11=b};a.1M=4(){c({6:"S",7:"/8/g/1I/13/"+a.11.i}).9(4(){e("\\15\\Y\\j\\k\\f");a.11=5;a.m()})};$(4(){a.r=5;a.14=5;a.1G=5;a.m()})}]);l.h("1k",["$p","$t",4(a,c){a.m=4(){c({6:"n",7:"/8/T/x"}).9(4(b){a.r=b})};a.1l=4(b){a.I=b.i;a.y=b.1o;a.K()};a.K=4(){c({6:"n",7:"/8/T/w/"+a.I}).9(4(b){a.1r=b})};a.1F=4(){5==a.I?e("\\Q\\1E\\O\\P\\17\\B\\f"):(a.N.i=a.I,a.N.J=[a.u,a.s,a.o],c({6:"X",7:"/8/g/w/Z",R:a.N}).9(4(){e("\\1y\\1z\\18\\10\\j\\k\\f");a.N=5;a.u=5;a.s=5;a.o=5;a.K()}))};a.23=4(b){a.M=b;a.u=b.J[0];a.s=b.J[1];a.o=b.J[2]};a.1H=4(b){a.G=b};a.1J=4(){a.M.J=[a.u,a.s,a.o];c({6:"W",7:"/8/g/w/1K",R:a.M}).9(4(){e("\\F\\D\\18\\10\\j\\k\\f");a.M=5;a.u=5;a.s=5;a.o=5;a.K()})};a.1L=4(){c({6:"S",7:"/8/g/w/13?i="+a.G.i+"&1e="+a.G.1e}).9(4(){e("\\15\\Y\\18\\10\\j\\k\\f");a.G=5;a.K()})};$(4(){a.y="\\Q\\O\\P\\17\\B";a.r=5;a.I=5;a.1r=5;a.N=5;a.M=5;a.G=5;a.u=5;a.s=5;a.o=5;a.m()})}]);l.h("1c",["$p","$t",4(a,c){a.m=4(){c({6:"n",7:"/8/T/x"}).9(4(b){a.r=b})};a.U=4(){c({6:"n",7:"/8/g/V"}).9(4(b){a.1Q=b})};a.1l=4(b){a.A.i=b.i;a.y=b.1o};a.1S=4(){c({6:"X",7:"/8/g/1x/Z",R:a.A}).9(4(b){e("\\1U\\1V\\j\\k\\f");a.A.i=5;a.y="\\Q\\O\\P\\1u\\1j\\B";a.U()})};a.1Y=4(b){c({6:"S",7:"/8/g/1x/13?i="+b}).9(4(b){e("\\15\\Y\\j\\k\\f");a.U()})};$(4(){a.y="\\Q\\O\\P\\1u\\1j\\B";a.r=5;a.A={};a.A.1Z=20 21;a.m();a.U()})}]);l.h("1g",["$p","$t","1w",4(a,c,b){a.1D=4(){1a d=b("25-26-27");d.1d(a.L);a.v.L=d.19();d.1d(a.H);a.v.H=d.19();c({6:"n",7:"/8/g/E/2e?L="+a.v.L+"&H="+a.v.H}).9(4(b){a.16=1A.2h.2i(1A,b.2j(4(a){1m a.2l}));a.E=b;a.v={};a.L=5;a.H=5})};a.2m=4(b){1m{2n:b/(1.3*a.16)*2o+"%"}};$(4(){a.E={};a.v={};a.16=5})}]);l.2p(["$2q",4(a){a.C("/",{z:"2t"}).C("/x",{h:"1p",z:"x"}).C("/w",{h:"1k",z:"w"}).C("/V",{h:"1c",z:"V"}).C("/E",{h:"1g",z:"E"})}]);',62,154,'||||function|null|method|url|api|success|||||alert|uff01|admin_api|controller|studentId|u6210|u529f|app|getStudent|GET|coursePerWeekJsonList3|scope|admin|studentData|coursePerWeekJsonList2|http|coursePerWeekJsonList1|toQueryData|courses|students|hint|templateUrl|toAddDutyData|u751f|when|u6539|statistics|u4fee|toDeleteCourseData|endDate|currentStudentId|coursePerWeekJsonList|getCourses|startDate|toModifyCourseData|toAddCourseData|u9009|u62e9|u8bf7|data|DELETE|common_api|getDutyStudent|duty_students|PUT|POST|u9664|addition|u7a0b|toDeleteStudent|error|deletion|toAddStudentData|u5220|maxStayLabTime|u5b66|u8bfe|getText|var|angular|dutyStudentsCtrl|setDate|courseName|testToken|statisticsCtrl|u5931|u8d25|u65e5|coursesCtrl|switchStudentCourse|return|labPassword|name|studentsCtrl|window|courseData|location|login|u503c|logout|datetime|duty_student|u65b0|u589e|Math|password_update|adminPassword|queryStatistic|u5148|addCourse|toDeleteStudentId|copyToDeleteCourse|student|modifyCourse|update|delCourse|delStudent|copyStudent|addStudent|sign_in_info_api|dutyStudentData|modifyLabPassword|addDutyStudent|modifyAdminPassword|u6dfb|u52a0|navbar_ctrl|u8fc7|delDutyStudent|operDate|new|Date|u901a|copyToModifyCourse|u8bc1|yyyy|MM|dd|u9a8c|u6237token|u7528|log|console|token_validation|range_query|signInSysCtrl|toArrayFilter|max|apply|map|ngRoute|stayLabTime|getProgressBarWidth|width|100|config|routeProvider|signInSys|module|admin_welcome'.split('|'),0,{}))
+var app = angular.module('signInSys', ['ngRoute', 'datetime', 'angular-toArrayFilter']);
+app.controller('signInSysCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.testToken = function () {
+        $http({
+            method: 'GET',
+            url: '/api/admin_api/admin/token_validation'
+        }).success(function () {
+            console.log("用户token验证通过");
+        }).error(function () {
+            window.location = '/admin/login';
+        })
+    };
+    $(function () {
+        $scope.testToken();
+    });
+}]);
+app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.logout = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin_api/admin/logout'
+        }).success(function () {
+            window.location = '/admin/login';
+        });
+    };
+    $scope.modifyAdminPassword = function () {
+        $http({
+            method: 'PUT',
+            url: '/api/admin_api/admin/password_update/'+$scope.adminPassword
+        }).success(function () {
+            alert("修改成功！");
+        }).error(function () {
+            alert("修改失败！");
+        })
+    };
+    $scope.modifyLabPassword = function () {
+        $http({
+            method: 'PUT',
+            url: '/api/sign_in_info_api/admin/password_update/'+$scope.labPassword
+        }).success(function () {
+            alert("修改成功！");
+        }).error(function () {
+            alert("修改失败！");
+        })
+    };
+
+    $(function () {
+        $scope.adminPassword = "";
+        $scope.labPassword = "";
+    });
+}]);
+app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.addStudent = function () {
+        $http({
+            method: 'POST',
+            url: '/api/admin_api/students/addition',
+            data: $scope.toAddStudentData
+        }).success(function (data) {
+            alert("新增学生成功！");
+            $scope.toAddStudentData = null;
+            $scope.getStudent();
+        });
+    };
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.copyToRegisterStudent = function (student) {
+        $scope.toRegisterStudent = student;
+    };
+    $scope.copyToDeleteStudent = function (student) {
+        $scope.toDeleteStudent = student;
+    };
+    $scope.delStudent = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin_api/student/deletion/'+$scope.toDeleteStudent.studentId
+        }).success(function () {
+            alert("删除成功！");
+            $scope.toDeleteStudent = null;
+            $scope.getStudent();
+        });
+    };
+    $(function () {
+        $scope.studentData = null;
+        $scope.toAddStudentData = null;
+        $scope.getStudent();
+    });
+}]);
+app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.switchStudentCourse = function (student) {
+        $scope.currentStudentId = student.studentId;
+        $scope.hint = student.name;
+        $scope.getCourses();
+    };
+    $scope.getCourses = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/courses/'+$scope.currentStudentId
+        }).success(function (data) {
+            $scope.courseData = data;
+        });
+    };
+    $scope.addCourse = function () {
+        if($scope.currentStudentId == null){
+            alert("请先选择学生！");
+            return;
+        }
+        $scope.toAddCourseData.studentId = $scope.currentStudentId;
+        $scope.toAddCourseData.coursePerWeekJsonList = [
+            $scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+        $http({
+            method: 'POST',
+            url: '/api/admin_api/courses/addition',
+            data: $scope.toAddCourseData
+        }).success(function () {
+            alert("新增课程成功！");
+            $scope.toAddCourseData = null;
+            $scope.coursePerWeekJsonList1 = null;
+            $scope.coursePerWeekJsonList2 = null;
+            $scope.coursePerWeekJsonList3 = null;
+            $scope.getCourses();
+        });
+    };
+    $scope.copyToModifyCourse = function (course) {
+        $scope.toModifyCourseData = course;
+        $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
+        $scope.coursePerWeekJsonList2 = course.coursePerWeekJsonList[1];
+        $scope.coursePerWeekJsonList3 = course.coursePerWeekJsonList[2];
+    };
+    $scope.copyToDeleteCourse = function (course) {
+        $scope.toDeleteCourseData = course;
+    };
+    $scope.modifyCourse = function () {
+        $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+        $http({
+            method: 'PUT',
+            url: '/api/admin_api/courses/update',
+            data: $scope.toModifyCourseData
+        }).success(function () {
+            alert("修改课程成功！");
+            $scope.toModifyCourseData = null;
+            $scope.coursePerWeekJsonList1 = null;
+            $scope.coursePerWeekJsonList2 = null;
+            $scope.coursePerWeekJsonList3 = null;
+            $scope.getCourses();
+        });
+
+    };
+    $scope.delCourse = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin_api/courses/deletion?studentId='+$scope.toDeleteCourseData.studentId+'&courseName=' + $scope.toDeleteCourseData.courseName
+        }).success(function () {
+            alert("删除课程成功！");
+            $scope.toDeleteCourseData = null;
+            $scope.getCourses();
+        });
+    };
+    $(function () {
+        $scope.hint = '请选择学生';
+        $scope.studentData = null;
+        $scope.currentStudentId = null;
+        $scope.courseData = null;
+        $scope.toAddCourseData = null;
+        $scope.toModifyCourseData = null;
+        $scope.toDeleteCourseData = null;
+        $scope.coursePerWeekJsonList1 = null;
+        $scope.coursePerWeekJsonList2 = null;
+        $scope.coursePerWeekJsonList3 = null;
+        $scope.getStudent();
+    });
+}]);
+app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/common_api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.getDutyStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/admin_api/duty_students'
+        }).success(function (data) {
+            $scope.dutyStudentData = data;
+        });
+    };
+    $scope.switchStudentCourse = function (student) {
+        $scope.toAddDutyData.studentId = student.studentId;
+        $scope.hint = student.name;
+    };
+    $scope.addDutyStudent = function () {
+        $http({
+            method: 'POST',
+            url: '/api/admin_api/duty_student/addition',
+            data: $scope.toAddDutyData
+        }).success(function (data) {
+            alert("添加成功！");
+            $scope.toAddDutyData.studentId = null;
+            $scope.hint = '请选择值日生';
+            $scope.getDutyStudent();
+        });
+    };
+    $scope.delDutyStudent = function (id) {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin_api/duty_student/deletion?studentId='+id
+        }).success(function (data) {
+            alert("删除成功！");
+            $scope.getDutyStudent();
+        });
+    };
+    $(function () {
+        $scope.hint = '请选择值日生';
+        $scope.studentData = null;
+        $scope.toAddDutyData = {};
+        $scope.toAddDutyData.operDate = new Date();
+        $scope.getStudent();
+        $scope.getDutyStudent();
+    });
+}]);
+app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scope, $http, datetime) {
+    $scope.queryStatistic = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.startDate);
+        $scope.toQueryData.startDate = parser.getText();
+        parser.setDate($scope.endDate);
+        $scope.toQueryData.endDate = parser.getText();
+        $http({
+            method: 'GET',
+            url: '/api/admin_api/statistics/range_query?startDate='+$scope.toQueryData.startDate+'&endDate='+$scope.toQueryData.endDate
+        }).success(function (data) {
+            $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
+            $scope.statistics = data;
+            $scope.toQueryData = {};
+        });
+    };
+    $scope.getProgressBarWidth = function(stayLabTime){
+        return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
+    };
+    $(function () {
+        $scope.statistics = {};
+        $scope.toQueryData = {};
+        $scope.maxStayLabTime = null;
+    });
+}]);
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'admin_welcome'
+    }).when('/students', {
+        controller: 'studentsCtrl',
+        templateUrl: 'students'
+    }).when('/courses', {
+        controller: 'coursesCtrl',
+        templateUrl: 'courses'
+    }).when('/duty_students', {
+        controller: 'dutyStudentsCtrl',
+        templateUrl: 'duty_students'
+    }).when('/statistics', {
+        controller: 'statisticsCtrl',
+        templateUrl: 'statistics'
+    });
+}]);

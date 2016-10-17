@@ -18,13 +18,20 @@
                     <table class="table table-striped table-hover table-bordered">
                         <tr>
                             <th class="col-md-3">姓名</th>
+                            <th class="col-md-2">录入指纹</th>
                             <th class="col-md-1">删除</th>
                         </tr>
                         <tr ng-repeat="student in studentData">
                             <td class="col-md-3">{{student.name}}</td>
+                            <td class="col-md-2">
+                                <a class="btn btn-xs btn-info"
+                                   ng-click="copyToRegisterStudent(student)" data-toggle="modal" data-target="#registerStudent">
+                                    <span class="glyphicon glyphicon-record"/>
+                                </a>
+                            </td>
                             <td class="col-md-1">
                                 <a class="btn btn-xs delete-btn btn-danger"
-                                   ng-click="copyStudent(student)" data-toggle="modal" data-target="#delStudent">
+                                   ng-click="copyToDeleteStudent(student)" data-toggle="modal" data-target="#delStudent">
                                     <span class="glyphicon glyphicon-remove"/>
                                 </a>
                             </td>
@@ -71,6 +78,24 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="delStudentLabel">确认删除</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert">{{toDeleteStudent.name}}的全部信息将被删除，请再次慎重确认！</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger glyphicon glyphicon-remove" data-dismiss="modal" ng-click="delStudent()"> 删除
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="registerStudent" tabindex="-1" role="dialog" aria-labelledby="registerStudentLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="registerStudentLabel">确认删除</h4>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" role="alert">{{toDeleteStudent.name}}的全部信息将被删除，请再次慎重确认！</div>

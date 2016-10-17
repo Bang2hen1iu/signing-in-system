@@ -1,9 +1,19 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2 class="page-header">排行榜</h2>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+##            <div class="btn-group">
+##                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+##                    {{hint}} <span class="caret"></span>
+##                </button>
+##                <ul class="dropdown-menu" role="menu">
+##                    <li><a href="" ng-click="switchStudentCourse(student)" ng-repeat="student in studentData">{{student.name}}</a></li>
+##                </ul>
+##            </div>
         </div>
+        <div class="page-header"></div>
     </div>
+</div>
+<div class="container">
     <div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <label style="float: left">
