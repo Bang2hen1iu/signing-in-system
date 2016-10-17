@@ -75,6 +75,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
         zkonline.Register();
         alert('bb');
         $scope.toRegisterStudent.fingerprint = zkonline.RegisterTemplate;
+        alert($scope.toRegisterStudent.fingerprint);
         $http({
             method: 'POST',
             url: '/api/admin_api/students/registering',

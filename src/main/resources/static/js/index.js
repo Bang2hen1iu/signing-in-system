@@ -195,6 +195,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         zkonline.GetVerTemplate();
         $scope.testSignInData = {};
         $scope.testSignInData.fingerprint = zkonline.VerifyTemplate;
+        alert($scope.testSignInData.fingerprint);
         $http({
             method: 'POST',
             url: "/api/sign_in_info_api/test_sign_in",

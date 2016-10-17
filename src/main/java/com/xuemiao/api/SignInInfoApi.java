@@ -101,6 +101,7 @@ public class SignInInfoApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response testSignIn(SignInActionJson signInActionJson){
         StudentEntity studentEntity = studentRepository.findOneByFingerprint(signInActionJson.getFingerprint());
+
         return Response.ok().entity(studentEntity).build();
     }
 
