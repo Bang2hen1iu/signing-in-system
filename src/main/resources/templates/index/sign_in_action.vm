@@ -30,11 +30,6 @@
 
 <comment> <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
 
-<script>
-    $(function () {
-        zkonline.GetVerTemplate();
-    });
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -82,7 +77,7 @@
         <tr ng-repeat="student in signInInfoData">
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 active">{{student.name}}</td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(1, student.startMorning)">
-                <button ng-click="copySignInItem(student.studentId, 1)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn1" class="btn btn-default">签名</button>
+                <button onclick="signIn(student.studentId)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn1" class="btn btn-default">签名</button>
                 <div ng-if="student.startMorning">
                     已于{{student.startMorning | date:'HH:mm:ss'}}签名
                 </div>
@@ -188,3 +183,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    var signIn = function (id) {
+        alert(id);
+        var fp = zkonline.GetVerTemplate();
+        alert(fp);
+    };
+    $(function () {
+
+    });
+</script>
