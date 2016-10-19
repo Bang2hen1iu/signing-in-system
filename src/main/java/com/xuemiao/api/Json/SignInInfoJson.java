@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by dzj on 10/3/2016.
  */
-public class SignInInfoJson implements Serializable{
+public class SignInInfoJson implements Serializable {
     private String studentId;
     private String name;
     private List<SignInInfoRecordEntity> signInInfoRecordEntities;

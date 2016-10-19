@@ -2,7 +2,10 @@ package com.xuemiao.model.pdm;
 
 import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -11,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "fingerprint")
 @IdClass(FingerprintPK.class)
-public class FingerprintEntity implements Serializable{
+public class FingerprintEntity implements Serializable {
     @Id
     private Long studentId;
     @Id

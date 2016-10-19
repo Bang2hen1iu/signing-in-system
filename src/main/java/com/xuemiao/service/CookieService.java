@@ -18,11 +18,15 @@ import java.util.UUID;
  * Created by dzj on 10/1/2016.
  */
 @Component
-public class CookieValidationService {
+public class CookieService {
     @Value("${admin.cookie.token.name}")
     String tokenName;
     @Autowired
     SignInTokenRepository signInTokenRepository;
+    @Value("${admin.cookie.token.age}")
+    int cookieAge;
+    @Value("${admin.cookie.token.path}")
+    String cookiePath;
 
     public void checkTokenCookie(String tokenString) throws TokenInvalidException {
         boolean flag = true;
@@ -39,7 +43,7 @@ public class CookieValidationService {
         }
     }
 
-    public NewCookie getTokenCookie(String path, int age) {
+    private NewCookie getTokenCookie(String path, int age) {
         String token = UUID.randomUUID().toString();
         SignInTokenEntity signInTokenEntity = new SignInTokenEntity();
         DateTime now = DateTime.now();
@@ -52,7 +56,7 @@ public class CookieValidationService {
         return new NewCookie(cookie, null, age, false);
     }
 
-    public NewCookie refreshCookie(String oriTokenString, String path, int age) {
+    private NewCookie refreshCookie(String oriTokenString, String path, int age) {
         SignInTokenEntity signInTokenEntity = signInTokenRepository.findOne(oriTokenString);
         if (signInTokenEntity == null) {
             return null;
@@ -62,5 +66,13 @@ public class CookieValidationService {
 
     public void deleteCookieByToken(String tokenString) {
         signInTokenRepository.delete(tokenString);
+    }
+
+    public NewCookie getCookie() {
+        return this.getTokenCookie(cookiePath, cookieAge);
+    }
+
+    public NewCookie refreshCookie(String tokenString) {
+        return this.refreshCookie(tokenString, cookiePath, cookieAge);
     }
 }

@@ -8,10 +8,10 @@ public class FPComDll {
         System.loadLibrary("FPCom");
     }
 
-    private native boolean Process(String a,String b);
+    private native boolean Process(String a, String b);
 
-    public boolean Process_java(String a,String b){
-        return this.Process(a,b);
+    public boolean Process_java(String a, String b) {
+        return this.Process(a, b);
     }
 
 }

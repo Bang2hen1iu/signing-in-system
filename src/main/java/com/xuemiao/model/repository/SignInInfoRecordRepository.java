@@ -14,7 +14,7 @@ import java.util.List;
  * Created by root on 16-10-17.
  */
 @Component
-public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoRecordEntity,SignInInfoRecordPK>{
+public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoRecordEntity, SignInInfoRecordPK> {
     @Query("select s from SignInInfoRecordEntity s where s.signInInfoId=:signInInfoId")
     List<SignInInfoRecordEntity> findBySignInInfoId(@Param("signInInfoId") Long signInInfoId);
 

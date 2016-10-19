@@ -18,16 +18,10 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="" data-toggle="modal" data-target="#adminPassword"><i class="fa fa-user fa-fw"></i>
-                            修改管理员密码</a></li>
-                        <li><a href="" data-toggle="modal" data-target="#labPassword"><i class="fa fa-user fa-fw"></i>
-                            修改实验室密码</a></li>
-                        <li class="divider"></li>
-                        <li><a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
-                        </li>
+                        <li><a href="" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a></li>
                     </ul>
                 </li>
             </ul>

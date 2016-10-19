@@ -1,9 +1,10 @@
 package com.xuemiao.api;
 
-import com.xuemiao.model.pdm.*;
-import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
+import com.xuemiao.model.pdm.CourseEntity;
+import com.xuemiao.model.pdm.CoursePerWeekEntity;
+import com.xuemiao.model.pdm.SignInInfoV2Entity;
+import com.xuemiao.model.pdm.StudentEntity;
 import com.xuemiao.model.repository.*;
-import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

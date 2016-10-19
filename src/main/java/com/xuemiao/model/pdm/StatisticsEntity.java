@@ -1,8 +1,9 @@
 package com.xuemiao.model.pdm;
 
-import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
 /**

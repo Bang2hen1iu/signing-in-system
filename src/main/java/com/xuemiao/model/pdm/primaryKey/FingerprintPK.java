@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by root on 16-10-19.
  */
 @Embeddable
-public class FingerprintPK implements Serializable{
+public class FingerprintPK implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
     @Column(name = "token")

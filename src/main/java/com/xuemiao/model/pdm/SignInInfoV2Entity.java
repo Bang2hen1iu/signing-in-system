@@ -1,16 +1,14 @@
 package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 /**
  * Created by root on 16-10-17.
  */
 @Entity
 @Table(name = "sign_in_info_v2")
-public class SignInInfoV2Entity{
+public class SignInInfoV2Entity {
     @Id
     @GeneratedValue
     @Column(name = "id")

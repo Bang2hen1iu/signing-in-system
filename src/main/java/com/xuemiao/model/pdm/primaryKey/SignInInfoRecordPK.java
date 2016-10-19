@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * Created by root on 16-10-17.
  */
 @Embeddable
-public class SignInInfoRecordPK implements Serializable{
+public class SignInInfoRecordPK implements Serializable {
     @Column(name = "sign_in_info_id")
     private Long signInInfoId;
     @Column(name = "start_time")

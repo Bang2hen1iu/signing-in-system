@@ -9,7 +9,7 @@ import java.sql.Date;
  * Created by dzj on 10/7/2016.
  */
 @Embeddable
-public class DutyStudentPK implements Serializable{
+public class DutyStudentPK implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
     @Column(name = "start_date")

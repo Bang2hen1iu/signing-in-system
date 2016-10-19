@@ -2,7 +2,10 @@ package com.xuemiao.model.pdm;
 
 import com.xuemiao.model.pdm.primaryKey.DutyStudentPK;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.sql.Date;
 

@@ -1,14 +1,13 @@
 package com.xuemiao.model.pdm;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by dzj on 9/30/2016.
  */
 @Entity
 @Table(name = "course")
-public class CourseEntity{
+public class CourseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by root on 16-10-17.
  */
 @Component
-public interface SignInInfoV2Repository extends JpaRepository<SignInInfoV2Entity,Long>{
+public interface SignInInfoV2Repository extends JpaRepository<SignInInfoV2Entity, Long> {
     @Query("select s from SignInInfoV2Entity s where s.studentId=:studentId and s.operDate=:date")
     SignInInfoV2Entity findOneByStudentIdAndDate(@Param("studentId") Long studentId, @Param("date") Date date);
 

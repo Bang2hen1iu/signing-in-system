@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by dzj on 10/8/2016.
  */
-public class SignInInfoCoursesInfo implements Serializable{
+public class SignInInfoCoursesInfo implements Serializable {
     private String courseName;
     private int startSection;
     private int endSection;

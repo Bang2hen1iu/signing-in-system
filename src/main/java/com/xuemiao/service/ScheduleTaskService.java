@@ -90,8 +90,8 @@ public class ScheduleTaskService {
                     }
                     List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId());
                     Long stayLabTimeL = new Long("0");
-                    for(SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities){
-                        if(signInInfoRecordEntity.getEndTime()!=null){
+                    for (SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities) {
+                        if (signInInfoRecordEntity.getEndTime() != null) {
                             stayLabTimeL += (signInInfoRecordEntity.getEndTime().getTime() - signInInfoRecordEntity.getStartTime().getTime());
                         }
                     }

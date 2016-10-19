@@ -3,7 +3,6 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -16,5 +15,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AbsenceRepository extends JpaRepository<AbsenceEntity, StudentIdAndOperDateKey> {
     @Transactional
     @Query("delete from AbsenceEntity s where s.studentId = :studentId")
-    void deleteByStudentId(@Param("studentId")Long studentId);
+    void deleteByStudentId(@Param("studentId") Long studentId);
 }

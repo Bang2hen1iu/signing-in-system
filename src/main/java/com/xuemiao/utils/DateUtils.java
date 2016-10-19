@@ -52,11 +52,11 @@ public class DateUtils {
         return (int) ((currentDate.getMillis() - startDate.getMillis()) / 86400000);
     }
 
-    public static int getCurrentWeek(DateTime startDate,DateTime currentDate) {
+    public static int getCurrentWeek(DateTime startDate, DateTime currentDate) {
         return 1 + getDiffDays(startDate, currentDate) / 7;
     }
 
-    public static int getCurrentWeekDay(DateTime startDate,DateTime currentDate) {
+    public static int getCurrentWeekDay(DateTime startDate, DateTime currentDate) {
         return getDiffDays(startDate, currentDate) % 7;
     }
 

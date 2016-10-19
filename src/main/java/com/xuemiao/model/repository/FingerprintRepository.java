@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  * Created by root on 16-10-19.
  */
 @Component
-public interface FingerprintRepository extends JpaRepository<FingerprintEntity,FingerprintPK>{
+public interface FingerprintRepository extends JpaRepository<FingerprintEntity, FingerprintPK> {
 }

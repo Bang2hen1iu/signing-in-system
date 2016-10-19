@@ -23,27 +23,6 @@ app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
             window.location = '/admin/login';
         });
     };
-    $scope.modifyAdminPassword = function () {
-        $http({
-            method: 'PUT',
-            url: '/api/admin_api/admin/password_update/'+$scope.adminPassword
-        }).success(function () {
-            alert("修改成功！");
-        }).error(function () {
-            alert("修改失败！");
-        })
-    };
-    $scope.modifyLabPassword = function () {
-        $http({
-            method: 'PUT',
-            url: '/api/sign_in_info_api/admin/password_update/'+$scope.labPassword
-        }).success(function () {
-            alert("修改成功！");
-        }).error(function () {
-            alert("修改失败！");
-        })
-    };
-
     $(function () {
         $scope.adminPassword = "";
         $scope.labPassword = "";

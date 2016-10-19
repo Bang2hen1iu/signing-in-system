@@ -1,7 +1,5 @@
 package com.xuemiao.api.Json;
 
-import java.sql.Date;
-
 /**
  * Created by dzj on 10/3/2016.
  */
