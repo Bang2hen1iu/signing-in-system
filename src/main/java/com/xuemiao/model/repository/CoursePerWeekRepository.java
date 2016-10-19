@@ -1,7 +1,7 @@
 package com.xuemiao.model.repository;
 
 import com.xuemiao.model.pdm.CoursePerWeekEntity;
-import com.xuemiao.model.pdm.CoursePerWeekPKey;
+import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,23 +14,16 @@ import java.util.List;
  * Created by dzj on 10/4/2016.
  */
 public interface CoursePerWeekRepository extends JpaRepository<CoursePerWeekEntity, CoursePerWeekPKey> {
-    @Query("select c from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName and c.weekday = :weekday")
-    CoursePerWeekEntity findOneByIdAndNameAndWeekday(@Param("studentId") Long studentId,
-                                                     @Param("courseName") String courseName,
+    @Query("select c from CoursePerWeekEntity c where c.courseId = :courseId and c.weekday = :weekday")
+    CoursePerWeekEntity findOneByCourseIdAndWeekday(@Param("courseId") Long courseId,
                                                      @Param("weekday") int weekday);
 
-    @Query("select c from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName")
-    List<CoursePerWeekEntity> findByIdAndName(@Param("studentId") Long studentId,
-                                              @Param("courseName") String courseName);
+    @Query("select c from CoursePerWeekEntity c where c.courseId = :courseId")
+    List<CoursePerWeekEntity> findByCourseIdAndName(@Param("courseId") Long courseId);
 
     @Transactional
     @Modifying
-    @Query("delete from CoursePerWeekEntity c where c.studentId = :studentId and c.courseName = :courseName")
-    void deleteByStudentIdAndCourseName(@Param("studentId") Long studentId,
-                                        @Param("courseName") String courseName);
+    @Query("delete from CoursePerWeekEntity c where c.courseId = :courseId")
+    void deleteByCourseId(@Param("courseId") Long courseId);
 
-    @Transactional
-    @Modifying
-    @Query("delete from CoursePerWeekEntity s where s.studentId = :studentId")
-    void deleteByStudentId(@Param("studentId")Long studentId);
 }

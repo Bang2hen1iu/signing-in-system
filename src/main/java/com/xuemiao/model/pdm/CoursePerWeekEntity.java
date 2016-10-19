@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,30 +13,20 @@ import java.io.Serializable;
 @Table(name = "course_per_week")
 public class CoursePerWeekEntity implements Serializable {
     @Id
+    private Long courseId;
+    @Id
     private int weekday;
-    @Id
-    private Long studentId;
-    @Id
-    private String courseName;
     @Column(name = "start_section")
     private int startSection;
     @Column(name = "end_section")
     private int endSection;
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
     public int getWeekday() {

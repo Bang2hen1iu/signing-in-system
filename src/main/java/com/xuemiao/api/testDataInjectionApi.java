@@ -1,8 +1,8 @@
 package com.xuemiao.api;
 
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
-import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,35 +40,15 @@ public class testDataInjectionApi {
     @Autowired
     StatisticsRepository statisticsRepository;
     @Autowired
-    SysAdminRepository sysAdminRepository;
-    @Autowired
     SignInInfoV2Repository signInInfoV2Repository;
 
     @POST
     @Path("/all")
     public Response injectAll() {
-        injectAdminAccount();
         injectStudent();
         injectCourse();
         injectSignInInfo();
         injectStatistics();
-        return Response.ok().build();
-    }
-
-    @POST
-    @Path("/admin")
-    public Response injectAdminAccount() {
-        SysAdminEntity sysAdminEntity = new SysAdminEntity();
-        Integer i1 = 66666;
-        sysAdminEntity.setAdminId(i1.longValue());
-        sysAdminEntity.setType(1);
-        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash("66666"));
-        sysAdminRepository.save(sysAdminEntity);
-        Integer i2 = 12345;
-        sysAdminEntity.setAdminId(i2.longValue());
-        sysAdminEntity.setType(2);
-        sysAdminEntity.setPasswordSalted(PasswordUtils.createPasswordHash("12345"));
-        sysAdminRepository.save(sysAdminEntity);
         return Response.ok().build();
     }
 
@@ -105,8 +85,7 @@ public class testDataInjectionApi {
             courseRepository.save(courseEntity);
 
             CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
-            coursePerWeekEntity.setStudentId(studentEntity.getStudentId());
-            coursePerWeekEntity.setCourseName(courseName);
+            coursePerWeekEntity.setCourseId(courseEntity.getId());
             coursePerWeekEntity.setWeekday(1);
             coursePerWeekEntity.setStartSection(1);
             coursePerWeekEntity.setEndSection(2);

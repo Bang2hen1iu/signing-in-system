@@ -1,7 +1,7 @@
 package com.xuemiao.model.repository;
 
 import com.xuemiao.model.pdm.AbsenceEntity;
-import com.xuemiao.model.pdm.StudentIdAndOperDateKey;
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -3,6 +3,7 @@ package com.xuemiao.api;
 import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.*;
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
@@ -26,14 +27,13 @@ import java.util.List;
 @Component
 @Path("/admin_api")
 public class AdminApi {
-    private final String cookiePath = "/api/admin_api";
+    @Value("${admin.cookie.token.path}")
+    String cookiePath;
     @Autowired
     StudentRepository studentRepository;
     @Autowired
-    SysAdminRepository sysAdminRepository;
-    @Autowired
     AdminValidationService adminValidationService;
-    @Value("${super-admin.cookie.token.age}")
+    @Value("${admin.cookie.token.age}")
     int superAdminCookieAge;
     @Autowired
     CookieValidationService cookieValidationService;
@@ -65,24 +65,16 @@ public class AdminApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response adminValidation(IdPasswordJson idPasswordJson)
             throws IdNotExistException, PasswordErrorException {
-        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword1(), 2);
-        return Response.ok().cookie(getCookie(idPasswordJson.getId())).build();
+        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword());
+        return Response.ok().cookie(getCookie()).build();
     }
 
-    private NewCookie getCookie(Long id) {
-        return cookieValidationService.getTokenCookie(id, cookiePath, superAdminCookieAge);
+    private NewCookie getCookie() {
+        return cookieValidationService.getTokenCookie(cookiePath, superAdminCookieAge);
     }
 
     private NewCookie refreshCookie(String tokenString) {
         return cookieValidationService.refreshCookie(tokenString, cookiePath, superAdminCookieAge);
-    }
-
-    @PUT
-    @Path("/admin/password_update/{psw}")
-    public Response adminPasswordUpdate(@PathParam("psw") String password)
-            throws IdNotExistException, PasswordErrorException {
-        adminValidationService.changePassword(password, 2);
-        return Response.ok().build();
     }
 
     @DELETE
@@ -112,7 +104,7 @@ public class AdminApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerStudent(RegisterStudentJson registerStudentJson){
         StudentEntity studentEntity = studentRepository.findOne(registerStudentJson.getStudentId());
-        studentEntity.setFingerprint(registerStudentJson.getFingerprint());
+        //TODO save fingerprint
         studentRepository.save(studentEntity);
         return Response.ok().build();
     }
@@ -121,7 +113,10 @@ public class AdminApi {
     @Path("/student/deletion/{id}")
     public Response deleteStudent(@PathParam("id") Long id) {
         dutyStudentRepository.deleteByStudentId(id);
-        coursePerWeekRepository.deleteByStudentId(id);
+        List<CourseEntity> courseEntities = courseRepository.findByStudentId(id);
+        for (CourseEntity courseEntity:courseEntities){
+            coursePerWeekRepository.deleteByCourseId(courseEntity.getId());
+        }
         courseRepository.deleteByStudentId(id);
         statisticsRepository.deleteByStudentId(id);
         absenceRepository.deleteByStudentId(id);
@@ -131,10 +126,9 @@ public class AdminApi {
         return Response.ok().build();
     }
 
-    private void saveCoursePerWeekJson(Long id, String name, CoursePerWeekJson coursePerWeekJson) {
+    private void saveCoursePerWeekJson(Long courseId, CoursePerWeekJson coursePerWeekJson) {
         CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
-        coursePerWeekEntity.setStudentId(id);
-        coursePerWeekEntity.setCourseName(name);
+        coursePerWeekEntity.setCourseId(courseId);
         coursePerWeekEntity.setStartSection(coursePerWeekJson.getStartSection());
         coursePerWeekEntity.setEndSection(coursePerWeekJson.getEndSection());
         coursePerWeekEntity.setWeekday(coursePerWeekJson.getWeekday());
@@ -156,7 +150,7 @@ public class AdminApi {
             if (coursePerWeekJson == null) {
                 continue;
             }
-            saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
+            saveCoursePerWeekJson(coursesInfoJson.getId(), coursePerWeekJson);
         }
         return Response.ok().build();
     }
@@ -165,29 +159,22 @@ public class AdminApi {
     @Path("/courses/update")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response modifyCourse(CoursesInfoJson coursesInfoJson) {
-        StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
-        studentAndCourseNameKey.setStudentId(coursesInfoJson.getStudentId());
-        studentAndCourseNameKey.setCourseName(coursesInfoJson.getCourseName());
-        CourseEntity courseEntity = courseRepository.findOne(studentAndCourseNameKey);
+        CourseEntity courseEntity = courseRepository.findOne(coursesInfoJson.getId());
         courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
         courseRepository.save(courseEntity);
-        coursePerWeekRepository.deleteByStudentIdAndCourseName(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName());
+        coursePerWeekRepository.deleteByCourseId(coursesInfoJson.getId());
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
-            saveCoursePerWeekJson(coursesInfoJson.getStudentId(), coursesInfoJson.getCourseName(), coursePerWeekJson);
+            saveCoursePerWeekJson(coursesInfoJson.getId(),coursePerWeekJson);
         }
         return Response.ok().build();
     }
 
     @DELETE
-    @Path("/courses/deletion")
-    public Response deleteCourse(@QueryParam("studentId") Long studentId,
-                                 @QueryParam("courseName") String courseName) {
-        coursePerWeekRepository.deleteByStudentIdAndCourseName(studentId, courseName);
-        StudentAndCourseNameKey studentAndCourseNameKey = new StudentAndCourseNameKey();
-        studentAndCourseNameKey.setStudentId(studentId);
-        studentAndCourseNameKey.setCourseName(courseName);
-        courseRepository.delete(studentAndCourseNameKey);
+    @Path("/courses/deletion/{id}")
+    public Response deleteCourse(@PathParam("id") Long id) {
+        coursePerWeekRepository.deleteByCourseId(id);
+        courseRepository.delete(id);
         return Response.ok().build();
     }
 

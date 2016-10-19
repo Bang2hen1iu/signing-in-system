@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import com.xuemiao.model.pdm.primaryKey.DutyStudentPK;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
+
 import javax.persistence.*;
 import java.sql.Date;
 

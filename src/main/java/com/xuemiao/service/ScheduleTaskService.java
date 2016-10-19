@@ -1,6 +1,7 @@
 package com.xuemiao.service;
 
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
 import org.joda.time.DateTime;
@@ -89,7 +90,7 @@ public class ScheduleTaskService {
                     } else {
                         statisticsEntity.setAbsenceTimes(1);
                     }
-                    List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInId(signInInfoV2Entity.getId());
+                    List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId());
                     Long stayLabTimeL = new Long("0");
                     for(SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities){
                         if(signInInfoRecordEntity.getEndTime()!=null){

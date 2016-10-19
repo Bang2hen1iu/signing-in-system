@@ -7,17 +7,26 @@ import java.io.Serializable;
  * Created by dzj on 9/30/2016.
  */
 @Entity
-@IdClass(value = StudentAndCourseNameKey.class)
 @Table(name = "course")
-public class CourseEntity implements Serializable {
+public class CourseEntity{
     @Id
+    private Long id;
+    @Column(name = "student_id")
     private Long studentId;
-    @Id
+    @Column(name = "course_name")
     private String courseName;
     @Column(name = "start_week")
     private int startWeek;
     @Column(name = "end_week")
     private int endWeek;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getStudentId() {
         return studentId;

@@ -3,7 +3,9 @@ package com.xuemiao.api;
 import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.exception.ImgNotExistException;
+import com.xuemiao.lib.FPComDll;
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.StatisticsService;
 import com.xuemiao.utils.DateUtils;
@@ -55,6 +57,15 @@ public class CommonApi {
     SignInInfoRecordRepository signInInfoRecordRepository;
 
     @GET
+    @Path("/test")
+    public Response test(){
+        System.out.println(System.getProperty("java.library.path"));
+        FPComDll fpComDll = new FPComDll();
+        return Response.ok().entity(fpComDll.Process_java("a","b")).build();
+        //return Response.ok().entity(System.getProperty("java.library.path")).build();
+    }
+
+    @GET
     @Path("/{psw}")
     public String getPswHash(@PathParam("psw") String psw) {
         return PasswordUtils.createPasswordHash(psw);
@@ -95,8 +106,8 @@ public class CommonApi {
             coursesInfoJson.setStartWeek(courseEntity.getStartWeek());
             coursesInfoJson.setEndWeek(courseEntity.getEndWeek());
             List<CoursePerWeekJson> coursePerWeekJsonList = new ArrayList<>();
-            List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByIdAndName(
-                    courseEntity.getStudentId(), courseEntity.getCourseName());
+            List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByCourseIdAndName(
+                    courseEntity.getId());
             for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities) {
                 CoursePerWeekJson coursePerWeekJson = new CoursePerWeekJson();
                 coursePerWeekJson.setWeekday(coursePerWeekEntity.getWeekday());
@@ -141,7 +152,7 @@ public class CommonApi {
             signInInfoJson.setStudentId(signInInfoV2Entity.getStudentId().toString());
             signInInfoJson.setName(studentRepository.findOne(signInInfoV2Entity.getStudentId()).getName());
 
-            signInInfoJson.setSignInInfoRecordEntities(signInInfoRecordRepository.findBySignInId(signInInfoV2Entity.getId()));
+            signInInfoJson.setSignInInfoRecordEntities(signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId()));
 
             List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
             DateTime startDate = DateTime.parse(courseStartDateString);
@@ -150,8 +161,8 @@ public class CommonApi {
             List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
             CoursePerWeekEntity coursePerWeekEntity;
             for (CourseEntity courseEntity : courseEntities) {
-                coursePerWeekEntity = coursePerWeekRepository.findOneByIdAndNameAndWeekday(
-                        courseEntity.getStudentId(), courseEntity.getCourseName(), currentWeekday);
+                coursePerWeekEntity = coursePerWeekRepository.findOneByCourseIdAndWeekday(
+                        courseEntity.getId(), currentWeekday);
                 if (coursePerWeekEntity != null) {
                     SignInInfoCoursesInfo signInInfoCoursesInfo = new SignInInfoCoursesInfo();
                     signInInfoCoursesInfo.setCourseName(courseEntity.getCourseName());

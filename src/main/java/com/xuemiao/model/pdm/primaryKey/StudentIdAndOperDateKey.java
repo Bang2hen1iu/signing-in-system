@@ -1,18 +1,19 @@
-package com.xuemiao.model.pdm;
+package com.xuemiao.model.pdm.primaryKey;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Created by dzj on 9/30/2016.
  */
 @Embeddable
-public class StudentAndCourseNameKey implements Serializable {
+public class StudentIdAndOperDateKey implements Serializable {
     @Column(name = "student_id")
     private Long studentId;
-    @Column(name = "course_name")
-    private String courseName;
+    @Column(name = "oper_date")
+    private Date operDate;
 
     public Long getStudentId() {
         return studentId;
@@ -22,11 +23,11 @@ public class StudentAndCourseNameKey implements Serializable {
         this.studentId = studentId;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Date getOperDate() {
+        return operDate;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setOperDate(Date operDate) {
+        this.operDate = operDate;
     }
 }

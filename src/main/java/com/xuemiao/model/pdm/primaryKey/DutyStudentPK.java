@@ -1,4 +1,4 @@
-package com.xuemiao.model.pdm;
+package com.xuemiao.model.pdm.primaryKey;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

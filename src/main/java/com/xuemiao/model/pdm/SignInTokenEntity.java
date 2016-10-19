@@ -15,8 +15,6 @@ public class SignInTokenEntity {
     @Id
     @Column(name = "token")
     private String token;
-    @Column(name = "admin_id")
-    private Long adminId;
     @Column(name = "sign_in_at")
     private Timestamp signInAt;
     @Column(name = "expire_at")
@@ -28,14 +26,6 @@ public class SignInTokenEntity {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public Long getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(Long adminId) {
-        this.adminId = adminId;
     }
 
     public Timestamp getSignInAt() {

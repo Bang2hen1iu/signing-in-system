@@ -1,5 +1,7 @@
 package com.xuemiao.model.pdm;
 
+import com.xuemiao.model.pdm.primaryKey.SignInInfoRecordPK;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -11,18 +13,18 @@ import java.sql.Timestamp;
 @Table(name = "sign_in_info_record")
 public class SignInInfoRecordEntity {
     @Id
-    private Long signInId;
+    private Long signInInfoId;
     @Id
     private Timestamp startTime;
     @Column(name = "end_time")
     private Timestamp endTime;
 
-    public Long getSignInId() {
-        return signInId;
+    public Long getSignInInfoId() {
+        return signInInfoId;
     }
 
-    public void setSignInId(Long signInId) {
-        this.signInId = signInId;
+    public void setSignInInfoId(Long signInInfoId) {
+        this.signInInfoId = signInInfoId;
     }
 
     public Timestamp getStartTime() {

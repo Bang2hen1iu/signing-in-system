@@ -1,4 +1,4 @@
-package com.xuemiao.model.pdm;
+package com.xuemiao.model.pdm.primaryKey;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,17 +10,17 @@ import java.sql.Timestamp;
  */
 @Embeddable
 public class SignInInfoRecordPK implements Serializable{
-    @Column(name = "sign_in_id")
-    private Long signInId;
+    @Column(name = "sign_in_info_id")
+    private Long signInInfoId;
     @Column(name = "start_time")
     private Timestamp startTime;
 
-    public Long getSignInId() {
-        return signInId;
+    public Long getSignInInfoId() {
+        return signInInfoId;
     }
 
-    public void setSignInId(Long signInId) {
-        this.signInId = signInId;
+    public void setSignInInfoId(Long signInInfoId) {
+        this.signInInfoId = signInInfoId;
     }
 
     public Timestamp getStartTime() {

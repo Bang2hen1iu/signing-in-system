@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Created by dzj on 9/30/2016.
  */
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
-    StudentEntity findOneByFingerprint(String fingerprint);
 }

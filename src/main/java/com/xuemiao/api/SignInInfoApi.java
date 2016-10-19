@@ -5,15 +5,13 @@ import com.xuemiao.api.Json.IdPasswordJson;
 import com.xuemiao.api.Json.SignInActionJson;
 import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
-import com.xuemiao.exception.SignInOrderException;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
 import com.xuemiao.utils.DateUtils;
-import org.apache.commons.codec.binary.Base64;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,10 +20,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.UUID;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -42,8 +36,6 @@ public class SignInInfoApi {
     CookieValidationService cookieValidationService;
     @Autowired
     AbsenceRepository absenceRepository;
-    @Autowired
-    SysAdminRepository sysAdminRepository;
     @Value("${admin.cookie.token.age}")
     int adminCookieAge;
     @Value("${signatureImgPath}")
@@ -59,12 +51,11 @@ public class SignInInfoApi {
     @Path("/test")
     public Response testCookie(@CookieParam("token") String tokenString) throws TokenInvalidException {
         cookieValidationService.checkTokenCookie(tokenString, 1);
-
         return Response.ok().entity(tokenString).build();
     }
 
-    private NewCookie getCookie(Long id) {
-        return cookieValidationService.getTokenCookie(id, cookiePath, adminCookieAge);
+    private NewCookie getCookie() {
+        return cookieValidationService.getTokenCookie(cookiePath, adminCookieAge);
     }
 
     private NewCookie refreshCookie(String tokenString) {
@@ -76,17 +67,9 @@ public class SignInInfoApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response adminValidation(IdPasswordJson idPasswordJson)
             throws IdNotExistException, PasswordErrorException {
-        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword1(), 1);
+        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword());
         System.out.println("XXX:" + adminCookieAge);
-        return Response.ok().cookie(getCookie(idPasswordJson.getId())).build();
-    }
-
-    @PUT
-    @Path("/admin/password_update/{psw}")
-    public Response adminPasswordUpdate(@PathParam("psw") String password)
-            throws IdNotExistException, PasswordErrorException {
-        adminValidationService.changePassword(password, 1);
-        return Response.ok().build();
+        return Response.ok().cookie(getCookie()).build();
     }
 
     @DELETE
@@ -100,9 +83,10 @@ public class SignInInfoApi {
     @Path("/test_sign_in")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response testSignIn(SignInActionJson signInActionJson){
-        StudentEntity studentEntity = studentRepository.findOneByFingerprint(signInActionJson.getFingerprint());
+        //StudentEntity studentEntity = studentRepository.findOneByFingerprint(signInActionJson.getFingerprint());
 
-        return Response.ok().entity(studentEntity).build();
+        //return Response.ok().entity(studentEntity).build();
+        return null;
     }
 
 //    @POST

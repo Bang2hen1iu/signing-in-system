@@ -3,7 +3,6 @@ package com.xuemiao.service;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.SignInTokenEntity;
 import com.xuemiao.model.repository.SignInTokenRepository;
-import com.xuemiao.model.repository.SysAdminRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +23,6 @@ public class CookieValidationService {
     String tokenName;
     @Autowired
     SignInTokenRepository signInTokenRepository;
-    @Autowired
-    SysAdminRepository sysAdminRepository;
 
     public void checkTokenCookie(String tokenString, int type) throws TokenInvalidException {
         boolean flag = true;
@@ -33,8 +30,7 @@ public class CookieValidationService {
             flag = false;
         } else {
             SignInTokenEntity signInTokenEntity = signInTokenRepository.findOne(tokenString);
-            if (signInTokenEntity == null || signInTokenEntity.getExpireAt().compareTo(new Date()) == -1 ||
-                    type != sysAdminRepository.findOne(signInTokenEntity.getAdminId()).getType()) {
+            if (signInTokenEntity == null || signInTokenEntity.getExpireAt().compareTo(new Date()) == -1) {
                 flag = false;
             }
         }
@@ -43,10 +39,9 @@ public class CookieValidationService {
         }
     }
 
-    public NewCookie getTokenCookie(Long id, String path, int age) {
+    public NewCookie getTokenCookie(String path, int age) {
         String token = UUID.randomUUID().toString();
         SignInTokenEntity signInTokenEntity = new SignInTokenEntity();
-        signInTokenEntity.setAdminId(id);
         DateTime now = DateTime.now();
         DateTime expireDate = now.plusSeconds(age);
         signInTokenEntity.setSignInAt(new Timestamp(now.getMillis()));
@@ -62,7 +57,7 @@ public class CookieValidationService {
         if (signInTokenEntity == null) {
             return null;
         }
-        return getTokenCookie(signInTokenEntity.getAdminId(), path, age);
+        return getTokenCookie(path, age);
     }
 
     public void deleteCookieByToken(String tokenString) {

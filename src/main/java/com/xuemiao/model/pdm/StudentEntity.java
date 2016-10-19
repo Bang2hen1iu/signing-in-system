@@ -14,8 +14,6 @@ public class StudentEntity {
     private Long studentId;
     @Column(name = "name")
     private String name;
-    @Column(name = "fingerprint")
-    private String fingerprint;
 
     public Long getStudentId() {
         return studentId;
@@ -33,11 +31,4 @@ public class StudentEntity {
         this.name = name;
     }
 
-    public String getFingerprint() {
-        return fingerprint;
-    }
-
-    public void setFingerprint(String fingerprint) {
-        this.fingerprint = fingerprint;
-    }
 }
