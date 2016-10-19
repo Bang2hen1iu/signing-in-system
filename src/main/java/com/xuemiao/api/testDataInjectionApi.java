@@ -27,8 +27,6 @@ public class testDataInjectionApi {
     @Autowired
     StudentRepository studentRepository;
     @Autowired
-    SignInInfoRepository signInInfoRepository;
-    @Autowired
     CourseRepository courseRepository;
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
@@ -48,7 +46,6 @@ public class testDataInjectionApi {
         injectStudent();
         injectCourse();
         injectSignInInfo();
-        injectStatistics();
         return Response.ok().build();
     }
 
@@ -116,48 +113,6 @@ public class testDataInjectionApi {
             signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
 
             signInInfoV2Repository.save(signInInfoV2Entity);
-        }
-        return Response.ok().build();
-    }
-
-    @POST
-    @Path("/statistics")
-    public Response injectStatistics() {
-        List<StudentEntity> studentEntities = studentRepository.findAll();
-        SignInInfoEntity signInInfoEntity;
-        DateTime currentDate = DateTime.now();
-        DateTime previousDate = currentDate;
-        StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-        AbsenceEntity absenceEntity;
-        for (StudentEntity studentEntity : studentEntities) {
-            studentIdAndOperDateKey.setStudentId(studentEntity.getStudentId());
-            studentIdAndOperDateKey.setOperDate(new Date(previousDate.getMillis()));
-            signInInfoEntity = signInInfoRepository.findOne(studentIdAndOperDateKey);
-            if (signInInfoEntity != null) {
-                StatisticsEntity statisticsEntity = new StatisticsEntity();
-                statisticsEntity.setStudentId(studentEntity.getStudentId());
-                statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
-                absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
-                if (absenceEntity == null) {
-                    statisticsEntity.setAbsenceTimes(0);
-                } else {
-                    statisticsEntity.setAbsenceTimes(1);
-                }
-                Long stayLabTimeL = new Long("0");
-                if (signInInfoEntity.getEndMorning() != null && signInInfoEntity.getStartMorning() != null) {
-                    stayLabTimeL += (signInInfoEntity.getEndMorning().getTime() - signInInfoEntity.getStartMorning().getTime());
-                }
-                if (signInInfoEntity.getEndAfternoon() != null && signInInfoEntity.getStartAfternoon() != null) {
-                    stayLabTimeL += (signInInfoEntity.getEndAfternoon().getTime() - signInInfoEntity.getStartAfternoon().getTime());
-                }
-                if (signInInfoEntity.getEndNight() != null && signInInfoEntity.getStartNight() != null) {
-                    stayLabTimeL += (signInInfoEntity.getEndNight().getTime() - signInInfoEntity.getStartNight().getTime());
-                }
-                double stayLabTimeD = stayLabTimeL.doubleValue();
-                stayLabTimeD /= 3600000;
-                statisticsEntity.setStayLabTime(stayLabTimeD);
-                statisticsRepository.save(statisticsEntity);
-            }
         }
         return Response.ok().build();
     }

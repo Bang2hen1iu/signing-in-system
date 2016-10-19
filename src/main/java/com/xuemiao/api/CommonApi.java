@@ -5,6 +5,7 @@ import com.xuemiao.exception.DateFormatErrorException;
 import com.xuemiao.exception.ImgNotExistException;
 import com.xuemiao.lib.FPComDll;
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.StatisticsService;
@@ -16,9 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.activation.MimetypesFileTypeMap;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.sql.Date;
@@ -38,8 +37,6 @@ public class CommonApi {
     @Autowired
     DutyStudentRepository dutyStudentRepository;
     @Autowired
-    SignInInfoRepository signInInfoRepository;
-    @Autowired
     AbsenceRepository absenceRepository;
     @Autowired
     CourseRepository courseRepository;
@@ -56,6 +53,8 @@ public class CommonApi {
     @Autowired
     SignInInfoRecordRepository signInInfoRecordRepository;
 
+    /*---------------------------------------------------------------------------------------------------------------*/
+
     @GET
     @Path("/test")
     public Response test(){
@@ -71,74 +70,17 @@ public class CommonApi {
         return PasswordUtils.createPasswordHash(psw);
     }
 
+    //get system time of server
     @GET
-    @Path("/students")
-    public Response getStudents() {
-        List<StudentEntity> studentEntities = studentRepository.findAll();
-        return Response.ok().entity(studentEntities).build();
-    }
-
-    @GET
-    @Path("/statistics/{date}")
-    public Response getStatisticData(@PathParam("date") Date date) {
-        List<StatisticsEntity> statisticsEntities = statisticsRepository.findByOperDate(date);
-        return Response.ok().entity(statisticsEntities).build();
-    }
-
-    @GET
-    @Path("/statistics/sum")
-    public Response getStatisticsSum() {
+    @Path("/system_time")
+    public Response getSystemTime(){
         DateTime now = DateTime.now();
-        DateTime dateTime = new DateTime(now.getYear(), now.getMonthOfYear(), 1, 0, 0, 0, 0);
-        List<Object[]> statisticList = statisticsRepository.getStatisticsByStartDate(new Date(dateTime.getMillis()));
-        return Response.ok().entity(statisticsService.object2Json(statisticList)).build();
+        return Response.ok().entity(now.getYear()+"-"+String.format("%02d", now.getMonthOfYear())+"-"+String.format("%02d", now.getDayOfMonth())+" "+String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour())+":"+String.format("%02d", now.getSecondOfMinute())).build();
     }
 
-    @GET
-    @Path("/courses/{studentId}")
-    public Response getCourseByStudentId(@PathParam("studentId") Long studentId) {
-        List<CoursesInfoJson> coursesInfoJsonList = new ArrayList<>();
-        List<CourseEntity> courseEntities = courseRepository.findByStudentId(studentId);
-        for (CourseEntity courseEntity : courseEntities) {
-            CoursesInfoJson coursesInfoJson = new CoursesInfoJson();
-            coursesInfoJson.setStudentId(courseEntity.getStudentId());
-            coursesInfoJson.setCourseName(courseEntity.getCourseName());
-            coursesInfoJson.setStartWeek(courseEntity.getStartWeek());
-            coursesInfoJson.setEndWeek(courseEntity.getEndWeek());
-            List<CoursePerWeekJson> coursePerWeekJsonList = new ArrayList<>();
-            List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByCourseIdAndName(
-                    courseEntity.getId());
-            for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities) {
-                CoursePerWeekJson coursePerWeekJson = new CoursePerWeekJson();
-                coursePerWeekJson.setWeekday(coursePerWeekEntity.getWeekday());
-                coursePerWeekJson.setStartSection(coursePerWeekEntity.getStartSection());
-                coursePerWeekJson.setEndSection(coursePerWeekEntity.getEndSection());
-                coursePerWeekJsonList.add(coursePerWeekJson);
-            }
-            coursesInfoJson.setCoursePerWeekJsonList(coursePerWeekJsonList);
-            coursesInfoJsonList.add(coursesInfoJson);
-        }
-        System.out.println(coursesInfoJsonList);
-        return Response.ok().entity(coursesInfoJsonList).build();
-    }
+    /*---------------------------------------------------------------------------------------------------------------*/
 
-    @GET
-    @Path("/duty_students/{date}")
-    public Response getDutyStudents(@PathParam("date") Date date)
-            throws DateFormatErrorException {
-        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findByOperDate(date);
-        List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
-        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
-            DutyStudentJson dutyStudentJson = new DutyStudentJson();
-            dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
-            dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
-            dutyStudentJson.setStartDate(dutyStudentEntity.getStartDate());
-            dutyStudentJson.setEndDate(dutyStudentEntity.getEndDate());
-            dutyStudentJsonList.add(dutyStudentJson);
-        }
-        return Response.ok().entity(dutyStudentJsonList).build();
-    }
-
+    //get sign in info by date
     @GET
     @Path("/sign_in_info/{date}")
     public Response getSignInInfoV2(@PathParam("date") Date date) {
@@ -160,9 +102,11 @@ public class CommonApi {
             int currentWeekday = DateUtils.getCurrentWeekDay(startDate,dateTime);
             List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
             CoursePerWeekEntity coursePerWeekEntity;
+            CoursePerWeekPKey coursePerWeekPKey = new CoursePerWeekPKey();
             for (CourseEntity courseEntity : courseEntities) {
-                coursePerWeekEntity = coursePerWeekRepository.findOneByCourseIdAndWeekday(
-                        courseEntity.getId(), currentWeekday);
+                coursePerWeekPKey.setCourseId(courseEntity.getId());
+                coursePerWeekPKey.setWeekday(currentWeekday);
+                coursePerWeekEntity = coursePerWeekRepository.findOne(coursePerWeekPKey);
                 if (coursePerWeekEntity != null) {
                     SignInInfoCoursesInfo signInInfoCoursesInfo = new SignInInfoCoursesInfo();
                     signInInfoCoursesInfo.setCourseName(courseEntity.getCourseName());
@@ -188,36 +132,7 @@ public class CommonApi {
         return Response.ok().entity(signInInfoJsonList).build();
     }
 
-    @GET
-    @Path("/sign_in_info/signatures/{name}")
-    public Response getSignatureImgByPath(@PathParam("name") String name)
-            throws ImgNotExistException {
-        File f = new File(signatureImgPath + name);
-        if (!f.exists()) {
-            throw new ImgNotExistException();
-        }
-        String mt = new MimetypesFileTypeMap().getContentType(f);
-        return Response.ok(f, mt).build();
-    }
-
-    @GET
-    @Path("/absences/{studentId}/{operDate}")
-    public Response getStudentAbsence(@PathParam("studentId") Long studentId,
-                                      @PathParam("operDate") String operDate) {
-        StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
-        studentIdAndOperDateKey.setStudentId(studentId);
-        studentIdAndOperDateKey.setOperDate(new Date(DateUtils.parseDateString(operDate).getMillis()));
-        AbsenceEntity absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
-        return Response.ok().entity(absenceEntity).build();
-    }
-
-    @GET
-    @Path("/sign_in_info/date")
-    public Response getSignInInfoDate() {
-        List<Date> dateList = signInInfoRepository.getAllSignInInfoDate();
-        return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
-    }
-
+    //get latest date of sign in info
     @GET
     @Path("/sign_in_info/latest_date")
     public Response getSignInInfoLatestDate() {
@@ -225,13 +140,101 @@ public class CommonApi {
         return Response.ok().entity(date).build();
     }
 
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //get course by student id
     @GET
-    @Path("/system_time")
-    public Response getSystemTime(){
-        DateTime now = DateTime.now();
-        return Response.ok().entity(now.getYear()+"-"+String.format("%02d", now.getMonthOfYear())+"-"+String.format("%02d", now.getDayOfMonth())+" "+String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour())+":"+String.format("%02d", now.getSecondOfMinute())).build();
+    @Path("/courses/{studentId}")
+    public Response getCourseByStudentId(@PathParam("studentId") Long studentId) {
+        List<CoursesInfoJson> coursesInfoJsonList = new ArrayList<>();
+        List<CourseEntity> courseEntities = courseRepository.findByStudentId(studentId);
+        for (CourseEntity courseEntity : courseEntities) {
+            CoursesInfoJson coursesInfoJson = new CoursesInfoJson();
+            coursesInfoJson.setStudentId(courseEntity.getStudentId());
+            coursesInfoJson.setCourseName(courseEntity.getCourseName());
+            coursesInfoJson.setStartWeek(courseEntity.getStartWeek());
+            coursesInfoJson.setEndWeek(courseEntity.getEndWeek());
+            List<CoursePerWeekJson> coursePerWeekJsonList = new ArrayList<>();
+            List<CoursePerWeekEntity> coursePerWeekEntities = coursePerWeekRepository.findByCourseId(
+                    courseEntity.getId());
+            for (CoursePerWeekEntity coursePerWeekEntity : coursePerWeekEntities) {
+                CoursePerWeekJson coursePerWeekJson = new CoursePerWeekJson();
+                coursePerWeekJson.setWeekday(coursePerWeekEntity.getWeekday());
+                coursePerWeekJson.setStartSection(coursePerWeekEntity.getStartSection());
+                coursePerWeekJson.setEndSection(coursePerWeekEntity.getEndSection());
+                coursePerWeekJsonList.add(coursePerWeekJson);
+            }
+            coursesInfoJson.setCoursePerWeekJsonList(coursePerWeekJsonList);
+            coursesInfoJsonList.add(coursesInfoJson);
+        }
+        System.out.println(coursesInfoJsonList);
+        return Response.ok().entity(coursesInfoJsonList).build();
     }
 
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //get student
+    @GET
+    @Path("/students")
+    public Response getStudents() {
+        List<StudentEntity> studentEntities = studentRepository.findAll();
+        return Response.ok().entity(studentEntities).build();
+    }
+
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //get duty student by date
+    @GET
+    @Path("/duty_students/{date}")
+    public Response getDutyStudents(@PathParam("date") Date date)
+            throws DateFormatErrorException {
+        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findByOperDate(date);
+        List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
+            DutyStudentJson dutyStudentJson = new DutyStudentJson();
+            dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
+            dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
+            dutyStudentJson.setStartDate(dutyStudentEntity.getStartDate());
+            dutyStudentJson.setEndDate(dutyStudentEntity.getEndDate());
+            dutyStudentJsonList.add(dutyStudentJson);
+        }
+        return Response.ok().entity(dutyStudentJsonList).build();
+    }
+
+    //get all duty student
+    @GET
+    @Path("/duty_students")
+    public Response getDutyStudents() {
+        List<DutyStudentJson> dutyStudentJsonList = new ArrayList<>();
+        List<DutyStudentEntity> dutyStudentEntities = dutyStudentRepository.findAll();
+        for (DutyStudentEntity dutyStudentEntity : dutyStudentEntities) {
+            DutyStudentJson dutyStudentJson = new DutyStudentJson();
+            dutyStudentJson.setStudentId(dutyStudentEntity.getStudentId());
+            dutyStudentJson.setStartDate(dutyStudentEntity.getStartDate());
+            dutyStudentJson.setEndDate(dutyStudentEntity.getEndDate());
+            dutyStudentJson.setName(studentRepository.findOne(dutyStudentEntity.getStudentId()).getName());
+            dutyStudentJsonList.add(dutyStudentJson);
+        }
+        return Response.ok().entity(dutyStudentJsonList).build();
+    }
+
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //get absence of student by date
+    @GET
+    @Path("/absences/{studentId}")
+    public Response getStudentAbsence(@PathParam("studentId") Long studentId,
+                                      @QueryParam("operDate") String operDate) {
+        StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
+        studentIdAndOperDateKey.setStudentId(studentId);
+        studentIdAndOperDateKey.setOperDate(new Date(DateUtils.parseDateString(operDate).getMillis()));
+        AbsenceEntity absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+        return Response.ok().entity(absenceEntity).build();
+    }
+
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //get date list of statistics
     @GET
     @Path("/statistics/date")
     public Response getStatisticsDate() {
@@ -239,6 +242,7 @@ public class CommonApi {
         return Response.ok().entity(DateUtils.DateList2DateStringList(dateList)).build();
     }
 
+    //get latest date of statistics
     @GET
     @Path("/statistics/latest_date")
     public Response getStatisticsLatestDate() {
@@ -246,5 +250,32 @@ public class CommonApi {
         return Response.ok().entity(date).build();
     }
 
+    //get statistics by date
+    @GET
+    @Path("/statistics/{date}")
+    public Response getStatisticData(@PathParam("date") Date date) {
+        List<StatisticsEntity> statisticsEntities = statisticsRepository.findByOperDate(date);
+        return Response.ok().entity(statisticsEntities).build();
+    }
+
+    //get statistics of this month
+    @GET
+    @Path("/statistics/sum")
+    public Response getStatisticsSum() {
+        DateTime now = DateTime.now();
+        DateTime dateTime = new DateTime(now.getYear(), now.getMonthOfYear(), 1, 0, 0, 0, 0);
+        List<Object[]> statisticList = statisticsRepository.getStatisticsByStartDate(new Date(dateTime.getMillis()));
+        return Response.ok().entity(statisticsService.object2Json(statisticList)).build();
+    }
+
+    //get statistics by date range
+    @GET
+    @Path("/statistics/range_query")
+    public Response rangeQueryStatistics(@QueryParam("startDate") Date startDate,
+                                         @QueryParam("endDate") Date endDate) {
+        List<Object[]> statisticRangeDataList = statisticsRepository.getRangeStatistics(
+                startDate, endDate);
+        return Response.ok().entity(statisticsService.object2Json(statisticRangeDataList)).build();
+    }
 
 }

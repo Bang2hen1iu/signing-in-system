@@ -7,11 +7,14 @@ import com.xuemiao.exception.IdNotExistException;
 import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.*;
+import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
 import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.service.AdminValidationService;
 import com.xuemiao.service.CookieValidationService;
+import com.xuemiao.service.SignInService;
 import com.xuemiao.utils.DateUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by dzj on 9/30/2016.
@@ -27,17 +33,18 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/sign_in_info_api")
 public class SignInInfoApi {
-    private final String cookiePath = "/api/sign_in_info_api";
+    @Value("${admin.cookie.token.path}")
+    String cookiePath;
+    @Value("${admin.cookie.token.age}")
+    int adminCookieAge;
     @Autowired
-    SignInInfoRepository signInInfoRepository;
+    SignInService signInService;
     @Autowired
     AdminValidationService adminValidationService;
     @Autowired
     CookieValidationService cookieValidationService;
     @Autowired
     AbsenceRepository absenceRepository;
-    @Value("${admin.cookie.token.age}")
-    int adminCookieAge;
     @Value("${signatureImgPath}")
     String signatureImgPath;
     @Autowired
@@ -47,37 +54,7 @@ public class SignInInfoApi {
     @Autowired
     StudentRepository studentRepository;
 
-    @POST
-    @Path("/test")
-    public Response testCookie(@CookieParam("token") String tokenString) throws TokenInvalidException {
-        cookieValidationService.checkTokenCookie(tokenString, 1);
-        return Response.ok().entity(tokenString).build();
-    }
-
-    private NewCookie getCookie() {
-        return cookieValidationService.getTokenCookie(cookiePath, adminCookieAge);
-    }
-
-    private NewCookie refreshCookie(String tokenString) {
-        return cookieValidationService.refreshCookie(tokenString, cookiePath, adminCookieAge);
-    }
-
-    @POST
-    @Path("/admin/validation")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response adminValidation(IdPasswordJson idPasswordJson)
-            throws IdNotExistException, PasswordErrorException {
-        adminValidationService.testPassword(idPasswordJson.getId(), idPasswordJson.getPassword());
-        System.out.println("XXX:" + adminCookieAge);
-        return Response.ok().cookie(getCookie()).build();
-    }
-
-    @DELETE
-    @Path("/admin/logout")
-    public Response adminLogout(@CookieParam("token") String tokenString) {
-        cookieValidationService.deleteCookieByToken(tokenString);
-        return Response.ok().build();
-    }
+    /*---------------------------------------------------------------------------------------------------------------*/
 
     @POST
     @Path("/test_sign_in")
@@ -89,36 +66,38 @@ public class SignInInfoApi {
         return null;
     }
 
-//    @POST
-//    @Path("/sign_in_info/addition")
-//    public Response addSignIn(SignInActionJson signInActionJson,
-//                              @CookieParam("token") String tokenString)
-//            throws SignInOrderException, IOException, TokenInvalidException {
-//        cookieValidationService.checkTokenCookie(tokenString, 1);
-//
-//        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(signInActionJson.getStudentId(),signInActionJson.getOperDate());
-//        Timestamp now = new Timestamp(DateTime.now().getMillis());
-//        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
-//        if(signInInfoRecordEntity==null){
-//            signInInfoRecordEntity = new SignInInfoRecordEntity();
-//            signInInfoRecordEntity.setSignInId(signInInfoV2Entity.getId());
-//            signInInfoRecordEntity.setStartTime(now);
-//        }
-//        else {
-//            signInInfoRecordEntity.setEndTime(now);
-//        }
-//        signInInfoRecordRepository.save(signInInfoRecordEntity);
-//
-//        return Response.ok().cookie(refreshCookie(tokenString)).build();
-//    }
+    /*---------------------------------------------------------------------------------------------------------------*/
 
+    //add sign in info
+    @POST
+    @Path("/sign_in_info/addition")
+    public Response addSignIn(SignInActionJson signInActionJson)
+            throws IOException, TokenInvalidException {
+        DateTime dateTimeNow = DateTime.now();
+        Long studentId = signInService.checkFingerPrint(signInActionJson.getFingerprint());
+        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(studentId,new Date(dateTimeNow.getMillis()));
+        Timestamp now = new Timestamp(dateTimeNow.getMillis());
+        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
+        if(signInInfoRecordEntity==null){
+            signInInfoRecordEntity = new SignInInfoRecordEntity();
+            signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
+            signInInfoRecordEntity.setStartTime(now);
+        }
+        else {
+            signInInfoRecordEntity.setEndTime(now);
+        }
+        signInInfoRecordRepository.save(signInInfoRecordEntity);
+
+        return Response.ok().build();
+    }
+
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+    //add absence
     @POST
     @Path("/absences/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson,
-                                      @CookieParam("token") String tokenString) throws TokenInvalidException {
-        cookieValidationService.checkTokenCookie(tokenString, 1);
-
+    public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson) {
         StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
         studentIdAndOperDateKey.setStudentId(absenceReasonJson.getStudentId());
         studentIdAndOperDateKey.setOperDate(absenceReasonJson.getOperDate());
@@ -137,7 +116,6 @@ public class SignInInfoApi {
             originAbsenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));
             absenceRepository.save(originAbsenceEntity);
         }
-        return Response.ok().cookie(refreshCookie(tokenString)).build();
+        return Response.ok().build();
     }
-
 }

@@ -9,17 +9,27 @@ import java.sql.Date;
  * Created by dzj on 10/1/2016.
  */
 @Entity
-@IdClass(value = StudentIdAndOperDateKey.class)
 @Table(name = "statistics")
 public class StatisticsEntity {
     @Id
+    @Column(name = "sign_in_info_id")
+    private Long signInInfoId;
+    @Column(name = "student_id")
     private Long studentId;
-    @Id
+    @Column(name = "oper_date")
     private Date operDate;
     @Column(name = "stay_lab_time")
     private double stayLabTime;
     @Column(name = "absence_times")
     private int absenceTimes;
+
+    public Long getSignInInfoId() {
+        return signInInfoId;
+    }
+
+    public void setSignInInfoId(Long signInInfoId) {
+        this.signInInfoId = signInInfoId;
+    }
 
     public Long getStudentId() {
         return studentId;

@@ -31,8 +31,6 @@ public class ScheduleTaskService {
     @Autowired
     StudentRepository studentRepository;
     @Autowired
-    SignInInfoRepository signInInfoRepository;
-    @Autowired
     CourseRepository courseRepository;
     @Value("${course.start_date}")
     String courseStartDateString;

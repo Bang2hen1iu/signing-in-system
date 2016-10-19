@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoReco
 
     @Query("select s from SignInInfoRecordEntity s where s.signInInfoId=:signInInfoId and s.startTime is not null and s.endTime is null")
     SignInInfoRecordEntity findOneUnfinishedSignInRecord(@Param("signInInfoId") Long signInInfoId);
+
+    @Transactional
+    @Query("delete from SignInInfoRecordEntity s where s.signInInfoId = :signInInfoId")
+    void deleteBySignInInfoId(Long signInInfoId);
 }

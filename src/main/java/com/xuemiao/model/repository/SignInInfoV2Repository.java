@@ -1,11 +1,11 @@
 package com.xuemiao.model.repository;
 
-import com.xuemiao.model.pdm.SignInInfoEntity;
 import com.xuemiao.model.pdm.SignInInfoV2Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.List;
@@ -22,4 +22,10 @@ public interface SignInInfoV2Repository extends JpaRepository<SignInInfoV2Entity
 
     @Query("select max(s.operDate) from SignInInfoV2Entity s")
     Date getLatestSignInInfoDate();
+
+    @Transactional
+    @Query("delete from SignInInfoV2Entity s where s.studentId = :studentId")
+    void deleteByStudentId(@Param("studentId") Long studentId);
+
+    List<SignInInfoV2Entity> findByStudentId(Long studentId);
 }

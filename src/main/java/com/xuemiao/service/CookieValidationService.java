@@ -24,7 +24,7 @@ public class CookieValidationService {
     @Autowired
     SignInTokenRepository signInTokenRepository;
 
-    public void checkTokenCookie(String tokenString, int type) throws TokenInvalidException {
+    public void checkTokenCookie(String tokenString) throws TokenInvalidException {
         boolean flag = true;
         if (tokenString == null) {
             flag = false;

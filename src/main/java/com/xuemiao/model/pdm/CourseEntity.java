@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Table(name = "course")
 public class CourseEntity{
     @Id
+    @Column(name = "id")
+    @GeneratedValue
     private Long id;
     @Column(name = "student_id")
     private Long studentId;

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
@@ -14,7 +15,8 @@ import java.util.List;
 /**
  * Created by dzj on 10/1/2016.
  */
-public interface StatisticsRepository extends JpaRepository<StatisticsEntity, StudentIdAndOperDateKey> {
+@Component
+public interface StatisticsRepository extends JpaRepository<StatisticsEntity, Long> {
     List<StatisticsEntity> findByOperDate(Date date);
 
     @Query("select distinct s.operDate from StatisticsEntity s")
@@ -33,7 +35,6 @@ public interface StatisticsRepository extends JpaRepository<StatisticsEntity, St
     Date getLatestStatisticsDate();
 
     @Transactional
-    @Modifying
     @Query("delete from StatisticsEntity s where s.studentId = :studentId")
     void deleteByStudentId(@Param("studentId")Long studentId);
 
