@@ -3,7 +3,7 @@ app.controller('signInSysCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.testToken = function () {
         $http({
             method: 'GET',
-            url: '/api/admin_api/admin/token_validation'
+            url: '/api/admin/token_validation'
         }).success(function () {
             console.log("用户token验证通过");
         }).error(function () {
@@ -18,32 +18,11 @@ app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     $scope.logout = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/admin/logout'
+            url: '/api/admin/logout'
         }).success(function () {
             window.location = '/admin/login';
         });
     };
-    $scope.modifyAdminPassword = function () {
-        $http({
-            method: 'PUT',
-            url: '/api/admin_api/admin/password_update/'+$scope.adminPassword
-        }).success(function () {
-            alert("修改成功！");
-        }).error(function () {
-            alert("修改失败！");
-        })
-    };
-    $scope.modifyLabPassword = function () {
-        $http({
-            method: 'PUT',
-            url: '/api/sign_in_info_api/admin/password_update/'+$scope.labPassword
-        }).success(function () {
-            alert("修改成功！");
-        }).error(function () {
-            alert("修改失败！");
-        })
-    };
-
     $(function () {
         $scope.adminPassword = "";
         $scope.labPassword = "";
@@ -53,7 +32,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.addStudent = function () {
         $http({
             method: 'POST',
-            url: '/api/admin_api/students/addition',
+            url: '/api/students/addition',
             data: $scope.toAddStudentData
         }).success(function (data) {
             alert("新增学生成功！");
@@ -64,25 +43,13 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.getStudent = function () {
         $http({
             method: 'GET',
-            url: '/api/common_api/students'
+            url: '/api/students'
         }).success(function (data) {
             $scope.studentData = data;
         });
     };
-    $scope.registerStudent = function (student) {
+    $scope.copyToRegisterStudent = function (student) {
         $scope.toRegisterStudent = student;
-        alert('aa');
-        zkonline.Register();
-        alert('bb');
-        $scope.toRegisterStudent.fingerprint = zkonline.RegisterTemplate;
-        alert($scope.toRegisterStudent.fingerprint);
-        $http({
-            method: 'POST',
-            url: '/api/admin_api/students/registering',
-            data:$scope.toRegisterStudent
-        }).success(function () {
-            alert("成功！");
-        });
     };
     $scope.copyToDeleteStudent = function (student) {
         $scope.toDeleteStudent = student;
@@ -90,7 +57,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delStudent = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/student/deletion/'+$scope.toDeleteStudent.studentId
+            url: '/api/student/deletion/'+$scope.toDeleteStudent.studentId
         }).success(function () {
             alert("删除成功！");
             $scope.toDeleteStudent = null;
@@ -107,7 +74,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.getStudent = function () {
         $http({
             method: 'GET',
-            url: '/api/common_api/students'
+            url: '/api/students'
         }).success(function (data) {
             $scope.studentData = data;
         });
@@ -120,7 +87,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.getCourses = function () {
         $http({
             method: 'GET',
-            url: '/api/common_api/courses/'+$scope.currentStudentId
+            url: '/api/courses/'+$scope.currentStudentId
         }).success(function (data) {
             $scope.courseData = data;
         });
@@ -135,7 +102,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
             $scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
         $http({
             method: 'POST',
-            url: '/api/admin_api/courses/addition',
+            url: '/api/courses/addition',
             data: $scope.toAddCourseData
         }).success(function () {
             alert("新增课程成功！");
@@ -159,7 +126,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
         $http({
             method: 'PUT',
-            url: '/api/admin_api/courses/update',
+            url: '/api/courses/update',
             data: $scope.toModifyCourseData
         }).success(function () {
             alert("修改课程成功！");
@@ -174,7 +141,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delCourse = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/courses/deletion?studentId='+$scope.toDeleteCourseData.studentId+'&courseName=' + $scope.toDeleteCourseData.courseName
+            url: '/api/admin_api/courses/deletion/'+$scope.toDeleteCourseData.id
         }).success(function () {
             alert("删除课程成功！");
             $scope.toDeleteCourseData = null;
@@ -199,7 +166,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
     $scope.getStudent = function () {
         $http({
             method: 'GET',
-            url: '/api/common_api/students'
+            url: '/api/students'
         }).success(function (data) {
             $scope.studentData = data;
         });
@@ -207,7 +174,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
     $scope.getDutyStudent = function () {
         $http({
             method: 'GET',
-            url: '/api/admin_api/duty_students'
+            url: '/api/students/duty_students'
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
@@ -219,7 +186,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
     $scope.addDutyStudent = function () {
         $http({
             method: 'POST',
-            url: '/api/admin_api/duty_student/addition',
+            url: '/api/students/duty_students/addition',
             data: $scope.toAddDutyData
         }).success(function (data) {
             alert("添加成功！");
@@ -231,7 +198,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
     $scope.delDutyStudent = function (id) {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/duty_student/deletion?studentId='+id
+            url: '/api/students/duty_students/deletion/'+id
         }).success(function (data) {
             alert("删除成功！");
             $scope.getDutyStudent();
@@ -255,7 +222,7 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
         $scope.toQueryData.endDate = parser.getText();
         $http({
             method: 'GET',
-            url: '/api/admin_api/statistics/range_query?startDate='+$scope.toQueryData.startDate+'&endDate='+$scope.toQueryData.endDate
+            url: '/api/statistics/range_query?startDate='+$scope.toQueryData.startDate+'&endDate='+$scope.toQueryData.endDate
         }).success(function (data) {
             $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
             $scope.statistics = data;

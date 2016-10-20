@@ -1,35 +1,10 @@
 var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
-sign_in_app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.login = function () {
-        console.log("wa");
-        $http({
-            method: 'POST',
-            url: "/api/sign_in_info_api/admin/validation",
-            data: $scope.login_data
-        }).success(function () {
-            alert('登录成功');
-        }).error(function () {
-            alert('登录失败');
-        });
-    };
-    $scope.logout = function () {
-        $http({
-            method: 'DELETE',
-            url: "/api/sign_in_info_api/admin/logout"
-        }).success(function (data) {
-            alert('已成功退出登录');
-        });
-    };
-    $(function () {
-        $scope.login_data = {};
-    });
-}]);
 sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', '$interval', function ($scope, $http, $q, datetime, $interval) {
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
             method: 'GET',
-            url: "/api/common_api/sign_in_info/latest_date"
+            url: "/api/sign_in_info/latest_date"
         }).success(function (data) {
             defer.resolve(data);
         });
@@ -38,7 +13,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $scope.getDutyStudent = function (date) {
         $http({
             method: 'GET',
-            url: '/api/common_api/duty_students/'+date
+            url: '/api/students/duty_students/'+date
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
@@ -46,7 +21,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $scope.getSignInInfo = function (date) {
         $http({
             method: 'GET',
-            url: "/api/common_api/sign_in_info/"+date
+            url: "/api/sign_in_info/"+date
         }).success(function (data) {
             $scope.signInInfoData = data;
         });
@@ -57,7 +32,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             parser.parse(date);
             $scope.currentDate = parser.getDate();
             $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
-
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
             $interval(function () {
@@ -107,9 +81,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return 'info';
         }
     };
-    $scope.copySignatureImgName = function (signatureImgName) {
-        $scope.signatureImgPath = '/api/common_api/sign_in_info/signatures/'+signatureImgName;
-    };
     $(function () {
         $scope.signInInfoData = {};
         $scope.dutyStudentData = {};
@@ -130,7 +101,7 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
     $scope.getRankListData = function () {
         $http({
             method: 'GET',
-            url: "/api/common_api/statistics/sum"
+            url: "/api/statistics/sum"
         }).success(function (data) {
             $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
             $scope.rank_list_data = data;
@@ -146,12 +117,11 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
     });
 }]);
 sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetime', '$timeout', function ($scope, $http, $q, datetime, $timeout) {
-
     $scope.getLatestDate = function () {
         var defer = $q.defer();
         $http({
             method: 'GET',
-            url: "/api/common_api/sign_in_info/latest_date"
+            url: "/api/sign_in_info/latest_date"
         }).success(function (data) {
             $scope.currentDate = data;
             defer.resolve(data);
@@ -161,7 +131,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     $scope.getSignInInfo = function (date) {
         $http({
             method: 'GET',
-            url: "/api/common_api/sign_in_info/"+date
+            url: "/api/sign_in_info/"+date
         }).success(function (data) {
             $scope.signInInfoData = data;
         });
@@ -170,7 +140,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         var defer = $q.defer();
         $http({
             method: 'GET',
-            url: "/api/common_api/system_time"
+            url: "/api/common/system_time"
         }).success(function (data) {
             var parser = datetime("yyyy-MM-dd HH:mm:ss");
             parser.parse(data);
@@ -189,19 +159,6 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
             $scope.getSystemTime().then(function (time) {
                 $scope.setSignInBtnAvai(time);
             });
-        });
-    };
-    $scope.signIn = function () {
-        zkonline.GetVerTemplate();
-        $scope.testSignInData = {};
-        $scope.testSignInData.fingerprint = zkonline.VerifyTemplate;
-        alert($scope.testSignInData.fingerprint);
-        $http({
-            method: 'POST',
-            url: "/api/sign_in_info_api/test_sign_in",
-            data:$scope.testSignInData
-        }).success(function (data) {
-            alert('success! '+data.name);
         });
     };
     $scope.setSignInBtnAvai = function (time) {
@@ -247,7 +204,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     $scope.getDutyStudent = function (date) {
         $http({
             method: 'GET',
-            url: '/api/common_api/duty_students/'+date
+            url: '/api/students/duty_students/'+date
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
@@ -299,8 +256,6 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.signInItem.studentId = id;
         $scope.signInItem.signInOrder = order;
         $scope.signInItem.operDate = $scope.currentDate;
-
-        //zkonline.GetVerTemplate();
     };
     $scope.signInAction = function () {
         $scope.signInItem.imageData = document.getElementById("myCanvas").toDataURL("image/png");
@@ -308,7 +263,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
 
         $http({
             method: 'POST',
-            url: "/api/sign_in_info_api/sign_in_info/addition",
+            url: "/api/sign_in_info/addition",
             data: $scope.signInItem
         }).success(function (data) {
             alert("签到成功！");
@@ -321,7 +276,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     $scope.askForAbsence = function () {
         $http({
             method: 'POST',
-            url: "/api/sign_in_info_api/absences/addition/",
+            url: "/api/absences/addition/",
             data: $scope.askForAbsenceStudent
         }).success(function (data) {
             alert("请假成功！");
@@ -343,6 +298,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.btn5=true;
         $scope.btn6=true;
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        $scope.InitThis();
         $scope.firstLoad();
     });
 }]);
