@@ -17,9 +17,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("/index/index");
-        registry.addViewController("/sign_in_info").setViewName("/index/sign_in_info");
-        registry.addViewController("/rank_list").setViewName("/index/rank_list");
+        registry.addViewController("/").setViewName("/index/index_v2");
+        registry.addViewController("/sign_in_info").setViewName("/index/sign_in_info_v2");
+        registry.addViewController("/rank_list").setViewName("/index/rank_list_v2");
         registry.addViewController("/sign_in_action").setViewName("/index/sign_in_action");
         registry.addViewController("/admin/login").setViewName("/admin/login");
         registry.addViewController("/admin").setViewName("/admin/index");
@@ -28,6 +28,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/courses").setViewName("/admin/courses");
         registry.addViewController("/duty_students").setViewName("/admin/duty_students");
         registry.addViewController("/statistics").setViewName("/admin/statistics");
-        registry.addViewController("/out_of_date").setViewName("outOfDate");
     }
 }

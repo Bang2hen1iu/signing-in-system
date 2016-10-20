@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5 class="page-header"></h5>
+        </div>
+    </div>
+    <div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <label style="float: left">
+                <img class="person-photo" src="images/photo.jpg"> 于田菲
+            </label>
+            <div class="progress col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: 70%">
+                    999小时
+                </div>
+            </div>
+        </div>
+        <p style="float: left">请假次数：10</p>
+    </div>
+</div>

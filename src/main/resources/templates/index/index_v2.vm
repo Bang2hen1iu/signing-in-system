@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="signInSys" lang="zh-CN">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>签到系统</title>
+    <link href="#springUrl('/lib/bootstrap/dist/css/bootstrap.min.css')" rel="stylesheet" type="text/css">
+    <link href="#springUrl('/lib/font-awesome/css/font-awesome.min.css')" rel="stylesheet" type="text/css">
+    <link href="#springUrl('/css/index.css')" rel="stylesheet" type="text/css">
+    <link href="#springUrl('/lib/flat-ui/flat-ui.css')" rel="stylesheet" type="text/css">
+    <link href="#springUrl('/lib/rodania/rodania.css')" rel="stylesheet" type="text/css">
+    <link href="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.2.1/material.grey-pink.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header" style='background-image: url("#springUrl('/images/header2.jpg')")'>
+        <div class="mdl-layout__header-row portfolio-logo-row">
+            <span class="mdl-layout__title">
+                <div class="portfolio-logo"></div>
+            </span>
+        </div>
+        <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only colorred">
+            <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                <a class="mdl-navigation__link is-active"href="#sign_in_info">签到情况</a>
+                <a class="mdl-navigation__link"href="#rank_list">排行榜</a>
+                <ul class="nav navbar-nav navbar-right"></ul>
+            </nav>
+        </div>
+    </header>
+    <div id="page-wrapper">
+        <ng-view></ng-view>
+    </div>
+</div>
+<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+<script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>
+<script src="#springUrl('/lib/bootstrap/dist/js/bootstrap.min.js')"></script>
+<script src="#springUrl('/lib/angular/angular.min.js')"></script>
+<script src="#springUrl('/lib/angular/toArrayFilter.js')"></script>
+<script src="#springUrl('/lib/angular/angular-route.min.js')"></script>
+<script src="#springUrl('/lib/angular-datetime/dist/datetime.js')"></script>
+<script src="#springUrl('/js/index.js')"></script>
+</body>
+</html>
