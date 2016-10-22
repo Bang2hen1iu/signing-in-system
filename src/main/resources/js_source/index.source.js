@@ -42,34 +42,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             }, 30000);
         });
     };
-    $scope.checkOnTime = function (order, tsp) {
-        var parser = datetime("yyyy-MM-dd HH:mm:ss");
-        var parser_date = datetime("yyyy-MM-dd");
-        parser_date.setDate($scope.currentDate);
-        var date = parser_date.getText();
-        switch (order){
-            case 1:
-                parser.parse(date + ' 09:00:00');
-                return parser.getDate() > new Date(tsp);
-            case 2:
-                parser.parse(date + ' 11:30:00');
-                return parser.getDate() < new Date(tsp);
-            case 3:
-                parser.parse(date + ' 14:00:00');
-                return parser.getDate() > new Date(tsp);
-            case 4:
-                parser.parse(date + ' 17:00:00');
-                return parser.getDate() < new Date(tsp);
-            case 5:
-                parser.parse(date + ' 18:30:00');
-                return parser.getDate() > new Date(tsp);
-            case 6:
-                parser.parse(date + ' 21:30:00');
-                return parser.getDate() < new Date(tsp);
-            default:
-                return false;
-        }
-    };
     $scope.setTrStyle = function (order, tsp) {
         if(tsp==null){
             return '';
@@ -82,9 +54,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         }
     };
     $(function () {
-        $scope.signInInfoData = {};
-        $scope.dutyStudentData = {};
-        $scope.signatureImgPath = null;
         $scope.firstLoad();
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $('#dateInput').on('change',function () {
@@ -111,8 +80,6 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
     };
     $(function () {
-        $scope.rank_list_data = {};
-        $scope.maxStayLabTime = null;
         $scope.getRankListData();
     });
 }]);
@@ -312,8 +279,5 @@ sign_in_app.config(['$routeProvider', function ($routeProvider) {
     }).when('/rank_list', {
         controller: 'rank_list_ctrl',
         templateUrl: 'rank_list'
-    }).when('/sign_in_action', {
-        controller: 'sign_in_action_ctrl',
-        templateUrl: 'sign_in_action'
     });
 }]);

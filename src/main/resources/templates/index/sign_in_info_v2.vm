@@ -1,24 +1,50 @@
-<div>
-    <span class="mdl-chip-person"><img class="person-photo" src="images/example-blog02.jpg">
-        <span>李可可</span>
-    </span>
-    <div class="mdl-chip">
-        <div class="progress">
-            <div class="progress-bar" style="width: 40%;"></div>
-            <div class="progress-bar progress-bar-warning" style="width: 10%; "></div>
-            <div class="progress-bar progress-bar-danger " style="width: 10%;"></div>
-            <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
-            <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+<div class="row">
+    <div class="col-md-12 page-header">
+        <div class="col-md-2 input-group has-warning">
+            <span class="input-group-addon">date</span>
+            <input class="form-control" type="date">
         </div>
     </div>
-    <span>
-        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-            <i class="material-icons">mood</i>
-        </button>
-    </span>
-    <span>
-        <button class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">mood</i>
-        </button>
-    </span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="container">
+            <div class="form-inline">
+                <div class="form-group col-md-1">
+                    <span>dzj</span>
+                </div>
+                <div class="form-group col-md-10" style="margin-top:13px ">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 40%;">111</div>
+                        <div class="progress-bar progress-bar-warning" style="width: 10%;">222</div>
+                        <div class="progress-bar progress-bar-danger" style="width: 10%;">333</div>
+                        <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
+                        <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    <button style="float: left" class="btn btn-inverse btn-sm">absence</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-inline">
+                <div class="form-group col-md-1">
+                    <span>dzj</span>
+                </div>
+                <div class="form-group col-md-10" style="margin-top:13px ">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 40%;">111</div>
+                        <div class="progress-bar progress-bar-warning" style="width: 10%;">222</div>
+                        <div class="progress-bar progress-bar-danger" style="width: 10%;">333</div>
+                        <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
+                        <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    <button style="float: left" class="btn btn-inverse btn-sm">absence</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

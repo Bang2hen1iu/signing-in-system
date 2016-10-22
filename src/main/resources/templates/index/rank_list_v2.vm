@@ -1,20 +1,23 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h5 class="page-header"></h5>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-inline">
+            <div class="input-group has-warning">
+                <span class="input-group-addon">date</span>
+                <input class="form-control" type="date">
+            </div>
         </div>
     </div>
-    <div>
+</div>
+<div class="container">
+##    <div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <label style="float: left">
-                <img class="person-photo" src="images/photo.jpg"> 于田菲
-            </label>
+            <span>dzj</span>
             <div class="progress col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: 70%">
-                    999小时
+                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" ng-style="getProgressBarWidth(student.stayLabTime)">
+                    {{student.stayLabTime}}小时
                 </div>
             </div>
         </div>
-        <p style="float: left">请假次数：10</p>
-    </div>
+        <p style="float: left">请假次数：{{student.absenceTimes}}</p>
+##    </div>
 </div>
