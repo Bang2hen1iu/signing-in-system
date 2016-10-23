@@ -1,23 +1,28 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="form-inline">
-            <div class="input-group has-warning">
-                <span class="input-group-addon">date</span>
-                <input class="form-control" type="date">
-            </div>
+    <div class="col-md-12 col-lg-12 page-header">
+        <div class="col-md-2 input-group has-warning">
+            <span class="input-group-addon">日期</span>
+            <input class="form-control" type="date">
         </div>
     </div>
 </div>
-<div class="container">
-##    <div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <span>dzj</span>
-            <div class="progress col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" ng-style="getProgressBarWidth(student.stayLabTime)">
-                    {{student.stayLabTime}}小时
+
+<div ng-repeat="student in rank_list_data | toArray | orderBy:'stayLabTime':true">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-inline">
+                <div class="form-group col-md-1">
+                    <span>{{student.name}}</span>
+                </div>
+                <div class="form-group col-md-10" style="margin-top:13px ">
+                    <div class="progress">
+                        <div class="progress-bar palette palette-wisteria" ng-style="getProgressBarWidth(student.stayLabTime)"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    <span class="label palette palette-orange">请假{{student.absenceTimes}}次</span>
                 </div>
             </div>
         </div>
-        <p style="float: left">请假次数：{{student.absenceTimes}}</p>
-##    </div>
+    </div>
 </div>

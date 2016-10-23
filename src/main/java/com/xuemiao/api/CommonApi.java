@@ -1,7 +1,6 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.SignInActionJson;
-import com.xuemiao.lib.FPComDll;
 import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
@@ -16,15 +15,6 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/common")
 public class CommonApi {
-
-    @GET
-    @Path("/test")
-    public Response test() {
-        System.out.println(System.getProperty("java.library.path"));
-        FPComDll fpComDll = new FPComDll();
-        return Response.ok().entity(fpComDll.Process_java("a", "b")).build();
-    }
-
     @GET
     @Path("/{psw}")
     public String getPswHash(@PathParam("psw") String psw) {

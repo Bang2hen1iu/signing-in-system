@@ -29,6 +29,17 @@ app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     });
 }]);
 app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.registerStudent = function (student) {
+        zkonline.Register();
+        student.fingerprint = zkonline.RegisterTemplate;
+        $http({
+            method: 'POST',
+            url: '/api/students/registering',
+            data: student
+        }).success(function () {
+            alert("success");
+        });
+    };
     $scope.addStudent = function () {
         $http({
             method: 'POST',
@@ -47,9 +58,6 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
         }).success(function (data) {
             $scope.studentData = data;
         });
-    };
-    $scope.copyToRegisterStudent = function (student) {
-        $scope.toRegisterStudent = student;
     };
     $scope.copyToDeleteStudent = function (student) {
         $scope.toDeleteStudent = student;

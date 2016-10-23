@@ -12,11 +12,8 @@ import java.util.List;
 public class SignInInfoJson implements Serializable {
     private String studentId;
     private String name;
-    private List<SignInInfoRecordEntity> signInInfoRecordEntities;
-    private List<SignInInfoCoursesInfo> signInInfoCoursesInfoList;
-    private Timestamp startAbsence;
-    private Timestamp endAbsence;
-    private String absenceReason;
+    private List<SignInInfoTimeSegment> signInInfoTimeSegments;
+
 
     public String getStudentId() {
         return studentId;
@@ -34,44 +31,11 @@ public class SignInInfoJson implements Serializable {
         this.name = name;
     }
 
-    public List<SignInInfoRecordEntity> getSignInInfoRecordEntities() {
-        return signInInfoRecordEntities;
+    public List<SignInInfoTimeSegment> getSignInInfoTimeSegments() {
+        return signInInfoTimeSegments;
     }
 
-    public void setSignInInfoRecordEntities(List<SignInInfoRecordEntity> signInInfoRecordEntities) {
-        this.signInInfoRecordEntities = signInInfoRecordEntities;
+    public void setSignInInfoTimeSegments(List<SignInInfoTimeSegment> signInInfoTimeSegments) {
+        this.signInInfoTimeSegments = signInInfoTimeSegments;
     }
-
-    public Timestamp getStartAbsence() {
-        return startAbsence;
-    }
-
-    public void setStartAbsence(Timestamp startAbsence) {
-        this.startAbsence = startAbsence;
-    }
-
-    public Timestamp getEndAbsence() {
-        return endAbsence;
-    }
-
-    public void setEndAbsence(Timestamp endAbsence) {
-        this.endAbsence = endAbsence;
-    }
-
-    public List<SignInInfoCoursesInfo> getSignInInfoCoursesInfoList() {
-        return signInInfoCoursesInfoList;
-    }
-
-    public void setSignInInfoCoursesInfoList(List<SignInInfoCoursesInfo> signInInfoCoursesInfoList) {
-        this.signInInfoCoursesInfoList = signInInfoCoursesInfoList;
-    }
-
-    public String getAbsenceReason() {
-        return absenceReason;
-    }
-
-    public void setAbsenceReason(String absenceReason) {
-        this.absenceReason = absenceReason;
-    }
-
 }

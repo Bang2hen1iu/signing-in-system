@@ -11,13 +11,11 @@ import java.sql.Timestamp;
  * Created by dzj on 9/30/2016.
  */
 @Entity
-@IdClass(value = StudentIdAndOperDateKey.class)
 @Table(name = "absence")
-public class AbsenceEntity implements Serializable {
+public class AbsenceEntity {
     @Id
-    private Long studentId;
-    @Id
-    private Date operDate;
+    @Column(name = "sign_in_info_id")
+    private Long signInInfoId;
     @Column(name = "start_absence")
     private Timestamp startAbsence;
     @Column(name = "end_absence")
@@ -25,20 +23,12 @@ public class AbsenceEntity implements Serializable {
     @Column(name = "absence_reason")
     private String absenceReason;
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getSignInInfoId() {
+        return signInInfoId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Date getOperDate() {
-        return operDate;
-    }
-
-    public void setOperDate(Date operDate) {
-        this.operDate = operDate;
+    public void setSignInInfoId(Long signInInfoId) {
+        this.signInInfoId = signInInfoId;
     }
 
     public Timestamp getStartAbsence() {

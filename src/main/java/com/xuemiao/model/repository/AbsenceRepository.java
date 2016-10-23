@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by dzj on 9/30/2016.
  */
 @Component
-public interface AbsenceRepository extends JpaRepository<AbsenceEntity, StudentIdAndOperDateKey> {
-    @Transactional
-    @Query("delete from AbsenceEntity s where s.studentId = :studentId")
-    void deleteByStudentId(@Param("studentId") Long studentId);
+public interface AbsenceRepository extends JpaRepository<AbsenceEntity, Long> {
+
 }

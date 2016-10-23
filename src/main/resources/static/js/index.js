@@ -13,6 +13,20 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         });
         return defer.promise;
     };
+    $scope.signIn = function () {
+        zkonline.Verify();
+        $scope.signInData = {};
+        $scope.signInData.fingerprint = zkonline.VerifyTemplate;
+        $http({
+            method: 'POST',
+            url: "/api/sign_in_info/addition",
+            data:$scope.signInData
+        }).success(function () {
+            alert('success');
+        }).error(function () {
+            alert('fail');
+        });
+    };
     $scope.getDutyStudent = function (date) {
         $http({
             method: 'GET',
@@ -45,16 +59,32 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             }, 30000);
         });
     };
-    $scope.setTrStyle = function (order, tsp) {
-        if(tsp==null){
+    $scope.setBarClass = function (bar) {
+        var baseClass = "progress-bar";
+        if(bar==null){
             return '';
         }
-        if($scope.checkOnTime(order, tsp)){
-            return 'warning';
+        if(bar.type==0){
+            return baseClass+' palette palette-orange';
+        }
+        else if(bar.type==1){
+            return baseClass+' palette palette-carrot';
+        }
+        else if(bar.type==2){
+            return baseClass+' palette palette-peter-river';
+        }
+        else if(bar.type==3){
+            return baseClass+' palette palette-peter-river';
+        }
+        else if(bar.type==4){
+            return baseClass+' palette palette-emerald';
         }
         else{
-            return 'info';
+            return '';
         }
+    };
+    $scope.getTimeSegmentWidth = function (bar) {
+        return {'width':bar.width};
     };
     $(function () {
         $scope.firstLoad();
@@ -85,9 +115,6 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
     $(function () {
         $scope.getRankListData();
     });
-}]);
-sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetime', '$timeout', function ($scope, $http, $q, datetime, $timeout) {
-
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {

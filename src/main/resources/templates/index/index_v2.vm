@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbar_ctrl">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -18,16 +18,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;" ng-class="{'active':sign_in_info}"><a href="#sign_in_info">sign in</a></li>
-                <li ng-click="sign_in_info=false;" ng-class="{'active':!sign_in_info}"><a href="#rank_list">rank list</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href=""><span class="label label-default">duty student:dzj,xyj</span></a></li>
+                <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;" ng-class="{'active':sign_in_info}"><a href="#sign_in_info">签到</a></li>
+                <li ng-click="sign_in_info=false;" ng-class="{'active':!sign_in_info}"><a href="#rank_list">排行榜</a></li>
             </ul>
         </div>
     </div>
 </div>
-<div class="container" id="page-wrapper">
+<div class="container-fluid" id="page-wrapper">
     <ng-view></ng-view>
 </div>
 <script src="#springUrl('/lib/jquery/dist/jquery.min.js')"></script>

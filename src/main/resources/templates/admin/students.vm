@@ -24,8 +24,7 @@
                         <tr ng-repeat="student in studentData">
                             <td class="col-md-3">{{student.name}}</td>
                             <td class="col-md-2">
-                                <a class="btn btn-xs btn-info"
-                                   ng-click="registerStudent(student)" data-toggle="modal" data-target="#registerStudent">
+                                <a class="btn btn-xs btn-info" ng-click="registerStudent(student)">
                                     <span class="glyphicon glyphicon-record"/>
                                 </a>
                             </td>

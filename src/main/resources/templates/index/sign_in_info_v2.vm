@@ -1,50 +1,83 @@
 <div class="row">
-    <div class="col-md-12 page-header">
+    <div class="col-md-12 col-lg-12 page-header">
         <div class="col-md-2 input-group has-warning">
-            <span class="input-group-addon">date</span>
-            <input class="form-control" type="date">
+            <span class="input-group-addon">日期</span>
+            <input class="form-control" type="date" ng-model="currentDate">
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <div class="container">
-            <div class="form-inline">
-                <div class="form-group col-md-1">
-                    <span>dzj</span>
-                </div>
-                <div class="form-group col-md-10" style="margin-top:13px ">
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 40%;">111</div>
-                        <div class="progress-bar progress-bar-warning" style="width: 10%;">222</div>
-                        <div class="progress-bar progress-bar-danger" style="width: 10%;">333</div>
-                        <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
-                        <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
-                    </div>
-                </div>
-                <div class="form-group col-md-1">
-                    <button style="float: left" class="btn btn-inverse btn-sm">absence</button>
+    <div class="col-md-10 col-lg-10">
+        <div ng-repeat="student in signInInfoData" class="row form-inline">
+            <div class="form-group col-md-1">
+                <span>{{student.name}}</span>
+            </div>
+            <div class="form-group col-md-10" style="margin-top:13px ">
+                <div class="progress">
+                    <div ng-repeat="bar in student.signInInfoTimeSegments" ng-class="setBarClass(bar)" ng-style="getTimeSegmentWidth(bar)"></div>
                 </div>
             </div>
+            <div class="form-group col-md-1">
+                <button style="float: left" class="btn btn-inverse btn-sm">请假</button>
+            </div>
         </div>
-        <div class="container">
-            <div class="form-inline">
-                <div class="form-group col-md-1">
-                    <span>dzj</span>
-                </div>
-                <div class="form-group col-md-10" style="margin-top:13px ">
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 40%;">111</div>
-                        <div class="progress-bar progress-bar-warning" style="width: 10%;">222</div>
-                        <div class="progress-bar progress-bar-danger" style="width: 10%;">333</div>
-                        <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
-                        <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+    </div>
+    <div class="col-md-2 col-lg-2">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">点击签到</button>
+                <div style="margin-bottom: 4px" class="panel palette palette-emerald">
+                    <div class="panel-heading">
+                        值日生
+                    </div>
+                    <div class="panel-body">
+                        <span ng-repeat="student in dutyStudentData">{{student.name}} </span>
                     </div>
                 </div>
-                <div class="form-group col-md-1">
-                    <button style="float: left" class="btn btn-inverse btn-sm">absence</button>
+                <div class="panel palette palette-sun-flower">
+                    <div class="panel-heading">
+                        说明
+                    </div>
+                    <div class="panel-body">
+                        <div style="margin-bottom: 30px"><span class="label palette palette-orange">现在在实验室</span></div>
+                        <div style="margin-bottom: 30px"><span class="label palette palette-carrot">之前在实验室</span></div>
+                        <div style="margin-bottom: 30px"><span class="label palette palette-peter-river">上课 / 请假&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+                        <div><span class="label palette palette-emerald">不在实验室&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
+    <param name="Visible" value="-1">
+    <param name="AutoScroll" value="0">
+    <param name="AutoSize" value="0">
+    <param name="AxBorderStyle" value="1">
+    <param name="Caption" value="Biokey Online(1:1)">
+    <param name="Color" value="2147483663">
+    <param name="Font" value="MS Sans Serif">
+    <param name="KeyPreview" value="0">
+    <param name="PixelsPerInch" value="96">
+    <param name="PrintScale" value="1">
+    <param name="Scaled" value="-1">
+    <param name="DropTarget" value="0">
+    <param name="HelpFile" value>
+    <param name="DoubleBuffered" value="0">
+    <param name="Enabled" value="-1">
+    <param name="Cursor" value="0">
+    <param name="RegisterTemplate" value>
+    <param name="VerifyCount" value="3">
+    <param name="VerifyTemplate" value>
+    <param name="ParentFont" value="0">
+    <param name="Threshold" value="10">
+    <param name="OneToOneThreshold" value="10">
+    <param name="CheckFinger" value>
+    <param name="EnrollCount" value="4">
+    <param name="DefaultRegFinger" value="0">
+    <param name="DefaultWindowClose" value="0">
+    <param name="SetVerHint" value>
+</object>
+<comment><EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
+

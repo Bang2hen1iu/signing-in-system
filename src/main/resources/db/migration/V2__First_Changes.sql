@@ -31,8 +31,13 @@ ALTER TABLE statistics ADD sign_in_info_id BIGINT;
 ALTER TABLE statistics DROP CONSTRAINT statistics_pkey;
 ALTER TABLE statistics ADD PRIMARY KEY (sign_in_info_id);
 ALTER TABLE statistics ADD FOREIGN KEY (sign_in_info_id) REFERENCES sign_in_info_v2(id);
+ALTER TABLE statistics DROP CONSTRAINT statistics_student_id_fkey;
 
 ALTER TABLE absence ADD sign_in_info_id BIGINT;
+ALTER TABLE absence DROP CONSTRAINT absence_pkey;
+ALTER TABLE absence DROP student_id;
+ALTER TABLE absence DROP oper_date;
+ALTER TABLE absence ADD PRIMARY KEY (sign_in_info_id);
 ALTER TABLE absence ADD FOREIGN KEY (sign_in_info_id) REFERENCES sign_in_info_v2(id);
 
 ALTER TABLE course_per_week ADD course_id BIGINT;

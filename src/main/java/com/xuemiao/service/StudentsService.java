@@ -73,7 +73,7 @@ public class StudentsService {
         dutyStudentRepository.deleteByStudentId(id);
         coursesService.deleteCourseByStudentId(id);
         statisticsRepository.deleteByStudentId(id);
-        absenceRepository.deleteByStudentId(id);
+        absencesService.deleteByStudentId(id);
         signInInfoService.deleteSignInInfoByStudentId(id);
         studentRepository.delete(id);
     }

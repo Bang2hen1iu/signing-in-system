@@ -71,7 +71,6 @@ public class ScheduleTaskService {
             }
 
             DateTime previousDate = currentDate.minusDays(1);
-            StudentIdAndOperDateKey studentIdAndOperDateKey = new StudentIdAndOperDateKey();
             AbsenceEntity absenceEntity = null;
             for (StudentEntity studentEntity : studentEntities) {
 
@@ -82,7 +81,9 @@ public class ScheduleTaskService {
                     StatisticsEntity statisticsEntity = new StatisticsEntity();
                     statisticsEntity.setStudentId(studentEntity.getStudentId());
                     statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
-                    absenceEntity = absenceRepository.findOne(studentIdAndOperDateKey);
+                    SignInInfoV2Entity signInInfoV2EntityTemp = signInInfoV2Repository.findOneByStudentIdAndDate(
+                            studentEntity.getStudentId(),new Date(previousDate.getMillis()));
+                    absenceEntity = absenceRepository.findOne(signInInfoV2Entity.getId());
                     if (absenceEntity == null) {
                         statisticsEntity.setAbsenceTimes(0);
                     } else {
