@@ -73,9 +73,10 @@ public class StudentsService {
     }
 
     public void registerStudent(RegisterStudentJson registerStudentJson) {
-        StudentEntity studentEntity = studentRepository.findOne(registerStudentJson.getStudentId());
-        //TODO save fingerprint
-        studentRepository.save(studentEntity);
+        FingerprintEntity fingerprintEntity = new FingerprintEntity();
+        fingerprintEntity.setStudentId(registerStudentJson.getStudentId());
+        fingerprintEntity.setToken(registerStudentJson.getFingerprint());
+        fingerprintRepository.save(fingerprintEntity);
     }
 
     public void deleteStudentById(Long id) {
