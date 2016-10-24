@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-9 col-lg-9">
+    <div class="col-md-9 col-lg-10">
         <div ng-repeat="student in signInInfoData" class="row form-inline">
             <div class="form-group col-md-1">
                 <span>{{student.name}}</span>
@@ -19,11 +19,11 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-lg-3">
+    <div class="col-md-3 col-lg-2">
         <div class="panel panel-info">
             <div class="panel-body">
-                <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">点击签到</button>
-                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForAbsence" class="btn btn-block palette palette-wet-asphalt">点击请假</button>
+                <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">签到/离开</button>
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForAbsence" class="btn btn-block palette palette-wet-asphalt">请假</button>
                 <div style="margin-bottom: 4px" class="panel palette palette-emerald">
                     <div class="panel-heading">
                         值日生
@@ -104,7 +104,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" ng-click="askForAbsence()" data-dismiss="modal">保存</button>
+                <button type="button" class="fui-check btn btn-info" ng-click="askForAbsence()" data-dismiss="modal">保存</button>
             </div>
         </div>
     </div>

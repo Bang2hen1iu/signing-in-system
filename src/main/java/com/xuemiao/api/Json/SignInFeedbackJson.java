@@ -5,6 +5,7 @@ package com.xuemiao.api.Json;
  */
 public class SignInFeedbackJson {
     private String name;
+    private int statusFeedBack;
 
     public String getName() {
         return name;
@@ -12,5 +13,13 @@ public class SignInFeedbackJson {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getStatusFeedBack() {
+        return statusFeedBack;
+    }
+
+    public void setStatusFeedBack(int statusFeedBack) {
+        this.statusFeedBack = statusFeedBack;
     }
 }

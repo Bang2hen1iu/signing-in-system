@@ -47,15 +47,18 @@ public class SignInInfoService {
         return fingerprintRepository.findByToken(fingerprint).getStudentId();
     }
 
-    public SignInFeedbackJson getSignInFeedBackJson(String fingerprint){
+    public SignInFeedbackJson getSignInFeedBackJson(String fingerprint,int statusFeedBack){
         SignInFeedbackJson signInFeedbackJson = new SignInFeedbackJson();
         FingerprintEntity fingerprintEntity = fingerprintRepository.findByToken(fingerprint);
         StudentEntity studentEntity = studentRepository.findOne(fingerprintEntity.getStudentId());
         signInFeedbackJson.setName(studentEntity.getName());
+        signInFeedbackJson.setStatusFeedBack(statusFeedBack);
         return signInFeedbackJson;
     }
 
-    public void signIn(FingerprintJson fingerprintJson) throws StudentNotExistException{
+    public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException{
+        int statusFeedBack;
+
         DateTime dateTimeNow = DateTime.now();
 
         Long studentId = this.checkFingerPrint(fingerprintJson.getFingerprint());
@@ -69,10 +72,13 @@ public class SignInInfoService {
             signInInfoRecordEntity = new SignInInfoRecordEntity();
             signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
             signInInfoRecordEntity.setStartTime(now);
+            statusFeedBack = 1;
         } else {
             signInInfoRecordEntity.setEndTime(now);
+            statusFeedBack = 2;
         }
         signInInfoRecordRepository.save(signInInfoRecordEntity);
+        return statusFeedBack;
     }
 
     public Date getSignInInfoLatestDate() {

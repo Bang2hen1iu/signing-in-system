@@ -31,7 +31,12 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             url: "/api/sign_in_info/addition",
             data:$scope.signInData
         }).success(function (data) {
-            alert(data.name+"，签到成功哇！")
+            if(data.statusFeedBack==1){
+                alert(data.name+"，签到成功哇！");
+            }
+            else if(data.statusFeedBack==2){
+                alert(data.name+"，一路走好！");
+            }
         }).error(function () {
             alert('签到失败，请联系DZJ');
         });
