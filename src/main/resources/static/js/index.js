@@ -121,7 +121,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         $scope.askForAbsenceStudent.operDate = $scope.currentDate;
         $http({
             method: 'POST',
-            url: "/api/absences/addition/",
+            url: "/api/absences/addition",
             data: $scope.askForAbsenceStudent
         }).success(function (data) {
             alert("请假成功！");
@@ -140,7 +140,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $(function () {
         $scope.firstLoad();
         $scope.hint = "点击选择学生";
-        $scope.askForAbsenceStudent = {};
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $('#dateInput').on('change',function () {
             $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
@@ -148,6 +147,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
         });
+        $scope.askForAbsenceStudent = {};
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {

@@ -211,7 +211,7 @@ public class SignInInfoService {
                     signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour()));
                 }
                 else {
-                    signInInfoTimeSegment.setEndTime("24:00");
+                    signInInfoTimeSegment.setEndTime("23:59");
                 }
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
                 signInInfoTimeSegment.setExtra("not in lab4");
