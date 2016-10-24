@@ -40,11 +40,11 @@ public class StudentsService {
         return studentRepository.findAll();
     }
 
-    public List<String> getAllFingerPrint(){
+    public List<FingerprintEntity> getAllFingerPrint(){
         List<FingerprintEntity> fingerprintEntitiesTemp = fingerprintRepository.findAll();
-        List<String> fingerprints = new ArrayList<>();
+        List<FingerprintEntity> fingerprints = new ArrayList<>();
         for(FingerprintEntity fingerprintEntity : fingerprintEntitiesTemp){
-            fingerprints.add(fingerprintEntity.getToken());
+            fingerprints.add(fingerprintEntity);
         }
         return fingerprints;
     }
