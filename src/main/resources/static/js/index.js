@@ -62,6 +62,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         });
     };
     $scope.firstLoad = function () {
+        $scope.getFingerPrint();
         $scope.getLatestDate().then(function (date) {
             var parser = datetime("yyyy-MM-dd");
             parser.parse(date);
