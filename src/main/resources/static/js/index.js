@@ -14,9 +14,19 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         return defer.promise;
     };
     $scope.signIn = function () {
-        zkonline.Verify();
         $scope.signInData = {};
-        $scope.signInData.fingerprint = zkonline.VerifyTemplate;
+        zkonline.GetVerTemplate();
+        var verifyTpl = zkonline.VerifyTemplate;
+        for(var regTpl in $scope.fingerPrintData){
+            if(zkonline.MatchFinger(regTpl,verifyTpl)){
+                $scope.signInData.fingerprint = regTpl;
+                break;
+            }
+        }
+        if($scope.signInData.fingerprint==null){
+            alert('error!');
+            return;
+        }
         $http({
             method: 'POST',
             url: "/api/sign_in_info/addition",
@@ -25,6 +35,14 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             alert('success');
         }).error(function () {
             alert('fail');
+        });
+    };
+    $scope.getFingerPrint = function () {
+        $http({
+            method: 'POST',
+            url: "/api/students/fingerprints"
+        }).success(function (data) {
+            $scope.fingerPrintData = data;
         });
     };
     $scope.getDutyStudent = function (date) {

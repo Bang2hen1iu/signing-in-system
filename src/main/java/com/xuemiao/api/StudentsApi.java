@@ -29,6 +29,13 @@ public class StudentsApi {
         return Response.ok().entity(studentsService.getAllStudent()).build();
     }
 
+    //get fingerprint of all students
+    @GET
+    @Path("/fingerprints")
+    public Response getAllFingerPrint(){
+        return Response.ok().entity(studentsService.getAllFingerPrint()).build();
+    }
+
     //get duty student by date
     @GET
     @Path("/duty_students/{date}")

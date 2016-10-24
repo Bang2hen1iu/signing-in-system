@@ -3,11 +3,9 @@ package com.xuemiao.service;
 import com.xuemiao.api.Json.DutyStudentJson;
 import com.xuemiao.api.Json.RegisterStudentJson;
 import com.xuemiao.model.pdm.DutyStudentEntity;
+import com.xuemiao.model.pdm.FingerprintEntity;
 import com.xuemiao.model.pdm.StudentEntity;
-import com.xuemiao.model.repository.AbsenceRepository;
-import com.xuemiao.model.repository.DutyStudentRepository;
-import com.xuemiao.model.repository.StatisticsRepository;
-import com.xuemiao.model.repository.StudentRepository;
+import com.xuemiao.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,10 +32,21 @@ public class StudentsService {
     StatisticsRepository statisticsRepository;
     @Autowired
     AbsenceRepository absenceRepository;
+    @Autowired
+    FingerprintRepository fingerprintRepository;
 
 
     public List<StudentEntity> getAllStudent() {
         return studentRepository.findAll();
+    }
+
+    public List<String> getAllFingerPrint(){
+        List<FingerprintEntity> fingerprintEntitiesTemp = fingerprintRepository.findAll();
+        List<String> fingerprints = new ArrayList<>();
+        for(FingerprintEntity fingerprintEntity : fingerprintEntitiesTemp){
+            fingerprints.add(fingerprintEntity.getToken());
+        }
+        return fingerprints;
     }
 
     public List<DutyStudentJson> getDutyStudentByDate(Date date) {

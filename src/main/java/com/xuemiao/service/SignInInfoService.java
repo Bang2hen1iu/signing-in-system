@@ -7,6 +7,7 @@ import com.xuemiao.api.Json.SignInInfoTimeSegment;
 import com.xuemiao.exception.StudentNotExistException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
+import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
 import com.xuemiao.utils.FingerprintUtils;
@@ -47,13 +48,8 @@ public class SignInInfoService {
     CoursePerWeekRepository coursePerWeekRepository;
 
     private Long checkFingerPrint(String fingerprint) {
-        List<FingerprintEntity> fingerprintEntities = fingerprintRepository.findAll();
-        for (FingerprintEntity fingerprintEntity : fingerprintEntities) {
-            if (FingerprintUtils.process(fingerprintEntity.getToken(), fingerprint)) {
-                return fingerprintEntity.getStudentId();
-            }
-        }
-        return null;
+        FingerprintPK fingerprintPK = new FingerprintPK();
+        return fingerprintRepository.findByToken(fingerprint).getStudentId();
     }
 
     public void signIn(SignInActionJson signInActionJson) throws StudentNotExistException{
