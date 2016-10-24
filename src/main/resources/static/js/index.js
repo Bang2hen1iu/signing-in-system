@@ -39,7 +39,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     };
     $scope.getFingerPrint = function () {
         $http({
-            method: 'POST',
+            method: 'GET',
             url: "/api/students/fingerprints"
         }).success(function (data) {
             $scope.fingerPrintData = data;
