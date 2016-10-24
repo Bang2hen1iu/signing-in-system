@@ -17,7 +17,9 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         $scope.signInData = {};
         zkonline.GetVerTemplate();
         var verifyTpl = zkonline.VerifyTemplate;
+        alert('aa '+verifyTpl);
         for(var regTpl in $scope.fingerPrintData){
+            alert('bb '+regTpl.token);
             if(zkonline.MatchFinger(regTpl.token,verifyTpl)){
                 $scope.signInData.fingerprint = regTpl.token;
                 break;
