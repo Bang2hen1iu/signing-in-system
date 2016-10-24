@@ -14,7 +14,6 @@ public class SignInInfoJson implements Serializable {
     private String name;
     private List<SignInInfoTimeSegment> signInInfoTimeSegments;
 
-
     public String getStudentId() {
         return studentId;
     }

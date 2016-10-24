@@ -1,7 +1,5 @@
 var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
-sign_in_app.controller('navbar_ctrl',['$scope',function ($scope) {
-
-}]);
+sign_in_app.controller('navbar_ctrl',['$scope',function ($scope) {}]);
 sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', '$interval', function ($scope, $http, $q, datetime, $interval) {
     $scope.getLatestDate = function () {
         var defer = $q.defer();
@@ -19,31 +17,23 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         var verifyTpl = zkonline.VerifyTemplate;
         for(var i=0;i<$scope.fingerPrintData.length;i++){
             var regTpl = $scope.fingerPrintData[i];
-            alert('bb '+regTpl.token);
-            if(zkonline.MatchFinger(regTpl.token,verifyTpl)){
-                $scope.signInData.fingerprint = regTpl.token;
-                break;
-            }
-        }
-        for(var regTpl in $scope.fingerPrintData){
-            alert('bb '+regTpl.token);
-            if(zkonline.MatchFinger(regTpl.token,verifyTpl)){
-                $scope.signInData.fingerprint = regTpl.token;
+            if(zkonline.MatchFinger(regTpl.fingerprint,verifyTpl)){
+                $scope.signInData.fingerprint = regTpl.fingerprint;
                 break;
             }
         }
         if($scope.signInData.fingerprint==null){
-            alert('error!');
+            alert('您的指纹还没有登记orz');
             return;
         }
         $http({
             method: 'POST',
             url: "/api/sign_in_info/addition",
             data:$scope.signInData
-        }).success(function () {
-            alert('success');
+        }).success(function (data) {
+            alert(data.name+"，签到成功哇！")
         }).error(function () {
-            alert('fail');
+            alert('签到失败，请联系DZJ');
         });
     };
     $scope.getFingerPrint = function () {
@@ -70,8 +60,17 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.signInInfoData = data;
         });
     };
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
     $scope.firstLoad = function () {
         $scope.getFingerPrint();
+        $scope.getStudent();
         $scope.getLatestDate().then(function (date) {
             var parser = datetime("yyyy-MM-dd");
             parser.parse(date);
@@ -114,14 +113,38 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $scope.getTimeSegmentWidth = function (bar) {
         return {'width':bar.width};
     };
+    $scope.setAbsenceStudent = function (student) {
+        $scope.askForAbsenceStudent.studentId = student.studentId;
+        $scope.hint = student.name;
+    };
+    $scope.askForAbsence = function () {
+        $scope.askForAbsenceStudent.operDate = $scope.currentDate;
+        $http({
+            method: 'POST',
+            url: "/api/absences/addition/",
+            data: $scope.askForAbsenceStudent
+        }).success(function (data) {
+            alert("请假成功！");
+            $scope.askForAbsenceStudent = {};
+            $scope.hint = "点击选择学生";
+            $scope.getSignInInfo($scope.getCurrentDateString());
+        }).error(function () {
+            alert("请假失败！请联系DZJ");
+        });
+    };
+    $scope.getCurrentDateString = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.currentDate);
+        return parser.getText();
+    };
     $(function () {
         $scope.firstLoad();
+        $scope.hint = "点击选择学生";
+        $scope.askForAbsenceStudent = {};
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $('#dateInput').on('change',function () {
-            var parser = datetime("yyyy-MM-dd");
-            parser.setDate($scope.currentDate);
             $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
-            var date = parser.getText();
+            var date = $scope.getCurrentDateString();
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
         });

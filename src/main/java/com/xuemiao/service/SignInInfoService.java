@@ -1,16 +1,12 @@
 package com.xuemiao.service;
 
-import com.xuemiao.api.Json.SignInActionJson;
-import com.xuemiao.api.Json.SignInInfoCoursesInfo;
-import com.xuemiao.api.Json.SignInInfoJson;
-import com.xuemiao.api.Json.SignInInfoTimeSegment;
+import com.xuemiao.api.Json.*;
 import com.xuemiao.exception.StudentNotExistException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
-import com.xuemiao.utils.FingerprintUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -20,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,10 +47,18 @@ public class SignInInfoService {
         return fingerprintRepository.findByToken(fingerprint).getStudentId();
     }
 
-    public void signIn(SignInActionJson signInActionJson) throws StudentNotExistException{
+    public SignInFeedbackJson getSignInFeedBackJson(String fingerprint){
+        SignInFeedbackJson signInFeedbackJson = new SignInFeedbackJson();
+        FingerprintEntity fingerprintEntity = fingerprintRepository.findByToken(fingerprint);
+        StudentEntity studentEntity = studentRepository.findOne(fingerprintEntity.getStudentId());
+        signInFeedbackJson.setName(studentEntity.getName());
+        return signInFeedbackJson;
+    }
+
+    public void signIn(FingerprintJson fingerprintJson) throws StudentNotExistException{
         DateTime dateTimeNow = DateTime.now();
 
-        Long studentId = this.checkFingerPrint(signInActionJson.getFingerprint());
+        Long studentId = this.checkFingerPrint(fingerprintJson.getFingerprint());
         if(studentId==null){
             throw new StudentNotExistException();
         }
@@ -77,10 +80,10 @@ public class SignInInfoService {
     }
 
     public List<SignInInfoJson> getSignInInfoJsonsByDate(Date date) {
-        List<SignInInfoV2Entity> signInInfoV2Entities = signInInfoV2Repository.findByOperDate(new Date(DateTime.now().getMillis()));
+        List<SignInInfoV2Entity> signInInfoV2Entities = signInInfoV2Repository.findByOperDate(date);
         List<SignInInfoJson> signInInfoJsonList = new ArrayList<>();
         for (SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities) {
-            signInInfoJsonList.add(wrapSignInInfoIntoJson(signInInfoV2Entity, date));
+            signInInfoJsonList.add(wrapSignInInfoIntoJson(signInInfoV2Entity));
         }
         return signInInfoJsonList;
     }
@@ -111,8 +114,8 @@ public class SignInInfoService {
         return this.getTimeSegmentWidth(new Timestamp(startDateTime.getMillis()),new Timestamp(endDateTime.getMillis()));
     }
 
-    private SignInInfoJson wrapSignInInfoIntoJson(SignInInfoV2Entity signInInfoV2Entity, Date date) {
-        DateTime dateTime = new DateTime(date);
+    private SignInInfoJson wrapSignInInfoIntoJson(SignInInfoV2Entity signInInfoV2Entity) {
+        DateTime dateTime = new DateTime(signInInfoV2Entity.getOperDate());
         DateTime startDate = DateTime.parse(courseStartDateString);
         int currentWeek = DateUtils.getCurrentWeek(startDate, dateTime);
         int currentWeekday = DateUtils.getCurrentWeekDay(startDate, dateTime);
@@ -172,7 +175,7 @@ public class SignInInfoService {
                 signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour()));
             }
             else {
-                signInInfoTimeSegment.setEndTime("24:00");
+                signInInfoTimeSegment.setEndTime("23:59");
             }
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
             signInInfoTimeSegment.setExtra("not in lab1");

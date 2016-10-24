@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Scope("singleton")
 public class ScheduleTaskService {
-    private final static int PERIOD_IN_SECONDS = 86400;
+    private final static int PERIOD_IN_SECONDS = 24*3600;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleTaskService.class);
     ScheduledExecutorService scheduledExecutorService = null;
     @Autowired
@@ -66,23 +66,19 @@ public class ScheduleTaskService {
                 SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
                 signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
                 signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
-
                 signInInfoV2Repository.save(signInInfoV2Entity);
             }
 
             DateTime previousDate = currentDate.minusDays(1);
             AbsenceEntity absenceEntity = null;
             for (StudentEntity studentEntity : studentEntities) {
-
                 SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
                         studentEntity.getStudentId(), new Date(previousDate.getMillis()));
-
                 if (signInInfoV2Entity != null) {
                     StatisticsEntity statisticsEntity = new StatisticsEntity();
+                    statisticsEntity.setSignInInfoId(signInInfoV2Entity.getId());
                     statisticsEntity.setStudentId(studentEntity.getStudentId());
                     statisticsEntity.setOperDate(new Date(previousDate.getMillis()));
-                    SignInInfoV2Entity signInInfoV2EntityTemp = signInInfoV2Repository.findOneByStudentIdAndDate(
-                            studentEntity.getStudentId(),new Date(previousDate.getMillis()));
                     absenceEntity = absenceRepository.findOne(signInInfoV2Entity.getId());
                     if (absenceEntity == null) {
                         statisticsEntity.setAbsenceTimes(0);

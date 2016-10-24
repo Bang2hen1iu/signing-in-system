@@ -1,6 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.SignInActionJson;
+import com.xuemiao.api.Json.FingerprintJson;
 import com.xuemiao.exception.StudentNotExistException;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.service.SignInInfoService;
@@ -26,9 +26,9 @@ public class SignInInfoApi {
     @POST
     @Path("/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSignIn(SignInActionJson signInActionJson) throws IOException, TokenInvalidException,StudentNotExistException {
-        signInInfoService.signIn(signInActionJson);
-        return Response.ok().build();
+    public Response addSignIn(FingerprintJson fingerprintJson) throws IOException, TokenInvalidException,StudentNotExistException {
+        signInInfoService.signIn(fingerprintJson);
+        return Response.ok().entity(signInInfoService.getSignInFeedBackJson(fingerprintJson.getFingerprint())).build();
     }
 
     //get sign in info by date

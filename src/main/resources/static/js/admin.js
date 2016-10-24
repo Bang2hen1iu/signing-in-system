@@ -37,7 +37,9 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
             url: '/api/students/registering',
             data: student
         }).success(function () {
-            alert("success");
+            alert("已成功登记指纹！\n可再次点击按钮，继续登记其他手指");
+        }).error(function () {
+            alert("登记指纹失败");
         });
     };
     $scope.addStudent = function () {

@@ -1,6 +1,7 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.RegisterStudentJson;
+import com.xuemiao.exception.FingerprintInvalidException;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.StudentEntity;
@@ -65,8 +66,8 @@ public class StudentsApi {
     @POST
     @Path("/registering")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response registerStudent(RegisterStudentJson registerStudentJson,
-                                    @CookieParam("token") String tokenString) throws TokenInvalidException {
+    public Response registerStudent(RegisterStudentJson registerStudentJson, @CookieParam("token") String tokenString)
+            throws TokenInvalidException,FingerprintInvalidException {
         cookieService.checkTokenCookie(tokenString);
         studentsService.registerStudent(registerStudentJson);
         return Response.ok().cookie(cookieService.refreshCookie(tokenString)).build();

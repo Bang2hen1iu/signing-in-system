@@ -1,6 +1,6 @@
 package com.xuemiao.api;
 
-import com.xuemiao.api.Json.SignInActionJson;
+import com.xuemiao.api.Json.FingerprintJson;
 import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ public class CommonApi {
     @POST
     @Path("/test_sign_in")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response testSignIn(SignInActionJson signInActionJson) {
+    public Response testSignIn(FingerprintJson fingerprintJson) {
         return null;
     }
 

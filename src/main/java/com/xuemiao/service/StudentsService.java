@@ -1,7 +1,9 @@
 package com.xuemiao.service;
 
 import com.xuemiao.api.Json.DutyStudentJson;
+import com.xuemiao.api.Json.FingerprintJson;
 import com.xuemiao.api.Json.RegisterStudentJson;
+import com.xuemiao.exception.FingerprintInvalidException;
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.FingerprintEntity;
 import com.xuemiao.model.pdm.StudentEntity;
@@ -9,8 +11,10 @@ import com.xuemiao.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,18 +39,19 @@ public class StudentsService {
     @Autowired
     FingerprintRepository fingerprintRepository;
 
-
     public List<StudentEntity> getAllStudent() {
         return studentRepository.findAll();
     }
 
-    public List<FingerprintEntity> getAllFingerPrint(){
-        List<FingerprintEntity> fingerprintEntitiesTemp = fingerprintRepository.findAll();
-        List<FingerprintEntity> fingerprints = new ArrayList<>();
-        for(FingerprintEntity fingerprintEntity : fingerprintEntitiesTemp){
-            fingerprints.add(fingerprintEntity);
+    public List<FingerprintJson> getAllFingerPrint(){
+        List<FingerprintEntity> fingerprintEntities = fingerprintRepository.findAll();
+        List<FingerprintJson> fingerprintJsons = new ArrayList<>();
+        for(FingerprintEntity fingerprintEntity : fingerprintEntities){
+            FingerprintJson fingerprintJson = new FingerprintJson();
+            fingerprintJson.setFingerprint(fingerprintEntity.getToken());
+            fingerprintJsons.add(fingerprintJson);
         }
-        return fingerprints;
+        return fingerprintJsons;
     }
 
     public List<DutyStudentJson> getDutyStudentByDate(Date date) {
@@ -72,7 +77,10 @@ public class StudentsService {
         signInInfoService.addStudentIntoSignInInfo(studentEntity);
     }
 
-    public void registerStudent(RegisterStudentJson registerStudentJson) {
+    public void registerStudent(RegisterStudentJson registerStudentJson) throws FingerprintInvalidException{
+        if(registerStudentJson.getFingerprint()==null||registerStudentJson.getFingerprint().equals("")){
+            throw new FingerprintInvalidException();
+        }
         FingerprintEntity fingerprintEntity = new FingerprintEntity();
         fingerprintEntity.setStudentId(registerStudentJson.getStudentId());
         fingerprintEntity.setToken(registerStudentJson.getFingerprint());
