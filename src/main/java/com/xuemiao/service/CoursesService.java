@@ -42,17 +42,15 @@ public class CoursesService {
 
     public void addCourse(CoursesInfoJson coursesInfoJson) {
         CourseEntity courseEntity = new CourseEntity();
-        List<CoursePerWeekEntity> coursePerWeekEntities = new ArrayList<>();
         courseEntity.setStudentId(coursesInfoJson.getStudentId());
         courseEntity.setCourseName(coursesInfoJson.getCourseName());
         courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
-        courseRepository.save(courseEntity);
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
             if (coursePerWeekJson == null) {
                 continue;
             }
-            this.saveCoursePerWeekJson(coursesInfoJson.getId(), coursePerWeekJson);
+            this.saveCoursePerWeekJson(courseEntity.getId(), coursePerWeekJson);
         }
     }
 

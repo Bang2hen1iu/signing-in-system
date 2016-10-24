@@ -149,7 +149,10 @@ public class SignInInfoService {
         List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
         List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
         for (CourseEntity courseEntity : courseEntities) {
-            signInInfoTimeSegments.add(wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday));
+            SignInInfoTimeSegment signInInfoTimeSegment = wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday);
+            if(signInInfoTimeSegment!=null){
+                signInInfoTimeSegments.add(signInInfoTimeSegment);
+            }
         }
 
         AbsenceEntity absenceEntity = absencesService.getAbsenceByIdAndDate(signInInfoV2Entity.getStudentId(), signInInfoV2Entity.getOperDate());
