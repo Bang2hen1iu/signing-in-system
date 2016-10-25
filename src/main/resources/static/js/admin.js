@@ -192,7 +192,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
             $scope.dutyStudentData = data;
         });
     };
-    $scope.switchStudentCourse = function (student) {
+    $scope.switchStudent = function (student) {
         $scope.toAddDutyData.studentId = student.studentId;
         $scope.hint = student.name;
     };
@@ -221,7 +221,8 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
         $scope.hint = '请选择值日生';
         $scope.studentData = null;
         $scope.toAddDutyData = {};
-        $scope.toAddDutyData.operDate = new Date();
+        $scope.toAddDutyData.startDate = new Date();
+        $scope.toAddDutyData.endDate = new Date();
         $scope.getStudent();
         $scope.getDutyStudent();
     });
@@ -248,6 +249,8 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
     $(function () {
         $scope.statistics = {};
         $scope.toQueryData = {};
+        $scope.toQueryData.startDate = new Date();
+        $scope.toQueryData.endDate = new Date();
         $scope.maxStayLabTime = null;
     });
 }]);

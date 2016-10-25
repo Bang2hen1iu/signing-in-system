@@ -19,7 +19,7 @@
                                         {{hint}} <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="" ng-click="switchStudentCourse(student)" ng-repeat="student in studentData">{{student.name}}</a></li>
+                                        <li><a href="" ng-click="switchStudent(student)" ng-repeat="student in studentData">{{student.name}}</a></li>
                                     </ul>
                                 </div>
                                 <button type="button" class="btn btn-info" ng-click="addDutyStudent()">
