@@ -47,5 +47,4 @@ ALTER TABLE course_per_week DROP course_name;
 ALTER TABLE course ADD id SERIAL8;
 ALTER TABLE course DROP CONSTRAINT course_pkey;
 ALTER TABLE course ADD PRIMARY KEY(id);
-
 -- ALTER TABLE course_per_week ADD FOREIGN KEY (course_id) REFERENCES course(id)
