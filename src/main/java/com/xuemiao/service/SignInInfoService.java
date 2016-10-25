@@ -165,7 +165,6 @@ public class SignInInfoService {
         }
 
         List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
-        List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
         for (CourseEntity courseEntity : courseEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday);
             if (signInInfoTimeSegment != null) {

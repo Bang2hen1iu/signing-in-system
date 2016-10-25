@@ -56,7 +56,7 @@ public class DateUtils {
     }
 
     public static int getCurrentWeekDay(DateTime startDate, DateTime currentDate) {
-        return getDiffDays(startDate, currentDate) % 7;
+        return getDiffDays(startDate, currentDate) % 7 + 1;
     }
 
     public static List<String> DateList2DateStringList(List<Date> dateList) {
