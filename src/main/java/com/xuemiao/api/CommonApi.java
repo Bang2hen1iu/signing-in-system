@@ -31,7 +31,7 @@ public class CommonApi {
     SignInInfoRecordRepository signInInfoRecordRepository;
 
     @PUT
-    @Path("transfering")
+    @Path("/transfering")
     public Response transferSignInInfoData() {
         List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findAll();
         for(SignInInfoEntity signInInfoEntity : signInInfoEntities){
