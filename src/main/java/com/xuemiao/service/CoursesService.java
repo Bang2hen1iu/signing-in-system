@@ -47,6 +47,7 @@ public class CoursesService {
         courseEntity.setCourseName(coursesInfoJson.getCourseName());
         courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
+        courseRepository.save(courseEntity);
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
             if (coursePerWeekJson == null) {
                 continue;

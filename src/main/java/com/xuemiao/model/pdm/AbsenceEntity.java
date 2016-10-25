@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 public class AbsenceEntity {
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private Long absenceId;
     @Column(name = "sign_in_info_id")
     private Long signInInfoId;
