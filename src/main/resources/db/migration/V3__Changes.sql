@@ -1,1 +1,0 @@
-ALTER TABLE course_per_week ADD FOREIGN KEY (course_id) REFERENCES course(id);
