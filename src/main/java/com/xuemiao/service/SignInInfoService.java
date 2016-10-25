@@ -176,7 +176,7 @@ public class SignInInfoService {
             }
         }
 
-        List<AbsenceEntity> absenceEntities = absencesService.getAbsenceBySignInInfoId(signInInfoV2Entity.getStudentId());
+        List<AbsenceEntity> absenceEntities = absencesService.getAbsenceBySignInInfoId(signInInfoV2Entity.getId());
         for(AbsenceEntity absenceEntity : absenceEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(absenceEntity.getStartAbsence(),3));
