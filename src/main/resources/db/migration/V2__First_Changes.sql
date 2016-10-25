@@ -47,4 +47,6 @@ ALTER TABLE course_per_week DROP course_name;
 ALTER TABLE course ADD id SERIAL8;
 ALTER TABLE course DROP CONSTRAINT course_pkey;
 ALTER TABLE course ADD PRIMARY KEY(id);
+
+DELETE FROM course_per_week AS c WHERE c.course_id NOT IN (SELECT s.id FROM course AS s);
 -- ALTER TABLE course_per_week ADD FOREIGN KEY (course_id) REFERENCES course(id)
