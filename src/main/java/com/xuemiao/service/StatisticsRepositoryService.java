@@ -1,10 +1,14 @@
-package com.xuemiao.model.repository;
+package com.xuemiao.service;
 
 import com.xuemiao.api.Json.StatisticJson;
 import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.SignInInfoRecordEntity;
 import com.xuemiao.model.pdm.SignInInfoV2Entity;
 import com.xuemiao.model.pdm.StudentEntity;
+import com.xuemiao.model.repository.AbsenceRepository;
+import com.xuemiao.model.repository.SignInInfoRecordRepository;
+import com.xuemiao.model.repository.SignInInfoV2Repository;
+import com.xuemiao.model.repository.StudentRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;

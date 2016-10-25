@@ -32,6 +32,9 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.registerStudent = function (student) {
         zkonline.Register();
         student.fingerprint = zkonline.RegisterTemplate;
+        if(student.fingerprint==""||student.fingerprint==null){
+            return;
+        }
         $http({
             method: 'POST',
             url: '/api/students/registering',

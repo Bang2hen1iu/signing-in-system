@@ -157,15 +157,13 @@ public class SignInInfoService {
                 signInInfoTimeSegment.setType(1);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),
                         signInInfoRecordEntity.getEndTime()));
-                signInInfoTimeSegment.setExtra("在实验室");
             }
             else if (signInDate.getYear()==now.getYear()&&signInDate.getMonthOfYear()==now.getMonthOfYear()&&signInDate.getDayOfMonth()==now.getDayOfMonth()){
                 signInInfoTimeSegment.setType(0);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),new Timestamp(now.getMillis())));
-                signInInfoTimeSegment.setEndTime("现在");
-                signInInfoTimeSegment.setExtra("在实验室");
-            }
 
+            }
+            signInInfoTimeSegment.setExtra("在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }
 

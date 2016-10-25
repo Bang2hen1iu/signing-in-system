@@ -1,19 +1,12 @@
 package com.xuemiao.service;
 
 import com.xuemiao.api.Json.StatisticJson;
-import com.xuemiao.model.pdm.SignInInfoV2Entity;
-import com.xuemiao.model.repository.AbsenceRepository;
-import com.xuemiao.model.repository.SignInInfoV2Repository;
-import com.xuemiao.model.repository.StatisticsRepositoryService;
 import com.xuemiao.model.repository.StudentRepository;
-import com.xuemiao.utils.DateUtils;
-import com.xuemiao.utils.PrecisionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
