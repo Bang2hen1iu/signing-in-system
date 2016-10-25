@@ -8,6 +8,7 @@ import com.xuemiao.model.repository.CoursePerWeekRepository;
 import com.xuemiao.model.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by root on 16-10-19.
  */
-@Component
+@Service
 public class CoursesService {
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;

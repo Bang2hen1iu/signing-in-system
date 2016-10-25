@@ -5,11 +5,12 @@ import com.xuemiao.exception.PasswordErrorException;
 import com.xuemiao.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by dzj on 10/1/2016.
  */
-@Component
+@Service
 public class AdminService {
 
     @Value("${admin.id}")

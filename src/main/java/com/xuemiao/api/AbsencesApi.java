@@ -25,11 +25,4 @@ public class AbsencesApi {
         return Response.ok().build();
     }
 
-    //get absence of student by date
-    @GET
-    @Path("/{studentId}")
-    public Response getStudentAbsence(@PathParam("studentId") Long studentId,
-                                      @QueryParam("operDate") String operDate) {
-        return Response.ok().entity(absencesService.getAbsenceByIdAndDate(studentId, operDate)).build();
-    }
 }

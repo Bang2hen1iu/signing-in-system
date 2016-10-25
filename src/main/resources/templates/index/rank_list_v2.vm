@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 col-lg-12 page-header">
-        <div class="col-md-2 input-group has-warning">
+        <div class="col-md-2 input-group has-feedback">
             <span class="input-group-addon">日期</span>
             <input class="form-control" type="date">
         </div>

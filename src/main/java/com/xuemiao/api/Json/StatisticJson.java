@@ -4,18 +4,9 @@ package com.xuemiao.api.Json;
  * Created by dzj on 10/2/2016.
  */
 public class StatisticJson {
-    private Long id;
     private String name;
     private String stayLabTime;
-    private Long absenceTimes;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private int absenceTimes;
 
     public String getName() {
         return name;
@@ -33,11 +24,11 @@ public class StatisticJson {
         this.stayLabTime = stayLabTime;
     }
 
-    public Long getAbsenceTimes() {
+    public int getAbsenceTimes() {
         return absenceTimes;
     }
 
-    public void setAbsenceTimes(Long absenceTimes) {
+    public void setAbsenceTimes(int absenceTimes) {
         this.absenceTimes = absenceTimes;
     }
 }

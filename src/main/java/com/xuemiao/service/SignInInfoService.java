@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * Created by root on 16-10-19.
  */
-@Component
+@Service
 public class SignInInfoService {
     @Autowired
     FingerprintRepository fingerprintRepository;
@@ -58,27 +59,47 @@ public class SignInInfoService {
 
     public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException{
         int statusFeedBack;
-
         DateTime dateTimeNow = DateTime.now();
-
         Long studentId = this.checkFingerPrint(fingerprintJson.getFingerprint());
         if(studentId==null){
             throw new StudentNotExistException();
         }
-        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(studentId, new Date(dateTimeNow.getMillis()));
-        Timestamp now = new Timestamp(dateTimeNow.getMillis());
-        SignInInfoRecordEntity signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
-        if (signInInfoRecordEntity == null) {
-            signInInfoRecordEntity = new SignInInfoRecordEntity();
-            signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
-            signInInfoRecordEntity.setStartTime(now);
+        Date nowDate = new Date(dateTimeNow.getMillis());
+        SignInInfoRecordEntity signInInfoRecordEntity;
+        SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(studentId, nowDate);
+        if(signInInfoV2Entity==null){
+            signInInfoV2Entity = addSignInInfo(studentId);
+            signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
             statusFeedBack = 1;
-        } else {
-            signInInfoRecordEntity.setEndTime(now);
-            statusFeedBack = 2;
+        }
+        else {
+            Timestamp now = new Timestamp(dateTimeNow.getMillis());
+            signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
+            if (signInInfoRecordEntity == null) {
+                signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
+                statusFeedBack = 1;
+            } else {
+                signInInfoRecordEntity.setEndTime(now);
+                statusFeedBack = 2;
+            }
         }
         signInInfoRecordRepository.save(signInInfoRecordEntity);
         return statusFeedBack;
+    }
+
+    public SignInInfoV2Entity addSignInInfo(Long studentId){
+        SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
+        signInInfoV2Entity.setStudentId(studentId);
+        signInInfoV2Entity.setOperDate(new Date(DateTime.now().getMillis()));
+        signInInfoV2Repository.save(signInInfoV2Entity);
+        return signInInfoV2Entity;
+    }
+
+    private SignInInfoRecordEntity signInArrive(SignInInfoV2Entity signInInfoV2Entity){
+        SignInInfoRecordEntity signInInfoRecordEntity = new SignInInfoRecordEntity();
+        signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
+        signInInfoRecordEntity.setStartTime(new Timestamp(DateTime.now().getMillis()));
+        return signInInfoRecordEntity;
     }
 
     public Date getSignInInfoLatestDate() {
@@ -94,17 +115,11 @@ public class SignInInfoService {
         return signInInfoJsonList;
     }
 
-    public void addStudentIntoSignInInfo(StudentEntity studentEntity) {
-        SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
-        signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
-        signInInfoV2Entity.setOperDate(new Date(DateTime.now().getMillis()));
-        signInInfoV2Repository.save(signInInfoV2Entity);
-    }
-
     public void deleteSignInInfoByStudentId(Long id) {
         List<SignInInfoV2Entity> signInInfoV2Entities = signInInfoV2Repository.findByStudentId(id);
         for (SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities) {
             signInInfoRecordRepository.deleteBySignInInfoId(signInInfoV2Entity.getId());
+            absencesService.deleteBySignInInfoId(signInInfoV2Entity.getId());
         }
         signInInfoV2Repository.deleteByStudentId(id);
     }
@@ -142,10 +157,13 @@ public class SignInInfoService {
                 signInInfoTimeSegment.setType(1);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),
                         signInInfoRecordEntity.getEndTime()));
+                signInInfoTimeSegment.setExtra("在实验室");
             }
             else if (signInDate.getYear()==now.getYear()&&signInDate.getMonthOfYear()==now.getMonthOfYear()&&signInDate.getDayOfMonth()==now.getDayOfMonth()){
                 signInInfoTimeSegment.setType(0);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),new Timestamp(now.getMillis())));
+                signInInfoTimeSegment.setEndTime("现在");
+                signInInfoTimeSegment.setExtra("在实验室");
             }
 
             signInInfoTimeSegments.add(signInInfoTimeSegment);
@@ -160,12 +178,12 @@ public class SignInInfoService {
             }
         }
 
-        AbsenceEntity absenceEntity = absencesService.getAbsenceByIdAndDate(signInInfoV2Entity.getStudentId(), signInInfoV2Entity.getOperDate());
-        if (absenceEntity != null) {
+        List<AbsenceEntity> absenceEntities = absencesService.getAbsenceBySignInInfoId(signInInfoV2Entity.getStudentId());
+        for(AbsenceEntity absenceEntity : absenceEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(absenceEntity.getStartAbsence(),3));
             signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(absenceEntity.getEndAbsence(),3));
-            signInInfoTimeSegment.setExtra(absenceEntity.getAbsenceReason());
+            signInInfoTimeSegment.setExtra("请假："+absenceEntity.getAbsenceReason());
             signInInfoTimeSegment.setType(3);
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(absenceEntity.getStartAbsence(),absenceEntity.getEndAbsence()));
             signInInfoTimeSegments.add(signInInfoTimeSegment);
@@ -184,7 +202,7 @@ public class SignInInfoService {
                 signInInfoTimeSegment.setEndTime("23:59");
             }
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
-            signInInfoTimeSegment.setExtra("not in lab1");
+            signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }
         else{
@@ -195,7 +213,7 @@ public class SignInInfoService {
             signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(0).getStartTime());
             signInInfoTimeSegment.setType(4);
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
-            signInInfoTimeSegment.setExtra("not in lab2");
+            signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
 
             for(int i=1;i<signInInfoTimeSegments.size();i++){
@@ -204,7 +222,7 @@ public class SignInInfoService {
                 signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(i).getStartTime());
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
-                signInInfoTimeSegment.setExtra("not in lab3");
+                signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             }
 
@@ -220,7 +238,7 @@ public class SignInInfoService {
                     signInInfoTimeSegment.setEndTime("23:59");
                 }
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
-                signInInfoTimeSegment.setExtra("not in lab4");
+                signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             }
             signInInfoTimeSegments.addAll(signInInfoTimeSegmentsTemp);
@@ -242,7 +260,7 @@ public class SignInInfoService {
             signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(),1));
             signInInfoTimeSegment.setEndTime(getCourseTime(coursePerWeekEntity.getEndSection(),2));
             signInInfoTimeSegment.setType(2);
-            signInInfoTimeSegment.setExtra(courseEntity.getCourseName());
+            signInInfoTimeSegment.setExtra("上课："+courseEntity.getCourseName());
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),
                     signInInfoTimeSegment.getEndTime()));
             return signInInfoTimeSegment;

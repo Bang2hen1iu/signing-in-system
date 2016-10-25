@@ -25,10 +25,9 @@ public class DateUtils {
     public static Timestamp adjustYearMonthDay(Timestamp t1) {
         DateTime dateTime = new DateTime(t1.getTime());
         DateTime now = DateTime.now();
-        dateTime.plusYears(now.getYear() - dateTime.getYear());
-        dateTime.plusMonths(now.getMonthOfYear() - dateTime.getMonthOfYear());
-        dateTime.plusDays(now.getDayOfMonth() - dateTime.getDayOfMonth());
-        return new Timestamp(dateTime.getMillis());
+        DateTime realTime = new DateTime(now.getYear(),now.getMonthOfYear(),now.getDayOfMonth(),dateTime.getHourOfDay(),
+                dateTime.getMinuteOfHour(),dateTime.getSecondOfMinute());
+        return new Timestamp(realTime.getMillis());
     }
 
     public static String timestamp2String(Timestamp timestamp, int formatCode) {

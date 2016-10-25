@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.NewCookie;
@@ -17,7 +18,7 @@ import java.util.UUID;
 /**
  * Created by dzj on 10/1/2016.
  */
-@Component
+@Service
 public class CookieService {
     @Value("${admin.cookie.token.name}")
     String tokenName;

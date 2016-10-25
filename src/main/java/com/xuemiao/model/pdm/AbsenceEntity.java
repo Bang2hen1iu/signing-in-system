@@ -14,6 +14,8 @@ import java.sql.Timestamp;
 @Table(name = "absence")
 public class AbsenceEntity {
     @Id
+    @Column(name = "id")
+    private Long absenceId;
     @Column(name = "sign_in_info_id")
     private Long signInInfoId;
     @Column(name = "start_absence")
@@ -22,6 +24,14 @@ public class AbsenceEntity {
     private Timestamp endAbsence;
     @Column(name = "absence_reason")
     private String absenceReason;
+
+    public Long getAbsenceId() {
+        return absenceId;
+    }
+
+    public void setAbsenceId(Long absenceId) {
+        this.absenceId = absenceId;
+    }
 
     public Long getSignInInfoId() {
         return signInInfoId;

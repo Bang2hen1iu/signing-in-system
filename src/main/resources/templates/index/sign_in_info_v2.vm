@@ -1,25 +1,25 @@
 <div class="row">
     <div class="col-md-12 col-lg-12 page-header">
-        <div class="col-md-2 input-group has-warning">
+        <div class="col-md-2 input-group has-feedback">
             <span class="input-group-addon">日期</span>
             <input class="form-control" type="date" id="dateInput" ng-model="currentDate">
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-9 col-lg-10">
+    <div class="col-md-9 col-lg-9">
         <div ng-repeat="student in signInInfoData" class="row form-inline">
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
                 <span>{{student.name}}</span>
             </div>
-            <div class="form-group col-md-11" style="margin-top:13px ">
+            <div class="form-group col-md-10" style="margin-top:13px ">
                 <div class="progress">
-                    <div ng-repeat="bar in student.signInInfoTimeSegments" ng-class="setBarClass(bar)" ng-style="getTimeSegmentWidth(bar)"></div>
+                    <div ng-repeat="bar in student.signInInfoTimeSegments" data-delay="show: 1, hide: 10" data-toggle="tooltip" data-placement="top" title="{{bar.startTime}}~{{bar.endTime}},{{bar.extra}}" ng-class="setBarClass(bar)" ng-style="getTimeSegmentWidth(bar)"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-lg-2">
+    <div class="col-md-3 col-lg-3">
         <div class="panel panel-info">
             <div class="panel-body">
                 <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">签到/离开</button>
@@ -32,24 +32,26 @@
                         <span ng-repeat="student in dutyStudentData">{{student.name}} </span>
                     </div>
                 </div>
-                <div class="panel palette palette-sun-flower">
+                <div class="panel palette palette-amethyst">
                     <div class="panel-heading">
                         说明
                     </div>
                     <div class="panel-body">
-                        <div class="pallete-item">
-                            <dl class="palette palette-orange">
-                                <dt>现在在实验室</dt>
-                            </dl>
-                            <dl class="palette palette-carrot">
-                                <dt>之前在实验室</dt>
-                            </dl>
-                            <dl class="palette palette-peter-river">
-                                <dt>上课 / 请假</dt>
-                            </dl>
-                            <dl class="palette palette-emerald">
-                                <dt>不在实验室</dt>
-                            </dl>
+                        <div class="row mbl">
+                            <div class=" pallete-item">
+                                <dl class="palette palette-orange">
+                                    <dt>现在在实验室</dt>
+                                </dl>
+                                <dl class="palette palette-alizarin">
+                                    <dt>之前在实验室</dt>
+                                </dl>
+                                <dl class="palette palette-peter-river">
+                                    <dt>上课 / 请假</dt>
+                                </dl>
+                                <dl class="palette palette-emerald">
+                                    <dt>不在实验室</dt>
+                                </dl>
+                            </div>
                         </div>
                    </div>
                 </div>
@@ -79,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group has-warning">
+                    <div class="form-group has-error">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="reason-addon">原由</span>

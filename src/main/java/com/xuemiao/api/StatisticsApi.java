@@ -18,27 +18,6 @@ public class StatisticsApi {
     @Autowired
     StatisticsService statisticsService;
 
-    //get date list of statistics
-    @GET
-    @Path("/date")
-    public Response getStatisticsDate() {
-        return Response.ok().entity(statisticsService.getAllDate()).build();
-    }
-
-    //get latest date of statistics
-    @GET
-    @Path("/latest_date")
-    public Response getStatisticsLatestDate() {
-        return Response.ok().entity(statisticsService.getLatestDate()).build();
-    }
-
-    //get statistics by date
-    @GET
-    @Path("/{date}")
-    public Response getStatisticData(@PathParam("date") Date date) {
-        return Response.ok().entity(statisticsService.getStatisticsByDate(date)).build();
-    }
-
     //get statistics of this month
     @GET
     @Path("/sum")

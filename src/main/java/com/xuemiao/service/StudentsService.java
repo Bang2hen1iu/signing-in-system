@@ -10,6 +10,7 @@ import com.xuemiao.model.pdm.StudentEntity;
 import com.xuemiao.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Array;
 import java.sql.Date;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Created by root on 16-10-19.
  */
-@Component
+@Service
 public class StudentsService {
     @Autowired
     StudentRepository studentRepository;
@@ -32,8 +33,6 @@ public class StudentsService {
     CoursesService coursesService;
     @Autowired
     AbsencesService absencesService;
-    @Autowired
-    StatisticsRepository statisticsRepository;
     @Autowired
     AbsenceRepository absenceRepository;
     @Autowired
@@ -74,7 +73,7 @@ public class StudentsService {
 
     public void addStudent(StudentEntity studentEntity) {
         studentRepository.save(studentEntity);
-        signInInfoService.addStudentIntoSignInInfo(studentEntity);
+        signInInfoService.addSignInInfo(studentEntity.getStudentId());
     }
 
     public void registerStudent(RegisterStudentJson registerStudentJson) throws FingerprintInvalidException{
@@ -90,7 +89,6 @@ public class StudentsService {
     public void deleteStudentById(Long id) {
         dutyStudentRepository.deleteByStudentId(id);
         coursesService.deleteCourseByStudentId(id);
-        statisticsRepository.deleteByStudentId(id);
         absencesService.deleteByStudentId(id);
         signInInfoService.deleteSignInInfoByStudentId(id);
         studentRepository.delete(id);
