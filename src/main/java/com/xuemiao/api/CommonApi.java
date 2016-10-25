@@ -61,7 +61,7 @@ public class CommonApi {
                 signInInfoRecordRepository.save(signInInfoRecordEntity);
             }
         }
-        return Response.ok().build();
+        return Response.ok().entity("good").build();
     }
 
     @GET
