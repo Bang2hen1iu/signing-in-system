@@ -60,7 +60,7 @@ public class StatisticsRepositoryService {
                 }
                 stayLabTime /= 1000 * 3600;
                 statisticJson.setAbsenceTimes(absenceTimes);
-                statisticJson.setStayLabTime(String.format("%.2f", stayLabTime));
+                statisticJson.setStayLabTime(stayLabTime);
                 statisticJsons.add(statisticJson);
             }
         }
