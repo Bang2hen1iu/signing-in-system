@@ -70,13 +70,15 @@ public class SignInInfoService {
             signInInfoV2Entity = addSignInInfo(studentId);
             signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
             statusFeedBack = 1;
-        } else {
+        }
+        else {
             Timestamp now = new Timestamp(dateTimeNow.getMillis());
             signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
             if (signInInfoRecordEntity == null) {
                 signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
                 statusFeedBack = 1;
-            } else {
+            }
+            else {
                 signInInfoRecordEntity.setEndTime(now);
                 statusFeedBack = 2;
             }
@@ -123,7 +125,7 @@ public class SignInInfoService {
     }
 
     private String getTimeSegmentWidth(Timestamp start, Timestamp end) {
-        return 100 * (end.getTime() - start.getTime()) / (18 * 3600 * 1000) + "%";
+        return Math.round(100 * (end.getTime() - start.getTime()) / (18 * 3600 * 1000)) + "%";
     }
 
     private String getTimeSegmentWidth(String start, String end) {
@@ -158,7 +160,6 @@ public class SignInInfoService {
             } else if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
                 signInInfoTimeSegment.setType(0);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(), new Timestamp(now.getMillis())));
-
             }
             signInInfoTimeSegment.setExtra("在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);

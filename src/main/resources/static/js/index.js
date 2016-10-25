@@ -105,7 +105,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return baseClass+' palette palette-orange';
         }
         else if(bar.type==1){
-            return baseClass+' palette palette-carrot';
+            return baseClass+' palette palette-alizarin';
         }
         else if(bar.type==2){
             return baseClass+' palette palette-peter-river';
