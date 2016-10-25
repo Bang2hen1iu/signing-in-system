@@ -29,6 +29,8 @@ DROP TABLE sys_admin;
 
 DROP TABLE statistics;
 
+DELETE FROM course_per_week AS c WHERE c.course_id NOT IN (SELECT s.id FROM course AS s);
+
 ALTER TABLE absence ADD sign_in_info_id BIGINT;
 ALTER TABLE absence ADD id SERIAL8;
 ALTER TABLE absence DROP CONSTRAINT absence_pkey;
@@ -48,5 +50,5 @@ ALTER TABLE course ADD id SERIAL8;
 ALTER TABLE course DROP CONSTRAINT course_pkey;
 ALTER TABLE course ADD PRIMARY KEY(id);
 
-DELETE FROM course_per_week AS c WHERE c.course_id NOT IN (SELECT s.id FROM course AS s);
+
 -- ALTER TABLE course_per_week ADD FOREIGN KEY (course_id) REFERENCES course(id)
