@@ -1,13 +1,21 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.FingerprintJson;
+import com.xuemiao.model.pdm.SignInInfoEntity;
+import com.xuemiao.model.pdm.SignInInfoRecordEntity;
+import com.xuemiao.model.pdm.SignInInfoV2Entity;
+import com.xuemiao.model.repository.SignInInfoRecordRepository;
+import com.xuemiao.model.repository.SignInInfoRepository;
+import com.xuemiao.model.repository.SignInInfoV2Repository;
 import com.xuemiao.utils.PasswordUtils;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by dzj on 10/1/2016.
@@ -15,10 +23,44 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/common")
 public class CommonApi {
+    @Autowired
+    SignInInfoV2Repository signInInfoV2Repository;
+    @Autowired
+    SignInInfoRecordRepository signInInfoRecordRepository;
+    @Autowired
+    SignInInfoRepository signInInfoRepository;
 
     @PUT
     @Path("transfering")
     public Response transferSignInInfoData() {
+        List<SignInInfoEntity> signInInfoEntities = signInInfoRepository.findAll();
+        for(SignInInfoEntity signInInfoEntity : signInInfoEntities){
+            SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
+            signInInfoV2Entity.setStudentId(signInInfoEntity.getStudentId());
+            signInInfoV2Entity.setOperDate(signInInfoEntity.getOperDate());
+            signInInfoV2Repository.save(signInInfoV2Entity);
+            if(signInInfoEntity.getStartMorning()!=null&&signInInfoEntity.getEndMorning()!=null){
+                SignInInfoRecordEntity signInInfoRecordEntity = new SignInInfoRecordEntity();
+                signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
+                signInInfoRecordEntity.setStartTime(signInInfoEntity.getStartMorning());
+                signInInfoRecordEntity.setEndTime(signInInfoEntity.getEndMorning());
+                signInInfoRecordRepository.save(signInInfoRecordEntity);
+            }
+            if(signInInfoEntity.getStartAfternoon()!=null&&signInInfoEntity.getEndAfternoon()!=null){
+                SignInInfoRecordEntity signInInfoRecordEntity = new SignInInfoRecordEntity();
+                signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
+                signInInfoRecordEntity.setStartTime(signInInfoEntity.getStartAfternoon());
+                signInInfoRecordEntity.setEndTime(signInInfoEntity.getEndAfternoon());
+                signInInfoRecordRepository.save(signInInfoRecordEntity);
+            }
+            if(signInInfoEntity.getStartNight()!=null&&signInInfoEntity.getEndNight()!=null){
+                SignInInfoRecordEntity signInInfoRecordEntity = new SignInInfoRecordEntity();
+                signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
+                signInInfoRecordEntity.setStartTime(signInInfoEntity.getStartNight());
+                signInInfoRecordEntity.setEndTime(signInInfoEntity.getEndNight());
+                signInInfoRecordRepository.save(signInInfoRecordEntity);
+            }
+        }
         return Response.ok().build();
     }
 
