@@ -1,10 +1,6 @@
 package com.xuemiao.model.pdm;
 
-import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**

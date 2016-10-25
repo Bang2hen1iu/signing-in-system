@@ -7,15 +7,15 @@ import com.xuemiao.exception.FingerprintInvalidException;
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.FingerprintEntity;
 import com.xuemiao.model.pdm.StudentEntity;
-import com.xuemiao.model.repository.*;
+import com.xuemiao.model.repository.AbsenceRepository;
+import com.xuemiao.model.repository.DutyStudentRepository;
+import com.xuemiao.model.repository.FingerprintRepository;
+import com.xuemiao.model.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,10 +42,10 @@ public class StudentsService {
         return studentRepository.findAll();
     }
 
-    public List<FingerprintJson> getAllFingerPrint(){
+    public List<FingerprintJson> getAllFingerPrint() {
         List<FingerprintEntity> fingerprintEntities = fingerprintRepository.findAll();
         List<FingerprintJson> fingerprintJsons = new ArrayList<>();
-        for(FingerprintEntity fingerprintEntity : fingerprintEntities){
+        for (FingerprintEntity fingerprintEntity : fingerprintEntities) {
             FingerprintJson fingerprintJson = new FingerprintJson();
             fingerprintJson.setFingerprint(fingerprintEntity.getToken());
             fingerprintJsons.add(fingerprintJson);
@@ -76,8 +76,8 @@ public class StudentsService {
         signInInfoService.addSignInInfo(studentEntity.getStudentId());
     }
 
-    public void registerStudent(RegisterStudentJson registerStudentJson) throws FingerprintInvalidException{
-        if(registerStudentJson.getFingerprint()==null||registerStudentJson.getFingerprint().equals("")){
+    public void registerStudent(RegisterStudentJson registerStudentJson) throws FingerprintInvalidException {
+        if (registerStudentJson.getFingerprint() == null || registerStudentJson.getFingerprint().equals("")) {
             throw new FingerprintInvalidException();
         }
         FingerprintEntity fingerprintEntity = new FingerprintEntity();

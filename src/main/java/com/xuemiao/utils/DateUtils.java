@@ -25,8 +25,8 @@ public class DateUtils {
     public static Timestamp adjustYearMonthDay(Timestamp t1) {
         DateTime dateTime = new DateTime(t1.getTime());
         DateTime now = DateTime.now();
-        DateTime realTime = new DateTime(now.getYear(),now.getMonthOfYear(),now.getDayOfMonth(),dateTime.getHourOfDay(),
-                dateTime.getMinuteOfHour(),dateTime.getSecondOfMinute());
+        DateTime realTime = new DateTime(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth(), dateTime.getHourOfDay(),
+                dateTime.getMinuteOfHour(), dateTime.getSecondOfMinute());
         return new Timestamp(realTime.getMillis());
     }
 

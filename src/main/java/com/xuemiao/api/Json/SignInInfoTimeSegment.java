@@ -1,13 +1,11 @@
 package com.xuemiao.api.Json;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 /**
  * Created by root on 16-10-23.
  */
-public class SignInInfoTimeSegment implements Serializable,Comparable<SignInInfoTimeSegment>{
+public class SignInInfoTimeSegment implements Serializable, Comparable<SignInInfoTimeSegment> {
     private String startTime;
     private String endTime;
     private String width;

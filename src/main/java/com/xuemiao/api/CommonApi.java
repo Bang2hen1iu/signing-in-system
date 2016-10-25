@@ -15,6 +15,13 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/common")
 public class CommonApi {
+
+    @PUT
+    @Path("transfering")
+    public Response transferSignInInfoData() {
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{psw}")
     public String getPswHash(@PathParam("psw") String psw) {

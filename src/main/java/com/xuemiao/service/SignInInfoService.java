@@ -12,7 +12,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -48,7 +47,7 @@ public class SignInInfoService {
         return fingerprintRepository.findByToken(fingerprint).getStudentId();
     }
 
-    public SignInFeedbackJson getSignInFeedBackJson(String fingerprint,int statusFeedBack){
+    public SignInFeedbackJson getSignInFeedBackJson(String fingerprint, int statusFeedBack) {
         SignInFeedbackJson signInFeedbackJson = new SignInFeedbackJson();
         FingerprintEntity fingerprintEntity = fingerprintRepository.findByToken(fingerprint);
         StudentEntity studentEntity = studentRepository.findOne(fingerprintEntity.getStudentId());
@@ -57,22 +56,21 @@ public class SignInInfoService {
         return signInFeedbackJson;
     }
 
-    public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException{
+    public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException {
         int statusFeedBack;
         DateTime dateTimeNow = DateTime.now();
         Long studentId = this.checkFingerPrint(fingerprintJson.getFingerprint());
-        if(studentId==null){
+        if (studentId == null) {
             throw new StudentNotExistException();
         }
         Date nowDate = new Date(dateTimeNow.getMillis());
         SignInInfoRecordEntity signInInfoRecordEntity;
         SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(studentId, nowDate);
-        if(signInInfoV2Entity==null){
+        if (signInInfoV2Entity == null) {
             signInInfoV2Entity = addSignInInfo(studentId);
             signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
             statusFeedBack = 1;
-        }
-        else {
+        } else {
             Timestamp now = new Timestamp(dateTimeNow.getMillis());
             signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
             if (signInInfoRecordEntity == null) {
@@ -87,7 +85,7 @@ public class SignInInfoService {
         return statusFeedBack;
     }
 
-    public SignInInfoV2Entity addSignInInfo(Long studentId){
+    public SignInInfoV2Entity addSignInInfo(Long studentId) {
         SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
         signInInfoV2Entity.setStudentId(studentId);
         signInInfoV2Entity.setOperDate(new Date(DateTime.now().getMillis()));
@@ -95,7 +93,7 @@ public class SignInInfoService {
         return signInInfoV2Entity;
     }
 
-    private SignInInfoRecordEntity signInArrive(SignInInfoV2Entity signInInfoV2Entity){
+    private SignInInfoRecordEntity signInArrive(SignInInfoV2Entity signInInfoV2Entity) {
         SignInInfoRecordEntity signInInfoRecordEntity = new SignInInfoRecordEntity();
         signInInfoRecordEntity.setSignInInfoId(signInInfoV2Entity.getId());
         signInInfoRecordEntity.setStartTime(new Timestamp(DateTime.now().getMillis()));
@@ -124,15 +122,15 @@ public class SignInInfoService {
         signInInfoV2Repository.deleteByStudentId(id);
     }
 
-    private String getTimeSegmentWidth(Timestamp start,Timestamp end){
-        return 100*(end.getTime()-start.getTime())/(18*3600*1000) + "%";
+    private String getTimeSegmentWidth(Timestamp start, Timestamp end) {
+        return 100 * (end.getTime() - start.getTime()) / (18 * 3600 * 1000) + "%";
     }
 
-    private String getTimeSegmentWidth(String start,String end){
+    private String getTimeSegmentWidth(String start, String end) {
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
-        DateTime startDateTime = DateTime.parse(start,format);
-        DateTime endDateTime = DateTime.parse(end,format);
-        return this.getTimeSegmentWidth(new Timestamp(startDateTime.getMillis()),new Timestamp(endDateTime.getMillis()));
+        DateTime startDateTime = DateTime.parse(start, format);
+        DateTime endDateTime = DateTime.parse(end, format);
+        return this.getTimeSegmentWidth(new Timestamp(startDateTime.getMillis()), new Timestamp(endDateTime.getMillis()));
     }
 
     private SignInInfoJson wrapSignInInfoIntoJson(SignInInfoV2Entity signInInfoV2Entity) {
@@ -149,18 +147,17 @@ public class SignInInfoService {
         signInInfoJson.setName(studentRepository.findOne(signInInfoV2Entity.getStudentId()).getName());
         List<SignInInfoTimeSegment> signInInfoTimeSegments = new ArrayList<>();
         List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId());
-        for (SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities){
+        for (SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(signInInfoRecordEntity.getStartTime(),3));
-            if(signInInfoRecordEntity.getEndTime()!=null){
-                signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(signInInfoRecordEntity.getEndTime(),3));
+            signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(signInInfoRecordEntity.getStartTime(), 3));
+            if (signInInfoRecordEntity.getEndTime() != null) {
+                signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(signInInfoRecordEntity.getEndTime(), 3));
                 signInInfoTimeSegment.setType(1);
                 signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),
                         signInInfoRecordEntity.getEndTime()));
-            }
-            else if (signInDate.getYear()==now.getYear()&&signInDate.getMonthOfYear()==now.getMonthOfYear()&&signInDate.getDayOfMonth()==now.getDayOfMonth()){
+            } else if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
                 signInInfoTimeSegment.setType(0);
-                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(),new Timestamp(now.getMillis())));
+                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoRecordEntity.getStartTime(), new Timestamp(now.getMillis())));
 
             }
             signInInfoTimeSegment.setExtra("在实验室");
@@ -171,71 +168,68 @@ public class SignInInfoService {
         List<SignInInfoCoursesInfo> signInInfoCoursesInfoList = new ArrayList<>();
         for (CourseEntity courseEntity : courseEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday);
-            if(signInInfoTimeSegment!=null){
+            if (signInInfoTimeSegment != null) {
                 signInInfoTimeSegments.add(signInInfoTimeSegment);
             }
         }
 
         List<AbsenceEntity> absenceEntities = absencesService.getAbsenceBySignInInfoId(signInInfoV2Entity.getId());
-        for(AbsenceEntity absenceEntity : absenceEntities) {
+        for (AbsenceEntity absenceEntity : absenceEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(absenceEntity.getStartAbsence(),3));
-            signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(absenceEntity.getEndAbsence(),3));
-            signInInfoTimeSegment.setExtra("请假："+absenceEntity.getAbsenceReason());
+            signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(absenceEntity.getStartAbsence(), 3));
+            signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(absenceEntity.getEndAbsence(), 3));
+            signInInfoTimeSegment.setExtra("请假：" + absenceEntity.getAbsenceReason());
             signInInfoTimeSegment.setType(3);
-            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(absenceEntity.getStartAbsence(),absenceEntity.getEndAbsence()));
+            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(absenceEntity.getStartAbsence(), absenceEntity.getEndAbsence()));
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }
 
         Collections.sort(signInInfoTimeSegments);
 
-        if(signInInfoTimeSegments.size()==0){
+        if (signInInfoTimeSegments.size() == 0) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setType(4);
-            if(signInDate.getYear()==now.getYear()&&signInDate.getMonthOfYear()==now.getMonthOfYear()&&signInDate.getDayOfMonth()==now.getDayOfMonth()){
-                signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour()));
-            }
-            else {
+            if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
+                signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+            } else {
                 signInInfoTimeSegment.setEndTime("23:59");
             }
-            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
+            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(), signInInfoTimeSegment.getEndTime()));
             signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
-        }
-        else{
+        } else {
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
 
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(0).getStartTime());
             signInInfoTimeSegment.setType(4);
-            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
+            signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(), signInInfoTimeSegment.getEndTime()));
             signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
 
-            for(int i=1;i<signInInfoTimeSegments.size();i++){
+            for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
                 signInInfoTimeSegment = new SignInInfoTimeSegment();
-                signInInfoTimeSegment.setStartTime(signInInfoTimeSegments.get(i-1).getEndTime());
+                signInInfoTimeSegment.setStartTime(signInInfoTimeSegments.get(i - 1).getEndTime());
                 signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(i).getStartTime());
                 signInInfoTimeSegment.setType(4);
-                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
+                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(), signInInfoTimeSegment.getEndTime()));
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             }
 
-            SignInInfoTimeSegment tailTimeSegment = signInInfoTimeSegments.get(signInInfoTimeSegments.size()-1);
-            if(tailTimeSegment.getEndTime()!=null){
+            SignInInfoTimeSegment tailTimeSegment = signInInfoTimeSegments.get(signInInfoTimeSegments.size() - 1);
+            if (tailTimeSegment.getEndTime() != null) {
                 signInInfoTimeSegment = new SignInInfoTimeSegment();
                 signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
                 signInInfoTimeSegment.setType(4);
-                if(signInDate.getYear()==now.getYear()&&signInDate.getMonthOfYear()==now.getMonthOfYear()&&signInDate.getDayOfMonth()==now.getDayOfMonth()){
-                    signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay())+":"+String.format("%02d", now.getMinuteOfHour()));
-                }
-                else {
+                if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
+                    signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                } else {
                     signInInfoTimeSegment.setEndTime("23:59");
                 }
-                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),signInInfoTimeSegment.getEndTime()));
+                signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(), signInInfoTimeSegment.getEndTime()));
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             }
@@ -255,10 +249,10 @@ public class SignInInfoService {
         CoursePerWeekEntity coursePerWeekEntity = coursePerWeekRepository.findOne(coursePerWeekPKey);
         SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
         if (coursePerWeekEntity != null) {
-            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(),1));
-            signInInfoTimeSegment.setEndTime(getCourseTime(coursePerWeekEntity.getEndSection(),2));
+            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(), 1));
+            signInInfoTimeSegment.setEndTime(getCourseTime(coursePerWeekEntity.getEndSection(), 2));
             signInInfoTimeSegment.setType(2);
-            signInInfoTimeSegment.setExtra("上课："+courseEntity.getCourseName());
+            signInInfoTimeSegment.setExtra("上课：" + courseEntity.getCourseName());
             signInInfoTimeSegment.setWidth(getTimeSegmentWidth(signInInfoTimeSegment.getStartTime(),
                     signInInfoTimeSegment.getEndTime()));
             return signInInfoTimeSegment;
@@ -266,10 +260,10 @@ public class SignInInfoService {
         return null;
     }
 
-    private String getCourseTime(int section,int type){
+    private String getCourseTime(int section, int type) {
         String courseTime = null;
-        if(type==1){
-            switch (section){
+        if (type == 1) {
+            switch (section) {
                 case 1:
                     courseTime = "8:50";
                     break;
@@ -307,9 +301,8 @@ public class SignInInfoService {
                     courseTime = "";
             }
             return courseTime;
-        }
-        else if(type==2){
-            switch (section){
+        } else if (type == 2) {
+            switch (section) {
                 case 1:
                     courseTime = "9:35";
                     break;

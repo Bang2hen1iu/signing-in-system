@@ -26,8 +26,8 @@ public class SignInInfoApi {
     @POST
     @Path("/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSignIn(FingerprintJson fingerprintJson) throws IOException, TokenInvalidException,StudentNotExistException {
-        return Response.ok().entity(signInInfoService.getSignInFeedBackJson(fingerprintJson.getFingerprint(),signInInfoService.signIn(fingerprintJson))).build();
+    public Response addSignIn(FingerprintJson fingerprintJson) throws IOException, TokenInvalidException, StudentNotExistException {
+        return Response.ok().entity(signInInfoService.getSignInFeedBackJson(fingerprintJson.getFingerprint(), signInInfoService.signIn(fingerprintJson))).build();
     }
 
     //get sign in info by date

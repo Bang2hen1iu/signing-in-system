@@ -1,9 +1,6 @@
 package com.xuemiao.api.Json;
 
-import com.xuemiao.model.pdm.SignInInfoRecordEntity;
-
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**

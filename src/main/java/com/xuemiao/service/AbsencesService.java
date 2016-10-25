@@ -3,15 +3,12 @@ package com.xuemiao.service;
 import com.xuemiao.api.Json.AbsenceReasonJson;
 import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.SignInInfoV2Entity;
-import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
 import com.xuemiao.model.repository.AbsenceRepository;
 import com.xuemiao.model.repository.SignInInfoV2Repository;
 import com.xuemiao.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -29,8 +26,8 @@ public class AbsencesService {
     public void addAbsence(AbsenceReasonJson absenceReasonJson) {
         AbsenceEntity absenceEntity = new AbsenceEntity();
         SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
-                absenceReasonJson.getStudentId(),absenceReasonJson.getOperDate());
-        if(signInInfoV2Entity==null){
+                absenceReasonJson.getStudentId(), absenceReasonJson.getOperDate());
+        if (signInInfoV2Entity == null) {
             signInInfoV2Entity = signInInfoService.addSignInInfo(absenceReasonJson.getStudentId());
         }
         absenceEntity.setSignInInfoId(signInInfoV2Entity.getId());
@@ -40,18 +37,18 @@ public class AbsencesService {
         absenceRepository.save(absenceEntity);
     }
 
-    public void deleteByStudentId(Long studentId){
+    public void deleteByStudentId(Long studentId) {
         List<SignInInfoV2Entity> signInInfoV2Entities = signInInfoV2Repository.findByStudentId(studentId);
-        for(SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities){
+        for (SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities) {
             absenceRepository.deleteBySignInInfoId(signInInfoV2Entity.getId());
         }
     }
 
-    public void deleteBySignInInfoId(Long signInInfoId){
+    public void deleteBySignInInfoId(Long signInInfoId) {
         absenceRepository.deleteBySignInInfoId(signInInfoId);
     }
 
-    public List<AbsenceEntity> getAbsenceBySignInInfoId(Long signInInfoId){
+    public List<AbsenceEntity> getAbsenceBySignInInfoId(Long signInInfoId) {
         return absenceRepository.findBySignInInfoId(signInInfoId);
     }
 }

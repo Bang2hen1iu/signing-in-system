@@ -33,7 +33,7 @@ public class StudentsApi {
     //get fingerprint of all students
     @GET
     @Path("/fingerprints")
-    public Response getAllFingerPrint(){
+    public Response getAllFingerPrint() {
         return Response.ok().entity(studentsService.getAllFingerPrint()).build();
     }
 
@@ -67,7 +67,7 @@ public class StudentsApi {
     @Path("/registering")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerStudent(RegisterStudentJson registerStudentJson, @CookieParam("token") String tokenString)
-            throws TokenInvalidException,FingerprintInvalidException {
+            throws TokenInvalidException, FingerprintInvalidException {
         cookieService.checkTokenCookie(tokenString);
         studentsService.registerStudent(registerStudentJson);
         return Response.ok().cookie(cookieService.refreshCookie(tokenString)).build();

@@ -7,7 +7,6 @@ import com.xuemiao.model.pdm.CoursePerWeekEntity;
 import com.xuemiao.model.repository.CoursePerWeekRepository;
 import com.xuemiao.model.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

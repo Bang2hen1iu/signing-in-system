@@ -20,7 +20,7 @@ public class StatisticsService {
     StatisticsRepositoryService statisticsRepositoryService;
 
     public List<StatisticJson> getRangeStatistics(Date startDate, Date endDate) {
-        return statisticsRepositoryService.getRangeStatistics(startDate,endDate);
+        return statisticsRepositoryService.getRangeStatistics(startDate, endDate);
     }
 
     public List<StatisticJson> getStatisticsOfThisMonth() {
