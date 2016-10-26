@@ -187,27 +187,27 @@ public class SignInInfoService {
             signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         } else {
-            SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
-            for (int i=1;i<signInInfoTimeSegments.size();i++){
-                if(signInInfoTimeSegmentFront.getEndTime()==null){
-                    Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
-                            subList(i,signInInfoTimeSegments.size()-1).iterator();
-                    while (signInInfoTimeSegmentIterator.hasNext()){
-                        SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
-                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
-                            signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
-                        }
-                    }
-                }
-                else{
-                    SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
-                        signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
-                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
-                    }
-                }
-                signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
-            }
+//            SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
+//            for (int i=1;i<signInInfoTimeSegments.size();i++){
+//                if(signInInfoTimeSegmentFront.getEndTime()==null){
+//                    Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
+//                            subList(i,signInInfoTimeSegments.size()-1).iterator();
+//                    while (signInInfoTimeSegmentIterator.hasNext()){
+//                        SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
+//                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
+//                            signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
+//                        }
+//                    }
+//                }
+//                else{
+//                    SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
+//                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+//                        signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
+//                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+//                    }
+//                }
+//                signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
+//            }
 
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
