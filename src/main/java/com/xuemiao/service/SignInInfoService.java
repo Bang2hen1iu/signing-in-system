@@ -188,15 +188,28 @@ public class SignInInfoService {
         } else {
             SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
             for(int i=1;i<signInInfoTimeSegments.size();i++){
-                SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-                if(signInInfoTimeSegmentBack==null){
-                    break;
+                if(signInInfoTimeSegmentFront.getEndTime()==null){
+                    int size = signInInfoTimeSegments.size();
+                    for (int j=i;j<size;){
+                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegments.get(j).getStartTime())>=0){
+                            signInInfoTimeSegments.remove(j);
+                        }
+                        else {
+                            j++;
+                        }
+                    }
                 }
-                if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
-                    signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
-                    signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+                else{
+                    SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
+                    if(signInInfoTimeSegmentBack==null){
+                        break;
+                    }
+                    else if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+                        signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
+                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+                    }
+                    signInInfoTimeSegmentFront = signInInfoTimeSegmentBack;
                 }
-                signInInfoTimeSegmentFront = signInInfoTimeSegmentBack;
             }
 
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
@@ -228,6 +241,10 @@ public class SignInInfoService {
                 }
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+            }
+            else {
+                tailTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1,tailTimeSegment);
             }
             signInInfoTimeSegments.addAll(signInInfoTimeSegmentsTemp);
         }
