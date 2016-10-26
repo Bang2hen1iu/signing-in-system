@@ -102,19 +102,19 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return '';
         }
         if(bar.type==0){
-            return baseClass+'palette-orange';
+            return baseClass+' palette-orange';
         }
         else if(bar.type==1){
-            return baseClass+'palette-alizarin';
+            return baseClass+' palette-alizarin';
         }
         else if(bar.type==2){
-            return baseClass+'palette-peter-river';
+            return baseClass+' palette-peter-river';
         }
         else if(bar.type==3){
-            return baseClass+'palette-peter-river';
+            return baseClass+' palette-peter-river';
         }
         else if(bar.type==4){
-            return baseClass+'palette-emerald';
+            return baseClass+' palette-emerald';
         }
         else{
             return '';
