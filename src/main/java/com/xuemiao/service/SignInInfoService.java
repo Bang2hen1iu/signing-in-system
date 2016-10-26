@@ -187,27 +187,27 @@ public class SignInInfoService {
             signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         } else {
-//            SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
-//            for (int i=1;i<signInInfoTimeSegments.size();i++){
-//                if(signInInfoTimeSegmentFront.getEndTime()==null){
-//                    Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
-//                            subList(i,signInInfoTimeSegments.size()-1).iterator();
-//                    while (signInInfoTimeSegmentIterator.hasNext()){
-//                        SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
-//                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
-//                            signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
-//                        }
-//                    }
-//                }
-//                else{
-//                    SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-//                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
-//                        signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
-//                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
-//                    }
-//                }
-//                signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
-//            }
+            SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
+            for (int i=1;i<signInInfoTimeSegments.size();i++){
+                if(signInInfoTimeSegmentFront.getEndTime()==null){
+                    Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
+                            subList(i,signInInfoTimeSegments.size()-1).iterator();
+                    while (signInInfoTimeSegmentIterator.hasNext()){
+                        SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
+                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
+                            signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
+                        }
+                    }
+                }
+                else{
+                    SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
+                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+                        signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
+                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+                    }
+                }
+                signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
+            }
 
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
@@ -281,10 +281,10 @@ public class SignInInfoService {
         if (type == 1) {
             switch (section) {
                 case 1:
-                    courseTime = "8:50";
+                    courseTime = "08:50";
                     break;
                 case 2:
-                    courseTime = "9:40";
+                    courseTime = "09:40";
                     break;
                 case 3:
                     courseTime = "10:40";
@@ -320,7 +320,7 @@ public class SignInInfoService {
         } else if (type == 2) {
             switch (section) {
                 case 1:
-                    courseTime = "9:35";
+                    courseTime = "09:35";
                     break;
                 case 2:
                     courseTime = "10:25";
