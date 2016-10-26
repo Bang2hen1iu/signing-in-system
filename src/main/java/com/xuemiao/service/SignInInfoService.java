@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -187,29 +188,25 @@ public class SignInInfoService {
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         } else {
             SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
-            for(int i=1;i<signInInfoTimeSegments.size();i++){
+            for (int i=1;i<signInInfoTimeSegments.size();i++){
                 if(signInInfoTimeSegmentFront.getEndTime()==null){
-                    int size = signInInfoTimeSegments.size();
-                    for (int j=i;j<size;){
-                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegments.get(j).getStartTime())>=0){
-                            signInInfoTimeSegments.remove(j);
-                        }
-                        else {
-                            j++;
+                    Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
+                            subList(i,signInInfoTimeSegments.size()-1).iterator();
+                    while (signInInfoTimeSegmentIterator.hasNext()){
+                        SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
+                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
+                            signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
                         }
                     }
                 }
                 else{
                     SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-                    if(signInInfoTimeSegmentBack==null){
-                        break;
-                    }
-                    else if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
                         signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
                         signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
                     }
-                    signInInfoTimeSegmentFront = signInInfoTimeSegmentBack;
                 }
+                signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
             }
 
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
