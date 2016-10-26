@@ -114,7 +114,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return baseClass+' palette-bar palette-peter-river';
         }
         else if(bar.type==4){
-            return baseClass+' palette-bar palette-emerald';
+            return baseClass+' palette-bar palette-silver';
         }
         else{
             return '';

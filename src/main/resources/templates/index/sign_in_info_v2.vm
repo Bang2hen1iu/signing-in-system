@@ -8,6 +8,30 @@
 </div>
 <div class="row">
     <div class="col-md-9 col-lg-9">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-10">
+                <ul class="pagination" style="margin-bottom: 0px;margin-top: 0px">
+                    <li class="active"><a>6</a></li>
+                    <li><a>7</a></li>
+                    <li class="active"><a>8</a></li>
+                    <li><a>9</a></li>
+                    <li class="active"><a>10</a></li>
+                    <li><a>11</a></li>
+                    <li class="active"><a>12</a></li>
+                    <li><a>13</a></li>
+                    <li class="active"><a>14</a></li>
+                    <li><a>15</a></li>
+                    <li class="active"><a>16</a></li>
+                    <li><a>17</a></li>
+                    <li class="active"><a>18</a></li>
+                    <li><a>19</a></li>
+                    <li class="active"><a>20</a></li>
+                    <li><a>21</a></li>
+                    <li class="active"><a>22</a></li>
+                    <li><a>23</a></li>
+                </ul>
+            </div>
+        </div>
         <div ng-repeat="student in signInInfoData" class="row form-inline">
             <div class="form-group col-md-2">
                 <span>{{student.name}}</span>
@@ -48,7 +72,7 @@
                                 <dl class="palette palette-peter-river">
                                     <dt>上课 / 请假</dt>
                                 </dl>
-                                <dl class="palette palette-emerald">
+                                <dl class="palette palette-silver">
                                     <dt>不在实验室</dt>
                                 </dl>
                             </div>
