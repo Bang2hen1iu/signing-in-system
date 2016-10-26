@@ -171,6 +171,9 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
             method: 'GET',
             url: "/api/statistics/sum"
         }).success(function (data) {
+            for(var i=0;i<data.length;i++){
+                data[i].stayLabTime = data[i].stayLabTime.toFixed(2);
+            }
             $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
             $scope.rank_list_data = data;
         });
