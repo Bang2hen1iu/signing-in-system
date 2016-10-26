@@ -10,26 +10,62 @@
     <div class="col-md-9 col-lg-9">
         <div class="row">
             <div class="col-md-offset-2 col-md-10">
-                <ul class="pagination" style="margin-bottom: 0px;margin-top: 0px">
-                    <li class="active"><a>6</a></li>
-                    <li><a>7</a></li>
-                    <li class="active"><a>8</a></li>
-                    <li><a>9</a></li>
-                    <li class="active"><a>10</a></li>
-                    <li><a>11</a></li>
-                    <li class="active"><a>12</a></li>
-                    <li><a>13</a></li>
-                    <li class="active"><a>14</a></li>
-                    <li><a>15</a></li>
-                    <li class="active"><a>16</a></li>
-                    <li><a>17</a></li>
-                    <li class="active"><a>18</a></li>
-                    <li><a>19</a></li>
-                    <li class="active"><a>20</a></li>
-                    <li><a>21</a></li>
-                    <li class="active"><a>22</a></li>
-                    <li><a>23</a></li>
-                </ul>
+                <div class="progress progress-time-axis">
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        6~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        7~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        8~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        9~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        10~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        11~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        12~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        13~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        14~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        15~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        16~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        17~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        18~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        19~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        20~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        21~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-one" role="progressbar" style="width: 5.55556%;">
+                        22~
+                    </div>
+                    <div class="progress-bar progress-bar-time-axis-two" role="progressbar" style="width: 5.55556%;">
+                        23~
+                    </div>
+                </div>
             </div>
         </div>
         <div ng-repeat="student in signInInfoData" class="row form-inline">
@@ -63,10 +99,10 @@
                     <div class="panel-body">
                         <div class="row mbl">
                             <div class="pallete-item">
-                                <dl class="palette palette-orange">
+                                <dl class="palette palette-arrive">
                                     <dt>现在在实验室</dt>
                                 </dl>
-                                <dl class="palette palette-alizarin">
+                                <dl class="palette palette-orange">
                                     <dt>之前在实验室</dt>
                                 </dl>
                                 <dl class="palette palette-peter-river">

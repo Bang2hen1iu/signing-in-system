@@ -1,0 +1,1 @@
+ALTER TABLE student ADD in_school BOOLEAN;

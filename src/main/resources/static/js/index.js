@@ -102,10 +102,10 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             return '';
         }
         if(bar.type==0){
-            return baseClass+' palette-bar-now palette-orange';
+            return baseClass+' palette-bar-now palette-arrive';
         }
         else if(bar.type==1){
-            return baseClass+' palette-bar palette-alizarin';
+            return baseClass+' palette-bar palette-orange';
         }
         else if(bar.type==2){
             return baseClass+' palette-bar palette-peter-river';
