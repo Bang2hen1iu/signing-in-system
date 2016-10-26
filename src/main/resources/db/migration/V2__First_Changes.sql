@@ -37,7 +37,7 @@ ALTER TABLE absence DROP oper_date;
 ALTER TABLE absence ADD PRIMARY KEY (id);
 ALTER TABLE absence ADD FOREIGN KEY (sign_in_info_id) REFERENCES sign_in_info_v2(id);
 
-ALTER TABLE course_per_week ADD course_id SERIAL8;
+ALTER TABLE course_per_week ADD course_id BIGINT;
 ALTER TABLE course_per_week DROP CONSTRAINT course_per_week_pkey;
 ALTER TABLE course_per_week ADD PRIMARY KEY (course_id,weekday);
 
@@ -49,5 +49,3 @@ ALTER TABLE course DROP CONSTRAINT course_pkey;
 ALTER TABLE course ADD PRIMARY KEY(id);
 
 ALTER TABLE course_per_week ADD FOREIGN KEY (course_id) REFERENCES course(id);
-
-DROP TABLE sign_in_info;

@@ -93,28 +93,28 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
                 if(date==parser.getText()){
                     $scope.getSignInInfo(date);
                 }
-            }, 30000);
+            }, 100000);
         });
     };
     $scope.setBarClass = function (bar) {
-        var baseClass = "progress-bar";
+        var baseClass = "progress-bar palette palette-bar";
         if(bar==null){
             return '';
         }
         if(bar.type==0){
-            return baseClass+' palette palette-orange';
+            return baseClass+'palette-orange';
         }
         else if(bar.type==1){
-            return baseClass+' palette palette-alizarin';
+            return baseClass+'palette-alizarin';
         }
         else if(bar.type==2){
-            return baseClass+' palette palette-peter-river';
+            return baseClass+'palette-peter-river';
         }
         else if(bar.type==3){
-            return baseClass+' palette palette-peter-river';
+            return baseClass+'palette-peter-river';
         }
         else if(bar.type==4){
-            return baseClass+' palette palette-emerald';
+            return baseClass+'palette-emerald';
         }
         else{
             return '';
