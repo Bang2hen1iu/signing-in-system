@@ -246,14 +246,6 @@ public class SignInInfoService {
             signInInfoTimeSegments.addAll(signInInfoTimeSegmentsTemp);
         }
 
-        System.out.println("KKK!!");
-        int index=0;
-        for(SignInInfoTimeSegment signInInfoTimeSegment:signInInfoTimeSegments){
-            System.out.print(index+" ");
-            System.out.println(signInInfoTimeSegment.getStartTime()+" "+signInInfoTimeSegment.getEndTime());
-            index++;
-        }
-
         Collections.sort(signInInfoTimeSegments);
 
         signInInfoJson.setSignInInfoTimeSegments(signInInfoTimeSegments);

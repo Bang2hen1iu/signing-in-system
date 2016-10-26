@@ -93,7 +93,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
                 if(date==parser.getText()){
                     $scope.getSignInInfo(date);
                 }
-            }, 100000);
+            }, 30000);
         });
     };
     $scope.setBarClass = function (bar) {
@@ -126,7 +126,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         var startTime = parser.getDate();
         parser.parse(bar.endTime);
         var endTime = parser.getDate();
-        console.log((endTime.getTime()-startTime.getTime())/(1000*18*3600));
         return {'width':100*(endTime.getTime()-startTime.getTime())/(1000*18*3600) + '%'};
     };
     $scope.setAbsenceStudent = function (student) {
