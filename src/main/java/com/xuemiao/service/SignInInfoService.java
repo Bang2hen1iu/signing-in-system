@@ -174,16 +174,6 @@ public class SignInInfoService {
 
         Collections.sort(signInInfoTimeSegments);
 
-        SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
-        for(int i=1;i<signInInfoTimeSegments.size();i++){
-            SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-            if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
-                signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
-                signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
-            }
-            signInInfoTimeSegmentFront = signInInfoTimeSegmentBack;
-        }
-
         if (signInInfoTimeSegments.size() == 0) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
@@ -196,8 +186,20 @@ public class SignInInfoService {
             signInInfoTimeSegment.setExtra("不在实验室");
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         } else {
-            List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
+            SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
+            for(int i=1;i<signInInfoTimeSegments.size();i++){
+                SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
+                if(signInInfoTimeSegmentBack==null){
+                    break;
+                }
+                if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+                    signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
+                    signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+                }
+                signInInfoTimeSegmentFront = signInInfoTimeSegmentBack;
+            }
 
+            List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(0).getStartTime());
