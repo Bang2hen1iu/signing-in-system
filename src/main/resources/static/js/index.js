@@ -97,31 +97,37 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         });
     };
     $scope.setBarClass = function (bar) {
-        var baseClass = "progress-bar palette palette-bar";
+        var baseClass = "progress-bar palette";
         if(bar==null){
             return '';
         }
         if(bar.type==0){
-            return baseClass+' palette-orange';
+            return baseClass+' palette-bar-now palette-orange';
         }
         else if(bar.type==1){
-            return baseClass+' palette-alizarin';
+            return baseClass+' palette-bar palette-alizarin';
         }
         else if(bar.type==2){
-            return baseClass+' palette-peter-river';
+            return baseClass+' palette-bar palette-peter-river';
         }
         else if(bar.type==3){
-            return baseClass+' palette-peter-river';
+            return baseClass+' palette-bar palette-peter-river';
         }
         else if(bar.type==4){
-            return baseClass+' palette-emerald';
+            return baseClass+' palette-bar palette-emerald';
         }
         else{
             return '';
         }
     };
     $scope.getTimeSegmentWidth = function (bar) {
-        return {'width':bar.width};
+        var parser = datetime("HH:mm");
+        parser.parse(bar.startTime);
+        var startTime = parser.getDate();
+        parser.parse(bar.endTime);
+        var endTime = parser.getDate();
+        console.log((endTime.getTime()-startTime.getTime())/(1000*18*3600));
+        return {'width':100*(endTime.getTime()-startTime.getTime())/(1000*18*3600) + '%'};
     };
     $scope.setAbsenceStudent = function (student) {
         $scope.askForAbsenceStudent.studentId = student.studentId;

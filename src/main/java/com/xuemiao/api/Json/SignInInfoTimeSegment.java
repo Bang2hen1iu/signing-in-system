@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class SignInInfoTimeSegment implements Serializable, Comparable<SignInInfoTimeSegment> {
     private String startTime;
     private String endTime;
-    private String width;
     private int type;
     private String extra;
 
@@ -26,14 +25,6 @@ public class SignInInfoTimeSegment implements Serializable, Comparable<SignInInf
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public void setWidth(String width) {
-        this.width = width;
     }
 
     public int getType() {
