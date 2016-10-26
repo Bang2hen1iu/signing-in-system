@@ -250,7 +250,7 @@ public class SignInInfoService {
         int index=0;
         for(SignInInfoTimeSegment signInInfoTimeSegment:signInInfoTimeSegments){
             System.out.print(index+" ");
-            System.out.println(signInInfoTimeSegment);
+            System.out.println(signInInfoTimeSegment.getStartTime());
             index++;
         }
 
