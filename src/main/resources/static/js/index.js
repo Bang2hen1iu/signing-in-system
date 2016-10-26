@@ -40,7 +40,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             }
 
             else if(data.statusFeedBack==2){
-                alert(data.name+"，一路走好！");
+                alert(data.name+"，bye bye！");
             }
         }).error(function () {
             alert('签到失败，请联系DZJ');
