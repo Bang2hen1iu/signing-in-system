@@ -116,17 +116,24 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         else if(bar.type==4){
             return baseClass+' palette-bar palette-silver';
         }
-        else{
+        else if(bar.type==5){
+            return baseClass+' palette-bar';
+        }
+        else {
             return '';
         }
     };
-    $scope.getTimeSegmentWidth = function (bar) {
+    $scope.setBarStyle = function (bar) {
         var parser = datetime("HH:mm");
         parser.parse(bar.startTime);
         var startTime = parser.getDate();
         parser.parse(bar.endTime);
         var endTime = parser.getDate();
-        return {'width':100*(endTime.getTime()-startTime.getTime())/(1000*18*3600) + '%'};
+        var width = 100*(endTime.getTime()-startTime.getTime())/(1000*18*3600) + '%';
+        if(bar.type==5){
+            return {'width': width, 'opacity':0};
+        }
+        return {'width': width};
     };
     $scope.setAbsenceStudent = function (student) {
         $scope.askForAbsenceStudent.studentId = student.studentId;

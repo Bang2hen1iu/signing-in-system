@@ -47,12 +47,10 @@ public class ScheduleTaskService {
         }
         startTime = startTime.minusHours(hourNow - scheduleStartHour);
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
-        timeGapToStartInSecond = 1;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
             DateTime currentDate = DateTime.now();
-            currentDate = currentDate.minusDays(-1);
             for (StudentEntity studentEntity : studentEntities) {
                 SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
                         studentEntity.getStudentId(), new Date(currentDate.getMillis()));

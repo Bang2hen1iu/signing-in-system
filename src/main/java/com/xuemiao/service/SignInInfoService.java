@@ -147,7 +147,7 @@ public class SignInInfoService {
             if (signInInfoRecordEntity.getEndTime() != null) {
                 signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(signInInfoRecordEntity.getEndTime(), 3));
                 signInInfoTimeSegment.setType(1);
-            } else if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
+            } else if (DateUtils.isToday(signInDate)) {
                 signInInfoTimeSegment.setType(0);
             }
             signInInfoTimeSegment.setExtra("在实验室");
@@ -178,8 +178,7 @@ public class SignInInfoService {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setType(4);
-            now = now.minusDays(-1);
-            if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
+            if (DateUtils.isToday(signInDate)) {
                 signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
             } else {
                 signInInfoTimeSegment.setEndTime("23:59");
@@ -209,38 +208,99 @@ public class SignInInfoService {
             }
 
             List<SignInInfoTimeSegment> signInInfoTimeSegmentsTemp = new ArrayList<>();
-            SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            signInInfoTimeSegment.setStartTime("06:00");
-            signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(0).getStartTime());
-            signInInfoTimeSegment.setType(4);
-            signInInfoTimeSegment.setExtra("不在实验室");
-            signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
 
-            for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
-                signInInfoTimeSegment = new SignInInfoTimeSegment();
-                signInInfoTimeSegment.setStartTime(signInInfoTimeSegments.get(i - 1).getEndTime());
-                signInInfoTimeSegment.setEndTime(signInInfoTimeSegments.get(i).getStartTime());
+            String startTimeTemp = signInInfoTimeSegments.get(0).getStartTime();
+            String endTimeTemp;
+
+            SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
+            if ((DateUtils.isTimeBeforeNow(startTimeTemp))||(!DateUtils.isToday(signInDate))) {
+                signInInfoTimeSegment.setStartTime("06:00");
+                signInInfoTimeSegment.setEndTime(startTimeTemp);
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+            }
+            else if(!DateUtils.isTimeBeforeNow(startTimeTemp)){
+                signInInfoTimeSegment.setStartTime("06:00");
+                signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegment.setType(4);
+                signInInfoTimeSegment.setExtra("不在实验室");
+                signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+
+                signInInfoTimeSegment = new SignInInfoTimeSegment();
+                signInInfoTimeSegment.setStartTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegment.setEndTime(startTimeTemp);
+                signInInfoTimeSegment.setType(5);
+                signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+            }
+
+            for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
+                startTimeTemp = signInInfoTimeSegments.get(i - 1).getEndTime();
+                endTimeTemp = signInInfoTimeSegments.get(i).getStartTime();
+                if(DateUtils.isToday(signInDate)){
+                    if(DateUtils.isTimeBeforeNow(startTimeTemp)&&DateUtils.isTimeBeforeNow(endTimeTemp)){
+                        signInInfoTimeSegment = new SignInInfoTimeSegment();
+                        signInInfoTimeSegment.setStartTime(startTimeTemp);
+                        signInInfoTimeSegment.setEndTime(endTimeTemp);
+                        signInInfoTimeSegment.setType(4);
+                        signInInfoTimeSegment.setExtra("不在实验室");
+                        signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+                    } else if (DateUtils.isTimeBeforeNow(startTimeTemp)&&!DateUtils.isTimeBeforeNow(endTimeTemp)){
+                        signInInfoTimeSegment = new SignInInfoTimeSegment();
+                        signInInfoTimeSegment.setStartTime(startTimeTemp);
+                        signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                        signInInfoTimeSegment.setType(4);
+                        signInInfoTimeSegment.setExtra("不在实验室");
+                        signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+
+                        signInInfoTimeSegment = new SignInInfoTimeSegment();
+                        signInInfoTimeSegment.setStartTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                        signInInfoTimeSegment.setEndTime(endTimeTemp);
+                        signInInfoTimeSegment.setType(5);
+                        signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+                    }
+                    else {
+                        signInInfoTimeSegment = new SignInInfoTimeSegment();
+                        signInInfoTimeSegment.setStartTime(startTimeTemp);
+                        signInInfoTimeSegment.setEndTime(endTimeTemp);
+                        signInInfoTimeSegment.setType(5);
+                        signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+                    }
+                } else {
+                    signInInfoTimeSegment = new SignInInfoTimeSegment();
+                    signInInfoTimeSegment.setStartTime(startTimeTemp);
+                    signInInfoTimeSegment.setEndTime(endTimeTemp);
+                    signInInfoTimeSegment.setType(4);
+                    signInInfoTimeSegment.setExtra("不在实验室");
+                    signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+                }
             }
 
             SignInInfoTimeSegment tailTimeSegment = signInInfoTimeSegments.get(signInInfoTimeSegments.size() - 1);
-            if (tailTimeSegment.getEndTime() != null) {
-                signInInfoTimeSegment = new SignInInfoTimeSegment();
-                signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
-                signInInfoTimeSegment.setType(4);
-                if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
+            if(DateUtils.isToday(signInDate)){
+                endTimeTemp = tailTimeSegment.getEndTime();
+                if(DateUtils.isTimeBeforeNow(endTimeTemp)){
+                    signInInfoTimeSegment = new SignInInfoTimeSegment();
+                    signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
+                    signInInfoTimeSegment.setType(4);
                     signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
-                } else {
-                    signInInfoTimeSegment.setEndTime("23:59");
+                    signInInfoTimeSegment.setExtra("不在实验室");
+                    signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
                 }
-                signInInfoTimeSegment.setExtra("不在实验室");
-                signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             } else {
-                tailTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
-                signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1, tailTimeSegment);
+                if (tailTimeSegment.getEndTime() != null) {
+                    signInInfoTimeSegment = new SignInInfoTimeSegment();
+                    signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
+                    signInInfoTimeSegment.setType(4);
+                    signInInfoTimeSegment.setEndTime("23:59");
+                    signInInfoTimeSegment.setExtra("不在实验室");
+                    signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
+                } else {
+                    tailTimeSegment.setEndTime("23:59");
+                    signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1, tailTimeSegment);
+                }
             }
+
             signInInfoTimeSegments.addAll(signInInfoTimeSegmentsTemp);
         }
 
@@ -255,9 +315,9 @@ public class SignInInfoService {
         coursePerWeekPKey.setCourseId(courseEntity.getId());
         coursePerWeekPKey.setWeekday(currentWeekday);
         CoursePerWeekEntity coursePerWeekEntity = coursePerWeekRepository.findOne(coursePerWeekPKey);
-        SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
         if (coursePerWeekEntity != null) {
-            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(), 1));
+            SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
+            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(),1));
             signInInfoTimeSegment.setEndTime(getCourseTime(coursePerWeekEntity.getEndSection(), 2));
             signInInfoTimeSegment.setType(2);
             signInInfoTimeSegment.setExtra("上课：" + courseEntity.getCourseName());

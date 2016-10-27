@@ -43,6 +43,17 @@ public class DateUtils {
         }
     }
 
+    //t should be in the form of "HH:mm"
+    public static boolean isTimeBeforeNow(String t){
+        String now = String.format("%02d",DateTime.now().getHourOfDay())+":"+String.format("02d",DateTime.now().getMinuteOfHour());
+        return t.compareTo(now)<0;
+    }
+
+    public static boolean isToday(DateTime dateTime){
+        DateTime now = DateTime.now();
+        return dateTime.getYear() == now.getYear() && dateTime.getMonthOfYear() == now.getMonthOfYear() && dateTime.getDayOfMonth() == now.getDayOfMonth();
+    }
+
     public static String sqlDate2String(Date date) {
         return sdf1.format(date);
     }

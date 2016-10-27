@@ -74,7 +74,7 @@
             </div>
             <div class="form-group col-md-10" style="margin-top:13px ">
                 <div class="progress">
-                    <div ng-repeat="bar in student.signInInfoTimeSegments" data-toggle="tooltip" title="{{bar.startTime}}~{{bar.endTime}}，{{bar.extra}}" ng-class="setBarClass(bar)" ng-style="getTimeSegmentWidth(bar)"></div>
+                    <div ng-repeat="bar in student.signInInfoTimeSegments" data-toggle="tooltip" title="{{bar.startTime}}~{{bar.endTime}} {{bar.extra}}" ng-class="setBarClass(bar)" ng-style="setBarStyle(bar)"></div>
                 </div>
             </div>
         </div>
