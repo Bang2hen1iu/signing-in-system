@@ -235,7 +235,13 @@ public class SignInInfoService {
             }
 
             for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
-                startTimeTemp = signInInfoTimeSegments.get(i - 1).getEndTime();
+                SignInInfoTimeSegment signInInfoTimeSegmentTest = signInInfoTimeSegments.get(i - 1);
+                startTimeTemp = signInInfoTimeSegmentTest.getEndTime();
+                if(startTimeTemp==null){
+                    startTimeTemp = DateUtils.getNowHourMinuteStr();
+                    signInInfoTimeSegmentTest.setStartTime(startTimeTemp);
+                    signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentTest);
+                }
                 endTimeTemp = signInInfoTimeSegments.get(i).getStartTime();
                 if(DateUtils.isToday(signInDate)){
                     if(DateUtils.isTimeBeforeNow(startTimeTemp)&&DateUtils.isTimeBeforeNow(endTimeTemp)){

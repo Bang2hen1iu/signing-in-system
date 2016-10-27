@@ -6,11 +6,11 @@
 </head>
 
 <body>
-    <div class="jumbotron" style="height: 100%">
-        <div class="container">
-            <h1>404 Not Found</h1>
-            <p>页面内容不存在</p>
-        </div>
+<div class="jumbotron" style="height: 100%">
+    <div class="container">
+        <h1>404 Not Found</h1>
+        <p>页面内容不存在</p>
     </div>
+</div>
 </body>
 </html>

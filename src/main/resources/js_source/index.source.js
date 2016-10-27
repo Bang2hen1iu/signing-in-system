@@ -13,7 +13,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $scope.getDutyStudent = function (date) {
         $http({
             method: 'GET',
-            url: '/api/students/duty_students/'+date
+            url: '/api/students/duty_students/' + date
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
@@ -21,7 +21,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
     $scope.getSignInInfo = function (date) {
         $http({
             method: 'GET',
-            url: "/api/sign_in_info/"+date
+            url: "/api/sign_in_info/" + date
         }).success(function (data) {
             $scope.signInInfoData = data;
         });
@@ -36,27 +36,27 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.getDutyStudent(date);
             $interval(function () {
                 parser.setDate($scope.currentDate);
-                if(date==parser.getText()){
+                if (date == parser.getText()) {
                     $scope.getSignInInfo(date);
                 }
             }, 30000);
         });
     };
     $scope.setTrStyle = function (order, tsp) {
-        if(tsp==null){
+        if (tsp == null) {
             return '';
         }
-        if($scope.checkOnTime(order, tsp)){
+        if ($scope.checkOnTime(order, tsp)) {
             return 'warning';
         }
-        else{
+        else {
             return 'info';
         }
     };
     $(function () {
         $scope.firstLoad();
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-        $('#dateInput').on('change',function () {
+        $('#dateInput').on('change', function () {
             var parser = datetime("yyyy-MM-dd");
             parser.setDate($scope.currentDate);
             $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
@@ -72,12 +72,14 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
             method: 'GET',
             url: "/api/statistics/sum"
         }).success(function (data) {
-            $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
+            $scope.maxStayLabTime = Math.max.apply(Math, data.map(function (item) {
+                return item.stayLabTime;
+            }));
             $scope.rank_list_data = data;
         });
     };
     $scope.getProgressBarWidth = function (stayLabTime) {
-        return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
+        return {'width': (stayLabTime / ($scope.maxStayLabTime * 1.3) * 100) + '%'};
     };
     $(function () {
         $scope.getRankListData();
@@ -98,7 +100,7 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
     $scope.getSignInInfo = function (date) {
         $http({
             method: 'GET',
-            url: "/api/sign_in_info/"+date
+            url: "/api/sign_in_info/" + date
         }).success(function (data) {
             $scope.signInInfoData = data;
         });
@@ -135,50 +137,50 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $timeout(function () {
             $scope.btn1 = false;
             $scope.btn2 = false;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
 
         parser.parse($scope.currentDate + ' 14:00:00');
         $timeout(function () {
             $scope.btn1 = true;
             $scope.btn2 = true;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
 
         parser.parse($scope.currentDate + ' 11:30:00');
         $timeout(function () {
             $scope.btn3 = false;
             $scope.btn4 = false;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
 
         parser.parse($scope.currentDate + ' 20:00:00');
         $timeout(function () {
             $scope.btn3 = true;
             $scope.btn4 = true;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
 
         parser.parse($scope.currentDate + ' 17:00:00');
         $timeout(function () {
             $scope.btn5 = false;
             $scope.btn6 = false;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
 
         parser.parse($scope.currentDate + ' 23:30:00');
         $timeout(function () {
             $scope.btn5 = true;
             $scope.btn6 = true;
-        }, parser.getDate().getTime()- time.getTime());
+        }, parser.getDate().getTime() - time.getTime());
         console.log($scope.currentTime.getTime());
     };
     $scope.getDutyStudent = function (date) {
         $http({
             method: 'GET',
-            url: '/api/students/duty_students/'+date
+            url: '/api/students/duty_students/' + date
         }).success(function (data) {
             $scope.dutyStudentData = data;
         });
     };
     $scope.checkOnTime = function (order, tsp) {
         var parser = datetime("yyyy-MM-dd HH:mm:ss");
-        switch (order){
+        switch (order) {
             case 1:
                 parser.parse($scope.currentDate + ' 09:00:00');
                 return parser.getDate() > new Date(tsp);
@@ -202,17 +204,17 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         }
     };
     $scope.setTrStyle = function (order, tsp) {
-        if(tsp==null){
+        if (tsp == null) {
             return '';
         }
-        if($scope.checkOnTime(order, tsp)){
+        if ($scope.checkOnTime(order, tsp)) {
             return 'warning';
         }
-        else{
+        else {
             return 'info';
         }
     };
-    $scope.copyStudent = function(student){
+    $scope.copyStudent = function (student) {
         $scope.askForAbsenceStudent.studentId = student.studentId;
         $scope.askForAbsenceStudent.absenceReason = student.absenceReason;
         $scope.askForAbsenceStudent.operDate = $scope.currentDate;
@@ -258,12 +260,12 @@ sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetim
         $scope.askForAbsenceStudent = {};
         $scope.signInItem = {};
         $scope.dutyStudentData = {};
-        $scope.btn1=true;
-        $scope.btn2=true;
-        $scope.btn3=true;
-        $scope.btn4=true;
-        $scope.btn5=true;
-        $scope.btn6=true;
+        $scope.btn1 = true;
+        $scope.btn2 = true;
+        $scope.btn3 = true;
+        $scope.btn4 = true;
+        $scope.btn5 = true;
+        $scope.btn6 = true;
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $scope.InitThis();
         $scope.firstLoad();

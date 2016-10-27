@@ -1,11 +1,11 @@
 var app = angular.module('signInSys', []);
-app.controller('signInSysCtrl', ['$scope', '$http', function ($scope,$http) {
-    $scope.signInData= {};
-    $scope.processForm= function () {
+app.controller('signInSysCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.signInData = {};
+    $scope.processForm = function () {
         $http({
             method: 'POST',
             url: '/api/admin/validation',
-            data:$scope.signInData
+            data: $scope.signInData
         }).success(function () {
             $scope.errorMessage = "";
             $scope.successMessage = "成功";

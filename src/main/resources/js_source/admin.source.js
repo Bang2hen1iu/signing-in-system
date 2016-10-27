@@ -57,7 +57,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delStudent = function () {
         $http({
             method: 'DELETE',
-            url: '/api/student/deletion/'+$scope.toDeleteStudent.studentId
+            url: '/api/student/deletion/' + $scope.toDeleteStudent.studentId
         }).success(function () {
             alert("删除成功！");
             $scope.toDeleteStudent = null;
@@ -87,13 +87,13 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.getCourses = function () {
         $http({
             method: 'GET',
-            url: '/api/courses/'+$scope.currentStudentId
+            url: '/api/courses/' + $scope.currentStudentId
         }).success(function (data) {
             $scope.courseData = data;
         });
     };
     $scope.addCourse = function () {
-        if($scope.currentStudentId == null){
+        if ($scope.currentStudentId == null) {
             alert("请先选择学生！");
             return;
         }
@@ -141,7 +141,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delCourse = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/courses/deletion/'+$scope.toDeleteCourseData.id
+            url: '/api/admin_api/courses/deletion/' + $scope.toDeleteCourseData.id
         }).success(function () {
             alert("删除课程成功！");
             $scope.toDeleteCourseData = null;
@@ -198,7 +198,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
     $scope.delDutyStudent = function (id) {
         $http({
             method: 'DELETE',
-            url: '/api/students/duty_students/deletion/'+id
+            url: '/api/students/duty_students/deletion/' + id
         }).success(function (data) {
             alert("删除成功！");
             $scope.getDutyStudent();
@@ -222,15 +222,17 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
         $scope.toQueryData.endDate = parser.getText();
         $http({
             method: 'GET',
-            url: '/api/statistics/range_query?startDate='+$scope.toQueryData.startDate+'&endDate='+$scope.toQueryData.endDate
+            url: '/api/statistics/range_query?startDate=' + $scope.toQueryData.startDate + '&endDate=' + $scope.toQueryData.endDate
         }).success(function (data) {
-            $scope.maxStayLabTime = Math.max.apply(Math,data.map(function(item){return item.stayLabTime;}));
+            $scope.maxStayLabTime = Math.max.apply(Math, data.map(function (item) {
+                return item.stayLabTime;
+            }));
             $scope.statistics = data;
             $scope.toQueryData = {};
         });
     };
-    $scope.getProgressBarWidth = function(stayLabTime){
-        return {'width':(stayLabTime/($scope.maxStayLabTime*1.3)*100)+'%'};
+    $scope.getProgressBarWidth = function (stayLabTime) {
+        return {'width': (stayLabTime / ($scope.maxStayLabTime * 1.3) * 100) + '%'};
     };
     $(function () {
         $scope.statistics = {};
