@@ -1,8 +1,9 @@
 package com.xuemiao.service;
 
-import com.xuemiao.model.pdm.*;
-import com.xuemiao.model.pdm.primaryKey.StudentIdAndOperDateKey;
-import com.xuemiao.model.repository.*;
+import com.xuemiao.model.pdm.SignInInfoV2Entity;
+import com.xuemiao.model.pdm.StudentEntity;
+import com.xuemiao.model.repository.SignInInfoV2Repository;
+import com.xuemiao.model.repository.StudentRepository;
 import com.xuemiao.utils.DateUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Scope("singleton")
 public class ScheduleTaskService {
-    private final static int PERIOD_IN_SECONDS = 24*3600;
+    private final static int PERIOD_IN_SECONDS = 24 * 3600;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleTaskService.class);
     ScheduledExecutorService scheduledExecutorService = null;
     @Autowired
@@ -46,15 +47,21 @@ public class ScheduleTaskService {
         }
         startTime = startTime.minusHours(hourNow - scheduleStartHour);
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
+        timeGapToStartInSecond = 1;
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<StudentEntity> studentEntities = studentRepository.findAll();
             DateTime currentDate = DateTime.now();
+            currentDate = currentDate.minusDays(-1);
             for (StudentEntity studentEntity : studentEntities) {
-                SignInInfoV2Entity signInInfoV2Entity = new SignInInfoV2Entity();
-                signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
-                signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
-                signInInfoV2Repository.save(signInInfoV2Entity);
+                SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
+                        studentEntity.getStudentId(), new Date(currentDate.getMillis()));
+                if (signInInfoV2Entity == null) {
+                    signInInfoV2Entity = new SignInInfoV2Entity();
+                    signInInfoV2Entity.setStudentId(studentEntity.getStudentId());
+                    signInInfoV2Entity.setOperDate(new Date(currentDate.getMillis()));
+                    signInInfoV2Repository.save(signInInfoV2Entity);
+                }
             }
         }, timeGapToStartInSecond, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
     }

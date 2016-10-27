@@ -1,6 +1,9 @@
 package com.xuemiao.service;
 
-import com.xuemiao.api.Json.*;
+import com.xuemiao.api.Json.FingerprintJson;
+import com.xuemiao.api.Json.SignInFeedbackJson;
+import com.xuemiao.api.Json.SignInInfoJson;
+import com.xuemiao.api.Json.SignInInfoTimeSegment;
 import com.xuemiao.exception.StudentNotExistException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
@@ -8,8 +11,6 @@ import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
 import com.xuemiao.model.repository.*;
 import com.xuemiao.utils.DateUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -73,15 +74,13 @@ public class SignInInfoService {
             signInInfoV2Entity = addSignInInfo(studentId);
             signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
             statusFeedBack = 1;
-        }
-        else {
+        } else {
             Timestamp now = new Timestamp(dateTimeNow.getMillis());
             signInInfoRecordEntity = signInInfoRecordRepository.findOneUnfinishedSignInRecord(signInInfoV2Entity.getId());
             if (signInInfoRecordEntity == null) {
                 signInInfoRecordEntity = signInArrive(signInInfoV2Entity);
                 statusFeedBack = 1;
-            }
-            else {
+            } else {
                 signInInfoRecordEntity.setEndTime(now);
                 statusFeedBack = 2;
             }
@@ -179,6 +178,7 @@ public class SignInInfoService {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setType(4);
+            now = now.minusDays(-1);
             if (signInDate.getYear() == now.getYear() && signInDate.getMonthOfYear() == now.getMonthOfYear() && signInDate.getDayOfMonth() == now.getDayOfMonth()) {
                 signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
             } else {
@@ -188,22 +188,21 @@ public class SignInInfoService {
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         } else {
             SignInInfoTimeSegment signInInfoTimeSegmentFront = signInInfoTimeSegments.get(0);
-            for (int i=1;i<signInInfoTimeSegments.size();i++){
-                if(signInInfoTimeSegmentFront.getEndTime()==null){
+            for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
+                if (signInInfoTimeSegmentFront.getEndTime() == null) {
                     Iterator<SignInInfoTimeSegment> signInInfoTimeSegmentIterator = signInInfoTimeSegments.
-                            subList(i,signInInfoTimeSegments.size()-1).iterator();
-                    while (signInInfoTimeSegmentIterator.hasNext()){
+                            subList(i, signInInfoTimeSegments.size() - 1).iterator();
+                    while (signInInfoTimeSegmentIterator.hasNext()) {
                         SignInInfoTimeSegment signInInfoTimeSegmentTemp = signInInfoTimeSegmentIterator.next();
-                        if(DateUtils.timestamp2String(new Timestamp(now.getMillis()),3).compareTo(signInInfoTimeSegmentTemp.getStartTime())>=0){
+                        if (DateUtils.timestamp2String(new Timestamp(now.getMillis()), 3).compareTo(signInInfoTimeSegmentTemp.getStartTime()) >= 0) {
                             signInInfoTimeSegments.remove(signInInfoTimeSegments.indexOf(signInInfoTimeSegmentTemp));
                         }
                     }
-                }
-                else{
+                } else {
                     SignInInfoTimeSegment signInInfoTimeSegmentBack = signInInfoTimeSegments.get(i);
-                    if(signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime())>=0){
+                    if (signInInfoTimeSegmentFront.getEndTime().compareTo(signInInfoTimeSegmentBack.getStartTime()) >= 0) {
                         signInInfoTimeSegmentFront.setEndTime(signInInfoTimeSegmentBack.getStartTime());
-                        signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentFront);
+                        signInInfoTimeSegments.set(i - 1, signInInfoTimeSegmentFront);
                     }
                 }
                 signInInfoTimeSegmentFront = signInInfoTimeSegments.get(i);
@@ -238,10 +237,9 @@ public class SignInInfoService {
                 }
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
-            }
-            else {
+            } else {
                 tailTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
-                signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1,tailTimeSegment);
+                signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1, tailTimeSegment);
             }
             signInInfoTimeSegments.addAll(signInInfoTimeSegmentsTemp);
         }
@@ -297,12 +295,15 @@ public class SignInInfoService {
                     courseTime = "16:30";
                     break;
                 case 9:
-                    courseTime = "19:00";
+                    courseTime = "17:20";
                     break;
                 case 10:
-                    courseTime = "19:50";
+                    courseTime = "19:00";
                     break;
                 case 11:
+                    courseTime = "19:50";
+                    break;
+                case 12:
                     courseTime = "20:40";
                     break;
                 default:
@@ -336,12 +337,15 @@ public class SignInInfoService {
                     courseTime = "17:15";
                     break;
                 case 9:
-                    courseTime = "19:45";
+                    courseTime = "18:05";
                     break;
                 case 10:
-                    courseTime = "20:35";
+                    courseTime = "19:45";
                     break;
                 case 11:
+                    courseTime = "20:35";
+                    break;
+                case 12:
                     courseTime = "21:25";
                     break;
                 default:
