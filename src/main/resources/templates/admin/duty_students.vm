@@ -15,11 +15,13 @@
                             <input class="form-control" type="date" ng-model="toAddDutyData.endDate">
                             <div class="input-group-btn">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown">
                                         {{hint}} <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="" ng-click="switchStudent(student)" ng-repeat="student in studentData">{{student.name}}</a></li>
+                                        <li><a href="" ng-click="switchStudent(student)"
+                                               ng-repeat="student in studentData">{{student.name}}</a></li>
                                     </ul>
                                 </div>
                                 <button type="button" class="btn btn-info" ng-click="addDutyStudent()">
@@ -41,7 +43,8 @@
                             <td>{{dutyStudent.startDate}} 到 {{dutyStudent.endDate}}</td>
                             <td>{{dutyStudent.name}}</td>
                             <td>
-                                <a href="" class="btn btn-xs delete-btn btn-danger" ng-click="delDutyStudent(dutyStudent.studentId)">
+                                <a href="" class="btn btn-xs delete-btn btn-danger"
+                                   ng-click="delDutyStudent(dutyStudent.studentId)">
                                     <span class="glyphicon glyphicon-remove"/>
                                 </a>
                             </td>

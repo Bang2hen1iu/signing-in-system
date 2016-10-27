@@ -4,12 +4,12 @@
  */
 
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ = 'mmenu';
+    var _PLUGIN_ = 'mmenu';
 
-	$[ _PLUGIN_ ].defaults.onClick.close			= true;
-	$[ _PLUGIN_ ].defaults.onClick.preventDefault	= false;
-	$[ _PLUGIN_ ].defaults.onClick.setSelected		= true;
+    $[_PLUGIN_].defaults.onClick.close = true;
+    $[_PLUGIN_].defaults.onClick.preventDefault = false;
+    $[_PLUGIN_].defaults.onClick.setSelected = true;
 
-})( jQuery );
+})(jQuery);

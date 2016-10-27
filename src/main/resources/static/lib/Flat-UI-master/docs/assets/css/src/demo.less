@@ -1,7 +1,6 @@
 //
 // Flat UI's demo styles
 // --------------------------------------------------
-
 // Variables and utilityes
 @import "../../../../less/variables";
 @import "../../../../less/mixins";
@@ -16,6 +15,7 @@
   padding: 73px 0 110px;
   text-align: center;
 }
+
 .demo-logo {
   font: 900 90px/100px @font-family-demo;
   letter-spacing: -2px;
@@ -39,6 +39,7 @@
     padding-top: 5px;
   }
 }
+
 // Panels delimiter
 .demo-row {
   margin-bottom: 20px;
@@ -73,10 +74,12 @@
     }
   }
 }
+
 .demo-section-title {
   font: 900 32px/40px @font-family-demo;
   margin: 10px 0;
 }
+
 .demo-panel-title {
   padding-top: 20px;
   margin: 2px 0 20px;
@@ -88,14 +91,17 @@
     font-weight: 400;
   }
 }
+
 // Shift blocks to fit design
 .demo-navigation {
   margin-bottom: -4px;
   margin-top: -10px;
 }
+
 .demo-pager {
   margin-top: -20px;
 }
+
 .demo-tooltips {
   height: 126px;
 
@@ -106,9 +112,11 @@
     top: -8px !important;
   }
 }
+
 .demo-headings {
   margin-bottom: 12px;
 }
+
 .demo-tiles {
   margin-bottom: 46px
 }
@@ -169,6 +177,7 @@
 .demo-samples {
   margin-bottom: 46px;
 }
+
 .demo-download-section {
   float: none;
   margin: 0 auto;
@@ -179,6 +188,7 @@
     margin: 3px 0 -3px;
   }
 }
+
 .demo-download {
   background-color: mix(@brand-primary, @inverse, 10%);
   height: 190px;
@@ -193,16 +203,19 @@
     width: 82px;
   }
 }
+
 .demo-download-text {
   font-size: 15px;
   padding: 20px 0;
   text-align: center;
 }
+
 .demo-text-box {
   a:hover {
     color: @brand-secondary;
   }
 }
+
 .demo-browser {
   background: mix(@brand-primary, black, 85%) url(../img/demo/browser.png) 0 0 no-repeat;
   background-size: 659px 42px;
@@ -211,6 +224,7 @@
   padding-top: 42px;
   border-radius: 0 0 @border-radius-large @border-radius-large;
 }
+
 .demo-browser-side {
   float: left;
   padding: 22px 20px;
@@ -232,6 +246,7 @@
     -webkit-font-smoothing: subpixel-antialiased;
   }
 }
+
 .demo-browser-author {
   background: url(../img/demo/browser-author.jpg) center no-repeat;
   border: 3px solid @inverse;
@@ -241,6 +256,7 @@
   width: 84px;
   border-radius: 50%;
 }
+
 .demo-browser-action {
   padding: 30px 0 12px;
 
@@ -256,6 +272,7 @@
     }
   }
 }
+
 .demo-browser-content {
   background-color: @brand-primary;
   overflow: hidden;
@@ -269,11 +286,13 @@
     width: 146px;
   }
 }
+
 // Serving 2x images
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 2) {
   .logo {
     background-image: url(../img/demo/logo-mask-2x.png);
   }
+
   .demo-browser {
     background-image: url(../img/demo/browser-2x.png);
   }

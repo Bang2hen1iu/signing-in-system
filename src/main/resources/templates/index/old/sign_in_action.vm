@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-primary">{{currentDate}} {{currentWeekday}}</span></h4></div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-info">值日生：<span ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-primary">{{currentDate}} {{currentWeekday}}</span>
+            </h4></div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><h4><span class="label label-info">值日生：<span
+                    ng-repeat="ds in dutyStudentData">{{ds.name}}&nbsp;&nbsp;</span></span></h4></div>
             <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <table class="table table-bordered">
                     <tr>
@@ -45,37 +47,49 @@
         <tr ng-repeat="student in signInInfoData">
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 active">{{student.name}}</td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(1, student.startMorning)">
-                <button ng-click="signIn()" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn1" class="btn btn-default">签名</button>
+                <button ng-click="signIn()" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn1"
+                        class="btn btn-default">签名
+                </button>
                 <div ng-if="student.startMorning">
                     已于{{student.startMorning | date:'HH:mm:ss'}}签名
                 </div>
             </td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(2, student.endMorning)">
-                <button ng-click="copySignInItem(student.studentId, 2)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn2" class="btn btn-default">签名</button>
+                <button ng-click="copySignInItem(student.studentId, 2)" data-toggle="modal" data-target="#SignIn"
+                        type="button" ng-disabled="btn2" class="btn btn-default">签名
+                </button>
                 <div ng-if="student.endMorning">
                     已于{{student.endMorning | date:'HH:mm:ss'}}签名
                 </div>
             </td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(3, student.startAfternoon)">
-                <button ng-click="copySignInItem(student.studentId, 3)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn3" class="btn btn-default">签名</button>
+                <button ng-click="copySignInItem(student.studentId, 3)" data-toggle="modal" data-target="#SignIn"
+                        type="button" ng-disabled="btn3" class="btn btn-default">签名
+                </button>
                 <div ng-if="student.startAfternoon">
                     已于{{student.startAfternoon | date:'HH:mm:ss'}}签名
                 </div>
             </td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(4, student.endAfternoon)">
-                <button ng-click="copySignInItem(student.studentId, 4)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn4" class="btn btn-default">签名</button>
+                <button ng-click="copySignInItem(student.studentId, 4)" data-toggle="modal" data-target="#SignIn"
+                        type="button" ng-disabled="btn4" class="btn btn-default">签名
+                </button>
                 <div ng-if="student.endAfternoon">
                     已于{{student.endAfternoon | date:'HH:mm:ss'}}签名
                 </div>
             </td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(5, student.startNight)">
-                <button ng-click="copySignInItem(student.studentId, 5)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn5" class="btn btn-default">签名</button>
+                <button ng-click="copySignInItem(student.studentId, 5)" data-toggle="modal" data-target="#SignIn"
+                        type="button" ng-disabled="btn5" class="btn btn-default">签名
+                </button>
                 <div ng-if="student.startNight">
                     已于{{student.startNight | date:'HH:mm:ss'}}签名
                 </div>
             </td>
             <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-class="setTrStyle(6, student.endNight)">
-                <button ng-click="copySignInItem(student.studentId, 6)" data-toggle="modal" data-target="#SignIn" type="button" ng-disabled="btn6" class="btn btn-default">签名</button>
+                <button ng-click="copySignInItem(student.studentId, 6)" data-toggle="modal" data-target="#SignIn"
+                        type="button" ng-disabled="btn6" class="btn btn-default">签名
+                </button>
                 <div ng-if="student.endNight">
                     已于{{student.endNight | date:'HH:mm:ss'}}签名
                 </div>
@@ -83,8 +97,11 @@
             <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <span ng-repeat="course in student.signInInfoCoursesInfoList"><span>{{course.courseName}}</span>第{{course.startSection}}~{{course.endSection}}节;</span>
             </td>
-            <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-class="{'danger':(student.absenceReason!=null||student.startAbsence!=null)}">
-                <button ng-click="copyStudent(student)" data-toggle="modal" data-target="#askForAbsence" type="button" class="btn btn-default">请假</button>
+            <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2"
+                ng-class="{'danger':(student.absenceReason!=null||student.startAbsence!=null)}">
+                <button ng-click="copyStudent(student)" data-toggle="modal" data-target="#askForAbsence" type="button"
+                        class="btn btn-default">请假
+                </button>
                 <p ng-if="student.absenceReason||student.startAbsence">
                     已请假，
                     <span ng-if="student.absenceReason">原由：{{student.absenceReason}}，</span>
@@ -99,7 +116,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="askForAbsenceLabel">请填写请假信息</h4>
             </div>
             <div class="modal-body">
@@ -108,7 +126,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="reason-addon">原由</span>
-                                <input type="text" class="form-control" name="reason" aria-describedby="reason-addon" ng-model="askForAbsenceStudent.absenceReason" required>
+                                <input type="text" class="form-control" name="reason" aria-describedby="reason-addon"
+                                       ng-model="askForAbsenceStudent.absenceReason" required>
                             </div>
                         </div>
                     </div>
@@ -116,20 +135,26 @@
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group has-warning">
                                 <span class="input-group-addon" id="startAbsence-addon">开始时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="startAbsence" aria-describedby="startAbsence-addon" ng-model="askForAbsenceStudent.startAbsence">
+                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                       class="form-control" name="startAbsence" aria-describedby="startAbsence-addon"
+                                       ng-model="askForAbsenceStudent.startAbsence">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group has-warning">
                                 <span class="input-group-addon" id="endAbsence-addon">结束时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="endAbsence" aria-describedby="endAbsence-addon" ng-model="askForAbsenceStudent.endAbsence">
+                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                       class="form-control" name="endAbsence" aria-describedby="endAbsence-addon"
+                                       ng-model="askForAbsenceStudent.endAbsence">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="askForAbsence()" data-dismiss="modal">保存</button>
+                <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="askForAbsence()"
+                        data-dismiss="modal">保存
+                </button>
             </div>
         </div>
     </div>
@@ -139,21 +164,25 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="SignInLabel">请签名</h4>
             </div>
             <div class="modal-body">
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="signInAction()" data-dismiss="modal">上传</button>
+                <button type="button" class="btn btn-info glyphicon glyphicon-ok" ng-click="signInAction()"
+                        data-dismiss="modal">上传
+                </button>
             </div>
         </div>
     </div>
 </div>
 <button class="btn btn-success" ng-click="signIn()">Sign In</button>
 
-<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
+<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0"
+        align="top">
     <param name="Visible" value="-1">
     <param name="AutoScroll" value="0">
     <param name="AutoSize" value="0">
@@ -182,5 +211,8 @@
     <param name="DefaultWindowClose" value="0">
     <param name="SetVerHint" value>
 </object>
-<comment><EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
+<comment>
+    <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" codebase="ZKOnline.ocx"
+           width=0 height=0></EMBED>
+</comment>
 

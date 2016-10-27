@@ -42,7 +42,7 @@
   padding-left: 21px;
 
   .navbar-form:first-child {
-    border:none;
+    border: none;
   }
   @media (min-width: @grid-float-breakpoint) {
     // Account for first and last children spacing
@@ -53,6 +53,7 @@
         .border-left-radius(@navbar-border-radius);
       }
     }
+
     .navbar-nav.navbar-right:last-child {
       margin-right: -21px;
 
@@ -60,6 +61,7 @@
         border-radius: 0 @navbar-border-radius @navbar-border-radius 0;
       }
     }
+
     .navbar-form.navbar-right:last-child {
       .navbar-fixed-top &,
       .navbar-fixed-bottom & {
@@ -87,11 +89,11 @@
     > .navbar-header,
     > .navbar-collapse {
       margin-right: -21px;
-      margin-left:  -21px;
+      margin-left: -21px;
 
       @media (min-width: @grid-float-breakpoint) {
         margin-right: 0;
-        margin-left:  0;
+        margin-left: 0;
       }
     }
   }
@@ -116,9 +118,11 @@
   z-index: @zindex-navbar-fixed;
   border-radius: 0;
 }
+
 .navbar-fixed-top {
   border-width: 0;
 }
+
 .navbar-fixed-bottom {
   margin-bottom: 0; // override .navbar defaults
   border-width: 0;
@@ -128,7 +132,7 @@
 
 .navbar-brand {
   font-size: floor((@component-font-size-base * 1.6)); // ~24px
-  line-height: 1.042;  // ~25px
+  line-height: 1.042; // ~25px
   height: @navbar-height-base;
   font-weight: 700;
   padding: ((@navbar-height-base - 25px) / 2) 21px;
@@ -234,6 +238,7 @@
         line-height: 23px;
       }
     }
+
     > li > a {
       padding-top: 7px;
       padding-bottom: 7px;
@@ -268,7 +273,9 @@
   // Controls sizing
   .form-control,
   .input-group-addon,
-  .btn { .navbar-input(); }
+  .btn {
+    .navbar-input();
+  }
 
   .btn {
     margin: 0;
@@ -305,6 +312,7 @@
         margin-bottom: 0;
       }
     }
+
     .form-group + .btn {
       margin-left: 0;
     }
@@ -520,7 +528,6 @@
       }
     }
 
-
     @media (max-width: @grid-float-breakpoint-max) {
       // Dropdowns get custom display when collapsed
       .open .dropdown-menu {
@@ -559,7 +566,7 @@
 
       &:focus {
         border-color: @brand-secondary;
-         color: @brand-secondary;
+        color: @brand-secondary;
       }
     }
     .input-group-btn .btn {
@@ -569,8 +576,8 @@
     .input-group.focus {
       .form-control,
       .input-group-btn .btn {
-         border-color: @brand-secondary;
-         color: @brand-secondary;
+        border-color: @brand-secondary;
+        color: @brand-secondary;
       }
     }
   }
@@ -720,9 +727,10 @@
     }
 
     @media (max-width: @grid-float-breakpoint-max) {
-       > li > a {
-         border-left-width: 0;
-       }
+      > li > a {
+        border-left-width: 0;
+      }
+
       // Dropdowns get custom display when collapsed
       .open .dropdown-menu {
         > li > a {
@@ -750,6 +758,7 @@
           }
         }
       }
+
       // Custom background for dividers when collapsed
       .dropdown-menu .divider {
         background-color: @navbar-inverse-divider;
@@ -766,7 +775,7 @@
 
       &:focus {
         border-color: @brand-secondary;
-         color: @brand-secondary;
+        color: @brand-secondary;
       }
     }
     .btn {
@@ -780,8 +789,8 @@
     .input-group.focus {
       .form-control,
       .input-group-btn .btn {
-         border-color: @brand-secondary;
-         color: @brand-secondary;
+        border-color: @brand-secondary;
+        color: @brand-secondary;
       }
     }
 
@@ -816,6 +825,7 @@
       border-radius: @navbar-border-radius;
       box-shadow: inset 0 -2px 0 fade(black, 15%);
     }
+
     &.navbar-inverse .navbar-nav {
       .active > a,
       .open > a {

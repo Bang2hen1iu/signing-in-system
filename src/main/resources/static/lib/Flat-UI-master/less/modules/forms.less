@@ -2,7 +2,6 @@
 // Forms
 // --------------------------------------------------
 
-
 // Normalize non-controls
 //
 // Restyle and baseline non-control form elements.
@@ -31,7 +30,6 @@ textarea {
 input[type="search"] {
   -webkit-appearance: none !important; // removes rounded corners for searchfields on iOS
 }
-
 
 // Label
 label {
@@ -114,17 +112,17 @@ label {
 
 // Form control sizing
 .input-sm,
-.form-group-sm .form-control {  
+.form-group-sm .form-control {
   .input-size(@input-height-sm; 6px; 10px; @input-font-size-sm; @input-line-height-sm);
 }
 
 .input-lg,
-.form-group-lg .form-control {  
+.form-group-lg .form-control {
   .input-size(@input-height-lg; 10px; 15px; @input-font-size-lg; @input-line-height-lg);
 }
 
 .input-hg,
-.form-group-hg .form-control {  
+.form-group-hg .form-control {
   .input-size(@input-height-hg; 10px; 16px; @input-font-size-hg; @input-line-height-hg);
 }
 
@@ -146,7 +144,7 @@ label {
   pointer-events: none;
 }
 
-.input-hg + .form-control-feedback, 
+.input-hg + .form-control-feedback,
 .control-feedback-hg {
   font-size: @input-icon-font-size-hg;
   line-height: 48px;
@@ -154,6 +152,7 @@ label {
   width: auto;
   height: 48px;
 }
+
 .input-lg + .form-control-feedback,
 .control-feedback-lg {
   font-size: @input-icon-font-size-lg;
@@ -162,6 +161,7 @@ label {
   height: 40px;
   padding-right: 15px;
 }
+
 .input-sm + .form-control-feedback,
 .control-feedback-sm {
   line-height: 29px;
@@ -174,9 +174,11 @@ label {
 .has-success {
   .form-control-validation(@brand-success; @brand-success);
 }
+
 .has-warning {
   .form-control-validation(@brand-warning; @brand-warning);
 }
+
 .has-error {
   .form-control-validation(@brand-danger; @brand-danger);
 }
@@ -190,7 +192,6 @@ fieldset[disabled] .form-control + .form-control-feedback,
   background-color: transparent;
   .opacity(.7);
 }
-
 
 // Help text
 //

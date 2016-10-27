@@ -29,6 +29,22 @@ app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
     });
 }]);
 app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.registerStudent = function (student) {
+        zkonline.Register();
+        student.fingerprint = zkonline.RegisterTemplate;
+        if (student.fingerprint == "" || student.fingerprint == null) {
+            return;
+        }
+        $http({
+            method: 'POST',
+            url: '/api/students/registering',
+            data: student
+        }).success(function () {
+            alert("已成功登记指纹！\n可再次点击按钮，继续登记其他手指");
+        }).error(function () {
+            alert("登记指纹失败");
+        });
+    };
     $scope.addStudent = function () {
         $http({
             method: 'POST',
@@ -47,9 +63,6 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
         }).success(function (data) {
             $scope.studentData = data;
         });
-    };
-    $scope.copyToRegisterStudent = function (student) {
-        $scope.toRegisterStudent = student;
     };
     $scope.copyToDeleteStudent = function (student) {
         $scope.toDeleteStudent = student;
@@ -179,7 +192,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
             $scope.dutyStudentData = data;
         });
     };
-    $scope.switchStudentCourse = function (student) {
+    $scope.switchStudent = function (student) {
         $scope.toAddDutyData.studentId = student.studentId;
         $scope.hint = student.name;
     };
@@ -208,7 +221,8 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
         $scope.hint = '请选择值日生';
         $scope.studentData = null;
         $scope.toAddDutyData = {};
-        $scope.toAddDutyData.operDate = new Date();
+        $scope.toAddDutyData.startDate = new Date();
+        $scope.toAddDutyData.endDate = new Date();
         $scope.getStudent();
         $scope.getDutyStudent();
     });
@@ -237,6 +251,8 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
     $(function () {
         $scope.statistics = {};
         $scope.toQueryData = {};
+        $scope.toQueryData.startDate = new Date();
+        $scope.toQueryData.endDate = new Date();
         $scope.maxStayLabTime = null;
     });
 }]);

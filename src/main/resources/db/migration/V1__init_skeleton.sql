@@ -6,20 +6,20 @@ CREATE TABLE student (
 ) WITHOUT OIDS;
 
 CREATE TABLE sign_in_info (
-  student_id          BIGINT,
-  oper_date           DATE,
-  start_morning       TIMESTAMP,
-  end_morning         TIMESTAMP,
-  start_afternoon     TIMESTAMP,
-  end_afternoon       TIMESTAMP,
-  start_night         TIMESTAMP,
-  end_night           TIMESTAMP,
-  start_morning_signature_img_name  TEXT,
-  end_morning_signature_img_name  TEXT,
-  start_afternoon_signature_img_name  TEXT,
-  end_afternoon_signature_img_name  TEXT,
-  start_night_signature_img_name  TEXT,
-  end_night_signature_img_name  TEXT,
+  student_id                         BIGINT,
+  oper_date                          DATE,
+  start_morning                      TIMESTAMP,
+  end_morning                        TIMESTAMP,
+  start_afternoon                    TIMESTAMP,
+  end_afternoon                      TIMESTAMP,
+  start_night                        TIMESTAMP,
+  end_night                          TIMESTAMP,
+  start_morning_signature_img_name   TEXT,
+  end_morning_signature_img_name     TEXT,
+  start_afternoon_signature_img_name TEXT,
+  end_afternoon_signature_img_name   TEXT,
+  start_night_signature_img_name     TEXT,
+  end_night_signature_img_name       TEXT,
 
   PRIMARY KEY (student_id, oper_date),
   FOREIGN KEY (student_id) REFERENCES student (id)
@@ -47,10 +47,10 @@ CREATE TABLE statistics (
 ) WITHOUT OIDS;
 
 CREATE TABLE course (
-  student_id    BIGINT,
-  course_name   TEXT    NOT NULL,
-  start_week    INTEGER NOT NULL,
-  end_week      INTEGER NOT NULL,
+  student_id  BIGINT,
+  course_name TEXT    NOT NULL,
+  start_week  INTEGER NOT NULL,
+  end_week    INTEGER NOT NULL,
 
   PRIMARY KEY (student_id, course_name),
   FOREIGN KEY (student_id) REFERENCES student (id)
@@ -68,9 +68,9 @@ CREATE TABLE course_per_week (
 ) WITHOUT OIDS;
 
 CREATE TABLE duty_student (
-  student_id  BIGINT,
-  start_date  DATE,
-  end_date    DATE,
+  student_id BIGINT,
+  start_date DATE,
+  end_date   DATE,
 
   PRIMARY KEY (student_id, start_date, end_date),
   FOREIGN KEY (student_id) REFERENCES student (id)
@@ -91,5 +91,5 @@ CREATE TABLE sign_in_token (
   token      TEXT NOT NULL,
 
   PRIMARY KEY (token),
-  FOREIGN KEY (admin_id) REFERENCES sys_admin(id)
+  FOREIGN KEY (admin_id) REFERENCES sys_admin (id)
 ) WITHOUT OIDS;

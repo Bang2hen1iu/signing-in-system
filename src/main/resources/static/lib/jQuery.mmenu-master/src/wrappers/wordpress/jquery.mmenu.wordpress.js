@@ -4,14 +4,14 @@
  */
 
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ = 'mmenu';
+    var _PLUGIN_ = 'mmenu';
 
-	$[ _PLUGIN_ ].configuration.classNames.selected = 'current-menu-item';
+    $[_PLUGIN_].configuration.classNames.selected = 'current-menu-item';
 
-	$("#wpadminbar")
-		.css( 'position', 'fixed' )
-		.addClass( 'mm-slideout' );
+    $("#wpadminbar")
+        .css('position', 'fixed')
+        .addClass('mm-slideout');
 
-})( jQuery );
+})(jQuery);

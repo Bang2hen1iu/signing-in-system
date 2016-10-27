@@ -74,7 +74,9 @@
             </div>
             <div class="form-group col-md-10" style="margin-top:13px ">
                 <div class="progress">
-                    <div ng-repeat="bar in student.signInInfoTimeSegments" data-toggle="tooltip" title="{{bar.startTime}}~{{bar.endTime}} {{bar.extra}}" ng-class="setBarClass(bar)" ng-style="setBarStyle(bar)"></div>
+                    <div ng-repeat="bar in student.signInInfoTimeSegments" data-toggle="tooltip"
+                         title="{{bar.startTime}}~{{bar.endTime}} {{bar.extra}}" ng-class="setBarClass(bar)"
+                         ng-style="setBarStyle(bar)"></div>
                 </div>
             </div>
         </div>
@@ -82,8 +84,12 @@
     <div class="col-md-3 col-lg-3">
         <div class="panel panel-info">
             <div class="panel-body">
-                <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">签到/离开</button>
-                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForAbsence" class="btn btn-block palette palette-wet-asphalt">请假</button>
+                <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">
+                    签到/离开
+                </button>
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForAbsence"
+                        class="btn btn-block palette palette-wet-asphalt">请假
+                </button>
                 <div style="margin-bottom: 4px" class="panel palette palette-emerald">
                     <div class="panel-heading">
                         值日生
@@ -113,7 +119,7 @@
                                 </dl>
                             </div>
                         </div>
-                   </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,7 +130,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h6 class="modal-title" id="askForAbsenceLabel">请填写请假信息</h6>
             </div>
             <div class="modal-body">
@@ -136,7 +143,8 @@
                                     {{hint}} <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
-                                    <li><a href="" ng-repeat="student in studentData" ng-click="setAbsenceStudent(student)">{{student.name}}</a></li>
+                                    <li><a href="" ng-repeat="student in studentData"
+                                           ng-click="setAbsenceStudent(student)">{{student.name}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -145,7 +153,8 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="input-group">
                                 <span class="input-group-addon" id="reason-addon">原由</span>
-                                <input type="text" class="form-control" name="reason" aria-describedby="reason-addon" ng-model="askForAbsenceStudent.absenceReason" required>
+                                <input type="text" class="form-control" name="reason" aria-describedby="reason-addon"
+                                       ng-model="askForAbsenceStudent.absenceReason" required>
                             </div>
                         </div>
                     </div>
@@ -153,26 +162,33 @@
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group has-success">
                                 <span class="input-group-addon" id="startAbsence-addon">开始时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="startAbsence" aria-describedby="startAbsence-addon" ng-model="askForAbsenceStudent.startAbsence">
+                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                       class="form-control" name="startAbsence" aria-describedby="startAbsence-addon"
+                                       ng-model="askForAbsenceStudent.startAbsence">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group has-success">
                                 <span class="input-group-addon" id="endAbsence-addon">结束时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time" class="form-control" name="endAbsence" aria-describedby="endAbsence-addon" ng-model="askForAbsenceStudent.endAbsence">
+                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                       class="form-control" name="endAbsence" aria-describedby="endAbsence-addon"
+                                       ng-model="askForAbsenceStudent.endAbsence">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="fui-check btn btn-info" ng-click="askForAbsence()" data-dismiss="modal">保存</button>
+                <button type="button" class="fui-check btn btn-info" ng-click="askForAbsence()" data-dismiss="modal">
+                    保存
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0" align="top" >
+<object classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" width=1 height=1 id=zkonline hspace="0" border="0"
+        align="top">
     <param name="Visible" value="-1">
     <param name="AutoScroll" value="0">
     <param name="AutoSize" value="0">
@@ -201,5 +217,8 @@
     <param name="DefaultWindowClose" value="0">
     <param name="SetVerHint" value>
 </object>
-<comment><EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B"codebase="ZKOnline.ocx" width=0 height=0></EMBED></comment>
+<comment>
+    <EMBED type="application/x-eskerplus" classid="clsid:A318A9AC-E75F-424C-9364-6B40A848FC6B" codebase="ZKOnline.ocx"
+           width=0 height=0></EMBED>
+</comment>
 

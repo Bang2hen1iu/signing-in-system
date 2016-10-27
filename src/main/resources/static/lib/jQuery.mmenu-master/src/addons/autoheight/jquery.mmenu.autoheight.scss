@@ -1,37 +1,28 @@
 /*
 	jQuery.mmenu autoHeight addon CSS
 */
-
 @import "../../css/_imp/_import";
 
+.mm-menu.mm-offcanvas {
+  &.mm-autoheight {
+    &.mm-bottom,
+    &.mm-top {
+      max-height: percentage($mm_menuHeight);
 
-.mm-menu.mm-offcanvas
-{
-	&.mm-autoheight
-	{
-		&.mm-bottom,
-		&.mm-top
-		{
-			max-height: percentage( $mm_menuHeight );
+      &.mm-fullscreen {
+        max-height: 100%;
+      }
+    }
 
-			&.mm-fullscreen
-			{
-				max-height: 100%;
-			}
-		}
+  }
 
-	}
-
-	&.mm-measureheight
-	{
-		.mm-panel
-		{
-			display: block !important;
-		}
-		 > .mm-panels > .mm-panel
-		{
-			bottom: auto !important;
-			height: auto !important;
-		}
-	}
+  &.mm-measureheight {
+    .mm-panel {
+      display: block !important;
+    }
+    > .mm-panels > .mm-panel {
+      bottom: auto !important;
+      height: auto !important;
+    }
+  }
 }

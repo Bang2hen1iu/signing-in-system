@@ -10,14 +10,14 @@ String.prototype.repeat = function (num) {
   $.fn.addSliderSegments = function () {
     return this.each(function () {
       var $this = $(this),
-          option = $this.slider('option'),
-          amount = (option.max - option.min)/option.step,
-          orientation = option.orientation;
-      if ( 'vertical' === orientation ) {
+        option = $this.slider('option'),
+        amount = (option.max - option.min) / option.step,
+        orientation = option.orientation;
+      if ('vertical' === orientation) {
         var output = '', i;
         console.log(amount);
         for (i = 1; i <= amount - 1; i++) {
-            output += '<div class="ui-slider-segment" style="top:' + 100 / amount * i + '%;"></div>';
+          output += '<div class="ui-slider-segment" style="top:' + 100 / amount * i + '%;"></div>';
         }
         $this.prepend(output);
       } else {
@@ -99,16 +99,18 @@ String.prototype.repeat = function (num) {
     // Typeahead
     if ($('#typeahead-demo-01').length) {
       var states = new Bloodhound({
-        datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d.word); },
+        datumTokenizer: function (d) {
+          return Bloodhound.tokenizers.whitespace(d.word);
+        },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 4,
         local: [
-          { word: 'Alabama' },
-          { word: 'Alaska' },
-          { word: 'Arizona' },
-          { word: 'Arkansas' },
-          { word: 'California' },
-          { word: 'Colorado' }
+          {word: 'Alabama'},
+          {word: 'Alaska'},
+          {word: 'Arizona'},
+          {word: 'Arkansas'},
+          {word: 'California'},
+          {word: 'Colorado'}
         ]
       });
 

@@ -14,11 +14,11 @@ module.exports = function (grunt) {
 
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
-    bower_conf: grunt.file.exists('.bowerrc') ? grunt.file.readJSON('.bowerrc') : { directory : 'bower_components' },
+    bower_conf: grunt.file.exists('.bowerrc') ? grunt.file.readJSON('.bowerrc') : {directory: 'bower_components'},
     banner: '/*!\n' +
-            ' * Flat UI Free v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
-            ' * Copyright 2013-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-            ' */\n',
+    ' * Flat UI Free v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
+    ' * Copyright 2013-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+    ' */\n',
 
     // Task configuration.
     clean: {
@@ -298,7 +298,7 @@ module.exports = function (grunt) {
   });
 
   // These plugins provide necessary tasks.
-  require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
+  require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
   require('time-grunt')(grunt);
 
   // Test task.

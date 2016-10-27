@@ -18,7 +18,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;" ng-class="{'active':sign_in_info}"><a href="#sign_in_info">签到/离开</a></li>
+                <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;" ng-class="{'active':sign_in_info}"><a
+                        href="#sign_in_info">签到/离开</a></li>
                 <li ng-click="sign_in_info=false;" ng-class="{'active':!sign_in_info}"><a href="#rank_list">排行榜</a></li>
             </ul>
         </div>

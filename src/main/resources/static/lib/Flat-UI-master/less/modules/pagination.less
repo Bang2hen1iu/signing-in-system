@@ -132,6 +132,7 @@
         z-index: 10;
         border-radius: 0 @pagination-border-radius @pagination-border-radius 0;
       }
+
       &.previous {
         left: 0;
         right: auto;
@@ -209,13 +210,27 @@
           border-bottom: 2px solid mix(@pagination-bg, white, 80%);
           border-radius: @pagination-border-radius 0 0;
 
-          &.btn-primary { border-bottom-color: mix(@brand-secondary, white, 80%); }
-          &.btn-danger  { border-bottom-color: mix(@brand-danger, white, 80%); }
-          &.btn-warning { border-bottom-color: mix(@brand-warning, white, 80%); }
-          &.btn-success { border-bottom-color: mix(@brand-success, white, 80%); }
-          &.btn-info    { border-bottom-color: mix(@brand-info, white, 80%); }
-          &.btn-inverse { border-bottom-color: mix(@brand-primary, white, 80%); }
-          > [class*="fui"] { margin-left: -20px; }
+          &.btn-primary {
+            border-bottom-color: mix(@brand-secondary, white, 80%);
+          }
+          &.btn-danger {
+            border-bottom-color: mix(@brand-danger, white, 80%);
+          }
+          &.btn-warning {
+            border-bottom-color: mix(@brand-warning, white, 80%);
+          }
+          &.btn-success {
+            border-bottom-color: mix(@brand-success, white, 80%);
+          }
+          &.btn-info {
+            border-bottom-color: mix(@brand-info, white, 80%);
+          }
+          &.btn-inverse {
+            border-bottom-color: mix(@brand-primary, white, 80%);
+          }
+          > [class*="fui"] {
+            margin-left: -20px;
+          }
         }
         & + ul {
           padding: 0;
@@ -229,13 +244,27 @@
           top: 0;
           border-radius: 0 @pagination-border-radius 0 0;
 
-          &.btn-primary { border-bottom-color: mix(@brand-secondary, white, 80%); }
-          &.btn-danger  { border-bottom-color: mix(@brand-danger, white, 80%); }
-          &.btn-warning { border-bottom-color: mix(@brand-warning, white, 80%); }
-          &.btn-success { border-bottom-color: mix(@brand-success, white, 80%); }
-          &.btn-info    { border-bottom-color: mix(@brand-info, white, 80%); }
-          &.btn-inverse { border-bottom-color: mix(@brand-primary, white, 80%); }
-          > [class*="fui"] { margin-right: -20px; }
+          &.btn-primary {
+            border-bottom-color: mix(@brand-secondary, white, 80%);
+          }
+          &.btn-danger {
+            border-bottom-color: mix(@brand-danger, white, 80%);
+          }
+          &.btn-warning {
+            border-bottom-color: mix(@brand-warning, white, 80%);
+          }
+          &.btn-success {
+            border-bottom-color: mix(@brand-success, white, 80%);
+          }
+          &.btn-info {
+            border-bottom-color: mix(@brand-info, white, 80%);
+          }
+          &.btn-inverse {
+            border-bottom-color: mix(@brand-primary, white, 80%);
+          }
+          > [class*="fui"] {
+            margin-right: -20px;
+          }
         }
       }
 
@@ -254,11 +283,25 @@
 
 // Alternate Colors
 // --------------------------------------------------
-.pagination-danger  { .pagination-variant(@brand-danger, @btn-danger-hover-bg, @btn-danger-active-bg); }
-.pagination-success { .pagination-variant(@brand-success, @btn-success-hover-bg, @btn-success-active-bg); }
-.pagination-warning { .pagination-variant(@brand-warning, @btn-warning-hover-bg, @btn-warning-active-bg); }
-.pagination-info    { .pagination-variant(@brand-info, @btn-info-hover-bg, @btn-info-active-bg); }
-.pagination-inverse { .pagination-variant(@brand-primary, @btn-inverse-hover-bg, @btn-inverse-active-bg); }
+.pagination-danger {
+  .pagination-variant(@brand-danger, @btn-danger-hover-bg, @btn-danger-active-bg);
+}
+
+.pagination-success {
+  .pagination-variant(@brand-success, @btn-success-hover-bg, @btn-success-active-bg);
+}
+
+.pagination-warning {
+  .pagination-variant(@brand-warning, @btn-warning-hover-bg, @btn-warning-active-bg);
+}
+
+.pagination-info {
+  .pagination-variant(@brand-info, @btn-info-hover-bg, @btn-info-active-bg);
+}
+
+.pagination-inverse {
+  .pagination-variant(@brand-primary, @btn-inverse-hover-bg, @btn-inverse-active-bg);
+}
 
 // Ultra minimal pagination
 // --------------------------------------------------

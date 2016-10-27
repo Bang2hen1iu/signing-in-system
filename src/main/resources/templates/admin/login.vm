@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text">
-##                    <img src="#springUrl('assets/img/logo/logo_school.png')">
+                ##                    <img src="#springUrl('assets/img/logo/logo_school.png')">
                 </div>
             </div>
             <div class="row">

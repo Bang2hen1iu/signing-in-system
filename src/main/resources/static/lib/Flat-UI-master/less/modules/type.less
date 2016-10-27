@@ -2,7 +2,6 @@
 // Typography
 // --------------------------------------------------
 
-
 // Headings
 // -------------------------
 
@@ -24,6 +23,7 @@ h3 {
   margin-top: @line-height-computed;
   margin-bottom: (@line-height-computed / 2);
 }
+
 h4,
 h5,
 h6 {
@@ -35,27 +35,50 @@ h6 {
   font-weight: normal;
 }
 
-h1, .h1 { font-size: @font-size-h1; } // ~62px
-h2, .h2 { font-size: @font-size-h2; } // ~52px
-h3, .h3 { font-size: @font-size-h3; } // ~40px
-h4, .h4 { font-size: @font-size-h4; } // ~29px
-h5, .h5 { font-size: @font-size-h5; } // ~28px
-h6, .h6 { font-size: @font-size-h6; } // ~24px
+h1, .h1 {
+  font-size: @font-size-h1;
+}
 
+// ~62px
+h2, .h2 {
+  font-size: @font-size-h2;
+}
+
+// ~52px
+h3, .h3 {
+  font-size: @font-size-h3;
+}
+
+// ~40px
+h4, .h4 {
+  font-size: @font-size-h4;
+}
+
+// ~29px
+h5, .h5 {
+  font-size: @font-size-h5;
+}
+
+// ~28px
+h6, .h6 {
+  font-size: @font-size-h6;
+}
+
+// ~24px
 
 // Body text
 // -------------------------
 
 p {
-  font-size:   @font-size-base;
+  font-size: @font-size-base;
   line-height: @line-height-base;
   margin: 0 0 (@line-height-computed / 2);
 }
 
 .lead {
   margin-bottom: @line-height-computed;
-  font-size:   floor((@font-size-base * 1.556));  // ~28px
-  line-height: 1.46428571;                      // ~41px
+  font-size: floor((@font-size-base * 1.556)); // ~28px
+  line-height: 1.46428571; // ~41px
   font-weight: 300;
 
   @media (min-width: @screen-sm-min) {
@@ -69,7 +92,7 @@ p {
 // Ex: 18px base font * 83% = about 15px
 small,
 .small {
-  font-size: 83%;     // ~15px
+  font-size: 83%; // ~15px
   line-height: 2.067; // ~31px
 }
 
@@ -77,21 +100,27 @@ small,
 .text-muted {
   color: @text-muted;
 }
+
 .text-inverse {
   color: @inverse;
 }
+
 .text-primary {
   .text-emphasis-variant(@brand-secondary);
 }
+
 .text-warning {
   .text-emphasis-variant(@state-warning-text);
 }
+
 .text-danger {
   .text-emphasis-variant(@state-danger-text);
 }
+
 .text-success {
   .text-emphasis-variant(@state-success-text);
 }
+
 .text-info {
   .text-emphasis-variant(@state-info-text);
 }
@@ -103,19 +132,22 @@ small,
   color: @inverse;
   .bg-variant(@brand-primary);
 }
+
 .bg-success {
   .bg-variant(@state-success-bg);
 }
+
 .bg-info {
   .bg-variant(@state-info-bg);
 }
+
 .bg-warning {
   .bg-variant(@state-warning-bg);
 }
+
 .bg-danger {
   .bg-variant(@state-danger-bg);
 }
-
 
 // Page header
 // -------------------------
@@ -125,7 +157,6 @@ small,
   margin: (@line-height-computed * 2) 0 @line-height-computed;
   border-bottom: 2px solid @page-header-border-color;
 }
-
 
 // Lists
 // --------------------------------------------------
@@ -140,6 +171,7 @@ ol {
 dl {
   margin-bottom: @line-height-computed;
 }
+
 dt,
 dd {
   line-height: @line-height-base;
@@ -178,7 +210,7 @@ blockquote {
 
   p {
     font-size: ceil((@font-size-base * 1.111)); // ~20px
-    line-height: 1.55;                        // ~31px
+    line-height: 1.55; // ~31px
     font-weight: normal;
     margin-bottom: .4em;
   }

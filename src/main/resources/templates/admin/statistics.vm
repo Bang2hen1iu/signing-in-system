@@ -30,8 +30,10 @@
                                 {{student.name}}
                             </label>
                             <div class="progress col-md-offset-1">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
-                                     aria-valuemin="0" aria-valuemax="50" ng-style="getProgressBarWidth(student.stayLabTime)">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active"
+                                     role="progressbar"
+                                     aria-valuemin="0" aria-valuemax="50"
+                                     ng-style="getProgressBarWidth(student.stayLabTime)">
                                     {{student.stayLabTime}}小时
                                 </div>
                             </div>

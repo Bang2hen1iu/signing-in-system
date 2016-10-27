@@ -4,10 +4,10 @@
  */
 
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ = 'mmenu';
+    var _PLUGIN_ = 'mmenu';
 
-	$[ _PLUGIN_ ].configuration.classNames.selected = 'active';
+    $[_PLUGIN_].configuration.classNames.selected = 'active';
 
-})( jQuery );
+})(jQuery);

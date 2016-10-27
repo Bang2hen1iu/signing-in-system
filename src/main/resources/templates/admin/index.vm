@@ -59,14 +59,16 @@
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="adminPassword-addon">新密码</span>
-                                        <input type="password" class="form-control" aria-describedby="adminPassword-addon" ng-model="adminPassword" required>
+                                        <input type="password" class="form-control"
+                                               aria-describedby="adminPassword-addon" ng-model="adminPassword" required>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ng-click="modifyAdminPassword()" class="btn btn-info glyphicon glyphicon-eye-close" data-dismiss="modal"> 确定
+                        <button type="button" ng-click="modifyAdminPassword()"
+                                class="btn btn-info glyphicon glyphicon-eye-close" data-dismiss="modal"> 确定
                         </button>
                     </div>
                 </div>
@@ -87,14 +89,16 @@
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="labPassword-addon">新密码</span>
-                                        <input type="password" class="form-control" aria-describedby="labPassword-addon" ng-model="labPassword" required>
+                                        <input type="password" class="form-control" aria-describedby="labPassword-addon"
+                                               ng-model="labPassword" required>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ng-click="modifyLabPassword()" class="btn btn-info glyphicon glyphicon-eye-close" data-dismiss="modal"> 确定
+                        <button type="button" ng-click="modifyLabPassword()"
+                                class="btn btn-info glyphicon glyphicon-eye-close" data-dismiss="modal"> 确定
                         </button>
                     </div>
                 </div>

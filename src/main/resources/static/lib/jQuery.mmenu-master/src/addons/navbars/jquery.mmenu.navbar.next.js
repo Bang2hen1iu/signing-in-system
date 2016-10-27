@@ -5,51 +5,48 @@
  * Copyright (c) Fred Heusschen
  */
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ 	= 'mmenu',
-		_ADDON_  	= 'navbars',
-		_CONTENT_	= 'next';
+    var _PLUGIN_ = 'mmenu',
+        _ADDON_ = 'navbars',
+        _CONTENT_ = 'next';
 
-	$[ _PLUGIN_ ].addons[ _ADDON_ ][ _CONTENT_ ] = function( $navbar, opts )
-	{
-		//	Get vars
-		var _c = $[ _PLUGIN_ ]._c;
-
-
-		//	Add content
-		var $next = $('<a class="' + _c.next + ' ' + _c.btn + '" href="#" />').appendTo( $navbar );
+    $[_PLUGIN_].addons[_ADDON_][_CONTENT_] = function ($navbar, opts) {
+        //	Get vars
+        var _c = $[_PLUGIN_]._c;
 
 
-		//	Update
-		var _url, _txt;
+        //	Add content
+        var $next = $('<a class="' + _c.next + ' ' + _c.btn + '" href="#" />').appendTo($navbar);
 
-		var update = function( $panel )
-		{
-			$panel = $panel || this.$pnls.children( '.' + _c.current );
 
-			var $orgn = $panel.find( '.' + this.conf.classNames[ _ADDON_ ].panelNext );
-			
-			_url = $orgn.attr( 'href' );
-			_txt = $orgn.html();
+        //	Update
+        var _url, _txt;
 
-			$next[ _url ? 'attr' : 'removeAttr' ]( 'href', _url );
-			$next[ _url || _txt ? 'removeClass' : 'addClass' ]( _c.hidden );
-			$next.html( _txt );
-		};
+        var update = function ($panel) {
+            $panel = $panel || this.$pnls.children('.' + _c.current);
 
-		this.bind( 'openPanel', update );
-		this.bind( 'initPanels',
-			function()
-			{
-				update.call( this );
-			}
-		);
+            var $orgn = $panel.find('.' + this.conf.classNames[_ADDON_].panelNext);
 
-		//	Detract content count
-		return -1;
-	};
+            _url = $orgn.attr('href');
+            _txt = $orgn.html();
 
-	$[ _PLUGIN_ ].configuration.classNames[ _ADDON_ ].panelNext	= 'Next';
+            $next[_url ? 'attr' : 'removeAttr']('href', _url);
+            $next[_url || _txt ? 'removeClass' : 'addClass'](_c.hidden);
+            $next.html(_txt);
+        };
 
-})( jQuery );
+        this.bind('openPanel', update);
+        this.bind('initPanels',
+            function () {
+                update.call(this);
+            }
+        );
+
+        //	Detract content count
+        return -1;
+    };
+
+    $[_PLUGIN_].configuration.classNames[_ADDON_].panelNext = 'Next';
+
+})(jQuery);

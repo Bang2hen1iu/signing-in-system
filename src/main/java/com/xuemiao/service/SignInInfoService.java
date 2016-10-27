@@ -213,14 +213,13 @@ public class SignInInfoService {
             String endTimeTemp;
 
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            if ((DateUtils.isTimeBeforeNow(startTimeTemp))||(!DateUtils.isToday(signInDate))) {
+            if ((DateUtils.isTimeBeforeNow(startTimeTemp)) || (!DateUtils.isToday(signInDate))) {
                 signInInfoTimeSegment.setStartTime("06:00");
                 signInInfoTimeSegment.setEndTime(startTimeTemp);
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
-            }
-            else if(!DateUtils.isTimeBeforeNow(startTimeTemp)){
+            } else if (!DateUtils.isTimeBeforeNow(startTimeTemp)) {
                 signInInfoTimeSegment.setStartTime("06:00");
                 signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                 signInInfoTimeSegment.setType(4);
@@ -237,21 +236,21 @@ public class SignInInfoService {
             for (int i = 1; i < signInInfoTimeSegments.size(); i++) {
                 SignInInfoTimeSegment signInInfoTimeSegmentTest = signInInfoTimeSegments.get(i - 1);
                 startTimeTemp = signInInfoTimeSegmentTest.getEndTime();
-                if(startTimeTemp==null){
+                if (startTimeTemp == null) {
                     startTimeTemp = DateUtils.getNowHourMinuteStr();
-                    signInInfoTimeSegmentTest.setStartTime(startTimeTemp);
-                    signInInfoTimeSegments.set(i-1,signInInfoTimeSegmentTest);
+                    signInInfoTimeSegmentTest.setEndTime(startTimeTemp);
+                    signInInfoTimeSegments.set(i - 1, signInInfoTimeSegmentTest);
                 }
                 endTimeTemp = signInInfoTimeSegments.get(i).getStartTime();
-                if(DateUtils.isToday(signInDate)){
-                    if(DateUtils.isTimeBeforeNow(startTimeTemp)&&DateUtils.isTimeBeforeNow(endTimeTemp)){
+                if (DateUtils.isToday(signInDate)) {
+                    if (DateUtils.isTimeBeforeNow(startTimeTemp) && DateUtils.isTimeBeforeNow(endTimeTemp)) {
                         signInInfoTimeSegment = new SignInInfoTimeSegment();
                         signInInfoTimeSegment.setStartTime(startTimeTemp);
                         signInInfoTimeSegment.setEndTime(endTimeTemp);
                         signInInfoTimeSegment.setType(4);
                         signInInfoTimeSegment.setExtra("不在实验室");
                         signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
-                    } else if (DateUtils.isTimeBeforeNow(startTimeTemp)&&!DateUtils.isTimeBeforeNow(endTimeTemp)){
+                    } else if (DateUtils.isTimeBeforeNow(startTimeTemp) && !DateUtils.isTimeBeforeNow(endTimeTemp)) {
                         signInInfoTimeSegment = new SignInInfoTimeSegment();
                         signInInfoTimeSegment.setStartTime(startTimeTemp);
                         signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
@@ -264,8 +263,7 @@ public class SignInInfoService {
                         signInInfoTimeSegment.setEndTime(endTimeTemp);
                         signInInfoTimeSegment.setType(5);
                         signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
-                    }
-                    else {
+                    } else {
                         signInInfoTimeSegment = new SignInInfoTimeSegment();
                         signInInfoTimeSegment.setStartTime(startTimeTemp);
                         signInInfoTimeSegment.setEndTime(endTimeTemp);
@@ -283,13 +281,12 @@ public class SignInInfoService {
             }
 
             SignInInfoTimeSegment tailTimeSegment = signInInfoTimeSegments.get(signInInfoTimeSegments.size() - 1);
-            if(DateUtils.isToday(signInDate)){
+            if (DateUtils.isToday(signInDate)) {
                 endTimeTemp = tailTimeSegment.getEndTime();
-                if(endTimeTemp==null){
+                if (endTimeTemp == null) {
                     tailTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                     signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1, tailTimeSegment);
-                }
-                else if(DateUtils.isTimeBeforeNow(endTimeTemp)){
+                } else if (DateUtils.isTimeBeforeNow(endTimeTemp)) {
                     signInInfoTimeSegment = new SignInInfoTimeSegment();
                     signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
                     signInInfoTimeSegment.setType(4);
@@ -327,7 +324,7 @@ public class SignInInfoService {
         CoursePerWeekEntity coursePerWeekEntity = coursePerWeekRepository.findOne(coursePerWeekPKey);
         if (coursePerWeekEntity != null) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(),1));
+            signInInfoTimeSegment.setStartTime(getCourseTime(coursePerWeekEntity.getStartSection(), 1));
             signInInfoTimeSegment.setEndTime(getCourseTime(coursePerWeekEntity.getEndSection(), 2));
             signInInfoTimeSegment.setType(2);
             signInInfoTimeSegment.setExtra("上课：" + courseEntity.getCourseName());

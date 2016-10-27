@@ -33,53 +33,55 @@
     this.$element.trigger('change.radiocheck').trigger('checked.radiocheck');
   },
 
-  Radiocheck.prototype.uncheck = function () {
-    this.$element.prop('checked', false);
-    this.$element.trigger('change.radiocheck').trigger('unchecked.radiocheck');
-  },
+    Radiocheck.prototype.uncheck = function () {
+      this.$element.prop('checked', false);
+      this.$element.trigger('change.radiocheck').trigger('unchecked.radiocheck');
+    },
 
-  Radiocheck.prototype.toggle = function () {
-    this.$element.prop('checked', function (i, value) {
-      return !value;
-    });
-    this.$element.trigger('change.radiocheck').trigger('toggled.radiocheck');
-  },
+    Radiocheck.prototype.toggle = function () {
+      this.$element.prop('checked', function (i, value) {
+        return !value;
+      });
+      this.$element.trigger('change.radiocheck').trigger('toggled.radiocheck');
+    },
 
-  Radiocheck.prototype.indeterminate = function () {
-    this.$element.prop('indeterminate', true);
-    this.$element.trigger('change.radiocheck').trigger('indeterminated.radiocheck');
-  },
+    Radiocheck.prototype.indeterminate = function () {
+      this.$element.prop('indeterminate', true);
+      this.$element.trigger('change.radiocheck').trigger('indeterminated.radiocheck');
+    },
 
-  Radiocheck.prototype.determinate = function () {
-    this.$element.prop('indeterminate', false);
-    this.$element.trigger('change.radiocheck').trigger('determinated.radiocheck');
-  },
+    Radiocheck.prototype.determinate = function () {
+      this.$element.prop('indeterminate', false);
+      this.$element.trigger('change.radiocheck').trigger('determinated.radiocheck');
+    },
 
-  Radiocheck.prototype.disable = function () {
-    this.$element.prop('disabled', true);
-    this.$element.trigger('change.radiocheck').trigger('disabled.radiocheck');
-  },
+    Radiocheck.prototype.disable = function () {
+      this.$element.prop('disabled', true);
+      this.$element.trigger('change.radiocheck').trigger('disabled.radiocheck');
+    },
 
-  Radiocheck.prototype.enable = function () {
-    this.$element.prop('disabled', false);
-    this.$element.trigger('change.radiocheck').trigger('enabled.radiocheck');
-  },
+    Radiocheck.prototype.enable = function () {
+      this.$element.prop('disabled', false);
+      this.$element.trigger('change.radiocheck').trigger('enabled.radiocheck');
+    },
 
-  Radiocheck.prototype.destroy = function () {
-    this.$element.removeData().removeClass(this.options.checkboxClass + ' ' + this.options.radioClass).next('.icons').remove();
-    this.$element.trigger('destroyed.radiocheck');
-  };
+    Radiocheck.prototype.destroy = function () {
+      this.$element.removeData().removeClass(this.options.checkboxClass + ' ' + this.options.radioClass).next('.icons').remove();
+      this.$element.trigger('destroyed.radiocheck');
+    };
 
   // RADIOCHECK PLUGIN DEFINITION
   // ============================
 
   function Plugin(option) {
     return this.each(function () {
-      var $this   = $(this);
-      var data    = $this.data('radiocheck');
+      var $this = $(this);
+      var data = $this.data('radiocheck');
       var options = typeof option == 'object' && option;
 
-      if (!data && option == 'destroy') { return; }
+      if (!data && option == 'destroy') {
+        return;
+      }
       if (!data) {
         $this.data('radiocheck', (data = new Radiocheck(this, options)));
       }
@@ -103,7 +105,7 @@
 
   var old = $.fn.radiocheck;
 
-  $.fn.radiocheck             = Plugin;
+  $.fn.radiocheck = Plugin;
   $.fn.radiocheck.Constructor = Radiocheck;
 
   // RADIOCHECK NO CONFLICT

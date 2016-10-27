@@ -5,34 +5,32 @@
  * Copyright (c) Fred Heusschen
  */
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ 	= 'mmenu',
-		_ADDON_  	= 'navbars',
-		_CONTENT_	= 'close';
+    var _PLUGIN_ = 'mmenu',
+        _ADDON_ = 'navbars',
+        _CONTENT_ = 'close';
 
-	$[ _PLUGIN_ ].addons[ _ADDON_ ][ _CONTENT_ ] = function( $navbar, opts )
-	{
-		//	Get vars
-		var _c = $[ _PLUGIN_ ]._c,
-			glbl = $[ _PLUGIN_ ].glbl;
-
-
-		//	Add content
-		var $close = $('<a class="' + _c.close + ' ' + _c.btn + '" href="#" />').appendTo( $navbar );
+    $[_PLUGIN_].addons[_ADDON_][_CONTENT_] = function ($navbar, opts) {
+        //	Get vars
+        var _c = $[_PLUGIN_]._c,
+            glbl = $[_PLUGIN_].glbl;
 
 
-		//	Update
-		var setPage = function( $page )
-		{
-			$close.attr( 'href', '#' + $page.attr( 'id' ) );
-		};
-		setPage.call( this, glbl.$page );
-		this.bind( 'setPage', setPage );
+        //	Add content
+        var $close = $('<a class="' + _c.close + ' ' + _c.btn + '" href="#" />').appendTo($navbar);
 
 
-		//	Detract content count
-		return -1;
-	};
+        //	Update
+        var setPage = function ($page) {
+            $close.attr('href', '#' + $page.attr('id'));
+        };
+        setPage.call(this, glbl.$page);
+        this.bind('setPage', setPage);
 
-})( jQuery );
+
+        //	Detract content count
+        return -1;
+    };
+
+})(jQuery);

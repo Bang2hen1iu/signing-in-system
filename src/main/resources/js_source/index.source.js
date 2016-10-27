@@ -1,4 +1,6 @@
 var sign_in_app = angular.module('signInSys', ['angular-toArrayFilter', 'ngRoute', 'datetime']);
+sign_in_app.controller('navbar_ctrl', ['$scope', function ($scope) {
+}]);
 sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime', '$interval', function ($scope, $http, $q, datetime, $interval) {
     $scope.getLatestDate = function () {
         var defer = $q.defer();
@@ -9,6 +11,49 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             defer.resolve(data);
         });
         return defer.promise;
+    };
+    $scope.signIn = function () {
+        $scope.signInData = {};
+        zkonline.GetVerTemplate();
+        var verifyTpl = zkonline.VerifyTemplate;
+        if (verifyTpl == "" || verifyTpl == null) {
+            return;
+        }
+        for (var i = 0; i < $scope.fingerPrintData.length; i++) {
+            var regTpl = $scope.fingerPrintData[i];
+            if (zkonline.MatchFinger(regTpl.fingerprint, verifyTpl)) {
+                $scope.signInData.fingerprint = regTpl.fingerprint;
+                break;
+            }
+        }
+        if ($scope.signInData.fingerprint == null) {
+            alert('您的指纹还没有登记orz');
+            return;
+        }
+        $http({
+            method: 'POST',
+            url: "/api/sign_in_info/addition",
+            data: $scope.signInData
+        }).success(function (data) {
+            $scope.getSignInInfo($scope.getCurrentDateString());
+            if (data.statusFeedBack == 1) {
+                alert(data.name + "，签到成功哇！");
+            }
+
+            else if (data.statusFeedBack == 2) {
+                alert(data.name + "，bye bye！");
+            }
+        }).error(function () {
+            alert('签到失败，请联系DZJ');
+        });
+    };
+    $scope.getFingerPrint = function () {
+        $http({
+            method: 'GET',
+            url: "/api/students/fingerprints"
+        }).success(function (data) {
+            $scope.fingerPrintData = data;
+        });
     };
     $scope.getDutyStudent = function (date) {
         $http({
@@ -26,7 +71,17 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.signInInfoData = data;
         });
     };
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
     $scope.firstLoad = function () {
+        $scope.getFingerPrint();
+        $scope.getStudent();
         $scope.getLatestDate().then(function (date) {
             var parser = datetime("yyyy-MM-dd");
             parser.parse(date);
@@ -42,28 +97,80 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             }, 30000);
         });
     };
-    $scope.setTrStyle = function (order, tsp) {
-        if (tsp == null) {
+    $scope.setBarClass = function (bar) {
+        var baseClass = "progress-bar palette";
+        if (bar == null) {
             return '';
         }
-        if ($scope.checkOnTime(order, tsp)) {
-            return 'warning';
+        if (bar.type == 0) {
+            return baseClass + ' palette-bar-now palette-arrive';
+        }
+        else if (bar.type == 1) {
+            return baseClass + ' palette-bar palette-orange';
+        }
+        else if (bar.type == 2) {
+            return baseClass + ' palette-bar palette-peter-river';
+        }
+        else if (bar.type == 3) {
+            return baseClass + ' palette-bar palette-peter-river';
+        }
+        else if (bar.type == 4) {
+            return baseClass + ' palette-bar palette-silver';
+        }
+        else if (bar.type == 5) {
+            return baseClass + ' palette-bar';
         }
         else {
-            return 'info';
+            return '';
         }
+    };
+    $scope.setBarStyle = function (bar) {
+        var parser = datetime("HH:mm");
+        parser.parse(bar.startTime);
+        var startTime = parser.getDate();
+        parser.parse(bar.endTime);
+        var endTime = parser.getDate();
+        var width = 100 * (endTime.getTime() - startTime.getTime()) / (1000 * 18 * 3600) + '%';
+        if (bar.type == 5) {
+            return {'width': width, 'opacity': 0};
+        }
+        return {'width': width};
+    };
+    $scope.setAbsenceStudent = function (student) {
+        $scope.askForAbsenceStudent.studentId = student.studentId;
+        $scope.hint = student.name;
+    };
+    $scope.askForAbsence = function () {
+        $scope.askForAbsenceStudent.operDate = $scope.currentDate;
+        $http({
+            method: 'POST',
+            url: "/api/absences/addition",
+            data: $scope.askForAbsenceStudent
+        }).success(function (data) {
+            alert("请假成功！");
+            $scope.askForAbsenceStudent = {};
+            $scope.hint = "点击选择学生";
+            $scope.getSignInInfo($scope.getCurrentDateString());
+        }).error(function () {
+            alert("请假失败！请联系DZJ");
+        });
+    };
+    $scope.getCurrentDateString = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.currentDate);
+        return parser.getText();
     };
     $(function () {
         $scope.firstLoad();
+        $scope.hint = "点击选择学生";
         $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         $('#dateInput').on('change', function () {
-            var parser = datetime("yyyy-MM-dd");
-            parser.setDate($scope.currentDate);
             $scope.currentWeekday = $scope.weekday[$scope.currentDate.getDay()];
-            var date = parser.getText();
+            var date = $scope.getCurrentDateString();
             $scope.getSignInInfo(date);
             $scope.getDutyStudent(date);
         });
+        $scope.askForAbsenceStudent = {};
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {
@@ -72,6 +179,9 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
             method: 'GET',
             url: "/api/statistics/sum"
         }).success(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                data[i].stayLabTimeStr = data[i].stayLabTime.toFixed(2);
+            }
             $scope.maxStayLabTime = Math.max.apply(Math, data.map(function (item) {
                 return item.stayLabTime;
             }));
@@ -83,192 +193,6 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
     };
     $(function () {
         $scope.getRankListData();
-    });
-}]);
-sign_in_app.controller('sign_in_action_ctrl', ['$scope', '$http', '$q', 'datetime', '$timeout', function ($scope, $http, $q, datetime, $timeout) {
-    $scope.getLatestDate = function () {
-        var defer = $q.defer();
-        $http({
-            method: 'GET',
-            url: "/api/sign_in_info/latest_date"
-        }).success(function (data) {
-            $scope.currentDate = data;
-            defer.resolve(data);
-        });
-        return defer.promise;
-    };
-    $scope.getSignInInfo = function (date) {
-        $http({
-            method: 'GET',
-            url: "/api/sign_in_info/" + date
-        }).success(function (data) {
-            $scope.signInInfoData = data;
-        });
-    };
-    $scope.getSystemTime = function () {
-        var defer = $q.defer();
-        $http({
-            method: 'GET',
-            url: "/api/common/system_time"
-        }).success(function (data) {
-            var parser = datetime("yyyy-MM-dd HH:mm:ss");
-            parser.parse(data);
-            $scope.currentTime = parser.getDate();
-            defer.resolve($scope.currentTime);
-        });
-        return defer.promise;
-    };
-    $scope.firstLoad = function () {
-        $scope.getLatestDate().then(function (date) {
-            var parser = datetime("yyyy-MM-dd");
-            parser.parse(date);
-            $scope.currentWeekday = $scope.weekday[parser.getDate().getDay()];
-            $scope.getSignInInfo(date);
-            $scope.getDutyStudent(date);
-            $scope.getSystemTime().then(function (time) {
-                $scope.setSignInBtnAvai(time);
-            });
-        });
-    };
-    $scope.setSignInBtnAvai = function (time) {
-        var parser = datetime("yyyy-MM-dd HH:mm:ss");
-
-        parser.parse($scope.currentDate + ' 06:00:00');
-        $timeout(function () {
-            $scope.btn1 = false;
-            $scope.btn2 = false;
-        }, parser.getDate().getTime() - time.getTime());
-
-        parser.parse($scope.currentDate + ' 14:00:00');
-        $timeout(function () {
-            $scope.btn1 = true;
-            $scope.btn2 = true;
-        }, parser.getDate().getTime() - time.getTime());
-
-        parser.parse($scope.currentDate + ' 11:30:00');
-        $timeout(function () {
-            $scope.btn3 = false;
-            $scope.btn4 = false;
-        }, parser.getDate().getTime() - time.getTime());
-
-        parser.parse($scope.currentDate + ' 20:00:00');
-        $timeout(function () {
-            $scope.btn3 = true;
-            $scope.btn4 = true;
-        }, parser.getDate().getTime() - time.getTime());
-
-        parser.parse($scope.currentDate + ' 17:00:00');
-        $timeout(function () {
-            $scope.btn5 = false;
-            $scope.btn6 = false;
-        }, parser.getDate().getTime() - time.getTime());
-
-        parser.parse($scope.currentDate + ' 23:30:00');
-        $timeout(function () {
-            $scope.btn5 = true;
-            $scope.btn6 = true;
-        }, parser.getDate().getTime() - time.getTime());
-        console.log($scope.currentTime.getTime());
-    };
-    $scope.getDutyStudent = function (date) {
-        $http({
-            method: 'GET',
-            url: '/api/students/duty_students/' + date
-        }).success(function (data) {
-            $scope.dutyStudentData = data;
-        });
-    };
-    $scope.checkOnTime = function (order, tsp) {
-        var parser = datetime("yyyy-MM-dd HH:mm:ss");
-        switch (order) {
-            case 1:
-                parser.parse($scope.currentDate + ' 09:00:00');
-                return parser.getDate() > new Date(tsp);
-            case 2:
-                parser.parse($scope.currentDate + ' 11:30:00');
-                return parser.getDate() < new Date(tsp);
-            case 3:
-                parser.parse($scope.currentDate + ' 14:00:00');
-                return parser.getDate() > new Date(tsp);
-            case 4:
-                parser.parse($scope.currentDate + ' 17:00:00');
-                return parser.getDate() < new Date(tsp);
-            case 5:
-                parser.parse($scope.currentDate + ' 18:30:00');
-                return parser.getDate() > new Date(tsp);
-            case 6:
-                parser.parse($scope.currentDate + ' 21:30:00');
-                return parser.getDate() < new Date(tsp);
-            default:
-                return false;
-        }
-    };
-    $scope.setTrStyle = function (order, tsp) {
-        if (tsp == null) {
-            return '';
-        }
-        if ($scope.checkOnTime(order, tsp)) {
-            return 'warning';
-        }
-        else {
-            return 'info';
-        }
-    };
-    $scope.copyStudent = function (student) {
-        $scope.askForAbsenceStudent.studentId = student.studentId;
-        $scope.askForAbsenceStudent.absenceReason = student.absenceReason;
-        $scope.askForAbsenceStudent.operDate = $scope.currentDate;
-        $scope.askForAbsenceStudent.startAbsence = null;
-        $scope.askForAbsenceStudent.endAbsence = null;
-    };
-    $scope.copySignInItem = function (id, order) {
-        $scope.signInItem.studentId = id;
-        $scope.signInItem.signInOrder = order;
-        $scope.signInItem.operDate = $scope.currentDate;
-    };
-    $scope.signInAction = function () {
-        $scope.signInItem.imageData = document.getElementById("myCanvas").toDataURL("image/png");
-        $scope.signInItem.imageData = $scope.signInItem.imageData.replace(/^data:image\/(png|jpg);base64,/, "");
-
-        $http({
-            method: 'POST',
-            url: "/api/sign_in_info/addition",
-            data: $scope.signInItem
-        }).success(function (data) {
-            alert("签到成功！");
-            $scope.clearArea();
-            $scope.getSignInInfo($scope.currentDate);
-        }).error(function () {
-            alert("请先登录！");
-        });
-    };
-    $scope.askForAbsence = function () {
-        $http({
-            method: 'POST',
-            url: "/api/absences/addition/",
-            data: $scope.askForAbsenceStudent
-        }).success(function (data) {
-            alert("请假成功！");
-            $scope.getSignInInfo($scope.currentDate);
-        }).error(function () {
-            alert("请先登录！");
-        });
-    };
-    $(function () {
-        $scope.currentDate = "";
-        $scope.signInInfoData = {};
-        $scope.askForAbsenceStudent = {};
-        $scope.signInItem = {};
-        $scope.dutyStudentData = {};
-        $scope.btn1 = true;
-        $scope.btn2 = true;
-        $scope.btn3 = true;
-        $scope.btn4 = true;
-        $scope.btn5 = true;
-        $scope.btn6 = true;
-        $scope.weekday = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-        $scope.InitThis();
-        $scope.firstLoad();
     });
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {

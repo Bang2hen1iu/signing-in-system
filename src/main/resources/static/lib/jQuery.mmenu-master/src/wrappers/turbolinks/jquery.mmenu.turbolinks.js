@@ -4,31 +4,29 @@
  */
 
 
-(function( $ ) {
+(function ($) {
 
-	var _PLUGIN_ = 'mmenu';
+    var _PLUGIN_ = 'mmenu';
 
-	//	Vars
-	var ready, classnames, $html;
+    //	Vars
+    var ready, classnames, $html;
 
-	//	Store the HTML classnames onDocumentReady
-	$(document).on(
-		'ready',
-		function()
-		{
-			$html = $('html');
-			classnames = $html.attr( 'class' );
-		}
-	);
+    //	Store the HTML classnames onDocumentReady
+    $(document).on(
+        'ready',
+        function () {
+            $html = $('html');
+            classnames = $html.attr('class');
+        }
+    );
 
-	//	Reset the HTML classnames and reset the $.mmenu.glbl variable on page:change
-	$(document).on(
-		'page:load',
-		function()
-		{
-			$html.attr( 'class', classnames );
-			$[ _PLUGIN_ ].glbl = false;
-		}
-	);
+    //	Reset the HTML classnames and reset the $.mmenu.glbl variable on page:change
+    $(document).on(
+        'page:load',
+        function () {
+            $html.attr('class', classnames);
+            $[_PLUGIN_].glbl = false;
+        }
+    );
 
-})( jQuery );
+})(jQuery);

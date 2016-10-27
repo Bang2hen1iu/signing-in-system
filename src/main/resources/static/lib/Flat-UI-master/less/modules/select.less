@@ -2,7 +2,6 @@
 // Select
 // --------------------------------------------------
 
-
 // Select container
 .select {
   position: relative;
@@ -84,21 +83,27 @@
 .select-default {
   .select-variant(@select-default-color, @select-default-bg, @select-default-hover-bg, @select-default-active-bg, @arrow-color: @inverse);
 }
+
 .select-primary {
   .select-variant(@select-default-color, @brand-secondary, @select-primary-hover-bg, @select-primary-active-bg, @arrow-color: @inverse);
 }
+
 .select-info {
   .select-variant(@select-default-color, @brand-info, @select-info-hover-bg, @select-info-active-bg, @arrow-color: @inverse);
 }
+
 .select-danger {
   .select-variant(@select-default-color, @brand-danger, @select-danger-hover-bg, @select-danger-active-bg, @arrow-color: @inverse);
 }
+
 .select-success {
   .select-variant(@select-default-color, @brand-success, @select-success-hover-bg, @select-success-active-bg, @arrow-color: @inverse);
 }
+
 .select-warning {
   .select-variant(@select-default-color, @brand-warning, @select-warning-hover-bg, @select-warning-active-bg, @arrow-color: @inverse);
 }
+
 .select-inverse {
   .select-variant(@select-default-color, @brand-primary, @select-inverse-hover-bg, @select-inverse-active-bg, @arrow-color: @inverse);
 }
@@ -123,6 +128,7 @@
     }
   }
 }
+
 .select-lg {
   .select2-container& {
     > .select2-choice {
@@ -135,6 +141,7 @@
     }
   }
 }
+
 .select-sm {
   .select2-container& {
     > .select2-choice {
@@ -150,7 +157,6 @@
     }
   }
 }
-
 
 // Multiselect
 //
@@ -282,25 +288,30 @@
 .multiselect-default {
   .multiple-select-variant(@select-default-bg, @select-default-hover-bg, @select-default-bg);
 }
+
 .multiselect-primary {
   .multiple-select-variant(@brand-secondary, @select-primary-hover-bg, @brand-secondary);
 }
+
 .multiselect-info {
   .multiple-select-variant(@brand-info, @select-info-hover-bg, @brand-info);
 }
+
 .multiselect-danger {
   .multiple-select-variant(@brand-danger, @select-danger-hover-bg, @brand-danger);
 }
+
 .multiselect-success {
   .multiple-select-variant(@brand-success, @select-success-hover-bg, @brand-success);
 }
+
 .multiselect-warning {
   .multiple-select-variant(@brand-warning, @select-warning-hover-bg, @brand-warning);
 }
+
 .multiselect-inverse {
   .multiple-select-variant(@brand-primary, @select-inverse-hover-bg, @brand-primary);
 }
-
 
 // Select dropdown
 //
@@ -427,7 +438,7 @@
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 // Dropdown search field
@@ -495,7 +506,6 @@
     display: none;
   }
 }
-
 
 // Helpers
 //
