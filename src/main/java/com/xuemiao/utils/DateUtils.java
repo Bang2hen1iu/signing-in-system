@@ -54,6 +54,11 @@ public class DateUtils {
         return dateTime.getYear() == now.getYear() && dateTime.getMonthOfYear() == now.getMonthOfYear() && dateTime.getDayOfMonth() == now.getDayOfMonth();
     }
 
+    public static String getNowHourMinuteStr(){
+        DateTime now = DateTime.now();
+        return String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour());
+    }
+
     public static String sqlDate2String(Date date) {
         return sdf1.format(date);
     }

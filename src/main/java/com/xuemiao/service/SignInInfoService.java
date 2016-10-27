@@ -179,7 +179,7 @@ public class SignInInfoService {
             signInInfoTimeSegment.setStartTime("06:00");
             signInInfoTimeSegment.setType(4);
             if (DateUtils.isToday(signInDate)) {
-                signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
             } else {
                 signInInfoTimeSegment.setEndTime("23:59");
             }
@@ -222,13 +222,13 @@ public class SignInInfoService {
             }
             else if(!DateUtils.isTimeBeforeNow(startTimeTemp)){
                 signInInfoTimeSegment.setStartTime("06:00");
-                signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
 
                 signInInfoTimeSegment = new SignInInfoTimeSegment();
-                signInInfoTimeSegment.setStartTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                signInInfoTimeSegment.setStartTime(DateUtils.getNowHourMinuteStr());
                 signInInfoTimeSegment.setEndTime(startTimeTemp);
                 signInInfoTimeSegment.setType(5);
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
@@ -248,13 +248,13 @@ public class SignInInfoService {
                     } else if (DateUtils.isTimeBeforeNow(startTimeTemp)&&!DateUtils.isTimeBeforeNow(endTimeTemp)){
                         signInInfoTimeSegment = new SignInInfoTimeSegment();
                         signInInfoTimeSegment.setStartTime(startTimeTemp);
-                        signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                        signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                         signInInfoTimeSegment.setType(4);
                         signInInfoTimeSegment.setExtra("不在实验室");
                         signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
 
                         signInInfoTimeSegment = new SignInInfoTimeSegment();
-                        signInInfoTimeSegment.setStartTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                        signInInfoTimeSegment.setStartTime(DateUtils.getNowHourMinuteStr());
                         signInInfoTimeSegment.setEndTime(endTimeTemp);
                         signInInfoTimeSegment.setType(5);
                         signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
@@ -279,11 +279,15 @@ public class SignInInfoService {
             SignInInfoTimeSegment tailTimeSegment = signInInfoTimeSegments.get(signInInfoTimeSegments.size() - 1);
             if(DateUtils.isToday(signInDate)){
                 endTimeTemp = tailTimeSegment.getEndTime();
-                if(DateUtils.isTimeBeforeNow(endTimeTemp)){
+                if(endTimeTemp==null){
+                    tailTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
+                    signInInfoTimeSegments.set(signInInfoTimeSegments.size() - 1, tailTimeSegment);
+                }
+                else if(DateUtils.isTimeBeforeNow(endTimeTemp)){
                     signInInfoTimeSegment = new SignInInfoTimeSegment();
                     signInInfoTimeSegment.setStartTime(tailTimeSegment.getEndTime());
                     signInInfoTimeSegment.setType(4);
-                    signInInfoTimeSegment.setEndTime(String.format("%02d", now.getHourOfDay()) + ":" + String.format("%02d", now.getMinuteOfHour()));
+                    signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                     signInInfoTimeSegment.setExtra("不在实验室");
                     signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
                 }
