@@ -8,7 +8,6 @@ import com.xuemiao.model.repository.AbsenceRepository;
 import com.xuemiao.model.repository.SignInInfoRecordRepository;
 import com.xuemiao.model.repository.SignInInfoV2Repository;
 import com.xuemiao.model.repository.StudentRepository;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +50,7 @@ public class StatisticsRepositoryService {
                     absenceTimes += absenceRepository.countBySignInInfoId(signInInfoV2Entity.getId());
                     List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId());
                     for (SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities) {
-                        if (signInInfoRecordEntity.getEndTime() == null) {
-                            stayLabTime += (DateTime.now().getMillis() - signInInfoRecordEntity.getStartTime().getTime());
-                        } else {
+                        if (signInInfoRecordEntity.getEndTime() != null) {
                             stayLabTime += (signInInfoRecordEntity.getEndTime().getTime() - signInInfoRecordEntity.getStartTime().getTime());
                         }
                     }
