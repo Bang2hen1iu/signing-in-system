@@ -45,7 +45,7 @@ public class DateUtils {
 
     //t should be in the form of "HH:mm"
     public static boolean isTimeBeforeNow(String t) {
-        String now = String.format("%02d", DateTime.now().getHourOfDay()) + ":" + String.format("02d", DateTime.now().getMinuteOfHour());
+        String now = String.format("%02d", DateTime.now().getHourOfDay()) + ":" + String.format("%02d", DateTime.now().getMinuteOfHour());
         return t.compareTo(now) < 0;
     }
 
