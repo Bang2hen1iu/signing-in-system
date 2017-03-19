@@ -75,6 +75,13 @@ public class CoursesService {
         courseRepository.delete(id);
     }
 
+    public void deleteCourseBySemesterId(Long semesterId){
+        List<CourseEntity> courseEntities = courseRepository.findBySemesterId(semesterId);
+        for (CourseEntity courseEntity : courseEntities){
+            deleteCourseByCourseId(courseEntity.getId());
+        }
+    }
+
     public void deleteCourseByStudentId(Long id) {
         List<CourseEntity> courseEntities = courseRepository.findByStudentId(id);
         for (CourseEntity courseEntity : courseEntities) {

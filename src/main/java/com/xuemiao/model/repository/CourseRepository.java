@@ -1,6 +1,7 @@
 package com.xuemiao.model.repository;
 
 import com.xuemiao.model.pdm.CourseEntity;
+import com.xuemiao.model.pdm.SemesterEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,7 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     @Transactional
     @Query("delete from CourseEntity s where s.studentId = :studentId")
     void deleteByStudentId(@Param("studentId") Long studentId);
+
+    @Query("select from CourseEntity s where s.semesterId = :semesterId")
+    List<CourseEntity> findBySemesterId(@Param("semesterId") Long semesterId);
 }

@@ -5,6 +5,7 @@ import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.model.pdm.SemesterEntity;
 import com.xuemiao.model.repository.SemesterRepository;
 import com.xuemiao.service.CookieService;
+import com.xuemiao.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -20,6 +21,8 @@ public class SemestersApi {
     SemesterRepository semesterRepository;
     @Autowired
     CookieService cookieService;
+    @Autowired
+    CoursesService coursesService;
 
     @GET
     public Response getSemesters(){
@@ -40,6 +43,7 @@ public class SemestersApi {
     public Response deleteSemester(@PathParam("id") Long id, @CookieParam("token") String tokenString)
             throws TokenInvalidException{
         cookieService.checkTokenCookie(tokenString);
+        coursesService.deleteCourseBySemesterId(id);
         semesterRepository.delete(id);
         return Response.ok().cookie(cookieService.refreshCookie(tokenString)).build();
     }
