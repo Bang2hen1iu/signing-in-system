@@ -282,7 +282,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
         parser.setDate($scope.startDate);
         $scope.toAddSemesterData.startDate = parser.getText();
         $http({
-            method: 'GET',
+            method: 'POST',
             url: '/api/semesters/addition',
             data: $scope.toAddSemesterData
         }).success(function (data) {
