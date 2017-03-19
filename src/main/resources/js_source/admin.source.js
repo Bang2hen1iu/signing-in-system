@@ -154,7 +154,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delCourse = function () {
         $http({
             method: 'DELETE',
-            url: '/api/admin_api/courses/deletion/' + $scope.toDeleteCourseData.id
+            url: '/api/courses/deletion/' + $scope.toDeleteCourseData.id
         }).success(function () {
             alert("删除课程成功！");
             $scope.toDeleteCourseData = null;
@@ -256,6 +256,45 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
         $scope.maxStayLabTime = null;
     });
 }]);
+
+app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope, $http, datetime) {
+    $scope.getSemesters = function () {
+        $http({
+            method: 'GET',
+            url: '/api/semesters'
+        }).success(function (data) {
+            $scope.semesterData = data;
+        });
+    };
+    $scope.copyToDeleteSemester = function (semester) {
+        $scope.toDeleteSemester = semester;
+    };
+    $scope.delSemester = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/semesters/deletion' + $scope.toDeleteSemester.id
+        }).success(function (data) {
+            $scope.semesterData = data;
+        });
+    };
+    $scope.addSemester = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.startDate);
+        $scope.toAddSemesterData.startDate = parser.getText();
+        $http({
+            method: 'GET',
+            url: '/api/semesters/addition',
+            data: $scope.toAddSemesterData
+        }).success(function (data) {
+            $scope.getSemesters();
+        });
+    };
+
+    $(function () {
+        $scope.toAddSemesterData = null;
+    });
+}]);
+
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'admin_welcome'
@@ -271,5 +310,8 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/statistics', {
         controller: 'statisticsCtrl',
         templateUrl: 'statistics'
+    }).when('/semesters', {
+        controller: 'semestersCtrl',
+        templateUrl: 'semesters'
     });
 }]);

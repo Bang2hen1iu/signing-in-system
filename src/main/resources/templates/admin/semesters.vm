@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header">学期管理</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form class="form-horizontal">
+                        <div class="input-group">
+                            <input class="form-control" type="date" ng-model="startDate">
+                            <button type="button" class="btn btn-info" data-toggle="modal" ng-click="addSemester()">
+                                <span class="glyphicon glyphicon-plus"></span> 新增学期
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="page-header"></div>
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover table-bordered">
+                        <tr>
+                            <th class="col-md-2">开学日期</th>
+                            <th class="col-md-1">删除</th>
+                        </tr>
+                        <tr ng-repeat="semester in semesterData">
+                            <td class="col-md-3">{{semester.startDate}}</td>
+                            <td class="col-md-1">
+                                <a class="btn btn-xs delete-btn btn-danger"
+                                   ng-click="copyToDeleteSemester(semester)" data-toggle="modal"
+                                   data-target="#delSemester">
+                                    <span class="glyphicon glyphicon-remove"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delSemester" tabindex="-1" role="dialog" aria-labelledby="delSemesterLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="delSemesterLabel">确认删除</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert">该学期的所有学生的所有课表也将被删除，请再次慎重确认！</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger glyphicon glyphicon-remove" data-dismiss="modal"
+                        ng-click="delSemester()"> 删除
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
