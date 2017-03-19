@@ -1,6 +1,6 @@
 CREATE TABLE semester (
-  id                                 BIGINT,
-  start_date                          DATE,
+  id             BIGINT   NOT NULL,
+  start_date     DATE     NOT NULL
 ) WITHOUT OIDS;
 
 ALTER TABLE course
