@@ -27,6 +27,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     @Query("delete from CourseEntity s where s.studentId = :studentId")
     void deleteByStudentId(@Param("studentId") Long studentId);
 
-    @Query("select from CourseEntity s where s.semesterId = :semesterId")
+    @Query("select s from CourseEntity s where s.semesterId = :semesterId")
     List<CourseEntity> findBySemesterId(@Param("semesterId") Long semesterId);
 }
