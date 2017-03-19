@@ -35,8 +35,6 @@ public class SignInInfoService {
     SignInInfoRecordRepository signInInfoRecordRepository;
     @Autowired
     AbsencesService absencesService;
-    @Value("${course.start_date}")
-    String courseStartDateString;
     @Autowired
     StudentRepository studentRepository;
     @Autowired
