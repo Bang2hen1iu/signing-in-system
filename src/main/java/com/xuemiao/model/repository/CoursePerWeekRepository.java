@@ -3,6 +3,7 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.CoursePerWeekEntity;
 import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public interface CoursePerWeekRepository extends JpaRepository<CoursePerWeekEnti
     List<CoursePerWeekEntity> findByCourseId(@Param("courseId") Long courseId);
 
     @Transactional
+    @Modifying
     @Query("delete from CoursePerWeekEntity c where c.courseId = :courseId")
     void deleteByCourseId(@Param("courseId") Long courseId);
 
