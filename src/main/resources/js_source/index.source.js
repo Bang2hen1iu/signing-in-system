@@ -130,7 +130,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         var startTime = parser.getDate();
         parser.parse(bar.endTime);
         var endTime = parser.getDate();
-        var width = 100 * (endTime.getTime() - startTime.getTime()) / (1000 * 18 * 3600) + '%';
+        var width = 100 * (endTime.getTime() - startTime.getTime()) / (1000 * 24 * 3600) + '%';
         if (bar.type == 5) {
             return {'width': width, 'opacity': 0};
         }
