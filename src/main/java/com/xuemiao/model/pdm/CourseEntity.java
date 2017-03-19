@@ -20,6 +20,8 @@ public class CourseEntity {
     private int startWeek;
     @Column(name = "end_week")
     private int endWeek;
+    @Column(name = "semester_id")
+    private Long semesterId;
 
     public Long getId() {
         return id;
@@ -59,5 +61,13 @@ public class CourseEntity {
 
     public void setEndWeek(int endWeek) {
         this.endWeek = endWeek;
+    }
+
+    public Long getSemesterId() {
+        return semesterId;
+    }
+
+    public void setSemesterId(Long semesterId) {
+        this.semesterId = semesterId;
     }
 }

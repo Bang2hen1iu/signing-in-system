@@ -4,6 +4,7 @@ import com.xuemiao.api.Json.CoursePerWeekJson;
 import com.xuemiao.api.Json.CoursesInfoJson;
 import com.xuemiao.model.pdm.CourseEntity;
 import com.xuemiao.model.pdm.CoursePerWeekEntity;
+import com.xuemiao.model.pdm.SemesterEntity;
 import com.xuemiao.model.repository.CoursePerWeekRepository;
 import com.xuemiao.model.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class CoursesService {
     CoursePerWeekRepository coursePerWeekRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    SemesterService semesterService;
 
     public void saveCoursePerWeekJson(Long courseId, CoursePerWeekJson coursePerWeekJson) {
         CoursePerWeekEntity coursePerWeekEntity = new CoursePerWeekEntity();
@@ -33,7 +36,7 @@ public class CoursesService {
 
     public List<CoursesInfoJson> getCoursesJsonsByStudentId(Long studentId) {
         List<CoursesInfoJson> coursesInfoJsonList = new ArrayList<>();
-        List<CourseEntity> courseEntities = courseRepository.findByStudentId(studentId);
+        List<CourseEntity> courseEntities = courseRepository.findByStudentIdAndSemesterId(studentId, semesterService.getLatestSemester().getId());
         for (CourseEntity courseEntity : courseEntities) {
             coursesInfoJsonList.add(wrapCourseIntoJson(courseEntity));
         }
@@ -46,6 +49,7 @@ public class CoursesService {
         courseEntity.setCourseName(coursesInfoJson.getCourseName());
         courseEntity.setStartWeek(coursesInfoJson.getStartWeek());
         courseEntity.setEndWeek(coursesInfoJson.getEndWeek());
+        courseEntity.setSemesterId(semesterService.getLatestSemester().getId());
         courseRepository.save(courseEntity);
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
             if (coursePerWeekJson == null) {

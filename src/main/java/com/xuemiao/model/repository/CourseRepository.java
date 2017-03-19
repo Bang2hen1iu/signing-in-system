@@ -14,11 +14,13 @@ import java.util.List;
  */
 @Component
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
-    @Query("select c from CourseEntity c where c.studentId = :studentId and (:currentWeek between c.startWeek and c.endWeek)")
-    List<CourseEntity> getCoursesByStudentAndWeek(@Param("studentId") Long studentId,
-                                                  @Param("currentWeek") int currentWeek);
+    @Query("select c from CourseEntity c where c.studentId = :studentId and (:currentWeek between c.startWeek and c.endWeek) and c.semesterId = :semesterId")
+    List<CourseEntity> getCoursesByStudentAndWeekAndSemesterId(@Param("studentId") Long studentId,
+                                                  @Param("currentWeek") int currentWeek, @Param("semesterId") Long semesterId);
 
     List<CourseEntity> findByStudentId(Long studentId);
+
+    List<CourseEntity> findByStudentIdAndSemesterId(Long studentId, Long semesterId);
 
     @Transactional
     @Query("delete from CourseEntity s where s.studentId = :studentId")

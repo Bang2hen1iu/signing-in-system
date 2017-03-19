@@ -272,7 +272,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
     $scope.delSemester = function () {
         $http({
             method: 'DELETE',
-            url: '/api/semesters/deletion' + $scope.toDeleteSemester.id
+            url: '/api/semesters/deletion/' + $scope.toDeleteSemester.id
         }).success(function (data) {
             $scope.semesterData = data;
         });
@@ -293,6 +293,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
     $(function () {
         $scope.toAddSemesterData = {};
         $scope.toAddSemesterData.startDate = new Date();
+        $scope.getSemesters();
     });
 }]);
 

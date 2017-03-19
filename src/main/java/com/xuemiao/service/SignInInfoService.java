@@ -43,6 +43,9 @@ public class SignInInfoService {
     CourseRepository courseRepository;
     @Autowired
     CoursePerWeekRepository coursePerWeekRepository;
+    @Autowired
+    SemesterService semesterService;
+
 
     private Long checkFingerPrint(String fingerprint) {
         FingerprintPK fingerprintPK = new FingerprintPK();
@@ -154,7 +157,7 @@ public class SignInInfoService {
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }
 
-        List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeek(signInInfoV2Entity.getStudentId(), currentWeek);
+        List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeekAndSemesterId(signInInfoV2Entity.getStudentId(), currentWeek, semesterService.checkSemesterByDate(signInInfoV2Entity.getOperDate()));
         for (CourseEntity courseEntity : courseEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday);
             if (signInInfoTimeSegment != null) {
