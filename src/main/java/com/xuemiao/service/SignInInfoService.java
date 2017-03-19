@@ -132,7 +132,8 @@ public class SignInInfoService {
     //0--now in, 1--previously in, 2--course, 3--absences, 4--not in
     private SignInInfoJson wrapSignInInfoIntoJson(SignInInfoV2Entity signInInfoV2Entity) {
         DateTime dateTime = new DateTime(signInInfoV2Entity.getOperDate());
-        DateTime startDate = DateTime.parse(courseStartDateString);
+
+        DateTime startDate = DateUtils.date2DateTime(semesterService.checkSemesterByDate(signInInfoV2Entity.getOperDate()).getStartDate());
         int currentWeek = DateUtils.getCurrentWeek(startDate, dateTime);
         int currentWeekday = DateUtils.getCurrentWeekDay(startDate, dateTime);
 
@@ -157,7 +158,7 @@ public class SignInInfoService {
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }
 
-        List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeekAndSemesterId(signInInfoV2Entity.getStudentId(), currentWeek, semesterService.checkSemesterByDate(signInInfoV2Entity.getOperDate()));
+        List<CourseEntity> courseEntities = courseRepository.getCoursesByStudentAndWeekAndSemesterId(signInInfoV2Entity.getStudentId(), currentWeek, semesterService.checkSemesterByDate(signInInfoV2Entity.getOperDate()).getId());
         for (CourseEntity courseEntity : courseEntities) {
             SignInInfoTimeSegment signInInfoTimeSegment = wrapCourseIntoSignInCourseInfoJson(courseEntity, currentWeekday);
             if (signInInfoTimeSegment != null) {

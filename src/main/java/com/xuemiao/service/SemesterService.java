@@ -25,15 +25,18 @@ public class SemesterService {
         return semesterRepository.findSemestersOrderByStartDateDesc();
     }
 
-    public Long checkSemesterByDate(Date date){
+    public SemesterEntity checkSemesterByDate(Date date){
         List<SemesterEntity> semesterEntities = getSemesterDescByStartDate();
-        Long semesterId = null;
+        SemesterEntity targetSemesterEntity = null;
         for (SemesterEntity semesterEntity : semesterEntities){
             if (date.compareTo(semesterEntity.getStartDate()) >= 0){
-                semesterId = semesterEntity.getId();
+                targetSemesterEntity = semesterEntity;
                 break;
             }
         }
-        return semesterId;
+        return targetSemesterEntity;
     }
+
+
+
 }

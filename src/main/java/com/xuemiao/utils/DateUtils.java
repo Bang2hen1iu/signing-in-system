@@ -63,6 +63,10 @@ public class DateUtils {
         return sdf1.format(date);
     }
 
+    public static DateTime date2DateTime(Date date){
+        return new DateTime(date.getTime());
+    }
+
     private static int getDiffDays(DateTime startDate, DateTime currentDate) {
         return (int) ((currentDate.getMillis() - startDate.getMillis()) / 86400000);
     }
