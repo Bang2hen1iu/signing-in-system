@@ -12,9 +12,11 @@
                     <form class="form-horizontal">
                         <div class="input-group">
                             <input class="form-control" type="date" ng-model="startDate">
-                            <button type="button" class="btn btn-info" data-toggle="modal" ng-click="addSemester()">
-                                <span class="glyphicon glyphicon-plus"></span> 新增学期
-                            </button>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-info" data-toggle="modal" ng-click="addSemester()">
+                                    <span class="glyphicon glyphicon-plus"></span> 新增学期
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

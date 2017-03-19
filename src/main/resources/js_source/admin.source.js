@@ -291,7 +291,8 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
     };
 
     $(function () {
-        $scope.toAddSemesterData = null;
+        $scope.toAddSemesterData = {};
+        $scope.toAddSemesterData.startDate = new Date();
     });
 }]);
 
