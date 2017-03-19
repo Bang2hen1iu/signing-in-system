@@ -176,7 +176,7 @@ public class SignInInfoService {
 
         if (signInInfoTimeSegments.size() == 0) {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
-            signInInfoTimeSegment.setStartTime("06:00");
+            signInInfoTimeSegment.setStartTime("00:00");
             signInInfoTimeSegment.setType(4);
             if (DateUtils.isToday(signInDate)) {
                 signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
@@ -214,13 +214,13 @@ public class SignInInfoService {
 
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             if ((DateUtils.isTimeBeforeNow(startTimeTemp)) || (!DateUtils.isToday(signInDate))) {
-                signInInfoTimeSegment.setStartTime("06:00");
+                signInInfoTimeSegment.setStartTime("00:00");
                 signInInfoTimeSegment.setEndTime(startTimeTemp);
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setExtra("不在实验室");
                 signInInfoTimeSegmentsTemp.add(signInInfoTimeSegment);
             } else if (!DateUtils.isTimeBeforeNow(startTimeTemp)) {
-                signInInfoTimeSegment.setStartTime("06:00");
+                signInInfoTimeSegment.setStartTime("00:00");
                 signInInfoTimeSegment.setEndTime(DateUtils.getNowHourMinuteStr());
                 signInInfoTimeSegment.setType(4);
                 signInInfoTimeSegment.setExtra("不在实验室");
