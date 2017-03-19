@@ -81,6 +81,7 @@ public class CoursesService {
 
     private CoursesInfoJson wrapCourseIntoJson(CourseEntity courseEntity) {
         CoursesInfoJson coursesInfoJson = new CoursesInfoJson();
+        coursesInfoJson.setId(courseEntity.getId());
         coursesInfoJson.setStudentId(courseEntity.getStudentId());
         coursesInfoJson.setCourseName(courseEntity.getCourseName());
         coursesInfoJson.setStartWeek(courseEntity.getStartWeek());
