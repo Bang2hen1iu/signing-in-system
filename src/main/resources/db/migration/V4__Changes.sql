@@ -5,4 +5,5 @@ CREATE TABLE semester (
 
 ALTER TABLE course
   ADD semester_id BIGINT;
+ALTER TABLE course
   ADD FOREIGN KEY (semester_id) REFERENCES semester (id);
