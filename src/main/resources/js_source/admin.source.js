@@ -274,7 +274,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
             method: 'DELETE',
             url: '/api/semesters/deletion/' + $scope.toDeleteSemester.id
         }).success(function (data) {
-            $scope.semesterData = data;
+            $scope.getSemesters();
         });
     };
     $scope.addSemester = function () {
