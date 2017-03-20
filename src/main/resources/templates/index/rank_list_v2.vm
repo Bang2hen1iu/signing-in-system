@@ -17,7 +17,7 @@
                 <div class="form-group col-md-10" style="margin-top:13px ">
                     <div class="progress">
                         <div data-toggle="tooltip" title="{{student.stayLabTimeStr}}小时"
-                             class="progress-bar palette palette-wisteria"
+                             class="progress-bar palette palette-bar-rank palette-wisteria"
                              ng-style="getProgressBarWidth(student.stayLabTime)"></div>
                     </div>
                 </div>
