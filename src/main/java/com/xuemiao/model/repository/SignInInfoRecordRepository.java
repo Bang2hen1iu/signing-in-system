@@ -25,5 +25,5 @@ public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoReco
     @Transactional
     @Modifying
     @Query("delete from SignInInfoRecordEntity s where s.signInInfoId = :signInInfoId")
-    void deleteBySignInInfoId(Long signInInfoId);
+    void deleteBySignInInfoId(@Param("signInInfoId") Long signInInfoId);
 }
