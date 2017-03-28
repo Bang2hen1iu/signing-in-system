@@ -169,7 +169,7 @@
                     </div>
                     <div class="form-group has-error">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="input-group">
+                            <div class="input-group focus">
                                 <span class="input-group-addon" id="reason-addon">原由</span>
                                 <input type="text" class="form-control" name="reason" aria-describedby="reason-addon"
                                        ng-model="askForAbsenceStudent.absenceReason" required>
@@ -178,17 +178,17 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div class="input-group has-success">
+                            <div class="input-group focus">
                                 <span class="input-group-addon" id="startAbsence-addon">开始时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                <input placeholder="HH:mm:ss" min="06:00:00" max="23:00:00" type="time"
                                        class="form-control" name="startAbsence" aria-describedby="startAbsence-addon"
                                        ng-model="askForAbsenceStudent.startAbsence">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div class="input-group has-success">
+                            <div class="input-group focus">
                                 <span class="input-group-addon" id="endAbsence-addon">结束时间</span>
-                                <input placeholder="HH:mm:ss" min="09:00:00" max="21:30:00" type="time"
+                                <input placeholder="HH:mm:ss" min="06:00:00" max="23:00:00" type="time"
                                        class="form-control" name="endAbsence" aria-describedby="endAbsence-addon"
                                        ng-model="askForAbsenceStudent.endAbsence">
                             </div>

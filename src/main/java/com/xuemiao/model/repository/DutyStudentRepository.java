@@ -3,6 +3,7 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.primaryKey.DutyStudentPK;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -20,5 +21,6 @@ public interface DutyStudentRepository extends JpaRepository<DutyStudentEntity, 
     List<DutyStudentEntity> findByOperDate(@Param("date") Date date);
 
     @Transactional
+    @Modifying
     void deleteByStudentId(Long studentId);
 }

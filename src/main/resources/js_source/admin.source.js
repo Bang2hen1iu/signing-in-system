@@ -70,7 +70,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.delStudent = function () {
         $http({
             method: 'DELETE',
-            url: '/api/student/deletion/' + $scope.toDeleteStudent.studentId
+            url: '/api/students/deletion/' + $scope.toDeleteStudent.studentId
         }).success(function () {
             alert("删除成功！");
             $scope.toDeleteStudent = null;
@@ -128,9 +128,16 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.copyToModifyCourse = function (course) {
         $scope.toModifyCourseData = course;
-        $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
-        $scope.coursePerWeekJsonList2 = course.coursePerWeekJsonList[1];
-        $scope.coursePerWeekJsonList3 = course.coursePerWeekJsonList[2];
+        var coursePerWeekLength = course.coursePerWeekJsonList.length;
+        if (coursePerWeekLength >= 1){
+            $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
+        }
+        else if (coursePerWeekLength >= 2){
+            $scope.coursePerWeekJsonList2 = course.coursePerWeekJsonList[1];
+        }
+        else if (coursePerWeekLength >= 3) {
+            $scope.coursePerWeekJsonList3 = course.coursePerWeekJsonList[2];
+        }
     };
     $scope.copyToDeleteCourse = function (course) {
         $scope.toDeleteCourseData = course;
