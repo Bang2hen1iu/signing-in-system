@@ -2,6 +2,7 @@ package com.xuemiao.model.repository;
 
 import com.xuemiao.model.pdm.SignInInfoV2Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,7 @@ public interface SignInInfoV2Repository extends JpaRepository<SignInInfoV2Entity
     Date getLatestSignInInfoDate();
 
     @Transactional
+    @Modifying
     @Query("delete from SignInInfoV2Entity s where s.studentId = :studentId")
     void deleteByStudentId(@Param("studentId") Long studentId);
 

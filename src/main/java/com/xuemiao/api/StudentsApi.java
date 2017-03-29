@@ -101,7 +101,7 @@ public class StudentsApi {
                                       @CookieParam("token") String tokenString)
             throws TokenInvalidException {
         cookieService.checkTokenCookie(tokenString);
-        studentsService.deleteStudentById(studentId);
+        studentsService.deleteDutyStudentById(studentId);
         return Response.ok().cookie(cookieService.refreshCookie(tokenString)).build();
     }
 }

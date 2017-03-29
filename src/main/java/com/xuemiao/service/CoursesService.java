@@ -66,7 +66,9 @@ public class CoursesService {
         courseRepository.save(courseEntity);
         coursePerWeekRepository.deleteByCourseId(coursesInfoJson.getId());
         for (CoursePerWeekJson coursePerWeekJson : coursesInfoJson.getCoursePerWeekJsonList()) {
-            this.saveCoursePerWeekJson(coursesInfoJson.getId(), coursePerWeekJson);
+            if (coursePerWeekJson != null){
+                this.saveCoursePerWeekJson(coursesInfoJson.getId(), coursePerWeekJson);
+            }
         }
     }
 

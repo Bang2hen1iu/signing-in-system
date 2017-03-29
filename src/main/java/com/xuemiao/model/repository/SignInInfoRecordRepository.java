@@ -3,6 +3,7 @@ package com.xuemiao.model.repository;
 import com.xuemiao.model.pdm.SignInInfoRecordEntity;
 import com.xuemiao.model.pdm.primaryKey.SignInInfoRecordPK;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ public interface SignInInfoRecordRepository extends JpaRepository<SignInInfoReco
     SignInInfoRecordEntity findOneUnfinishedSignInRecord(@Param("signInInfoId") Long signInInfoId);
 
     @Transactional
+    @Modifying
     @Query("delete from SignInInfoRecordEntity s where s.signInInfoId = :signInInfoId")
-    void deleteBySignInInfoId(Long signInInfoId);
+    void deleteBySignInInfoId(@Param("signInInfoId") Long signInInfoId);
 }
