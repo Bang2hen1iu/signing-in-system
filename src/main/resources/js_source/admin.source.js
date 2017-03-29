@@ -132,10 +132,10 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
         if (coursePerWeekLength >= 1){
             $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
         }
-        else if (coursePerWeekLength >= 2){
+        if (coursePerWeekLength >= 2){
             $scope.coursePerWeekJsonList2 = course.coursePerWeekJsonList[1];
         }
-        else if (coursePerWeekLength >= 3) {
+        if (coursePerWeekLength >= 3) {
             $scope.coursePerWeekJsonList3 = course.coursePerWeekJsonList[2];
         }
     };
@@ -143,9 +143,6 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.toDeleteCourseData = course;
     };
     $scope.modifyCourse = function () {
-        console.log($scope.coursePerWeekJsonList1);
-        console.log($scope.coursePerWeekJsonList2);
-        console.log($scope.coursePerWeekJsonList3);
         if ($scope.coursePerWeekJsonList1 != null){
             if ($scope.coursePerWeekJsonList2 != null){
                 if ($scope.coursePerWeekJsonList3 != null){
