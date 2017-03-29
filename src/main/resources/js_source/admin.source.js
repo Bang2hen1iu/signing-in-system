@@ -143,7 +143,42 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.toDeleteCourseData = course;
     };
     $scope.modifyCourse = function () {
-        $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+        if ($scope.coursePerWeekJsonList1 != null){
+            if ($scope.coursePerWeekJsonList2 != null){
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2];
+                }
+            }
+            else{
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1];
+                }
+            }
+        }
+        else{
+            if ($scope.coursePerWeekJsonList2 != null){
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList2];
+                }
+            }
+            else{
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [];
+                }
+            }
+        }
         $http({
             method: 'PUT',
             url: '/api/courses/update',
