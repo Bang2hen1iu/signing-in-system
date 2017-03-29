@@ -19,6 +19,8 @@ import java.util.List;
 public interface DutyStudentRepository extends JpaRepository<DutyStudentEntity, DutyStudentPK> {
     @Query("select d from DutyStudentEntity d where :date between d.startDate and d.endDate")
     List<DutyStudentEntity> findByOperDate(@Param("date") Date date);
-    
-    Long deleteByStudentId(Long studentId);
+
+    @Transactional
+    @Modifying
+    void deleteByStudentId(Long studentId);
 }
