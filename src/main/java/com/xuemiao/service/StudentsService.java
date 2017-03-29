@@ -88,9 +88,15 @@ public class StudentsService {
 
     public void deleteStudentById(Long id) {
         dutyStudentRepository.deleteByStudentId(id);
+        System.out.println("a_________________________");
         coursesService.deleteCourseByStudentId(id);
+        System.out.println("b_________________________");
         absencesService.deleteByStudentId(id);
+        System.out.println("c_________________________");
         signInInfoService.deleteSignInInfoByStudentId(id);
+        System.out.println("d_________________________");
+        fingerprintRepository.deleteByStudentId(id);
+        System.out.println("e_________________________");
         studentRepository.delete(id);
     }
 

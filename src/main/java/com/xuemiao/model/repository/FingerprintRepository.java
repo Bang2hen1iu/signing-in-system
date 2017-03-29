@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface FingerprintRepository extends JpaRepository<FingerprintEntity, FingerprintPK> {
     FingerprintEntity findByToken(String token);
+    void deleteByStudentId(Long studentId);
 }
