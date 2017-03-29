@@ -20,5 +20,5 @@ public interface DutyStudentRepository extends JpaRepository<DutyStudentEntity, 
     @Query("select d from DutyStudentEntity d where :date between d.startDate and d.endDate")
     List<DutyStudentEntity> findByOperDate(@Param("date") Date date);
     
-    void deleteByStudentId(Long studentId);
+    Long deleteByStudentId(Long studentId);
 }
