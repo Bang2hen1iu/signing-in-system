@@ -128,6 +128,8 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.copyToModifyCourse = function (course) {
         $scope.toModifyCourseData = course;
+        console.log(course.coursePerWeekJsonList.length);
+        console.log(course.coursePerWeekJsonList);
         var coursePerWeekLength = course.coursePerWeekJsonList.length;
         if (coursePerWeekLength >= 1){
             $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
