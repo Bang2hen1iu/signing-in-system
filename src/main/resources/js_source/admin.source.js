@@ -51,7 +51,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
             url: '/api/students/addition',
             data: $scope.toAddStudentData
         }).success(function (data) {
-            alert("新增学生成功！");
+            alert("添加学生成功！");
             $scope.toAddStudentData = null;
             $scope.getStudent();
         });
@@ -72,7 +72,7 @@ app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
             method: 'DELETE',
             url: '/api/students/deletion/' + $scope.toDeleteStudent.studentId
         }).success(function () {
-            alert("删除成功！");
+            alert("删除学生成功！");
             $scope.toDeleteStudent = null;
             $scope.getStudent();
         });
@@ -118,7 +118,7 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
             url: '/api/courses/addition',
             data: $scope.toAddCourseData
         }).success(function () {
-            alert("新增课程成功！");
+            alert("添加课程成功！");
             $scope.toAddCourseData = null;
             $scope.coursePerWeekJsonList1 = null;
             $scope.coursePerWeekJsonList2 = null;
@@ -244,7 +244,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
             url: '/api/students/duty_students/addition',
             data: $scope.toAddDutyData
         }).success(function (data) {
-            alert("添加成功！");
+            alert("添加值日生成功！");
             $scope.toAddDutyData.studentId = null;
             $scope.hint = '请选择值日生';
             $scope.getDutyStudent();
@@ -255,7 +255,7 @@ app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) 
             method: 'DELETE',
             url: '/api/students/duty_students/deletion/' + id
         }).success(function (data) {
-            alert("删除成功！");
+            alert("删除值日生成功！");
             $scope.getDutyStudent();
         });
     };
@@ -316,6 +316,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
             method: 'DELETE',
             url: '/api/semesters/deletion/' + $scope.toDeleteSemester.id
         }).success(function (data) {
+            alert("删除学期成功！");
             $scope.getSemesters();
         });
     };
@@ -328,6 +329,7 @@ app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope
             url: '/api/semesters/addition',
             data: $scope.toAddSemesterData
         }).success(function (data) {
+            alert("添加学期成功！");
             $scope.getSemesters();
         });
     };

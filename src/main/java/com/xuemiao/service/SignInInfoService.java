@@ -132,6 +132,7 @@ public class SignInInfoService {
         DateTime dateTime = new DateTime(signInInfoV2Entity.getOperDate());
 
         DateTime startDate = DateUtils.date2DateTime(semesterService.checkSemesterByDate(signInInfoV2Entity.getOperDate()).getStartDate());
+
         int currentWeek = DateUtils.getCurrentWeek(startDate, dateTime);
         int currentWeekday = DateUtils.getCurrentWeekDay(startDate, dateTime);
 
