@@ -143,6 +143,9 @@ app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
         $scope.toDeleteCourseData = course;
     };
     $scope.modifyCourse = function () {
+        console.log($scope.coursePerWeekJsonList1);
+        console.log($scope.coursePerWeekJsonList2);
+        console.log($scope.coursePerWeekJsonList3);
         if ($scope.coursePerWeekJsonList1 != null){
             if ($scope.coursePerWeekJsonList2 != null){
                 if ($scope.coursePerWeekJsonList3 != null){

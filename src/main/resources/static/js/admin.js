@@ -1,1 +1,364 @@
-var _0x8992=["\x73\x69\x67\x6E\x49\x6E\x53\x79\x73","\x6E\x67\x52\x6F\x75\x74\x65","\x64\x61\x74\x65\x74\x69\x6D\x65","\x61\x6E\x67\x75\x6C\x61\x72\x2D\x74\x6F\x41\x72\x72\x61\x79\x46\x69\x6C\x74\x65\x72","\x6D\x6F\x64\x75\x6C\x65","\x73\x69\x67\x6E\x49\x6E\x53\x79\x73\x43\x74\x72\x6C","\x24\x73\x63\x6F\x70\x65","\x24\x68\x74\x74\x70","\x74\x65\x73\x74\x54\x6F\x6B\x65\x6E","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x2F\x61\x64\x6D\x69\x6E\x2F\x6C\x6F\x67\x69\x6E","\x65\x72\x72\x6F\x72","\u7528\u6237\x74\x6F\x6B\x65\x6E\u9A8C\u8BC1\u901A\u8FC7","\x6C\x6F\x67","\x73\x75\x63\x63\x65\x73\x73","\x47\x45\x54","\x2F\x61\x70\x69\x2F\x61\x64\x6D\x69\x6E\x2F\x74\x6F\x6B\x65\x6E\x5F\x76\x61\x6C\x69\x64\x61\x74\x69\x6F\x6E","\x63\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72","\x6E\x61\x76\x62\x61\x72\x5F\x63\x74\x72\x6C","\x6C\x6F\x67\x6F\x75\x74","\x44\x45\x4C\x45\x54\x45","\x2F\x61\x70\x69\x2F\x61\x64\x6D\x69\x6E\x2F\x6C\x6F\x67\x6F\x75\x74","\x61\x64\x6D\x69\x6E\x50\x61\x73\x73\x77\x6F\x72\x64","","\x6C\x61\x62\x50\x61\x73\x73\x77\x6F\x72\x64","\x73\x74\x75\x64\x65\x6E\x74\x73\x43\x74\x72\x6C","\x72\x65\x67\x69\x73\x74\x65\x72\x53\x74\x75\x64\x65\x6E\x74","\x66\x69\x6E\x67\x65\x72\x70\x72\x69\x6E\x74","\x52\x65\x67\x69\x73\x74\x65\x72\x54\x65\x6D\x70\x6C\x61\x74\x65","\u767B\u8BB0\u6307\u7EB9\u5931\u8D25","\u5DF2\u6210\u529F\u767B\u8BB0\u6307\u7EB9\uFF01\x0A\u53EF\u518D\u6B21\u70B9\u51FB\u6309\u94AE\uFF0C\u7EE7\u7EED\u767B\u8BB0\u5176\u4ED6\u624B\u6307","\x50\x4F\x53\x54","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x72\x65\x67\x69\x73\x74\x65\x72\x69\x6E\x67","\x61\x64\x64\x53\x74\x75\x64\x65\x6E\x74","\u65B0\u589E\u5B66\u751F\u6210\u529F\uFF01","\x74\x6F\x41\x64\x64\x53\x74\x75\x64\x65\x6E\x74\x44\x61\x74\x61","\x67\x65\x74\x53\x74\x75\x64\x65\x6E\x74","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x61\x64\x64\x69\x74\x69\x6F\x6E","\x73\x74\x75\x64\x65\x6E\x74\x44\x61\x74\x61","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73","\x63\x6F\x70\x79\x54\x6F\x44\x65\x6C\x65\x74\x65\x53\x74\x75\x64\x65\x6E\x74","\x74\x6F\x44\x65\x6C\x65\x74\x65\x53\x74\x75\x64\x65\x6E\x74","\x64\x65\x6C\x53\x74\x75\x64\x65\x6E\x74","\u5220\u9664\u6210\u529F\uFF01","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x64\x65\x6C\x65\x74\x69\x6F\x6E\x2F","\x73\x74\x75\x64\x65\x6E\x74\x49\x64","\x63\x6F\x75\x72\x73\x65\x73\x43\x74\x72\x6C","\x73\x77\x69\x74\x63\x68\x53\x74\x75\x64\x65\x6E\x74\x43\x6F\x75\x72\x73\x65","\x63\x75\x72\x72\x65\x6E\x74\x53\x74\x75\x64\x65\x6E\x74\x49\x64","\x68\x69\x6E\x74","\x6E\x61\x6D\x65","\x67\x65\x74\x43\x6F\x75\x72\x73\x65\x73","\x63\x6F\x75\x72\x73\x65\x44\x61\x74\x61","\x2F\x61\x70\x69\x2F\x63\x6F\x75\x72\x73\x65\x73\x2F","\x61\x64\x64\x43\x6F\x75\x72\x73\x65","\u8BF7\u5148\u9009\u62E9\u5B66\u751F\uFF01","\x74\x6F\x41\x64\x64\x43\x6F\x75\x72\x73\x65\x44\x61\x74\x61","\x63\x6F\x75\x72\x73\x65\x50\x65\x72\x57\x65\x65\x6B\x4A\x73\x6F\x6E\x4C\x69\x73\x74","\x63\x6F\x75\x72\x73\x65\x50\x65\x72\x57\x65\x65\x6B\x4A\x73\x6F\x6E\x4C\x69\x73\x74\x31","\x63\x6F\x75\x72\x73\x65\x50\x65\x72\x57\x65\x65\x6B\x4A\x73\x6F\x6E\x4C\x69\x73\x74\x32","\x63\x6F\x75\x72\x73\x65\x50\x65\x72\x57\x65\x65\x6B\x4A\x73\x6F\x6E\x4C\x69\x73\x74\x33","\u65B0\u589E\u8BFE\u7A0B\u6210\u529F\uFF01","\x2F\x61\x70\x69\x2F\x63\x6F\x75\x72\x73\x65\x73\x2F\x61\x64\x64\x69\x74\x69\x6F\x6E","\x63\x6F\x70\x79\x54\x6F\x4D\x6F\x64\x69\x66\x79\x43\x6F\x75\x72\x73\x65","\x74\x6F\x4D\x6F\x64\x69\x66\x79\x43\x6F\x75\x72\x73\x65\x44\x61\x74\x61","\x6C\x65\x6E\x67\x74\x68","\x63\x6F\x70\x79\x54\x6F\x44\x65\x6C\x65\x74\x65\x43\x6F\x75\x72\x73\x65","\x74\x6F\x44\x65\x6C\x65\x74\x65\x43\x6F\x75\x72\x73\x65\x44\x61\x74\x61","\x6D\x6F\x64\x69\x66\x79\x43\x6F\x75\x72\x73\x65","\u4FEE\u6539\u8BFE\u7A0B\u6210\u529F\uFF01","\x50\x55\x54","\x2F\x61\x70\x69\x2F\x63\x6F\x75\x72\x73\x65\x73\x2F\x75\x70\x64\x61\x74\x65","\x64\x65\x6C\x43\x6F\x75\x72\x73\x65","\u5220\u9664\u8BFE\u7A0B\u6210\u529F\uFF01","\x2F\x61\x70\x69\x2F\x63\x6F\x75\x72\x73\x65\x73\x2F\x64\x65\x6C\x65\x74\x69\x6F\x6E\x2F","\x69\x64","\u8BF7\u9009\u62E9\u5B66\u751F","\x64\x75\x74\x79\x53\x74\x75\x64\x65\x6E\x74\x73\x43\x74\x72\x6C","\x67\x65\x74\x44\x75\x74\x79\x53\x74\x75\x64\x65\x6E\x74","\x64\x75\x74\x79\x53\x74\x75\x64\x65\x6E\x74\x44\x61\x74\x61","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x64\x75\x74\x79\x5F\x73\x74\x75\x64\x65\x6E\x74\x73","\x73\x77\x69\x74\x63\x68\x53\x74\x75\x64\x65\x6E\x74","\x74\x6F\x41\x64\x64\x44\x75\x74\x79\x44\x61\x74\x61","\x61\x64\x64\x44\x75\x74\x79\x53\x74\x75\x64\x65\x6E\x74","\u6DFB\u52A0\u6210\u529F\uFF01","\u8BF7\u9009\u62E9\u503C\u65E5\u751F","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x64\x75\x74\x79\x5F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x61\x64\x64\x69\x74\x69\x6F\x6E","\x64\x65\x6C\x44\x75\x74\x79\x53\x74\x75\x64\x65\x6E\x74","\x2F\x61\x70\x69\x2F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x64\x75\x74\x79\x5F\x73\x74\x75\x64\x65\x6E\x74\x73\x2F\x64\x65\x6C\x65\x74\x69\x6F\x6E\x2F","\x73\x74\x61\x72\x74\x44\x61\x74\x65","\x65\x6E\x64\x44\x61\x74\x65","\x73\x74\x61\x74\x69\x73\x74\x69\x63\x73\x43\x74\x72\x6C","\x71\x75\x65\x72\x79\x53\x74\x61\x74\x69\x73\x74\x69\x63","\x79\x79\x79\x79\x2D\x4D\x4D\x2D\x64\x64","\x73\x65\x74\x44\x61\x74\x65","\x74\x6F\x51\x75\x65\x72\x79\x44\x61\x74\x61","\x67\x65\x74\x54\x65\x78\x74","\x6D\x61\x78\x53\x74\x61\x79\x4C\x61\x62\x54\x69\x6D\x65","\x73\x74\x61\x79\x4C\x61\x62\x54\x69\x6D\x65","\x6D\x61\x70","\x61\x70\x70\x6C\x79","\x6D\x61\x78","\x73\x74\x61\x74\x69\x73\x74\x69\x63\x73","\x2F\x61\x70\x69\x2F\x73\x74\x61\x74\x69\x73\x74\x69\x63\x73\x2F\x72\x61\x6E\x67\x65\x5F\x71\x75\x65\x72\x79\x3F\x73\x74\x61\x72\x74\x44\x61\x74\x65\x3D","\x26\x65\x6E\x64\x44\x61\x74\x65\x3D","\x67\x65\x74\x50\x72\x6F\x67\x72\x65\x73\x73\x42\x61\x72\x57\x69\x64\x74\x68","\x25","\x73\x65\x6D\x65\x73\x74\x65\x72\x73\x43\x74\x72\x6C","\x67\x65\x74\x53\x65\x6D\x65\x73\x74\x65\x72\x73","\x73\x65\x6D\x65\x73\x74\x65\x72\x44\x61\x74\x61","\x2F\x61\x70\x69\x2F\x73\x65\x6D\x65\x73\x74\x65\x72\x73","\x63\x6F\x70\x79\x54\x6F\x44\x65\x6C\x65\x74\x65\x53\x65\x6D\x65\x73\x74\x65\x72","\x74\x6F\x44\x65\x6C\x65\x74\x65\x53\x65\x6D\x65\x73\x74\x65\x72","\x64\x65\x6C\x53\x65\x6D\x65\x73\x74\x65\x72","\x2F\x61\x70\x69\x2F\x73\x65\x6D\x65\x73\x74\x65\x72\x73\x2F\x64\x65\x6C\x65\x74\x69\x6F\x6E\x2F","\x61\x64\x64\x53\x65\x6D\x65\x73\x74\x65\x72","\x74\x6F\x41\x64\x64\x53\x65\x6D\x65\x73\x74\x65\x72\x44\x61\x74\x61","\x2F\x61\x70\x69\x2F\x73\x65\x6D\x65\x73\x74\x65\x72\x73\x2F\x61\x64\x64\x69\x74\x69\x6F\x6E","\x24\x72\x6F\x75\x74\x65\x50\x72\x6F\x76\x69\x64\x65\x72","\x2F\x73\x65\x6D\x65\x73\x74\x65\x72\x73","\x73\x65\x6D\x65\x73\x74\x65\x72\x73","\x77\x68\x65\x6E","\x2F\x73\x74\x61\x74\x69\x73\x74\x69\x63\x73","\x2F\x64\x75\x74\x79\x5F\x73\x74\x75\x64\x65\x6E\x74\x73","\x64\x75\x74\x79\x5F\x73\x74\x75\x64\x65\x6E\x74\x73","\x2F\x63\x6F\x75\x72\x73\x65\x73","\x63\x6F\x75\x72\x73\x65\x73","\x2F\x73\x74\x75\x64\x65\x6E\x74\x73","\x73\x74\x75\x64\x65\x6E\x74\x73","\x2F","\x61\x64\x6D\x69\x6E\x5F\x77\x65\x6C\x63\x6F\x6D\x65","\x63\x6F\x6E\x66\x69\x67"];var app=angular[_0x8992[4]](_0x8992[0],[_0x8992[1],_0x8992[2],_0x8992[3]]);app[_0x8992[17]](_0x8992[5],[_0x8992[6],_0x8992[7],function(_0xf153x2,_0xf153x3){_0xf153x2[_0x8992[8]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[16]})[_0x8992[14]](function(){console[_0x8992[13]](_0x8992[12])})[_0x8992[11]](function(){window[_0x8992[9]]= _0x8992[10]})};$(function(){_0xf153x2[_0x8992[8]]()})}]);app[_0x8992[17]](_0x8992[18],[_0x8992[6],_0x8992[7],function(_0xf153x2,_0xf153x3){_0xf153x2[_0x8992[19]]= function(){_0xf153x3({method:_0x8992[20],url:_0x8992[21]})[_0x8992[14]](function(){window[_0x8992[9]]= _0x8992[10]})};$(function(){_0xf153x2[_0x8992[22]]= _0x8992[23];_0xf153x2[_0x8992[24]]= _0x8992[23]})}]);app[_0x8992[17]](_0x8992[25],[_0x8992[6],_0x8992[7],function(_0xf153x2,_0xf153x3){_0xf153x2[_0x8992[26]]= function(_0xf153x4){zkonline.Register();_0xf153x4[_0x8992[27]]= zkonline[_0x8992[28]];if(_0xf153x4[_0x8992[27]]== _0x8992[23]|| _0xf153x4[_0x8992[27]]== null){return};_0xf153x3({method:_0x8992[31],url:_0x8992[32],data:_0xf153x4})[_0x8992[14]](function(){alert(_0x8992[30])})[_0x8992[11]](function(){alert(_0x8992[29])})};_0xf153x2[_0x8992[33]]= function(){_0xf153x3({method:_0x8992[31],url:_0x8992[37],data:_0xf153x2[_0x8992[35]]})[_0x8992[14]](function(_0xf153x5){alert(_0x8992[34]);_0xf153x2[_0x8992[35]]= null;_0xf153x2[_0x8992[36]]()})};_0xf153x2[_0x8992[36]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[39]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[38]]= _0xf153x5})};_0xf153x2[_0x8992[40]]= function(_0xf153x4){_0xf153x2[_0x8992[41]]= _0xf153x4};_0xf153x2[_0x8992[42]]= function(){_0xf153x3({method:_0x8992[20],url:_0x8992[44]+ _0xf153x2[_0x8992[41]][_0x8992[45]]})[_0x8992[14]](function(){alert(_0x8992[43]);_0xf153x2[_0x8992[41]]= null;_0xf153x2[_0x8992[36]]()})};$(function(){_0xf153x2[_0x8992[38]]= null;_0xf153x2[_0x8992[35]]= null;_0xf153x2[_0x8992[36]]()})}]);app[_0x8992[17]](_0x8992[46],[_0x8992[6],_0x8992[7],function(_0xf153x2,_0xf153x3){_0xf153x2[_0x8992[36]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[39]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[38]]= _0xf153x5})};_0xf153x2[_0x8992[47]]= function(_0xf153x4){_0xf153x2[_0x8992[48]]= _0xf153x4[_0x8992[45]];_0xf153x2[_0x8992[49]]= _0xf153x4[_0x8992[50]];_0xf153x2[_0x8992[51]]()};_0xf153x2[_0x8992[51]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[53]+ _0xf153x2[_0x8992[48]]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[52]]= _0xf153x5})};_0xf153x2[_0x8992[54]]= function(){if(_0xf153x2[_0x8992[48]]== null){alert(_0x8992[55]);return};_0xf153x2[_0x8992[56]][_0x8992[45]]= _0xf153x2[_0x8992[48]];_0xf153x2[_0x8992[56]][_0x8992[57]]= [_0xf153x2[_0x8992[58]],_0xf153x2[_0x8992[59]],_0xf153x2[_0x8992[60]]];_0xf153x3({method:_0x8992[31],url:_0x8992[62],data:_0xf153x2[_0x8992[56]]})[_0x8992[14]](function(){alert(_0x8992[61]);_0xf153x2[_0x8992[56]]= null;_0xf153x2[_0x8992[58]]= null;_0xf153x2[_0x8992[59]]= null;_0xf153x2[_0x8992[60]]= null;_0xf153x2[_0x8992[51]]()})};_0xf153x2[_0x8992[63]]= function(_0xf153x6){_0xf153x2[_0x8992[64]]= _0xf153x6;var _0xf153x7=_0xf153x6[_0x8992[57]][_0x8992[65]];if(_0xf153x7>= 1){_0xf153x2[_0x8992[58]]= _0xf153x6[_0x8992[57]][0]}else {if(_0xf153x7>= 2){_0xf153x2[_0x8992[59]]= _0xf153x6[_0x8992[57]][1]}else {if(_0xf153x7>= 3){_0xf153x2[_0x8992[60]]= _0xf153x6[_0x8992[57]][2]}}}};_0xf153x2[_0x8992[66]]= function(_0xf153x6){_0xf153x2[_0x8992[67]]= _0xf153x6};_0xf153x2[_0x8992[68]]= function(){_0xf153x2[_0x8992[64]][_0x8992[57]]= [_0xf153x2[_0x8992[58]],_0xf153x2[_0x8992[59]],_0xf153x2[_0x8992[60]]];_0xf153x3({method:_0x8992[70],url:_0x8992[71],data:_0xf153x2[_0x8992[64]]})[_0x8992[14]](function(){alert(_0x8992[69]);_0xf153x2[_0x8992[64]]= null;_0xf153x2[_0x8992[58]]= null;_0xf153x2[_0x8992[59]]= null;_0xf153x2[_0x8992[60]]= null;_0xf153x2[_0x8992[51]]()})};_0xf153x2[_0x8992[72]]= function(){_0xf153x3({method:_0x8992[20],url:_0x8992[74]+ _0xf153x2[_0x8992[67]][_0x8992[75]]})[_0x8992[14]](function(){alert(_0x8992[73]);_0xf153x2[_0x8992[67]]= null;_0xf153x2[_0x8992[51]]()})};$(function(){_0xf153x2[_0x8992[49]]= _0x8992[76];_0xf153x2[_0x8992[38]]= null;_0xf153x2[_0x8992[48]]= null;_0xf153x2[_0x8992[52]]= null;_0xf153x2[_0x8992[56]]= null;_0xf153x2[_0x8992[64]]= null;_0xf153x2[_0x8992[67]]= null;_0xf153x2[_0x8992[58]]= null;_0xf153x2[_0x8992[59]]= null;_0xf153x2[_0x8992[60]]= null;_0xf153x2[_0x8992[36]]()})}]);app[_0x8992[17]](_0x8992[77],[_0x8992[6],_0x8992[7],function(_0xf153x2,_0xf153x3){_0xf153x2[_0x8992[36]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[39]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[38]]= _0xf153x5})};_0xf153x2[_0x8992[78]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[80]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[79]]= _0xf153x5})};_0xf153x2[_0x8992[81]]= function(_0xf153x4){_0xf153x2[_0x8992[82]][_0x8992[45]]= _0xf153x4[_0x8992[45]];_0xf153x2[_0x8992[49]]= _0xf153x4[_0x8992[50]]};_0xf153x2[_0x8992[83]]= function(){_0xf153x3({method:_0x8992[31],url:_0x8992[86],data:_0xf153x2[_0x8992[82]]})[_0x8992[14]](function(_0xf153x5){alert(_0x8992[84]);_0xf153x2[_0x8992[82]][_0x8992[45]]= null;_0xf153x2[_0x8992[49]]= _0x8992[85];_0xf153x2[_0x8992[78]]()})};_0xf153x2[_0x8992[87]]= function(_0xf153x8){_0xf153x3({method:_0x8992[20],url:_0x8992[88]+ _0xf153x8})[_0x8992[14]](function(_0xf153x5){alert(_0x8992[43]);_0xf153x2[_0x8992[78]]()})};$(function(){_0xf153x2[_0x8992[49]]= _0x8992[85];_0xf153x2[_0x8992[38]]= null;_0xf153x2[_0x8992[82]]= {};_0xf153x2[_0x8992[82]][_0x8992[89]]=  new Date();_0xf153x2[_0x8992[82]][_0x8992[90]]=  new Date();_0xf153x2[_0x8992[36]]();_0xf153x2[_0x8992[78]]()})}]);app[_0x8992[17]](_0x8992[91],[_0x8992[6],_0x8992[7],_0x8992[2],function(_0xf153x2,_0xf153x3,_0xf153x9){_0xf153x2[_0x8992[92]]= function(){var _0xf153xa=_0xf153x9(_0x8992[93]);_0xf153xa[_0x8992[94]](_0xf153x2[_0x8992[89]]);_0xf153x2[_0x8992[95]][_0x8992[89]]= _0xf153xa[_0x8992[96]]();_0xf153xa[_0x8992[94]](_0xf153x2[_0x8992[90]]);_0xf153x2[_0x8992[95]][_0x8992[90]]= _0xf153xa[_0x8992[96]]();_0xf153x3({method:_0x8992[15],url:_0x8992[103]+ _0xf153x2[_0x8992[95]][_0x8992[89]]+ _0x8992[104]+ _0xf153x2[_0x8992[95]][_0x8992[90]]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[97]]= Math[_0x8992[101]][_0x8992[100]](Math,_0xf153x5[_0x8992[99]](function(_0xf153xb){return _0xf153xb[_0x8992[98]]}));_0xf153x2[_0x8992[102]]= _0xf153x5;_0xf153x2[_0x8992[95]]= {}})};_0xf153x2[_0x8992[105]]= function(_0xf153xc){return {"\x77\x69\x64\x74\x68":(_0xf153xc/ (_0xf153x2[_0x8992[97]]* 1.3)* 100)+ _0x8992[106]}};$(function(){_0xf153x2[_0x8992[102]]= {};_0xf153x2[_0x8992[95]]= {};_0xf153x2[_0x8992[95]][_0x8992[89]]=  new Date();_0xf153x2[_0x8992[95]][_0x8992[90]]=  new Date();_0xf153x2[_0x8992[97]]= null})}]);app[_0x8992[17]](_0x8992[107],[_0x8992[6],_0x8992[7],_0x8992[2],function(_0xf153x2,_0xf153x3,_0xf153x9){_0xf153x2[_0x8992[108]]= function(){_0xf153x3({method:_0x8992[15],url:_0x8992[110]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[109]]= _0xf153x5})};_0xf153x2[_0x8992[111]]= function(_0xf153xd){_0xf153x2[_0x8992[112]]= _0xf153xd};_0xf153x2[_0x8992[113]]= function(){_0xf153x3({method:_0x8992[20],url:_0x8992[114]+ _0xf153x2[_0x8992[112]][_0x8992[75]]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[108]]()})};_0xf153x2[_0x8992[115]]= function(){var _0xf153xa=_0xf153x9(_0x8992[93]);_0xf153xa[_0x8992[94]](_0xf153x2[_0x8992[89]]);_0xf153x2[_0x8992[116]][_0x8992[89]]= _0xf153xa[_0x8992[96]]();_0xf153x3({method:_0x8992[31],url:_0x8992[117],data:_0xf153x2[_0x8992[116]]})[_0x8992[14]](function(_0xf153x5){_0xf153x2[_0x8992[108]]()})};$(function(){_0xf153x2[_0x8992[116]]= {};_0xf153x2[_0x8992[116]][_0x8992[89]]=  new Date();_0xf153x2[_0x8992[108]]()})}]);app[_0x8992[131]]([_0x8992[118],function(_0xf153xe){_0xf153xe[_0x8992[121]](_0x8992[129],{templateUrl:_0x8992[130]})[_0x8992[121]](_0x8992[127],{controller:_0x8992[25],templateUrl:_0x8992[128]})[_0x8992[121]](_0x8992[125],{controller:_0x8992[46],templateUrl:_0x8992[126]})[_0x8992[121]](_0x8992[123],{controller:_0x8992[77],templateUrl:_0x8992[124]})[_0x8992[121]](_0x8992[122],{controller:_0x8992[91],templateUrl:_0x8992[102]})[_0x8992[121]](_0x8992[119],{controller:_0x8992[107],templateUrl:_0x8992[120]})}])
+var app = angular.module('signInSys', ['ngRoute', 'datetime', 'angular-toArrayFilter']);
+app.controller('signInSysCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.testToken = function () {
+        $http({
+            method: 'GET',
+            url: '/api/admin/token_validation'
+        }).success(function () {
+            console.log("用户token验证通过");
+        }).error(function () {
+            window.location = '/admin/login';
+        })
+    };
+    $(function () {
+        $scope.testToken();
+    });
+}]);
+app.controller('navbar_ctrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.logout = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/admin/logout'
+        }).success(function () {
+            window.location = '/admin/login';
+        });
+    };
+    $(function () {
+        $scope.adminPassword = "";
+        $scope.labPassword = "";
+    });
+}]);
+app.controller('studentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.registerStudent = function (student) {
+        zkonline.Register();
+        student.fingerprint = zkonline.RegisterTemplate;
+        if (student.fingerprint == "" || student.fingerprint == null) {
+            return;
+        }
+        $http({
+            method: 'POST',
+            url: '/api/students/registering',
+            data: student
+        }).success(function () {
+            alert("已成功登记指纹！\n可再次点击按钮，继续登记其他手指");
+        }).error(function () {
+            alert("登记指纹失败");
+        });
+    };
+    $scope.addStudent = function () {
+        $http({
+            method: 'POST',
+            url: '/api/students/addition',
+            data: $scope.toAddStudentData
+        }).success(function (data) {
+            alert("新增学生成功！");
+            $scope.toAddStudentData = null;
+            $scope.getStudent();
+        });
+    };
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.copyToDeleteStudent = function (student) {
+        $scope.toDeleteStudent = student;
+    };
+    $scope.delStudent = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/students/deletion/' + $scope.toDeleteStudent.studentId
+        }).success(function () {
+            alert("删除成功！");
+            $scope.toDeleteStudent = null;
+            $scope.getStudent();
+        });
+    };
+    $(function () {
+        $scope.studentData = null;
+        $scope.toAddStudentData = null;
+        $scope.getStudent();
+    });
+}]);
+app.controller('coursesCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.switchStudentCourse = function (student) {
+        $scope.currentStudentId = student.studentId;
+        $scope.hint = student.name;
+        $scope.getCourses();
+    };
+    $scope.getCourses = function () {
+        $http({
+            method: 'GET',
+            url: '/api/courses/' + $scope.currentStudentId
+        }).success(function (data) {
+            $scope.courseData = data;
+        });
+    };
+    $scope.addCourse = function () {
+        if ($scope.currentStudentId == null) {
+            alert("请先选择学生！");
+            return;
+        }
+        $scope.toAddCourseData.studentId = $scope.currentStudentId;
+        $scope.toAddCourseData.coursePerWeekJsonList = [
+            $scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+        $http({
+            method: 'POST',
+            url: '/api/courses/addition',
+            data: $scope.toAddCourseData
+        }).success(function () {
+            alert("新增课程成功！");
+            $scope.toAddCourseData = null;
+            $scope.coursePerWeekJsonList1 = null;
+            $scope.coursePerWeekJsonList2 = null;
+            $scope.coursePerWeekJsonList3 = null;
+            $scope.getCourses();
+        });
+    };
+    $scope.copyToModifyCourse = function (course) {
+        $scope.toModifyCourseData = course;
+        var coursePerWeekLength = course.coursePerWeekJsonList.length;
+        if (coursePerWeekLength >= 1){
+            $scope.coursePerWeekJsonList1 = course.coursePerWeekJsonList[0];
+        }
+        else if (coursePerWeekLength >= 2){
+            $scope.coursePerWeekJsonList2 = course.coursePerWeekJsonList[1];
+        }
+        else if (coursePerWeekLength >= 3) {
+            $scope.coursePerWeekJsonList3 = course.coursePerWeekJsonList[2];
+        }
+    };
+    $scope.copyToDeleteCourse = function (course) {
+        $scope.toDeleteCourseData = course;
+    };
+    $scope.modifyCourse = function () {
+        console.log($scope.coursePerWeekJsonList1);
+        console.log($scope.coursePerWeekJsonList2);
+        console.log($scope.coursePerWeekJsonList3);
+        if ($scope.coursePerWeekJsonList1 != null){
+            if ($scope.coursePerWeekJsonList2 != null){
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList2];
+                }
+            }
+            else{
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList1];
+                }
+            }
+        }
+        else{
+            if ($scope.coursePerWeekJsonList2 != null){
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList2, $scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList2];
+                }
+            }
+            else{
+                if ($scope.coursePerWeekJsonList3 != null){
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [$scope.coursePerWeekJsonList3];
+                }
+                else{
+                    $scope.toModifyCourseData.coursePerWeekJsonList = [];
+                }
+            }
+        }
+        $http({
+            method: 'PUT',
+            url: '/api/courses/update',
+            data: $scope.toModifyCourseData
+        }).success(function () {
+            alert("修改课程成功！");
+            $scope.toModifyCourseData = null;
+            $scope.coursePerWeekJsonList1 = null;
+            $scope.coursePerWeekJsonList2 = null;
+            $scope.coursePerWeekJsonList3 = null;
+            $scope.getCourses();
+        });
+
+    };
+    $scope.delCourse = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/courses/deletion/' + $scope.toDeleteCourseData.id
+        }).success(function () {
+            alert("删除课程成功！");
+            $scope.toDeleteCourseData = null;
+            $scope.getCourses();
+        });
+    };
+    $(function () {
+        $scope.hint = '请选择学生';
+        $scope.studentData = null;
+        $scope.currentStudentId = null;
+        $scope.courseData = null;
+        $scope.toAddCourseData = null;
+        $scope.toModifyCourseData = null;
+        $scope.toDeleteCourseData = null;
+        $scope.coursePerWeekJsonList1 = null;
+        $scope.coursePerWeekJsonList2 = null;
+        $scope.coursePerWeekJsonList3 = null;
+        $scope.getStudent();
+    });
+}]);
+app.controller('dutyStudentsCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students'
+        }).success(function (data) {
+            $scope.studentData = data;
+        });
+    };
+    $scope.getDutyStudent = function () {
+        $http({
+            method: 'GET',
+            url: '/api/students/duty_students'
+        }).success(function (data) {
+            $scope.dutyStudentData = data;
+        });
+    };
+    $scope.switchStudent = function (student) {
+        $scope.toAddDutyData.studentId = student.studentId;
+        $scope.hint = student.name;
+    };
+    $scope.addDutyStudent = function () {
+        $http({
+            method: 'POST',
+            url: '/api/students/duty_students/addition',
+            data: $scope.toAddDutyData
+        }).success(function (data) {
+            alert("添加成功！");
+            $scope.toAddDutyData.studentId = null;
+            $scope.hint = '请选择值日生';
+            $scope.getDutyStudent();
+        });
+    };
+    $scope.delDutyStudent = function (id) {
+        $http({
+            method: 'DELETE',
+            url: '/api/students/duty_students/deletion/' + id
+        }).success(function (data) {
+            alert("删除成功！");
+            $scope.getDutyStudent();
+        });
+    };
+    $(function () {
+        $scope.hint = '请选择值日生';
+        $scope.studentData = null;
+        $scope.toAddDutyData = {};
+        $scope.toAddDutyData.startDate = new Date();
+        $scope.toAddDutyData.endDate = new Date();
+        $scope.getStudent();
+        $scope.getDutyStudent();
+    });
+}]);
+app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scope, $http, datetime) {
+    $scope.queryStatistic = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.startDate);
+        $scope.toQueryData.startDate = parser.getText();
+        parser.setDate($scope.endDate);
+        $scope.toQueryData.endDate = parser.getText();
+        $http({
+            method: 'GET',
+            url: '/api/statistics/range_query?startDate=' + $scope.toQueryData.startDate + '&endDate=' + $scope.toQueryData.endDate
+        }).success(function (data) {
+            $scope.maxStayLabTime = Math.max.apply(Math, data.map(function (item) {
+                return item.stayLabTime;
+            }));
+            $scope.statistics = data;
+            $scope.toQueryData = {};
+        });
+    };
+    $scope.getProgressBarWidth = function (stayLabTime) {
+        return {'width': (stayLabTime / ($scope.maxStayLabTime * 1.3) * 100) + '%'};
+    };
+    $(function () {
+        $scope.statistics = {};
+        $scope.toQueryData = {};
+        $scope.toQueryData.startDate = new Date();
+        $scope.toQueryData.endDate = new Date();
+        $scope.maxStayLabTime = null;
+    });
+}]);
+
+app.controller('semestersCtrl', ['$scope', '$http', 'datetime', function ($scope, $http, datetime) {
+    $scope.getSemesters = function () {
+        $http({
+            method: 'GET',
+            url: '/api/semesters'
+        }).success(function (data) {
+            $scope.semesterData = data;
+        });
+    };
+    $scope.copyToDeleteSemester = function (semester) {
+        $scope.toDeleteSemester = semester;
+    };
+    $scope.delSemester = function () {
+        $http({
+            method: 'DELETE',
+            url: '/api/semesters/deletion/' + $scope.toDeleteSemester.id
+        }).success(function (data) {
+            $scope.getSemesters();
+        });
+    };
+    $scope.addSemester = function () {
+        var parser = datetime("yyyy-MM-dd");
+        parser.setDate($scope.startDate);
+        $scope.toAddSemesterData.startDate = parser.getText();
+        $http({
+            method: 'POST',
+            url: '/api/semesters/addition',
+            data: $scope.toAddSemesterData
+        }).success(function (data) {
+            $scope.getSemesters();
+        });
+    };
+
+    $(function () {
+        $scope.toAddSemesterData = {};
+        $scope.toAddSemesterData.startDate = new Date();
+        $scope.getSemesters();
+    });
+}]);
+
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'admin_welcome'
+    }).when('/students', {
+        controller: 'studentsCtrl',
+        templateUrl: 'students'
+    }).when('/courses', {
+        controller: 'coursesCtrl',
+        templateUrl: 'courses'
+    }).when('/duty_students', {
+        controller: 'dutyStudentsCtrl',
+        templateUrl: 'duty_students'
+    }).when('/statistics', {
+        controller: 'statisticsCtrl',
+        templateUrl: 'statistics'
+    }).when('/semesters', {
+        controller: 'semestersCtrl',
+        templateUrl: 'semesters'
+    });
+}]);
