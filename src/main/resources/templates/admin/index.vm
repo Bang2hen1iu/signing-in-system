@@ -41,7 +41,7 @@
                             <a href="#statistics"><i class="glyphicon glyphicon-search"></i> 统计数据</a>
                         </li>
                         <li>
-                            <a href="#semesters"><i class="glyphicon glyphicon-book"></i> 学期管理</a>
+                            <a href="#semesters"><i class="glyphicon glyphicon-list-alt"></i> 学期管理</a>
                         </li>
                     </ul>
                 </div>
