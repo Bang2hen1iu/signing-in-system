@@ -22,7 +22,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-offset-2 col-md-2">
+                <div class="col-md-offset-5 col-md-2">
                     <a class="btn btn-primary" ng-show="downloadCode" href="/api/statistics/download/{{downloadCode}}">下载</a>
                 </div>
                 <div class="page-header"></div>
