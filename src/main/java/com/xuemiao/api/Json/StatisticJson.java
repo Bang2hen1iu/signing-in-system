@@ -4,9 +4,9 @@ package com.xuemiao.api.Json;
  * Created by dzj on 10/2/2016.
  */
 public class StatisticJson {
-    private String name;
-    private Double stayLabTime;
-    private int absenceTimes;
+    protected String name;
+    protected Double stayLabTime;
+    protected int absenceTimes;
 
     public String getName() {
         return name;
