@@ -2,11 +2,11 @@ package com.xuemiao.api;
 
 import com.xuemiao.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.io.File;
 import java.sql.Date;
 
 /**
@@ -16,6 +16,8 @@ import java.sql.Date;
 public class StatisticsApi {
     @Autowired
     StatisticsService statisticsService;
+    @Value("${range-statistics-dir}")
+    String rangeStatisticsDir;
 
     //get statistics of this month
     @GET
@@ -29,5 +31,15 @@ public class StatisticsApi {
     @Path("/range_query")
     public Response rangeQueryStatistics(@QueryParam("startDate") Date startDate, @QueryParam("endDate") Date endDate) {
         return Response.ok().entity(statisticsService.getRangeStatistics(startDate, endDate)).build();
+    }
+
+    @GET
+    @Path("/download/{downloadCode}")
+    @Produces("application/vnd.ms-excel")
+    public Response downloadStatistics(@PathParam("downloadCode") String downloadCode){
+        File file = new File(rangeStatisticsDir + downloadCode + ".xls");
+        Response.ResponseBuilder response = Response.ok((Object) file);
+        response.header("Content-Disposition", "attachment; filename=new-excel-file.xls");
+        return response.build();
     }
 }

@@ -45,3 +45,9 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-primary" ng-show="downloadCode" href="/api/statistics/download/{{downloadCode}}">下载</a>
+    </div>
+</div>
