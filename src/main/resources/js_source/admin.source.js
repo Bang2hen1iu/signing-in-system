@@ -280,11 +280,11 @@ app.controller('statisticsCtrl', ['$scope', '$http', 'datetime', function ($scop
             method: 'GET',
             url: '/api/statistics/range_query?startDate=' + $scope.toQueryData.startDate + '&endDate=' + $scope.toQueryData.endDate
         }).success(function (data) {
-            $scope.statistics = data.statisticJsons;
-            $scope.maxStayLabTime = Math.max.apply(Math, $scope.statistics.map(function (item) {
+            $scope.maxStayLabTime = Math.max.apply(Math, data.statisticJsons.map(function (item) {
                 return item.stayLabTime;
             }));
             $scope.toQueryData = {};
+            $scope.statistics = data.statisticJsons;
             $scope.downloadCode = data.downloadCode;
         }).error(function () {
             $scope.downloadCode = null;

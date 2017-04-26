@@ -3,6 +3,7 @@ package com.xuemiao.api;
 import com.xuemiao.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -12,6 +13,7 @@ import java.sql.Date;
 /**
  * Created by root on 16-10-19.
  */
+@Component
 @Path("/statistics")
 public class StatisticsApi {
     @Autowired
