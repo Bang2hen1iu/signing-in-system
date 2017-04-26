@@ -6,7 +6,6 @@
 * 使用Value注入时，注意类要加上component注解
 * JPA多次save同一类对象，如果id是generated value，注意对象不要重复拿来save
 
-----------------------------------------
 #### 分层标准
 * API（controller）层接受请求，调用service得到结果，返回。API层不应包含具体实现。
 
@@ -15,3 +14,7 @@
 * 一个API可以调用一个Service，而Service内部可以调用其他Service。
 
 * 按照功能模块来划分API和Service。
+
+
+#### Note
+* [JS代码混淆](http://www.javascriptobfuscator.com/)

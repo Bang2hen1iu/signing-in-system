@@ -41,7 +41,7 @@ public class StatisticsApi {
     public Response downloadStatistics(@PathParam("downloadCode") String downloadCode){
         File file = new File(rangeStatisticsDir + downloadCode + ".xls");
         Response.ResponseBuilder response = Response.ok((Object) file);
-        response.header("Content-Disposition", "attachment; filename=new-excel-file.xls");
+        response.header("Content-Disposition", "attachment; filename=" + downloadCode + ".xls");
         return response.build();
     }
 }

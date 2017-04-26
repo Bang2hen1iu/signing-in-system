@@ -39,10 +39,9 @@ public class StatisticsService {
         Field[] fields = StatisticJson.class.getDeclaredFields();
 
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("月统计数据");
+        HSSFSheet sheet = workbook.createSheet(startDate.toString() + " to " + endDate.toString());
 
         int rowIdx = 0, cellIdx = 0;
-
         Row row = sheet.createRow(rowIdx++);
         for (Field field : fields){
             Cell cell = row.createCell(cellIdx++);
@@ -50,6 +49,7 @@ public class StatisticsService {
         }
 
         for (StatisticJson statisticJson : results){
+            cellIdx = 0;
             row = sheet.createRow(rowIdx++);
             for (Field field : fields){
                 Cell cell = row.createCell(cellIdx++);
