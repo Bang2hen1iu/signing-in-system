@@ -152,7 +152,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.hint = "点击选择学生";
             $scope.getSignInInfo($scope.getCurrentDateString());
             $('#is_make_up_cbx').radiocheck('uncheck');
-            $scope.askForAbsenceStudent.is_make_up = 0;
+            $scope.askForAbsenceStudent.isMakeUp = 0;
         }).error(function () {
             alert("请假失败！请联系DZJ");
         });
@@ -175,9 +175,9 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         $scope.askForAbsenceStudent = {};
 
         $('#is_make_up_cbx').radiocheck('uncheck');
-        $scope.askForAbsenceStudent.is_make_up = 0;
+        $scope.askForAbsenceStudent.isMakeUp = 0;
         $('#is_make_up_cbx').on('change.radiocheck', function() {
-            $scope.askForAbsenceStudent.is_make_up = 1 - $scope.askForAbsenceStudent.is_make_up;
+            $scope.askForAbsenceStudent.isMakeUp = 1 - $scope.askForAbsenceStudent.isMakeUp;
         });
 
     });
