@@ -21,6 +21,8 @@ public class AbsenceEntity {
     private Timestamp endAbsence;
     @Column(name = "absence_reason")
     private String absenceReason;
+    @Column(name = "is_make_up")
+    private boolean isMakeUp;
 
     public Long getAbsenceId() {
         return absenceId;
@@ -60,5 +62,13 @@ public class AbsenceEntity {
 
     public void setAbsenceReason(String absenceReason) {
         this.absenceReason = absenceReason;
+    }
+
+    public boolean isMakeUp() {
+        return isMakeUp;
+    }
+
+    public void setMakeUp(boolean makeUp) {
+        isMakeUp = makeUp;
     }
 }

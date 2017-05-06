@@ -105,8 +105,8 @@
                 <button style="margin-bottom: 4px" ng-click="signIn()" class="btn btn-block palette palette-pumpkin">
                     签到/离开
                 </button>
-                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForAbsence"
-                        class="btn btn-block palette palette-wet-asphalt">请假
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#askForSpecialIssue"
+                        class="btn btn-block palette palette-wet-asphalt">请假/补签
                 </button>
                 <div style="margin-bottom: 4px" class="panel palette palette-emerald">
                     <div class="panel-heading">
@@ -144,13 +144,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="askForAbsence" tabindex="-1" role="dialog" aria-labelledby="askForAbsenceLabel">
+<div class="modal fade" id="askForSpecialIssue" tabindex="-1" role="dialog" aria-labelledby="askForAbsenceLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h6 class="modal-title" id="askForAbsenceLabel">请填写请假信息</h6>
+                <h6 class="modal-title" id="askForAbsenceLabel">请填写信息</h6>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" name="askForAbsenceForm">
@@ -165,6 +165,9 @@
                                            ng-click="setAbsenceStudent(student)">{{student.name}}</a></li>
                                 </ul>
                             </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <input type="checkbox" data-toggle="checkbox" id="is_make_up_cbx">
                         </div>
                     </div>
                     <div class="form-group has-error">

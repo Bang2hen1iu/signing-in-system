@@ -1,6 +1,7 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.AbsenceReasonJson;
+import com.xuemiao.exception.AskForAbsenceException;
 import com.xuemiao.service.AbsencesService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,9 +23,14 @@ public class AbsencesApi {
     @POST
     @Path("/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson) {
-        absencesService.addAbsence(absenceReasonJson);
-        return Response.ok().build();
+    public Response addStudentAbsence(AbsenceReasonJson absenceReasonJson) throws AskForAbsenceException{
+        if (absencesService.addAbsence(absenceReasonJson)){
+            return Response.ok().build();
+        }
+        else{
+            throw new AskForAbsenceException();
+        }
+
     }
 
 }

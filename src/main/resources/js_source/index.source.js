@@ -27,7 +27,7 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             }
         }
         if ($scope.signInData.fingerprint == null) {
-            alert('您的指纹还没有登记orz');
+            alert('Sorry，请重新打开浏览器或擦拭指纹仪再试试');
             return;
         }
         $http({
@@ -151,6 +151,8 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.askForAbsenceStudent = {};
             $scope.hint = "点击选择学生";
             $scope.getSignInInfo($scope.getCurrentDateString());
+            $('#is_make_up_cbx').radiocheck('uncheck');
+            $scope.askForAbsenceStudent.is_make_up = 0;
         }).error(function () {
             alert("请假失败！请联系DZJ");
         });
@@ -171,6 +173,13 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             $scope.getDutyStudent(date);
         });
         $scope.askForAbsenceStudent = {};
+
+        $('#is_make_up_cbx').radiocheck('uncheck');
+        $scope.askForAbsenceStudent.is_make_up = 0;
+        $('#is_make_up_cbx').on('change.radiocheck', function() {
+            $scope.askForAbsenceStudent.is_make_up = 1 - $scope.askForAbsenceStudent.is_make_up;
+        });
+
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {
@@ -181,6 +190,7 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         }).success(function (data) {
             for (var i = 0; i < data.length; i++) {
                 data[i].stayLabTimeStr = data[i].stayLabTime.toFixed(2);
+                data[i].absenceTime = data[i].absenceTime.toFixed(2);
             }
             $scope.maxStayLabTime = Math.max.apply(Math, data.map(function (item) {
                 return item.stayLabTime;
@@ -189,7 +199,7 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         });
     };
     $scope.getProgressBarWidth = function (stayLabTime) {
-        return {'width': (stayLabTime / ($scope.maxStayLabTime * 1.3) * 100) + '%'};
+        return {'width': (stayLabTime / ($scope.maxStayLabTime * 1) * 100) + '%'};
     };
     $(function () {
         $scope.getRankListData();

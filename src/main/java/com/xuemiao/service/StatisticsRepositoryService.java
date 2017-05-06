@@ -1,6 +1,7 @@
 package com.xuemiao.service;
 
 import com.xuemiao.api.Json.StatisticJson;
+import com.xuemiao.model.pdm.AbsenceEntity;
 import com.xuemiao.model.pdm.SignInInfoRecordEntity;
 import com.xuemiao.model.pdm.SignInInfoV2Entity;
 import com.xuemiao.model.pdm.StudentEntity;
@@ -44,10 +45,18 @@ public class StatisticsRepositoryService {
             if (signInInfoV2Entities != null) {
                 StatisticJson statisticJson = new StatisticJson();
                 statisticJson.setName(studentEntity.getName());
-                int absenceTimes = 0;
+                double absenceTime = 0.0;
                 double stayLabTime = 0.0;
                 for (SignInInfoV2Entity signInInfoV2Entity : signInInfoV2Entities) {
-                    absenceTimes += absenceRepository.countBySignInInfoId(signInInfoV2Entity.getId());
+                    List<AbsenceEntity> absenceEntities = absenceRepository.findBySignInInfoId(signInInfoV2Entity.getId());
+                    for (AbsenceEntity absenceEntity : absenceEntities){
+                        if (absenceEntity.isMakeUp()){
+                            stayLabTime += (absenceEntity.getEndAbsence().getTime() - absenceEntity.getStartAbsence().getTime());
+                        }
+                        else{
+                            absenceTime += (absenceEntity.getEndAbsence().getTime() - absenceEntity.getStartAbsence().getTime());
+                        }
+                    }
                     List<SignInInfoRecordEntity> signInInfoRecordEntities = signInInfoRecordRepository.findBySignInInfoId(signInInfoV2Entity.getId());
                     for (SignInInfoRecordEntity signInInfoRecordEntity : signInInfoRecordEntities) {
                         if (signInInfoRecordEntity.getEndTime() != null) {
@@ -55,8 +64,9 @@ public class StatisticsRepositoryService {
                         }
                     }
                 }
+                absenceTime /= 1000 * 3600;
                 stayLabTime /= 1000 * 3600;
-                statisticJson.setAbsenceTimes(absenceTimes);
+                statisticJson.setAbsenceTime(absenceTime);
                 statisticJson.setStayLabTime(stayLabTime);
                 statisticJsons.add(statisticJson);
             }

@@ -23,18 +23,23 @@ public class AbsencesService {
     @Autowired
     SignInInfoService signInInfoService;
 
-    public void addAbsence(AbsenceReasonJson absenceReasonJson) {
+    public boolean addAbsence(AbsenceReasonJson absenceReasonJson) {
+        if (absenceReasonJson.getStartAbsence()==null || absenceReasonJson.getEndAbsence()==null){
+            return false;
+        }
         AbsenceEntity absenceEntity = new AbsenceEntity();
         SignInInfoV2Entity signInInfoV2Entity = signInInfoV2Repository.findOneByStudentIdAndDate(
                 absenceReasonJson.getStudentId(), absenceReasonJson.getOperDate());
         if (signInInfoV2Entity == null) {
             signInInfoV2Entity = signInInfoService.addSignInInfo(absenceReasonJson.getStudentId());
         }
+        absenceEntity.setMakeUp(absenceReasonJson.getIsMakeUp()==1);
         absenceEntity.setSignInInfoId(signInInfoV2Entity.getId());
         absenceEntity.setAbsenceReason(absenceReasonJson.getAbsenceReason());
         absenceEntity.setStartAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getStartAbsence()));
         absenceEntity.setEndAbsence(DateUtils.adjustYearMonthDay(absenceReasonJson.getEndAbsence()));
         absenceRepository.save(absenceEntity);
+        return true;
     }
 
     public void deleteByStudentId(Long studentId) {

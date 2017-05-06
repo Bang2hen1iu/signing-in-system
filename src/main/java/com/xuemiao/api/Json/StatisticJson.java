@@ -5,8 +5,8 @@ package com.xuemiao.api.Json;
  */
 public class StatisticJson {
     public String name;
-    public Double stayLabTime;
-    public int absenceTimes;
+    public double stayLabTime;
+    public double absenceTime;
 
     public String getName() {
         return name;
@@ -16,19 +16,19 @@ public class StatisticJson {
         this.name = name;
     }
 
-    public Double getStayLabTime() {
+    public double getStayLabTime() {
         return stayLabTime;
     }
 
-    public void setStayLabTime(Double stayLabTime) {
+    public void setStayLabTime(double stayLabTime) {
         this.stayLabTime = stayLabTime;
     }
 
-    public int getAbsenceTimes() {
-        return absenceTimes;
+    public double getAbsenceTime() {
+        return absenceTime;
     }
 
-    public void setAbsenceTimes(int absenceTimes) {
-        this.absenceTimes = absenceTimes;
+    public void setAbsenceTime(double absenceTime) {
+        this.absenceTime = absenceTime;
     }
 }

@@ -170,7 +170,12 @@ public class SignInInfoService {
             SignInInfoTimeSegment signInInfoTimeSegment = new SignInInfoTimeSegment();
             signInInfoTimeSegment.setStartTime(DateUtils.timestamp2String(absenceEntity.getStartAbsence(), 3));
             signInInfoTimeSegment.setEndTime(DateUtils.timestamp2String(absenceEntity.getEndAbsence(), 3));
-            signInInfoTimeSegment.setExtra("请假：" + absenceEntity.getAbsenceReason());
+            if (absenceEntity.isMakeUp()){
+                signInInfoTimeSegment.setExtra("补签：" + absenceEntity.getAbsenceReason());
+            }
+            else{
+                signInInfoTimeSegment.setExtra("请假：" + absenceEntity.getAbsenceReason());
+            }
             signInInfoTimeSegment.setType(3);
             signInInfoTimeSegments.add(signInInfoTimeSegment);
         }

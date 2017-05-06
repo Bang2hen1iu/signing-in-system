@@ -32,7 +32,7 @@ public class StatisticsApi {
     @GET
     @Path("/range_query")
     public Response rangeQueryStatistics(@QueryParam("startDate") Date startDate, @QueryParam("endDate") Date endDate) {
-        return Response.ok().entity(statisticsService.getRangeStatistics(startDate, endDate)).build();
+        return Response.ok().entity(statisticsService.getRangeStatisticsAndFile(startDate, endDate)).build();
     }
 
     @GET

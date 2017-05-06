@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p style="float: left">请假次数：{{student.absenceTimes}}</p>
+                        <p style="float: left">请假时间：{{student.absenceTimes}}小时</p>
                     </div>
                 </div>
             </div>

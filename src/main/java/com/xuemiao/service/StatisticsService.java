@@ -31,7 +31,7 @@ public class StatisticsService {
     @Value("${range-statistics-dir}")
     String rangeStatisticsDir;
 
-    public RangeStatisticJson getRangeStatistics(Date startDate, Date endDate) {
+    public RangeStatisticJson getRangeStatisticsAndFile(Date startDate, Date endDate) {
         RangeStatisticJson rangeStatisticJson = new RangeStatisticJson();
         List<StatisticJson> results = statisticsRepositoryService.getRangeStatistics(startDate, endDate);
         rangeStatisticJson.setStatisticJsons(results);

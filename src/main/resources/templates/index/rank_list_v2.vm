@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-1">
-                    <span class="label palette palette-orange">请假{{student.absenceTimes}}次</span>
+                    <span class="label palette palette-orange">请假{{student.absenceTime}}小时</span>
                 </div>
             </div>
         </div>

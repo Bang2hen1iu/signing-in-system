@@ -12,6 +12,7 @@ public class AbsenceReasonJson {
     private String absenceReason;
     private Timestamp startAbsence;
     private Timestamp endAbsence;
+    private int isMakeUp;
 
     public Date getOperDate() {
         return operDate;
@@ -51,5 +52,13 @@ public class AbsenceReasonJson {
 
     public void setEndAbsence(Timestamp endAbsence) {
         this.endAbsence = endAbsence;
+    }
+
+    public int getIsMakeUp() {
+        return isMakeUp;
+    }
+
+    public void setIsMakeUp(int isMakeUp) {
+        this.isMakeUp = isMakeUp;
     }
 }
