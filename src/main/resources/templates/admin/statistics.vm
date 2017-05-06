@@ -37,11 +37,11 @@
                                      role="progressbar"
                                      aria-valuemin="0" aria-valuemax="50"
                                      ng-style="getProgressBarWidth(student.stayLabTime)">
-                                    {{student.stayLabTime}}小时
+                                    {{student.stayLabTimeStr}}小时
                                 </div>
                             </div>
                         </div>
-                        <p style="float: left">请假时间：{{student.absenceTimes}}小时</p>
+                        <p style="float: left">请假时间：{{student.absenceTime}}小时</p>
                     </div>
                 </div>
             </div>

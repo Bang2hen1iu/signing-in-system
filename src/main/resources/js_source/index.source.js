@@ -147,14 +147,14 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
             url: "/api/absences/addition",
             data: $scope.askForAbsenceStudent
         }).success(function (data) {
-            alert("请假成功！");
+            alert("成功！");
             $scope.askForAbsenceStudent = {};
             $scope.hint = "点击选择学生";
             $scope.getSignInInfo($scope.getCurrentDateString());
             $('#is_make_up_cbx').radiocheck('uncheck');
             $scope.askForAbsenceStudent.isMakeUp = 0;
         }).error(function () {
-            alert("请假失败！请联系DZJ");
+            alert("失败！请联系DZJ");
         });
     };
     $scope.getCurrentDateString = function () {
