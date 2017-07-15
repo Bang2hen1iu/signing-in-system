@@ -1,7 +1,7 @@
 CREATE TABLE week_plan (
-  id             BIGINT   NOT NULL,
-  week_name      TEXT     NOT NULL,
-  create_at      DATE     NOT NULL
+  id             BIGINT       NOT NULL,
+  week_name      TEXT         NOT NULL,
+  create_at      TIMESTAMP    NOT NULL
 ) WITHOUT OIDS;
 
 CREATE TABLE plan_record (
