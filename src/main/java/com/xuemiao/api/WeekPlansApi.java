@@ -38,7 +38,9 @@ public class WeekPlansApi {
     public Response getWeekPlanById(@PathParam("plan_id") Long plan_id){
         List<PlanRecordEntity> planRecordEntities = planRecordRepository.findByPlanId(plan_id);
         List<PlanRecordJson> planRecordJsons = new ArrayList<>();
-        for (PlanRecordEntity planRecordEntity : planRecordEntities){
+        int length = planRecordEntities.size();
+        for (int i = length - 1; i >= 0; i--){
+            PlanRecordEntity planRecordEntity = planRecordEntities.get(i);
             PlanRecordJson planRecordJson = new PlanRecordJson();
             planRecordJson.setId(planRecordEntity.getId());
             String studentName = studentRepository.findOne(planRecordEntity.getStudentId()).getName();
@@ -48,7 +50,6 @@ public class WeekPlansApi {
             planRecordJson.setTutorFeedback(planRecordEntity.getTutorFeedback());
             planRecordJsons.add(planRecordJson);
         }
-
         return Response.ok().entity(planRecordJsons).build();
     }
 
