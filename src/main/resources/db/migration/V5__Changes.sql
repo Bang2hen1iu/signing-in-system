@@ -9,7 +9,7 @@ CREATE TABLE plan_record (
   plan_id        BIGINT   NOT NULL,
   student_id     BIGINT   NOT NULL,
   plan           TEXT     NOT NULL,
-  achievement    TEXT     DEFAULT '',
-  tutor_feedback TEXT     DEFAULT ''
+  achievement    TEXT,
+  tutor_feedback TEXT
 ) WITHOUT OIDS;
 

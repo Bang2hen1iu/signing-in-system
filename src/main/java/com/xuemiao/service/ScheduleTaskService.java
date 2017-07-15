@@ -31,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Scope("singleton")
 public class ScheduleTaskService {
+    private static final int DAY_IN_SECONDS = 24 * 3600;
+    private static final int WEEK_IN_SECONDS = 7 * 24 * 3600;
     private final Logger LOGGER = LoggerFactory.getLogger(ScheduleTaskService.class);
     ScheduledExecutorService scheduledExecutorService = null;
     @Autowired
@@ -69,7 +71,7 @@ public class ScheduleTaskService {
                     signInInfoV2Repository.save(signInInfoV2Entity);
                 }
             }
-        }, timeGapToStartInSecond, 1, TimeUnit.DAYS);
+        }, timeGapToStartInSecond, DAY_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     private void injectWeekPlan() {
@@ -101,12 +103,14 @@ public class ScheduleTaskService {
 
         Timestamp latestWeekPlanTime = weekPlanRepository.getLatestWeekPlan();
         if (latestWeekPlanTime == null){
+            System.out.println("no week plan, injecting");
             injectWeekPlan();
         }
         else {
             DateTime latest = new DateTime(latestWeekPlanTime.getTime());
             if (!((latest.getWeekyear() == startTime.getWeekyear()) &&
                     (latest.getWeekOfWeekyear() == startTime.getWeekOfWeekyear()))) {
+                System.out.println("no latest plan, injecting");
                 injectWeekPlan();
             }
         }
@@ -115,8 +119,9 @@ public class ScheduleTaskService {
         startTime.minusHours(startTime.getHourOfDay() - 1);
 
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
+        System.out.println("time gap: " + timeGapToStartInSecond);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(this::injectWeekPlan, timeGapToStartInSecond, 7, TimeUnit.DAYS);
+        scheduledExecutorService.scheduleAtFixedRate(this::injectWeekPlan, timeGapToStartInSecond, WEEK_IN_SECONDS, TimeUnit.SECONDS);
     }
 
     @PreDestroy

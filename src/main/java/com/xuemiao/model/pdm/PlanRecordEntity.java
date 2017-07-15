@@ -20,10 +20,8 @@ public class PlanRecordEntity {
     @Column(name = "plan")
     private String plan;
     @Column(name = "achievement")
-    @DefaultValue("")
     private String achievement;
     @Column(name = "tutor_feedback")
-    @DefaultValue("")
     private String tutorFeedback;
 
     public Long getId() {
