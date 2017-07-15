@@ -103,14 +103,14 @@ public class ScheduleTaskService {
 
         Timestamp latestWeekPlanTime = weekPlanRepository.getLatestWeekPlan();
         if (latestWeekPlanTime == null){
-            System.out.println("no week plan, injecting");
+            LOGGER.warn("no week plan, injecting");
             injectWeekPlan();
         }
         else {
             DateTime latest = new DateTime(latestWeekPlanTime.getTime());
             if (!((latest.getWeekyear() == startTime.getWeekyear()) &&
                     (latest.getWeekOfWeekyear() == startTime.getWeekOfWeekyear()))) {
-                System.out.println("no latest plan, injecting");
+                LOGGER.warn("no latest plan, injecting");
                 injectWeekPlan();
             }
         }
@@ -119,7 +119,7 @@ public class ScheduleTaskService {
         startTime.minusHours(startTime.getHourOfDay() - 1);
 
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
-        System.out.println("time gap: " + timeGapToStartInSecond);
+        LOGGER.warn("time gap: " + timeGapToStartInSecond);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(this::injectWeekPlan, timeGapToStartInSecond, WEEK_IN_SECONDS, TimeUnit.SECONDS);
     }

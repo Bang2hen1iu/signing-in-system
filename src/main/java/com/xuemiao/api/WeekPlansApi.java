@@ -59,6 +59,7 @@ public class WeekPlansApi {
         if (id != null){
             PlanRecordEntity toWritePlanRecordEntity = planRecordRepository.findOne(id);
             toWritePlanRecordEntity.setPlan(planRecordEntity.getPlan());
+            planRecordRepository.save(toWritePlanRecordEntity);
             return Response.ok().build();
         }
         else {
@@ -74,6 +75,7 @@ public class WeekPlansApi {
         if (id != null) {
             PlanRecordEntity toWritePlanRecordEntity = planRecordRepository.findOne(id);
             toWritePlanRecordEntity.setAchievement(planRecordEntity.getAchievement());
+            planRecordRepository.save(toWritePlanRecordEntity);
             return Response.ok().build();
         }
         else {
@@ -89,6 +91,7 @@ public class WeekPlansApi {
         if (id != null) {
             PlanRecordEntity toWritePlanRecordEntity = planRecordRepository.findOne(id);
             toWritePlanRecordEntity.setTutorFeedback(planRecordEntity.getTutorFeedback());
+            planRecordRepository.save(toWritePlanRecordEntity);
             return Response.ok().build();
         }
         else {
