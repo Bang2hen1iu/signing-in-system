@@ -24,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="p in plan_records" ng-class="{'success':p.achievement, 'warning':p.tutorFeedback}">
+                <tr ng-repeat="p in plan_records" ng-class="{'warning':p.achievement, 'success':p.tutorFeedback}">
                     <th>{{p.studentName}}</th>
                     <td>{{p.plan}}</td>
                     <td>{{p.achievement}}</td>
@@ -51,7 +51,7 @@
                         说明
                     </div>
                     <div class="panel-body">
-                        请大家认真填写计划！
+                        请大家认真填写和执行计划！
                     </div>
                 </div>
             </div>
@@ -85,8 +85,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="fui-check btn btn-inverse" ng-click="submitPlan()" data-dismiss="modal">
-                    保存
+                <button type="button" class="fui-check btn btn-inverse" ng-click="submitPlan()">
+                    提交
                 </button>
             </div>
         </div>
@@ -119,8 +119,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="fui-check btn btn-inverse" ng-click="submitAchievement()" data-dismiss="modal">
-                    保存
+                <button type="button" class="fui-check btn btn-inverse" ng-click="submitAchievement()">
+                    提交
                 </button>
             </div>
         </div>
@@ -153,8 +153,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="fui-check btn btn-inverse" ng-click="submitTutorFeedback()" data-dismiss="modal">
-                    保存
+                <button type="button" class="fui-check btn btn-inverse" ng-click="submitTutorFeedback()">
+                    提交
                 </button>
             </div>
         </div>
