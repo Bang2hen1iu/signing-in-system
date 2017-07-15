@@ -99,10 +99,16 @@ public class ScheduleTaskService {
         }
         DateTime startTime = DateTime.now();
 
-        DateTime latest = new DateTime(weekPlanRepository.getLatestWeekPlan().getTime());
-        if (!((latest.getWeekyear() == startTime.getWeekyear()) &&
-                (latest.getWeekOfWeekyear() == startTime.getWeekOfWeekyear()))) {
+        Timestamp latestWeekPlanTime = weekPlanRepository.getLatestWeekPlan();
+        if (latestWeekPlanTime == null){
             injectWeekPlan();
+        }
+        else {
+            DateTime latest = new DateTime(latestWeekPlanTime.getTime());
+            if (!((latest.getWeekyear() == startTime.getWeekyear()) &&
+                    (latest.getWeekOfWeekyear() == startTime.getWeekOfWeekyear()))) {
+                injectWeekPlan();
+            }
         }
 
         startTime.plusDays(8 - startTime.getDayOfWeek());
