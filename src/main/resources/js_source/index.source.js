@@ -204,7 +204,7 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         $scope.getRankListData();
     });
 }]);
-sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $http) {
+sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
     $scope.getWeekPlanList = function () {
         $http({
             method: 'GET',
@@ -331,6 +331,9 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $scope.hint_plan = "请选择";
         $scope.hint_achievement = "请选择";
         $scope.hint_tutor_feedback = "请选择";
+        $interval(function () {
+            $scope.setDisplayedWeek($scope.selected_week_plan);
+        }, 180000);
     });
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {
