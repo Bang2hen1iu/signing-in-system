@@ -17,11 +17,11 @@ public class PlanRecordEntity {
     private Long planId;
     @Column(name = "student_id")
     private Long studentId;
-    @Column(name = "plan")
+    @Column(name = "plan", length = 5000)
     private String plan;
-    @Column(name = "achievement")
+    @Column(name = "achievement", length = 5000)
     private String achievement;
-    @Column(name = "tutor_feedback")
+    @Column(name = "tutor_feedback", length = 5000)
     private String tutorFeedback;
 
     public Long getId() {
