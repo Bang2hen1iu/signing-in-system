@@ -269,7 +269,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
     };
     $(function () {
         $scope.getWeekPlanList();
-        $scope.setDisplayedWeek($scope.week_plan_list[0]);
+        $scope.setDisplayedWeek(($scope.week_plan_list)[0]);
         $scope.to_write_plan = "";
         $scope.to_write_achievement = "";
         $scope.to_write_tutor_feedback = "";
