@@ -224,15 +224,15 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         });
     };
     $scope.selectPlanStudent = function (p) {
-        $scope.selected_plan_student = p.studentName;
+        $scope.selected_student_plan = p.studentName;
         $scope.to_write_plan = p.plan;
     };
     $scope.selectAchievementStudent = function (p) {
-        $scope.selected_achievement_student = p.studentName;
+        $scope.selected_student_achievement = p.studentName;
         $scope.to_write_achievement = p.achievement;
     };
     $scope.selectTutorFeedbackStudent = function (p) {
-        $scope.selected_tutor_feedback_student = p.studentName;
+        $scope.selected_student_tutor_feedback = p.studentName;
         $scope.to_write_tutor_feedback = p.tutorFeedback;
     };
     $scope.submitPlan = function () {
@@ -242,7 +242,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
             data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_plan}
         }).success(function () {
             $scope.to_write_plan = "";
-            $scope.selected_plan_student = "请选择";
+            $scope.selected_student_plan = "请选择";
             alert("填写成功！");
         });
     };
@@ -253,7 +253,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
             data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_achievement}
         }).success(function () {
             $scope.to_write_achievement = "";
-            $scope.selected_achievement_student = "请选择";
+            $scope.selected_student_achievement = "请选择";
             alert("填写成功！");
         });
     };
@@ -264,7 +264,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
             data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_tutor_feedback}
         }).success(function () {
             $scope.to_write_tutor_feedback = "";
-            $scope.selected_tutor_feedback_student = "请选择";
+            $scope.selected_student_tutor_feedback = "请选择";
             alert("填写成功！");
         });
     };
@@ -273,9 +273,9 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $scope.to_write_plan = "";
         $scope.to_write_achievement = "";
         $scope.to_write_tutor_feedback = "";
-        $scope.selected_plan_student = "请选择";
-        $scope.selected_achievement_student = "请选择";
-        $scope.selected_tutor_feedback_student = "请选择";
+        $scope.selected_student_plan = "请选择";
+        $scope.selected_student_achievement = "请选择";
+        $scope.selected_student_tutor_feedback = "请选择";
     });
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {

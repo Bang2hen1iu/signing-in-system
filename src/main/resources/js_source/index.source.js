@@ -223,25 +223,28 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         });
     };
     $scope.selectPlanStudent = function (p) {
-        $scope.selected_plan_student = p.studentName;
+        $scope.id_plan = p.id;
+        $scope.hint_plan = p.studentName;
         $scope.to_write_plan = p.plan;
     };
     $scope.selectAchievementStudent = function (p) {
-        $scope.selected_achievement_student = p.studentName;
+        $scope.id_achievement = p.id;
+        $scope.hint_achievement = p.studentName;
         $scope.to_write_achievement = p.achievement;
     };
     $scope.selectTutorFeedbackStudent = function (p) {
-        $scope.selected_tutor_feedback_student = p.studentName;
+        $scope.id_tutor_feedback = p.id;
+        $scope.hint_tutor_feedback = p.studentName;
         $scope.to_write_tutor_feedback = p.tutorFeedback;
     };
     $scope.submitPlan = function () {
         $http({
             method: 'POST',
             url: "/api/week_plans/",
-            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_plan}
+            data: {"id": $scope.id_plan, "plan": $scope.to_write_plan}
         }).success(function () {
             $scope.to_write_plan = "";
-            $scope.selected_plan_student = "请选择";
+            $scope.hint_plan = "请选择";
             alert("填写成功！");
         });
     };
@@ -249,10 +252,10 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $http({
             method: 'POST',
             url: "/api/week_plans/achievements",
-            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_achievement}
+            data: {"id": $scope.id_achievement, "plan": $scope.to_write_achievement}
         }).success(function () {
             $scope.to_write_achievement = "";
-            $scope.selected_achievement_student = "请选择";
+            $scope.hint_achievement = "请选择";
             alert("填写成功！");
         });
     };
@@ -260,10 +263,10 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $http({
             method: 'POST',
             url: "/api/week_plans/tutor_feedback",
-            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_tutor_feedback}
+            data: {"id": $scope.id_tutor_feedback, "plan": $scope.to_write_tutor_feedback}
         }).success(function () {
             $scope.to_write_tutor_feedback = "";
-            $scope.selected_tutor_feedback_student = "请选择";
+            $scope.hint_tutor_feedback = "请选择";
             alert("填写成功！");
         });
     };
@@ -273,9 +276,9 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $scope.to_write_plan = "";
         $scope.to_write_achievement = "";
         $scope.to_write_tutor_feedback = "";
-        $scope.selected_plan_student = "请选择";
-        $scope.selected_achievement_student = "请选择";
-        $scope.selected_tutor_feedback_student = "请选择";
+        $scope.hint_plan = "请选择";
+        $scope.hint_achievement = "请选择";
+        $scope.hint_tutor_feedback = "请选择";
     });
 }]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {
