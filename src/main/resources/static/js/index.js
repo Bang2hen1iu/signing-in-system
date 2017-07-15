@@ -211,6 +211,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
             url: "/api/week_plans"
         }).success(function (data) {
             $scope.week_plan_list = data;
+            $scope.setDisplayedWeek(data[0]);
         });
     };
     $scope.setDisplayedWeek = function (week_plan) {
@@ -269,7 +270,6 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
     };
     $(function () {
         $scope.getWeekPlanList();
-        $scope.setDisplayedWeek(($scope.week_plan_list)[0]);
         $scope.to_write_plan = "";
         $scope.to_write_achievement = "";
         $scope.to_write_tutor_feedback = "";
