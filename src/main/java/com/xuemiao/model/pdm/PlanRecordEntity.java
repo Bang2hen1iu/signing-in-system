@@ -22,7 +22,7 @@ public class PlanRecordEntity {
     @Column(name = "achievement")
     @DefaultValue("")
     private String achievement;
-    @Column(name = "tutorFeedback")
+    @Column(name = "tutor_feedback")
     @DefaultValue("")
     private String tutorFeedback;
 
