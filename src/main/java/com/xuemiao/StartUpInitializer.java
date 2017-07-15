@@ -17,5 +17,6 @@ public class StartUpInitializer implements ApplicationListener<ApplicationReadyE
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         scheduleTaskService.startRefreshSignInfoTable();
+        scheduleTaskService.startRefreshWeekPlan();
     }
 }

@@ -7,6 +7,7 @@ import com.xuemiao.model.repository.SemesterRepository;
 import com.xuemiao.service.CookieService;
 import com.xuemiao.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

@@ -18,9 +18,10 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-init="sign_in_info=true;" ng-click="sign_in_info=true;" ng-class="{'active':sign_in_info}"><a
+                <li ng-init="curr_route=0;" ng-click="curr_route=0;" ng-class="{'active':curr_route==0}"><a
                         href="#sign_in_info">签到/离开</a></li>
-                <li ng-click="sign_in_info=false;" ng-class="{'active':!sign_in_info}"><a href="#rank_list">排行榜</a></li>
+                <li ng-click="curr_route=1;" ng-class="{'active':curr_route==1}"><a href="#rank_list">排行榜</a></li>
+                <li ng-click="curr_route=2;" ng-class="{'active':curr_route==2}"><a href="#week_plan">周计划</a></li>
             </ul>
         </div>
     </div>

@@ -20,6 +20,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("/index/index_v2");
         registry.addViewController("/sign_in_info").setViewName("/index/sign_in_info_v2");
         registry.addViewController("/rank_list").setViewName("/index/rank_list_v2");
+        registry.addViewController("/week_plan").setViewName("/index/week_plan");
         registry.addViewController("/sign_in_action").setViewName("/index/sign_in_action");
         registry.addViewController("/admin/login").setViewName("/admin/login");
         registry.addViewController("/admin").setViewName("/admin/index");

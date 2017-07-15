@@ -179,7 +179,6 @@ sign_in_app.controller('sign_in_info_ctrl', ['$scope', '$http', '$q', 'datetime'
         $('#is_make_up_cbx').on('change.radiocheck', function() {
             $scope.askForAbsenceStudent.isMakeUp = 1 - $scope.askForAbsenceStudent.isMakeUp;
         });
-
     });
 }]);
 sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $http) {
@@ -205,6 +204,80 @@ sign_in_app.controller('rank_list_ctrl', ['$scope', '$http', function ($scope, $
         $scope.getRankListData();
     });
 }]);
+sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.getWeekPlanList = function () {
+        $http({
+            method: 'GET',
+            url: "/api/week_plans"
+        }).success(function (data) {
+            $scope.week_plan_list = data;
+        });
+    };
+    $scope.setDisplayedWeek = function (week_plan) {
+        $http({
+            method: 'GET',
+            url: "/api/week_plans/" + week_plan.id
+        }).success(function (data) {
+            $scope.plan_records = data;
+            $scope.selected_week_plan = week_plan;
+        });
+    };
+    $scope.selectPlanStudent = function (p) {
+        $scope.selected_plan_student = p.studentName;
+        $scope.to_write_plan = p.plan;
+    };
+    $scope.selectAchievementStudent = function (p) {
+        $scope.selected_achievement_student = p.studentName;
+        $scope.to_write_achievement = p.achievement;
+    };
+    $scope.selectTutorFeedbackStudent = function (p) {
+        $scope.selected_tutor_feedback_student = p.studentName;
+        $scope.to_write_tutor_feedback = p.tutorFeedback;
+    };
+    $scope.submitPlan = function () {
+        $http({
+            method: 'POST',
+            url: "/api/week_plans/",
+            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_plan}
+        }).success(function () {
+            $scope.to_write_plan = "";
+            $scope.selected_plan_student = "请选择";
+            alert("填写成功！");
+        });
+    };
+    $scope.submitAchievement = function () {
+        $http({
+            method: 'POST',
+            url: "/api/week_plans/achievements",
+            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_achievement}
+        }).success(function () {
+            $scope.to_write_achievement = "";
+            $scope.selected_achievement_student = "请选择";
+            alert("填写成功！");
+        });
+    };
+    $scope.submitTutorFeedback = function () {
+        $http({
+            method: 'POST',
+            url: "/api/week_plans/tutor_feedback",
+            data: {"planId": $scope.selected_week_plan.id, "plan": $scope.to_write_tutor_feedback}
+        }).success(function () {
+            $scope.to_write_tutor_feedback = "";
+            $scope.selected_tutor_feedback_student = "请选择";
+            alert("填写成功！");
+        });
+    };
+    $(function () {
+        $scope.getWeekPlanList();
+        $scope.setDisplayedWeek($scope.week_plan_list[0]);
+        $scope.to_write_plan = "";
+        $scope.to_write_achievement = "";
+        $scope.to_write_tutor_feedback = "";
+        $scope.selected_plan_student = "请选择";
+        $scope.selected_achievement_student = "请选择";
+        $scope.selected_tutor_feedback_student = "请选择";
+    });
+}]);
 sign_in_app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
         controller: 'sign_in_info_ctrl',
@@ -215,5 +288,8 @@ sign_in_app.config(['$routeProvider', function ($routeProvider) {
     }).when('/rank_list', {
         controller: 'rank_list_ctrl',
         templateUrl: 'rank_list'
+    }).when('/week_plan', {
+        controller: 'week_plan_ctrl',
+        templateUrl: 'week_plan'
     });
 }]);

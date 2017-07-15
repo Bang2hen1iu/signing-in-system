@@ -1,0 +1,162 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 page-header">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {{selected_week_plan.weekName}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+                <li><a href="" ng-repeat="w in week_plan_list"
+                       ng-click="setDisplayedWeek(w)">{{w.weekName}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9 col-lg-9">
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th class="col-md-1"></th>
+                    <th class="col-md-3">本周计划</th>
+                    <th class="col-md-3">完成情况</th>
+                    <th class="col-md-3">导师反馈</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in plan_records">
+                    <th>{{p.studentName}}</th>
+                    <td>{{p.plan}}</td>
+                    <td>{{p.achievement}}</td>
+                    <td>{{p.tutorFeedback}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-3">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#writePlan"
+                        class="btn btn-block palette palette-nephritis">填写本周计划
+                </button>
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#writeReport"
+                        class="btn btn-block palette palette-orange">填写本周计划完成情况
+                </button>
+                <button style="margin-bottom: 4px" data-toggle="modal" data-target="#writeFeedback"
+                        class="btn btn-block palette palette-peter-river">填写导师反馈
+                </button>
+                <div style="margin-bottom: 4px" class="panel palette palette-concrete">
+                    <div class="panel-heading">
+                        说明
+                    </div>
+                    <div class="panel-body">
+                        请大家认真填写计划！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="writePlan" tabindex="-1" role="dialog" aria-labelledby="writePlanLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h6 class="modal-title" id="writePlanLabel">请填写本周计划</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            {{selected_student}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+                            <li><a href="" ng-repeat="p in plan_records"
+                                   ng-click="selectStudent(p)">{{p.studentName}}</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
+                </div>
+                <form class="form-horizontal" name="writePlanForm">
+                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_plan"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="fui-check btn btn-inverse" ng-click="submitPlan()" data-dismiss="modal">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="writeReport" tabindex="-1" role="dialog" aria-labelledby="writeReportLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h6 class="modal-title" id="writeReportLabel">请填写本周计划完成情况</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            {{selected_student}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+                            <li><a href="" ng-repeat="p in plan_records"
+                                   ng-click="selectStudent(p)">{{p.studentName}}</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
+                </div>
+                <form class="form-horizontal" name="writePlanForm">
+                    <textarea class="form-control" rows="12" placeholder="请在此填写"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="fui-check btn btn-inverse" ng-click="askForAbsence()" data-dismiss="modal">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="writeFeedback" tabindex="-1" role="dialog" aria-labelledby="writeFeedbackLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h6 class="modal-title" id="writeFeedbackLabel">请填写导师反馈</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            {{selected_student}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+                            <li><a href="" ng-repeat="p in plan_records"
+                                   ng-click="selectStudent(p)">{{p.studentName}}</a></li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
+                </div>
+                <form class="form-horizontal" name="writePlanForm">
+                    <textarea class="form-control" rows="12" placeholder="请在此填写"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="fui-check btn btn-inverse" ng-click="askForAbsence()" data-dismiss="modal">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
