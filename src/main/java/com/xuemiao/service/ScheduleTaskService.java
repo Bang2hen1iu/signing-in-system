@@ -77,6 +77,7 @@ public class ScheduleTaskService {
     private void injectWeekPlan() {
         WeekPlanEntity weekPlanEntity = new WeekPlanEntity();
         DateTime monday = DateTime.now();
+        monday = monday.minusDays(monday.getDayOfWeek() - 1);
         DateTime sunday = DateTime.now();
         sunday = sunday.plusDays(6);
         weekPlanEntity.setWeekName(monday.getYear() + "." + monday.getMonthOfYear() + "." + monday.getDayOfMonth()
