@@ -25,10 +25,10 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="p in plan_records" ng-class="{'warning':p.achievement && !p.tutorFeedback, 'success':p.tutorFeedback}">
-                    <th><pre>{{p.studentName}}</pre></th>
-                    <td><pre>{{p.plan}}</pre></td>
-                    <td><pre>{{p.achievement}}</pre></td>
-                    <td><pre>{{p.tutorFeedback}}</pre></td>
+                    <th style="white-space: pre">{{p.studentName}}</th>
+                    <td style="white-space: pre">{{p.plan}}</td>
+                    <td style="white-space: pre">{{p.achievement}}</td>
+                    <td style="white-space: pre">{{p.tutorFeedback}}</td>
                 </tr>
                 </tbody>
             </table>
