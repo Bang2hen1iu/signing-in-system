@@ -232,6 +232,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $scope.id_achievement = p.id;
         $scope.hint_achievement = p.studentName;
         $scope.to_write_achievement = p.achievement;
+        $scope.select_achievement_student = p;
     };
     $scope.selectTutorFeedbackStudent = function (p) {
         $scope.id_tutor_feedback = p.id;
@@ -251,16 +252,21 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         });
     };
     $scope.submitAchievement = function () {
-        $http({
-            method: 'POST',
-            url: "/api/week_plans/achievements",
-            data: {"id": $scope.id_achievement, "achievement": $scope.to_write_achievement}
-        }).success(function () {
-            $scope.to_write_achievement = "";
-            $scope.hint_achievement = "请选择";
-            $scope.setDisplayedWeek($scope.selected_week_plan);
-            alert("填写成功！");
-        });
+        if ($scope.select_achievement_student.plan.length > 0){
+            $http({
+                method: 'POST',
+                url: "/api/week_plans/achievements",
+                data: {"id": $scope.id_achievement, "achievement": $scope.to_write_achievement}
+            }).success(function () {
+                $scope.to_write_achievement = "";
+                $scope.hint_achievement = "请选择";
+                $scope.setDisplayedWeek($scope.selected_week_plan);
+                alert("填写成功！");
+            });
+        }
+        else {
+            alert("请先填写计划！");
+        }
     };
     $scope.submitTutorFeedback = function () {
         $http({
