@@ -7,10 +7,7 @@ import com.xuemiao.exception.FingerprintInvalidException;
 import com.xuemiao.model.pdm.DutyStudentEntity;
 import com.xuemiao.model.pdm.FingerprintEntity;
 import com.xuemiao.model.pdm.StudentEntity;
-import com.xuemiao.model.repository.AbsenceRepository;
-import com.xuemiao.model.repository.DutyStudentRepository;
-import com.xuemiao.model.repository.FingerprintRepository;
-import com.xuemiao.model.repository.StudentRepository;
+import com.xuemiao.model.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +34,8 @@ public class StudentsService {
     AbsenceRepository absenceRepository;
     @Autowired
     FingerprintRepository fingerprintRepository;
+    @Autowired
+    PlanRecordRepository planRecordRepository;
 
     public List<StudentEntity> getAllStudent() {
         return studentRepository.findAll();
@@ -87,17 +86,12 @@ public class StudentsService {
     }
 
     public void deleteStudentById(Long id) {
-        System.out.println("z_________________________");
         dutyStudentRepository.deleteByStudentId(id);
-        System.out.println("a_________________________");
         coursesService.deleteCourseByStudentId(id);
-        System.out.println("b_________________________");
         absencesService.deleteByStudentId(id);
-        System.out.println("c_________________________");
         signInInfoService.deleteSignInInfoByStudentId(id);
-        System.out.println("d_________________________");
         fingerprintRepository.deleteByStudentId(id);
-        System.out.println("e_________________________");
+        planRecordRepository.deleteByStudentId(id);
         studentRepository.delete(id);
     }
 
