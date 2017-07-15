@@ -246,34 +246,35 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
                 url: "/api/week_plans/",
                 data: {"id": $scope.id_plan, "plan": $scope.to_write_plan}
             }).success(function () {
+                alert("填写成功");
                 $scope.to_write_plan = "";
                 $scope.hint_plan = "请选择";
                 $scope.setDisplayedWeek($scope.selected_week_plan);
                 $('#writePlan').modal('hide');
-                alert("填写成功");
             });
         }
         else{
             alert("内容不能为空");
         }
-
     };
     $scope.submitAchievement = function () {
         if ($scope.select_achievement_student.plan.length > 0){
-            $http({
-                method: 'POST',
-                url: "/api/week_plans/achievements",
-                data: {"id": $scope.id_achievement, "achievement": $scope.to_write_achievement}
-            }).success(function () {
-                $scope.to_write_achievement = "";
-                $scope.hint_achievement = "请选择";
-                $scope.setDisplayedWeek($scope.selected_week_plan);
-                $('#writeReport').modal('hide');
-                alert("填写成功！");
-            });
-        }
-        else if ($scope.to_write_achievement.length > 0){
-            alert("内容不能为空");
+            if ($scope.to_write_achievement.length > 0){
+                $http({
+                    method: 'POST',
+                    url: "/api/week_plans/achievements",
+                    data: {"id": $scope.id_achievement, "achievement": $scope.to_write_achievement}
+                }).success(function () {
+                    alert("填写成功！");
+                    $scope.to_write_achievement = "";
+                    $scope.hint_achievement = "请选择";
+                    $scope.setDisplayedWeek($scope.selected_week_plan);
+                    $('#writeReport').modal('hide');
+                });
+            }
+            else {
+                alert("内容不能为空");
+            }
         }
         else {
             alert("请先填写计划");
@@ -290,11 +291,11 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
                 url: "/api/week_plans/tutor_feedback",
                 data: {"id": $scope.id_tutor_feedback, "tutorFeedback": $scope.to_write_tutor_feedback}
             }).success(function () {
+                alert("填写成功");
                 $scope.to_write_tutor_feedback = "";
                 $scope.hint_tutor_feedback = "请选择";
                 $scope.setDisplayedWeek($scope.selected_week_plan);
                 $('#writeFeedback').modal('hide');
-                alert("填写成功");
             });
         }
         else {
