@@ -115,8 +115,8 @@ public class ScheduleTaskService {
             }
         }
 
-        startTime.plusDays(8 - startTime.getDayOfWeek());
-        startTime.minusHours(startTime.getHourOfDay() - 1);
+        startTime = startTime.plusDays(8 - startTime.getDayOfWeek());
+        startTime = startTime.minusHours(startTime.getHourOfDay() - 1);
 
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
         LOGGER.warn("time gap: " + timeGapToStartInSecond);

@@ -1,12 +1,10 @@
 package com.xuemiao.model.repository;
 
-import com.xuemiao.model.pdm.SemesterEntity;
 import com.xuemiao.model.pdm.WeekPlanEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 

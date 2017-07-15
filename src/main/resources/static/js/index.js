@@ -246,6 +246,7 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         }).success(function () {
             $scope.to_write_plan = "";
             $scope.hint_plan = "请选择";
+            $scope.setDisplayedWeek($scope.selected_week_plan);
             alert("填写成功！");
         });
     };
@@ -253,10 +254,11 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $http({
             method: 'POST',
             url: "/api/week_plans/achievements",
-            data: {"id": $scope.id_achievement, "plan": $scope.to_write_achievement}
+            data: {"id": $scope.id_achievement, "achievement": $scope.to_write_achievement}
         }).success(function () {
             $scope.to_write_achievement = "";
             $scope.hint_achievement = "请选择";
+            $scope.setDisplayedWeek($scope.selected_week_plan);
             alert("填写成功！");
         });
     };
@@ -264,10 +266,11 @@ sign_in_app.controller('week_plan_ctrl', ['$scope', '$http', function ($scope, $
         $http({
             method: 'POST',
             url: "/api/week_plans/tutor_feedback",
-            data: {"id": $scope.id_tutor_feedback, "plan": $scope.to_write_tutor_feedback}
+            data: {"id": $scope.id_tutor_feedback, "tutorFeedback": $scope.to_write_tutor_feedback}
         }).success(function () {
             $scope.to_write_tutor_feedback = "";
             $scope.hint_tutor_feedback = "请选择";
+            $scope.setDisplayedWeek($scope.selected_week_plan);
             alert("填写成功！");
         });
     };

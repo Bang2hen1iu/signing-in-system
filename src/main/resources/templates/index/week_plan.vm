@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-9 col-lg-9">
         <div class="table-responsive">
-            <table class="table table-hover ">
+            <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
                     <th class="col-md-1" style="text-align: center"></th>
@@ -115,7 +115,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请在此填写"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_achievement"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -149,7 +149,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请在此填写"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_tutor_feedback"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
