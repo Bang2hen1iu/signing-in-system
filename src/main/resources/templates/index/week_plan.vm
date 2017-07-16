@@ -81,7 +81,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_plan"></textarea>
+                    <textarea class="form-control" rows="15" placeholder="请先选择学生，再在此填写" ng-model="to_write_plan"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -115,7 +115,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_achievement"></textarea>
+                    <textarea class="form-control" rows="15" placeholder="请先选择学生，再在此填写" ng-model="to_write_achievement"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -149,7 +149,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_tutor_feedback"></textarea>
+                    <textarea class="form-control" rows="15" placeholder="请先选择学生，再在此填写" ng-model="to_write_tutor_feedback"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
