@@ -116,7 +116,7 @@ public class ScheduleTaskService {
         }
 
         startTime = startTime.plusDays(8 - startTime.getDayOfWeek());
-        startTime = startTime.minusHours(startTime.getHourOfDay() - 1);
+        startTime = startTime.minusHours(startTime.getHourOfDay());
 
         int timeGapToStartInSecond = DateUtils.getTimeGapInSecond(DateTime.now(), startTime);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();

@@ -17,9 +17,9 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="col-md-1" style="text-align: center"></th>
-                    <th class="col-md-4" style="text-align: center">本周计划</th>
-                    <th class="col-md-4" style="text-align: center">完成情况</th>
+                    <th class="col-md-2" style="text-align: center"></th>
+                    <th class="col-md-3" style="text-align: center">本周计划</th>
+                    <th class="col-md-3" style="text-align: center">完成情况</th>
                     <th class="col-md-3" style="text-align: center">导师反馈</th>
                 </tr>
                 </thead>
@@ -60,7 +60,7 @@
 </div>
 
 <div class="modal fade" id="writePlan" tabindex="-1" role="dialog" aria-labelledby="writePlanLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -81,7 +81,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_plan"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_plan"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -94,7 +94,7 @@
 </div>
 
 <div class="modal fade" id="writeReport" tabindex="-1" role="dialog" aria-labelledby="writeReportLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -115,7 +115,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_achievement"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_achievement"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
@@ -128,7 +128,7 @@
 </div>
 
 <div class="modal fade" id="writeFeedback" tabindex="-1" role="dialog" aria-labelledby="writeFeedbackLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -149,7 +149,7 @@
                     <a class="btn btn-inverse">{{selected_week_plan.weekName}}</a>
                 </div>
                 <form class="form-horizontal" name="writePlanForm">
-                    <textarea class="form-control" rows="12" placeholder="请在此填写" ng-model="to_write_tutor_feedback"></textarea>
+                    <textarea class="form-control" rows="12" placeholder="请先选择学生，再在此填写" ng-model="to_write_tutor_feedback"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
