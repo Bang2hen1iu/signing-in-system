@@ -65,7 +65,7 @@ public class SignInInfoService {
         int statusFeedBack;
         DateTime dateTimeNow = DateTime.now();
 
-        if (dateTimeNow.getHourOfDay() < 16) {
+        if (dateTimeNow.getHourOfDay() < 4) {
             throw new UnallowedSignInTimeException();
         }
 
