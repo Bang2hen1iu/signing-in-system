@@ -5,6 +5,7 @@ import com.xuemiao.api.Json.SignInFeedbackJson;
 import com.xuemiao.api.Json.SignInInfoJson;
 import com.xuemiao.api.Json.SignInInfoTimeSegment;
 import com.xuemiao.exception.StudentNotExistException;
+import com.xuemiao.exception.UnallowedSignInTimeException;
 import com.xuemiao.model.pdm.*;
 import com.xuemiao.model.pdm.primaryKey.CoursePerWeekPKey;
 import com.xuemiao.model.pdm.primaryKey.FingerprintPK;
@@ -63,6 +64,11 @@ public class SignInInfoService {
     public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException {
         int statusFeedBack;
         DateTime dateTimeNow = DateTime.now();
+
+        if (dateTimeNow.getHourOfDay() < 16) {
+            throw new UnallowedSignInTimeException();
+        }
+
         Long studentId = this.checkFingerPrint(fingerprintJson.getFingerprint());
         if (studentId == null) {
             throw new StudentNotExistException();
