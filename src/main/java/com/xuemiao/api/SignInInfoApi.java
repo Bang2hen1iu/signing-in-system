@@ -1,6 +1,7 @@
 package com.xuemiao.api;
 
 import com.xuemiao.api.Json.FingerprintJson;
+import com.xuemiao.exception.UnallowedSignInTimeException;
 import com.xuemiao.exception.StudentNotExistException;
 import com.xuemiao.exception.TokenInvalidException;
 import com.xuemiao.service.SignInInfoService;
@@ -26,7 +27,7 @@ public class SignInInfoApi {
     @POST
     @Path("/addition")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addSignIn(FingerprintJson fingerprintJson) throws IOException, TokenInvalidException, StudentNotExistException {
+    public Response addSignIn(FingerprintJson fingerprintJson) throws IOException, TokenInvalidException, UnallowedSignInTimeException, StudentNotExistException {
         return Response.ok().entity(signInInfoService.getSignInFeedBackJson(fingerprintJson.getFingerprint(), signInInfoService.signIn(fingerprintJson))).build();
     }
 
