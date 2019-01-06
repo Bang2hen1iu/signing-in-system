@@ -61,7 +61,7 @@ public class SignInInfoService {
     }
 
     //1--previously have not signed in, 2-- previously have signed in
-    public int signIn(FingerprintJson fingerprintJson) throws StudentNotExistException {
+    public int signIn(FingerprintJson fingerprintJson) throws UnallowedSignInTimeException, StudentNotExistException {
         int statusFeedBack;
         DateTime dateTimeNow = DateTime.now();
 
