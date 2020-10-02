@@ -49,7 +49,7 @@
 * 打包程序
     1. 修改文件/signing-in-system/src/main/resources/application.properties  
     `spring.jpa.hibernate.ddl-auto=update`
-    2. 使用maven打包，当前路径需要在pom.xml文件所处路径下
+    2. 使用maven打包，当前路径需要在pom.xml文件所处路径下  
     `mvn clean package`
     
 * 部署
@@ -57,15 +57,15 @@
     `jar -xf xxxxx.jar`  
     `java org.springframework.boot.loader.JarLauncher`
     
-    使用iptables开放服务器端口
+    使用iptables开放服务器端口  
     `sudo apt-get install iptables`  
     `iptables -I INPUT -p tcp --dport 8080 -j ACCEPT`  
     `iptables-save`  
 
 ***
 ##### 注意事项:
-部署完成后使用首先要登录管理员系统/admin进行初步设置
-    1. 往数据库中插入学生数据
-    2. 新建当前学期后才能够看到学生信息与插入课表
-    3. 指纹仪的连接需要在IE兼容模式下启动，同时指纹仪需要安装对应驱动(Live2D)
+部署完成后使用首先要登录管理员系统/admin进行初步设置  
+    1. 往数据库中插入学生数据  
+    2. 新建当前学期后才能够看到学生信息与插入课表  
+    3. 指纹仪的连接需要在IE兼容模式下启动，同时指纹仪需要安装对应驱动(Live2D)  
     
