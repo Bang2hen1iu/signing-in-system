@@ -10,6 +10,7 @@
 
 #### 3. 部署细节
 * 环境配置 ubuntu 16.04
-- Java 1.8
-- maven 3.6.3
-- postgresql 9.5
+##### Java 1.8
+
+##### maven 3.6.3
+##### postgresql 9.5
