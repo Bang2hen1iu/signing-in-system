@@ -68,4 +68,11 @@
     1. 往数据库中插入学生数据  
     2. 新建当前学期后才能够看到学生信息与插入课表  
     3. 指纹仪的连接需要在IE兼容模式下启动，同时指纹仪需要安装对应驱动(Live2D)  
-    
+更改服务器时进行postgresql数据迁移
+    1. 将数据库表结构以及内容写入到database.dump文件中
+        `pg_dump -h {IP} -U postgres -Fc {database} -O > {database}.dump`
+    2. 在目标服务器上恢复数据库
+        - 数据库已经存在时
+        `pg_restore -h localhost -U postgres -d database database.dump`
+        - 数据库不存在时
+        `pg_restore -h localhost -U postgres -C database.dump`
